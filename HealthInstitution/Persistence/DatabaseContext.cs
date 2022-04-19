@@ -1,0 +1,72 @@
+﻿using HealthInstitution.Model;
+using Microsoft.EntityFrameworkCore;
+using System;
+
+namespace HealthInstitution.Persistence
+{
+    public class DatabaseContext : DbContext
+    {
+
+        public string DbPath { get; }
+
+        // Users
+        public DbSet<User> Users { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Secretary> Secretaries { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Administrator> Administrators { get; set; }
+
+        // Medicine
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
+
+        // Room related things
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<EquipmentTransfer> EquipmentTransfers { get; set; }
+        public DbSet<RoomRenovation> RoomRenovations { get; set; }
+
+        // Patient related things
+        public DbSet<Activity> activities { get; set; }
+        public DbSet<AppointmentRequest> appointmentRequests { get; set; }
+
+        // Medicine related things
+        public DbSet<Ingredient> ingredients { get; set; }
+        public DbSet<Medicine> medicines { get; set; }
+
+        // Appointment related things
+        public DbSet<Anamnesis> anamneses { get; set; }
+        public DbSet<Appointment> appointments { get; set; }
+        public DbSet<MedicalRecord> medicalRecords { get; set; }
+
+        public DatabaseContext()
+        {
+            var folder = Environment.SpecialFolder.Desktop;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = System.IO.Path.Join(path, "medical.db");
+
+            //DbPath = System.IO.Path.Join("Persistence\\Database\\", "health.db");
+        }
+
+        public DatabaseContext(DbContextOptions<DatabaseContext> options)
+            : base(options)
+        {
+            //var folder = Environment.SpecialFolder.LocalApplicationData;
+            //var path = Environment.GetFolderPath(folder);
+            //DbPath = System.IO.Path.Join(path, "medical.db");
+
+            //DbPath = System.IO.Path.Join("Persistence\\Database\\", "health.db");
+        }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseLazyLoadingProxies().UseSqlite($"Data Source={DbPath}");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+
+}
