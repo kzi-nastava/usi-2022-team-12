@@ -6,7 +6,8 @@ namespace HealthInstitution.ViewModel
     {
         public ViewModelBase? CurrentViewModel => NavigationStore.CurrentViewModel;
 
-        public MainViewModel() {
+        public MainViewModel(LoginViewModel lvm) {
+            NavigationStore.CurrentViewModel = lvm;
             NavigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 

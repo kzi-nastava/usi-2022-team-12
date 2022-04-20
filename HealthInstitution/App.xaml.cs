@@ -1,5 +1,7 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -15,14 +17,13 @@ namespace HealthInstitution
         {
             using (DatabaseContext db = new DatabaseContext())
             {
-                List<Doctor> doctors = db.Doctors.ToList();
-
-                Doctor doc = new Doctor();
-
-                foreach(Doctor doctor in doctors)
-                {
-                    MessageBox.Show(doctor.FirstName);
-                }
+                //NavigationStore.CurrentViewModel = new LoginViewModel();
+                //MainWindow = new MainWindow
+                //{
+                //    DataContext = new MainViewModel()
+                //};
+                //MainWindow.Show();
+                //base.OnStartup(e);
             }
         }
     }

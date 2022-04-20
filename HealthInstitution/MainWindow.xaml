@@ -4,9 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HealthInstitution"
+        xmlns:ninject="clr-namespace:HealthInstitution.Ninject"
+        xmlns:vm="clr-namespace:HealthInstitution.ViewModel"
+        xmlns:v="clr-namespace:HealthInstitution.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
+    <Window.Resources>
+        <ninject:ServiceLocator x:Key="ServiceLocator" />
+    </Window.Resources>
+
+    <Window.DataContext>
+        <Binding Path="MainViewModel" Source="{StaticResource ServiceLocator}" />
+    </Window.DataContext>
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
