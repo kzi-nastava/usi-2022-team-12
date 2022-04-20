@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Utility
 {
-    public class NavigationStore
+    public static class NavigationStore
     {
-        private ViewModelBase? currentViewModel;
+        private static ViewModelBase? currentViewModel;
 
-        public ViewModelBase? CurrentViewModel
+        public static ViewModelBase? CurrentViewModel
         {
             get { return currentViewModel; }
             set
@@ -21,9 +21,9 @@ namespace HealthInstitution.Utility
             }
         }
 
-        public event Action? CurrentViewModelChanged;
+        public static event Action? CurrentViewModelChanged;
 
-        private void OnCurrentViewModelChanged()
+        private static void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();
         }
