@@ -19,8 +19,6 @@ namespace HealthInstitution.Ninject
             Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope();
 
             Bind<LoginViewModel>().To<LoginViewModel>();
-            Bind<MainViewModel>().To<MainViewModel>();
-            //Bind<RegisterViewModel>().To<RegisterViewModel>();
         }
     }
 }

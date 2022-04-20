@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -26,20 +28,32 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string? password;
+        private string? _password;
         public string? Password
         {
-            get => password;
+            get => _password;
             set
             {
-                password = value;
+                _password = value;
                 OnPropertyChanged(nameof(Password));
+            }
+        }
+
+        private Visibility _errMsgVisibility;
+        public Visibility ErrMsgVisibility
+        {
+            get => _errMsgVisibility;
+            set
+            {
+                _errMsgVisibility = value;
+                OnPropertyChanged(nameof(ErrMsgVisibility));
             }
         }
 
         public ICommand? LoginCommand { get; }
 
         public LoginViewModel(IUserService<User> userService){
+            _errMsgVisibility = Visibility.Hidden;
             _userService = userService;
             LoginCommand = new LoginCommand(this);
         }

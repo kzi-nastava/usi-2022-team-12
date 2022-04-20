@@ -17,13 +17,7 @@ namespace HealthInstitution
         {
             using (DatabaseContext db = new DatabaseContext())
             {
-                //NavigationStore.CurrentViewModel = new LoginViewModel();
-                //MainWindow = new MainWindow
-                //{
-                //    DataContext = new MainViewModel()
-                //};
-                //MainWindow.Show();
-                //base.OnStartup(e);
+                //DatabaseContextSeed.Seed(db);
             }
         }
     }

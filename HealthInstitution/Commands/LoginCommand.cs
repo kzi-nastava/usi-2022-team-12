@@ -1,4 +1,7 @@
-﻿using HealthInstitution.ViewModel;
+﻿using HealthInstitution.Model;
+using HealthInstitution.Ninject;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,11 +38,28 @@ namespace HealthInstitution.Commands
             var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)
             {
-                MessageBox.Show("ERR");
-                return;
+                _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
             else {
-                MessageBox.Show("Uspesno logovanje");
+                switch (user.Role) {
+                    case Role.Manager:
+                        //todo
+                        break;
+                    case Role.Administrator:
+                        //todo
+                        break;
+                    case Role.Patient:
+                        PatientViewModel viewModel = ServiceLocator.Get<PatientViewModel>();
+                        NavigationStore.CurrentViewModel = viewModel;
+                        break;
+                    case Role.Doctor:
+                        break;
+                    case Role.Secretary:
+                        break;
+                    default:
+                        MessageBox.Show("ERR");
+                        return;
+                }
             }
             
         }

@@ -7,4 +7,7 @@
         <v:LoginView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:PatientViewModel}">
+        <v:PatientView/>
+    </DataTemplate>
 </ResourceDictionary>

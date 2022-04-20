@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Windows;
 
 namespace HealthInstitution.Persistence
 {
@@ -44,17 +45,18 @@ namespace HealthInstitution.Persistence
         {
             var folder = Environment.SpecialFolder.Desktop;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "medical.db");
-
-            //DbPath = System.IO.Path.Join("Persistence\\Database\\", "health.db");
+            DbPath = System.IO.Path.Join(path, "health.db");
         }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
+            var folder = Environment.SpecialFolder.Desktop;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = System.IO.Path.Join(path, "health.db");
             //var folder = Environment.SpecialFolder.LocalApplicationData;
             //var path = Environment.GetFolderPath(folder);
-            //DbPath = System.IO.Path.Join(path, "medical.db");
+            //DbPath = System.IO.Path.Join(path, "health.db");
 
             //DbPath = System.IO.Path.Join("Persistence\\Database\\", "health.db");
         }
