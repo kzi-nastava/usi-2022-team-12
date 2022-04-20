@@ -41,6 +41,7 @@ namespace HealthInstitution.Commands
                 _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
             else {
+                GlobalStore.AddObject("loggedUser", user);
                 switch (user.Role) {
                     case Role.Manager:
                         //todo
