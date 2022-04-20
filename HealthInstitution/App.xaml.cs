@@ -15,18 +15,14 @@ namespace HealthInstitution
         {
             using (DatabaseContext db = new DatabaseContext())
             {
-                DatabaseContextSeed.Seed(db);
+                List<Doctor> doctors = db.Doctors.ToList();
 
-                IList<Medicine> med = db.Medicines.Where(m => m.Description == "Opis leka").ToList();
+                Doctor doc = new Doctor();
 
-                foreach(Medicine medicine in med)
+                foreach(Doctor doctor in doctors)
                 {
-                    foreach(Ingredient ingredient in medicine.Ingredients)
-                    {
-                        MessageBox.Show(ingredient.Name);
-                    }
+                    MessageBox.Show(doctor.FirstName);
                 }
-
             }
         }
     }
