@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace HealthInstitution.View
 {
     /// <summary>
-    /// Interaction logic for Patient.xaml
+    /// Interaction logic for AppointmentCreation.xaml
     /// </summary>
-    public partial class PatientView : UserControl
+    public partial class AppointmentCreationView : UserControl
     {
-        public PatientView()
+        public AppointmentCreationView()
         {
             InitializeComponent();
         }

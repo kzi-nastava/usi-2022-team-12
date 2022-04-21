@@ -13,6 +13,7 @@ namespace HealthInstitution.Services.Implementation
     {
         public UserService(DatabaseContext context) : base(context)
         {
+
         }
 
         public User Authenticate(string email, string password)

@@ -7,7 +7,12 @@
         <v:LoginView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:PatientViewModel}">
-        <v:PatientView/>
+    <DataTemplate DataType="{x:Type vm:PatientHomeViewModel}">
+        <v:PatientHomeView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:AppointmentCreationViewModel}">
+        <v:AppointmentCreationView/>
+    </DataTemplate>
+    
 </ResourceDictionary>

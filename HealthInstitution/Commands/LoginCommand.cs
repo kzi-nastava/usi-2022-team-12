@@ -50,7 +50,7 @@ namespace HealthInstitution.Commands
                         //todo
                         break;
                     case Role.Patient:
-                        PatientViewModel viewModel = ServiceLocator.Get<PatientViewModel>();
+                        PatientHomeViewModel viewModel = ServiceLocator.Get<PatientHomeViewModel>();
                         NavigationStore.CurrentViewModel = viewModel;
                         break;
                     case Role.Doctor:
