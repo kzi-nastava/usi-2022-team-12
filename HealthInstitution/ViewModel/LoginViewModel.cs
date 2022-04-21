@@ -39,6 +39,17 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private string _errMsgText;
+        public string ErrMsgText
+        {
+            get => _errMsgText;
+            set
+            {
+                _errMsgText = value;
+                OnPropertyChanged(nameof(ErrMsgText));
+            }
+        }
+
         private Visibility _errMsgVisibility;
         public Visibility ErrMsgVisibility
         {
@@ -52,8 +63,10 @@ namespace HealthInstitution.ViewModel
 
         public ICommand? LoginCommand { get; }
 
-        public LoginViewModel(IUserService<User> userService){
+        public LoginViewModel(IUserService<User> userService)
+        {
             _errMsgVisibility = Visibility.Hidden;
+            _errMsgText = "";
             _userService = userService;
             LoginCommand = new LoginCommand(this);
         }

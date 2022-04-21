@@ -38,7 +38,7 @@
             <TextBlock Grid.Row="0" Text="Password" />
             <TextBox Grid.Row="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Grid.Row="2" Foreground="Red" Visibility="{Binding ErrMsgVisibility}" Text="Email or password are incorrect" Margin="0 15 0 0"/>
+            <TextBlock Grid.Row="2" Foreground="Red" Visibility="{Binding ErrMsgVisibility}" Text="{Binding ErrMsgText}" Margin="0 15 0 0"/>
         </Grid>
         <Button Grid.Row="3" Content="Login" Margin="0 10 0 0" Command="{Binding LoginCommand}"/>
     </Grid>

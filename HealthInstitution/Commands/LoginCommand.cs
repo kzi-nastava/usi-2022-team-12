@@ -38,6 +38,7 @@ namespace HealthInstitution.Commands
             var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)
             {
+                _viewModel.ErrMsgText = "Email or password are incorrect";
                 _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
             else {
@@ -50,8 +51,18 @@ namespace HealthInstitution.Commands
                         //todo
                         break;
                     case Role.Patient:
-                        PatientHomeViewModel viewModel = ServiceLocator.Get<PatientHomeViewModel>();
-                        NavigationStore.CurrentViewModel = viewModel;
+                        Patient pt = (Patient)user;
+                        if (!pt.IsBlocked)
+                        {
+                            PatientHomeViewModel viewModel = ServiceLocator.Get<PatientHomeViewModel>();
+                            NavigationStore.CurrentViewModel = viewModel;
+                            GlobalStore.AddObject("loggedUser", pt);
+                        }
+                        else 
+                        {
+                            _viewModel.ErrMsgText = "Your profile is blocked!";
+                            _viewModel.ErrMsgVisibility = Visibility.Visible;
+                        }
                         break;
                     case Role.Doctor:
                         break;
