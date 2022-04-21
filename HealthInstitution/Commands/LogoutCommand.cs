@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Utility;
+﻿using HealthInstitution.Ninject;
+using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace HealthInstitution.Commands
         public override void Execute(object? parameter)
         {
             GlobalStore.AddObject("LoggedUser", null);
-            NavigationStore.CurrentViewModel = new LoginViewModel();
+            LoginViewModel lvm = ServiceLocator.Get<LoginViewModel>();
+            NavigationStore.CurrentViewModel = lvm;
         }
     }
 }
