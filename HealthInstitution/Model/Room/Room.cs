@@ -19,7 +19,7 @@ namespace HealthInstitution.Model
 
         #region Constructor
 
-        protected Room(RoomType roomType, string name)
+        public Room(RoomType roomType, string name)
         {
             _name = name;
             _roomType = roomType;
