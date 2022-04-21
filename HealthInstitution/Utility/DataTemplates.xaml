@@ -12,6 +12,6 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:DoctorHomeViewModel}">
-        <v:PatientView/>
+        <v:DoctorHomeView/>
     </DataTemplate>
 </ResourceDictionary>
