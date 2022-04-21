@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace HealthInstitution.Commands
 {
     /// <summary>
-    /// Used for simple navigation that does not include any condition checks before changing view.
+    /// Used for simple navigation that does not include any condition checks or other operations before changing view.
     /// Can be used for menu button navigation.
     /// </summary>
     /// <typeparam name="T"></typeparam>
