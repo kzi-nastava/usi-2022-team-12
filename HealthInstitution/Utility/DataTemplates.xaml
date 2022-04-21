@@ -10,4 +10,8 @@
     <DataTemplate DataType="{x:Type vm:PatientViewModel}">
         <v:PatientView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorHomeViewModel}">
+        <v:PatientView/>
+    </DataTemplate>
 </ResourceDictionary>
