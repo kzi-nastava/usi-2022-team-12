@@ -16,9 +16,7 @@ namespace HealthInstitution.ViewModel
         public DoctorHomeViewModel()
         {
             LogoutCommand = new LogoutCommand();
-
-            //TODO Make NavigateCommand template class that should change window to corresponding one 
-            //NavigateDoctorScheduleOverviewCommand = new NavigateCommand<>()
+            NavigateDoctorScheduleOverviewCommand = new SimpleNavigateCommand<DoctorScheduleListingViewModel>();
         }
     }
 }

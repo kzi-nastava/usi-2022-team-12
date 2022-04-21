@@ -18,5 +18,9 @@
     <DataTemplate DataType="{x:Type vm:AppointmentCreationViewModel}">
         <v:AppointmentCreationView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorScheduleListingViewModel}">
+        <v:DoctorScheduleListingView/>
+    </DataTemplate>
     
 </ResourceDictionary>
