@@ -33,10 +33,10 @@ namespace HealthInstitution.Commands
             var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)
             {
+                _viewModel.ErrMsgText = "Email or password are incorrect";
                 _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
             else {
-                GlobalStore.AddObject("loggedUser", user);
                 ViewModelBase viewModel;
                 switch (user.Role) {
                     case Role.Manager:
@@ -46,8 +46,17 @@ namespace HealthInstitution.Commands
                         //todo
                         break;
                     case Role.Patient:
-                        viewModel = ServiceLocator.Get<PatientHomeViewModel>();
-                        NavigationStore.CurrentViewModel = viewModel;
+                        Patient pt = (Patient)user;
+                        if (!pt.IsBlocked)
+                        {
+                            EventBus.FireEvent("PatientLogin");
+                            GlobalStore.AddObject("LoggedUser", pt);
+                        }
+                        else 
+                        {
+                            _viewModel.ErrMsgText = "Your profile is blocked!";
+                            _viewModel.ErrMsgVisibility = Visibility.Visible;
+                        }
                         break;
                     case Role.Doctor:
                         EventBus.FireEvent("DoctorLogin");

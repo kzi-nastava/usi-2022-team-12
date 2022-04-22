@@ -16,7 +16,7 @@ namespace HealthInstitution.ViewModel
         public DoctorHomeViewModel()
         {
             LogOutCommand = new LogOutCommand();
-            NavigateDoctorScheduleOverviewCommand = new SimpleNavigateCommand<DoctorScheduleListingViewModel>();
+            //NavigateDoctorScheduleOverviewCommand = new SimpleNavigateCommand<DoctorScheduleListingViewModel>();
         }
     }
 }

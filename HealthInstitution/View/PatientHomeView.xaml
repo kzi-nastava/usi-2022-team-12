@@ -7,7 +7,51 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="White">
-    <Grid>
-        <Button Content="Make appointment" HorizontalAlignment="Left" Height="61" Margin="46,58,0,0" VerticalAlignment="Top" Width="154" Command="{Binding AppointmentCreationWindowCommand}"/>
-    </Grid>
+   
+    <Border Background="#272537">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding PatientName}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Foreground="White"
+                       FontSize="22"
+                       Margin="20,0,0,0" />
+
+                <StackPanel Grid.Row="1">
+                    <RadioButton Content="Appointments"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding PatientAppointmentsCommand}"/>
+                </StackPanel>
+
+                <Button Content="Log out"
+                    Grid.Row="2"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding LogOutCommand}"
+                    Margin="0,0,0,20"/>
+            </Grid>
+
+
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentViewModel}"/>
+
+        </Grid>
+    </Border>
 </UserControl>
