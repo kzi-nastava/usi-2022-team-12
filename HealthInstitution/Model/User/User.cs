@@ -8,7 +8,7 @@ namespace HealthInstitution.Model
         public string Password { get => _password; set => OnPropertyChanged(ref _password, value); }
 
         private string _emailAddress;
-        public string EmailAddress { get => EmailAddress; set => OnPropertyChanged(ref _emailAddress, value); }
+        public string EmailAddress { get => _emailAddress; set => OnPropertyChanged(ref _emailAddress, value); }
 
         private string _firstName;
         public string FirstName { get => _firstName; set => OnPropertyChanged(ref _firstName, value); }

@@ -49,15 +49,13 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public readonly IAppointmentService<Appointment> _appointmentService;
+        public readonly IAppointmentService _appointmentService;
 
         private readonly ObservableCollection<AppointmentViewModel> _appointments;
 
         public IEnumerable<AppointmentViewModel> Appointments => _appointments;
 
-        public string RoomID = "da";
-
-        public DoctorScheduleListingViewModel(IAppointmentService<Appointment> appointemntService)
+        public DoctorScheduleListingViewModel(IAppointmentService appointemntService)
         {
             _appointmentService = appointemntService;
             _appointments = new ObservableCollection<AppointmentViewModel>();

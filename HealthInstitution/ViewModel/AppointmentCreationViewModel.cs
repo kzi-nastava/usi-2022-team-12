@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.ViewModel
 {
-    public class AppointmentCreationViewModel : ViewModelBase
-    {
-
-    }
+    public class AppointmentCreationViewModel : ViewModelBase {}
 }

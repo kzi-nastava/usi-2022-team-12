@@ -7,8 +7,5 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Intefaces
 {
-    public interface IAppointmentService<T> : ICrudService<T> where T : Appointment
-    {
-
-    }
+    public interface IAppointmentService : ICrudService<Appointment> {}
 }

@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:HealthInstitution.ViewModel"
         xmlns:v="clr-namespace:HealthInstitution.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="580" Width="1200">
 
     <Window.Resources>
         <ninject:ServiceLocator x:Key="ServiceLocator" />
