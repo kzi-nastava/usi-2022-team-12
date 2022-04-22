@@ -42,6 +42,7 @@ namespace HealthInstitution.Commands
             }
             else {
                 GlobalStore.AddObject("loggedUser", user);
+                ViewModelBase viewModel;
                 switch (user.Role) {
                     case Role.Manager:
                         //todo
@@ -50,10 +51,12 @@ namespace HealthInstitution.Commands
                         //todo
                         break;
                     case Role.Patient:
-                        PatientViewModel viewModel = ServiceLocator.Get<PatientViewModel>();
+                        viewModel = ServiceLocator.Get<PatientHomeViewModel>();
                         NavigationStore.CurrentViewModel = viewModel;
                         break;
                     case Role.Doctor:
+                        viewModel = ServiceLocator.Get<DoctorHomeViewModel>();
+                        NavigationStore.CurrentViewModel = viewModel;
                         break;
                     case Role.Secretary:
                         break;

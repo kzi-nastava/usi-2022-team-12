@@ -80,6 +80,19 @@ namespace HealthInstitution.Persistence
 
             context.Medicines.Add(me1);
 
+            // Rooom
+            var r1 = new Room(RoomType.Storage, "A1");
+
+            context.Rooms.Add(r1);
+
+            // Anamnesis
+            var an1 = new Anamnesis("This is anamnesis");
+
+            // Appointments
+            var ap1 = new Appointment(d1, p1, DateTime.Now, r1, an1);
+
+            context.Appointments.Add(ap1);
+
             context.SaveChanges();
         }
     }
