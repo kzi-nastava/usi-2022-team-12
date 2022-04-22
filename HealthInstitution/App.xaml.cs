@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HealthInstitution.Persistence;
+using System.Windows;
 
 namespace HealthInstitution
 {
@@ -7,12 +8,12 @@ namespace HealthInstitution
     /// </summary>
     public partial class App : Application
     {
-        //protected override void OnStartup(StartupEventArgs e)
-        //{
-        //    using (DatabaseContext db = new DatabaseContext())
-        //    {
-        //        DatabaseContextSeed.Seed(db);
-        //    }
-        //}
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                //DatabaseContextSeed.Seed(db);
+            }
+        }
     }
 }

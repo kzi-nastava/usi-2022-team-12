@@ -15,8 +15,8 @@ namespace HealthInstitution.ViewModel
 {
     public class AppointmentCreationViewModel : ViewModelBase
     {
-        public readonly IDoctorService<Doctor> _doctorService;
-        public readonly IAppointmentService<Appointment> _appointmentService;
+        public readonly IDoctorService _doctorService;
+        public readonly IAppointmentService _appointmentService;
 
         private DateTime? _date;
         public DateTime? Date
@@ -37,18 +37,6 @@ namespace HealthInstitution.ViewModel
             {
                 _time = value;
                 OnPropertyChanged(nameof(Time));
-            }
-        }
-
-        //bindovati
-        private ComboBox _doctorComboBox;
-        public ComboBox DoctorComboBox
-        {
-            get => _doctorComboBox;
-            set
-            {
-                _doctorComboBox = value;
-                OnPropertyChanged(nameof(DoctorComboBox));
             }
         }
 
@@ -74,11 +62,11 @@ namespace HealthInstitution.ViewModel
         }
         public ICommand? AppointmentCreationCommand { get; }
 
-        public AppointmentCreationViewModel(IDoctorService<Doctor> doctorService, IAppointmentService<Appointment> appointmentService)
+        public AppointmentCreationViewModel(IDoctorService doctorService, IAppointmentService appointmentService)
         {
             _doctorService = doctorService;
             _appointmentService = appointmentService;
-            Doctors = doctorService.ReadAll().ToList<Doctor>();
+            Doctors = doctorService.ReadAll().ToList();
             AppointmentCreationCommand = new AppointmentCreationCommand(this);
         }
     }

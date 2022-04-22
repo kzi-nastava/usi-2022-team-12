@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Implementation
 {
-    public class DoctorService<T> : CrudService<T>, IDoctorService<T> where T : Doctor
+    public class DoctorService : CrudService<Doctor>, IDoctorService
     {
         public DoctorService(DatabaseContext context) : base(context)
         {

@@ -13,6 +13,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(ICrudService<>)).To(typeof(CrudService<>));
             Bind(typeof(IUserService<>)).To(typeof(UserService<>));
             Bind(typeof(IPatientService)).To(typeof(PatientService));
+            Bind(typeof(IDoctorService)).To(typeof(DoctorService));
             Bind(typeof(IAppointmentService)).To(typeof(AppointmentService));
 
             //Bind(typeof(IDialogService)).To(typeof(DialogService));

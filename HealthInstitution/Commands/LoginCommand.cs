@@ -37,7 +37,6 @@ namespace HealthInstitution.Commands
                 _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
             else {
-                GlobalStore.AddObject("loggedUser", user);
                 ViewModelBase viewModel;
                 switch (user.Role) {
                     case Role.Manager:
@@ -50,9 +49,8 @@ namespace HealthInstitution.Commands
                         Patient pt = (Patient)user;
                         if (!pt.IsBlocked)
                         {
-                            PatientHomeViewModel viewModel = ServiceLocator.Get<PatientHomeViewModel>();
-                            NavigationStore.CurrentViewModel = viewModel;
-                            GlobalStore.AddObject("loggedUser", pt);
+                            EventBus.FireEvent("PatientLogin");
+                            GlobalStore.AddObject("LoggedUser", pt);
                         }
                         else 
                         {

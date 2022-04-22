@@ -15,6 +15,11 @@ namespace HealthInstitution.ViewModel
         }
         private void RegisterHandler()
         {
+            EventBus.RegisterHandler("PatientLogin", () =>
+            {
+                PatientHomeViewModel Phvm = ServiceLocator.Get<PatientHomeViewModel>();
+                SwitchCurrentViewModel(Phvm);
+            });
 
             EventBus.RegisterHandler("SecretaryLogin", () =>
             {
@@ -32,6 +37,7 @@ namespace HealthInstitution.ViewModel
             {
                 EventBus.Clear();
                 ServiceLocator.Reset();
+                Lvm = ServiceLocator.Get<LoginViewModel>();
                 SwitchCurrentViewModel(Lvm);
                 RegisterHandler();
             });
