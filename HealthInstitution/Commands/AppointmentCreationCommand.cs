@@ -28,7 +28,7 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.Date < DateTime.Now) && !string.IsNullOrEmpty(_viewModel.Time) && base.CanExecute(parameter) && !(_viewModel.SelectedDoctor == null); 
+            return !(_viewModel.Date <= DateTime.Now) && !string.IsNullOrEmpty(_viewModel.Time) && base.CanExecute(parameter) && !(_viewModel.SelectedDoctor == null); 
         }
 
         public override void Execute(object? parameter)

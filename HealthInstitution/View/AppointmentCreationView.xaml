@@ -8,9 +8,23 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Background="White">
     <Grid>
-        <DatePicker HorizontalAlignment="Left" Margin="332,73,0,0" VerticalAlignment="Top" SelectedDate="{Binding Date, Mode=TwoWay}"/>
+        <DatePicker HorizontalAlignment="Left" Margin="329,40,0,0" VerticalAlignment="Top" SelectedDate="{Binding Date, Mode=TwoWay}"/>
         <TextBox HorizontalAlignment="Left" Margin="289,138,0,0" TextWrapping="Wrap" Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="181"/>
-        <ComboBox SelectedItem="{Binding SelectedDoctor}" ItemsSource="{Binding Doctors}" DisplayMemberPath = "FirstName" SelectedValuePath = "Id" HorizontalAlignment="Left" Margin="314,182,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox SelectedItem="{Binding SelectedDoctor}" ItemsSource="{Binding Doctors}" SelectedValuePath = "Id" HorizontalAlignment="Left" Margin="274,186,0,0" VerticalAlignment="Top" Width="210">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1} - {2}">
+                                <Binding Path="FirstName"/>
+                                <Binding Path="LastName"/>
+                                <Binding Path="Specialization"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Button Content="Button" HorizontalAlignment="Left" Margin="300,240,0,0" VerticalAlignment="Top" Height="65" Width="148" Command="{Binding AppointmentCreationCommand}"/>
     </Grid>
 </UserControl>
