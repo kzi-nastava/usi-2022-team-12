@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="HealthInstitution.View.Patient.PatientAppointmentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HealthInstitution.View.Patient"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600"
+             Background="White">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Your Appointmens" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
+        <ListView Grid.Row="1" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding Appointments}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Begging" Width="auto" DisplayMemberBinding="{Binding StartDate}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="End" Width="auto" DisplayMemberBinding="{Binding EndDate}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Doctor" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding ="0 0 20 0">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Doctor.FirstName"/>
+                                            <Binding Path="Doctor.LastName"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
+            <Button Content="Make appointment" Padding="5" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
+            <Button Content="Update appointment" Padding="5" Margin="15 0 0 0"  FontSize="14"/>
+            <Button Content="Remove appointment" Padding="5" Margin="15 0 0 0"  FontSize="14"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

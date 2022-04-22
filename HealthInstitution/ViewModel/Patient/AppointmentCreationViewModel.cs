@@ -67,7 +67,6 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _appointmentService = appointmentService;
             Doctors = doctorService.ReadAll().ToList();
-            AppointmentCreationCommand = new AppointmentCreationCommand(this);
         }
     }
 }

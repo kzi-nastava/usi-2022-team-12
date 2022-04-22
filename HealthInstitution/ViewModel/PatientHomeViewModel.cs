@@ -3,6 +3,7 @@ using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.Patient;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -14,20 +15,26 @@ namespace HealthInstitution.ViewModel
 
         public string PatientName 
         { 
-            get => GlobalStore.ReadObject<Patient>("LoggedUser").FirstName; 
+            get => GlobalStore.ReadObject<Model.Patient>("LoggedUser").FirstName; 
         }
 
         public PatientHomeViewModel(IPatientService patientService)
         {
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
             LogOutCommand = new LogOutCommand();
-            SwitchCurrentViewModel(ServiceLocator.Get<AppointmentCreationViewModel>());
+            SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
         }
 
         private void RegisterHandler()
         {
             EventBus.RegisterHandler("PatientAppointments", () =>
+            {
+                PatientAppointmentsViewModel Pavm = ServiceLocator.Get<PatientAppointmentsViewModel>();
+                SwitchCurrentViewModel(Pavm);
+            });
+
+            EventBus.RegisterHandler("AppointmentCreation", () =>
             {
                 AppointmentCreationViewModel Acvm = ServiceLocator.Get<AppointmentCreationViewModel>();
                 SwitchCurrentViewModel(Acvm);
