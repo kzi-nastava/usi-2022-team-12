@@ -2,12 +2,7 @@
 using HealthInstitution.Ninject;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace HealthInstitution.Commands
@@ -66,10 +61,10 @@ namespace HealthInstitution.Commands
                         }
                         break;
                     case Role.Doctor:
-                        viewModel = ServiceLocator.Get<DoctorHomeViewModel>();
-                        NavigationStore.CurrentViewModel = viewModel;
+                        EventBus.FireEvent("DoctorLogin");
                         break;
                     case Role.Secretary:
+                        EventBus.FireEvent("SecretaryLogin");
                         break;
                     default:
                         MessageBox.Show("ERR");

@@ -1,10 +1,4 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 
 namespace HealthInstitution
 {
@@ -13,12 +7,12 @@ namespace HealthInstitution
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            using (DatabaseContext db = new DatabaseContext())
-            {
-                //DatabaseContextSeed.Seed(db);
-            }
-        }
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    using (DatabaseContext db = new DatabaseContext())
+        //    {
+        //        DatabaseContextSeed.Seed(db);
+        //    }
+        //}
     }
 }

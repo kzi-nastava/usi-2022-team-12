@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
@@ -22,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Persistence\Database\" />
+    <Folder Include="View\Patient\" />
   </ItemGroup>
 
 </Project>

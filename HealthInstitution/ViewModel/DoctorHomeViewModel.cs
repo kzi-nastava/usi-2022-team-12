@@ -10,12 +10,12 @@ namespace HealthInstitution.ViewModel
 {
     internal class DoctorHomeViewModel : ViewModelBase
     {
-        public ICommand? LogoutCommand { get; }
+        public ICommand? LogOutCommand { get; }
         public ICommand? NavigateDoctorScheduleOverviewCommand { get; }
 
         public DoctorHomeViewModel()
         {
-            LogoutCommand = new LogoutCommand();
+            LogOutCommand = new LogOutCommand();
             NavigateDoctorScheduleOverviewCommand = new SimpleNavigateCommand<DoctorScheduleListingViewModel>();
         }
     }

@@ -25,6 +25,8 @@ namespace HealthInstitution.Commands
         {
             ViewModelBase viewModel = ServiceLocator.Get<T>();
             NavigationStore.CurrentViewModel = viewModel;
+
+
         }
     }
 }

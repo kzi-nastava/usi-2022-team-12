@@ -22,5 +22,13 @@
     <DataTemplate DataType="{x:Type vm:DoctorScheduleListingViewModel}">
         <v:DoctorScheduleListingView/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type vm:SecretaryHomeViewModel}">
+        <v:SecretaryHomeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:SecretaryPatientCRUDViewModel}">
+        <v:SecretaryPatientCRUDView/>
+    </DataTemplate>
+
 </ResourceDictionary>
