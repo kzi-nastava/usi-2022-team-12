@@ -1,0 +1,5 @@
+// Konstruktor za anamneza klasu
+// Window title i velicina prozora
+// SimpleNavigateCommand
+// Izmene na room modelu
+// DataContext izmene

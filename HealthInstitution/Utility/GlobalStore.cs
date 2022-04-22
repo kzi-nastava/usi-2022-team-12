@@ -8,14 +8,14 @@ namespace HealthInstitution.Utility
 {
     public static class GlobalStore
     {
-        private static readonly Dictionary<string, object> _storedObjects;
+        private static readonly Dictionary<string, object?> _storedObjects;
 
         static GlobalStore()
         {
-            _storedObjects = new Dictionary<string, object>();
+            _storedObjects = new Dictionary<string, object?>();
         }
 
-        public static void AddObject(string key, object obj)
+        public static void AddObject(string key, object? obj)
         {
             if (_storedObjects.ContainsKey(key))
             {
@@ -26,9 +26,9 @@ namespace HealthInstitution.Utility
             _storedObjects.Add(key, obj);
         }
 
-        public static T ReadObject<T>(string key)
+        public static T? ReadObject<T>(string key)
         {
-            return (T)_storedObjects[key];
+            return (T?)_storedObjects[key];
         }
     }
 }

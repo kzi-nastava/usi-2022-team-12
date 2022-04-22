@@ -29,17 +29,14 @@ namespace HealthInstitution.Persistence
         public DbSet<RoomRenovation> RoomRenovations { get; set; }
 
         // Patient related things
-        public DbSet<Activity> activities { get; set; }
-        public DbSet<AppointmentRequest> appointmentRequests { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
 
-        // Medicine related things
-        public DbSet<Ingredient> ingredients { get; set; }
-        public DbSet<Medicine> medicines { get; set; }
 
         // Appointment related things
-        public DbSet<Anamnesis> anamneses { get; set; }
-        public DbSet<Appointment> appointments { get; set; }
-        public DbSet<MedicalRecord> medicalRecords { get; set; }
+        public DbSet<Anamnesis> Anamnesis { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
 
         public DatabaseContext()
         {

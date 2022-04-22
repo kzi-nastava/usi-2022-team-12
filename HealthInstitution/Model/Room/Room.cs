@@ -6,6 +6,8 @@ namespace HealthInstitution.Model
     public class Room : BaseObservableEntity
     {
         #region Attributes
+        private String _name;
+        public String Name { get => _name; set => OnPropertyChanged(ref _name, value); }
 
         private RoomType _roomType;
         public RoomType RoomType { get => _roomType; set => OnPropertyChanged(ref _roomType, value); }
@@ -17,8 +19,9 @@ namespace HealthInstitution.Model
 
         #region Constructor
 
-        protected Room(RoomType roomType)
+        public Room(RoomType roomType, string name)
         {
+            _name = name;
             _roomType = roomType;
             _inventory = new List<Entry<Equipment>>();
         }
