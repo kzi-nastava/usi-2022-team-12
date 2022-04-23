@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="HealthInstitution.View.Patient.PatientAppointmentsView"
+﻿<UserControl x:Class="HealthInstitution.View.PatientAppointmentsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HealthInstitution.View.Patient"
+             xmlns:local="clr-namespace:HealthInstitution.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Background="White">
@@ -22,7 +22,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Begging" Width="auto" DisplayMemberBinding="{Binding StartDate}">
+                    <GridViewColumn Header="Beginning" Width="auto" DisplayMemberBinding="{Binding StartDate}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>

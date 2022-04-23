@@ -3,7 +3,7 @@ using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel.Patient;
+using HealthInstitution.ViewModel;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -15,7 +15,7 @@ namespace HealthInstitution.ViewModel
 
         public string PatientName 
         { 
-            get => GlobalStore.ReadObject<Model.Patient>("LoggedUser").FirstName; 
+            get => GlobalStore.ReadObject<Patient>("LoggedUser").FirstName; 
         }
 
         public PatientHomeViewModel(IPatientService patientService)

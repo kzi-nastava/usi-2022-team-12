@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HealthInstitution.View.Patient
+namespace HealthInstitution.View
 {
     /// <summary>
-    /// Interaction logic for AppointmentsView.xaml
+    /// Interaction logic for PatientAppointmentsView.xaml
     /// </summary>
     public partial class PatientAppointmentsView : UserControl
     {

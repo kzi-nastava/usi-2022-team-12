@@ -7,5 +7,9 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Intefaces
 {
-    public interface IAppointmentService : ICrudService<Appointment> {}
+    public interface IAppointmentService : ICrudService<Appointment> {
+        IEnumerable<Appointment> ReadDoctorAppointemnts(Doctor doc, DateTime fromDate, DateTime toDate);
+        IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
+    }
+
 }

@@ -29,14 +29,25 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string _time;
-        public string? Time
+        private string _hours;
+        public string? Hours
         {
-            get => _time;
+            get => _hours;
             set
             {
-                _time = value;
-                OnPropertyChanged(nameof(Time));
+                _hours = value;
+                OnPropertyChanged(nameof(Hours));
+            }
+        } 
+        
+        private string _minutes;
+        public string? Minutes
+        {
+            get => _minutes;
+            set
+            {
+                _minutes = value;
+                OnPropertyChanged(nameof(Minutes));
             }
         }
 
@@ -60,13 +71,14 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(Doctors));
             }
         }
-        public ICommand? AppointmentCreationCommand { get; }
+        public ICommand? MakeAppointmentCommand { get; }
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IAppointmentService appointmentService)
         {
             _doctorService = doctorService;
             _appointmentService = appointmentService;
             Doctors = doctorService.ReadAll().ToList();
+            MakeAppointmentCommand = new MakeAppointmentCommand(this);
         }
     }
 }

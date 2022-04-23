@@ -49,8 +49,8 @@ namespace HealthInstitution.Commands
                         Patient pt = (Patient)user;
                         if (!pt.IsBlocked)
                         {
-                            EventBus.FireEvent("PatientLogin");
                             GlobalStore.AddObject("LoggedUser", pt);
+                            EventBus.FireEvent("PatientLogin");
                         }
                         else 
                         {

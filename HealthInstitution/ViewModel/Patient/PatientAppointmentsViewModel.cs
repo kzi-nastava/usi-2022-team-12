@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace HealthInstitution.ViewModel.Patient
+namespace HealthInstitution.ViewModel
 {
     public class PatientAppointmentsViewModel : ViewModelBase
     {
@@ -30,7 +31,7 @@ namespace HealthInstitution.ViewModel.Patient
         {
             AppointmentCreationCommand = new AppointmentCreationCommand();
             _appointmentService = appointmentService;
-            Appointments = _appointmentService.ReadAll().ToList();
+            Appointments = _appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).ToList();
         }
     }
 }

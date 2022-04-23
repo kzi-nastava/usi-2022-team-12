@@ -90,8 +90,10 @@ namespace HealthInstitution.Persistence
 
             // Appointments
             var ap1 = new Appointment(d1, p1, DateTime.Now, r1, an1);
+            var ap2 = new Appointment(d2, p2, DateTime.Now.AddDays(1), r1, an1);
 
             context.Appointments.Add(ap1);
+            context.Appointments.Add(ap2);
 
             context.SaveChanges();
         }
