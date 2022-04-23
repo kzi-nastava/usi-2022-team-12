@@ -84,9 +84,9 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public AppointmentUpdateViewModel(Appointment apt, IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService)
+        public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService)
         {
-            ChosenAppointment = apt;
+            ChosenAppointment = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
             _doctorService = doctorService;
             _appointmentService = appointmentService;
             _roomService = roomService;
