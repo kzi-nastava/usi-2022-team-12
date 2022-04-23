@@ -39,6 +39,12 @@ namespace HealthInstitution.ViewModel
                 AppointmentCreationViewModel Acvm = ServiceLocator.Get<AppointmentCreationViewModel>();
                 SwitchCurrentViewModel(Acvm);
             });
+
+            EventBus.RegisterHandler("AppointmentUpdate", () =>
+            {
+                AppointmentUpdateViewModel Auvm = ServiceLocator.Get<AppointmentUpdateViewModel>();
+                SwitchCurrentViewModel(Auvm);
+            });
         }
     }
 }

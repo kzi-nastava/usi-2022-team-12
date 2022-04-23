@@ -14,7 +14,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Your Appointmens" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
-        <ListView Grid.Row="1" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding Appointments}">
+        <ListView Grid.Row="1" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding Appointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -62,8 +62,8 @@
         </ListView>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
             <Button Content="Make appointment" Padding="5" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
-            <Button Content="Update appointment" Padding="5" Margin="15 0 0 0"  FontSize="14"/>
-            <Button Content="Remove appointment" Padding="5" Margin="15 0 0 0"  FontSize="14"/>
+            <Button Content="Update appointment" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding AppointmentUpdateCommand}"/>
+            <Button Content="Remove appointment" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding RemoveAppointmentCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

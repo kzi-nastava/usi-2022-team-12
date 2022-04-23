@@ -15,6 +15,8 @@ namespace HealthInstitution.ViewModel
     {
         public readonly IAppointmentService _appointmentService;
         public ICommand? AppointmentCreationCommand { get; }
+        public ICommand? AppointmentUpdateCommand { get; }
+        public ICommand? RemoveAppointmentCommand { get; }
 
         private List<Appointment> _appointments;
         public List<Appointment> Appointments
@@ -27,11 +29,26 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private Appointment _selectedAppointment;
+        public Appointment SelectedAppointment
+        {
+            get => _selectedAppointment;
+            set
+            {
+                _selectedAppointment = value;
+                GlobalStore.AddObject("ChosenAppointment", value);
+                OnPropertyChanged(nameof(SelectedAppointment));
+            }
+        }
+
         public PatientAppointmentsViewModel(IAppointmentService appointmentService)
         {
-            AppointmentCreationCommand = new AppointmentCreationCommand();
             _appointmentService = appointmentService;
             Appointments = _appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).ToList();
+            SelectedAppointment = Appointments.First();
+            AppointmentCreationCommand = new AppointmentCreationCommand();
+            AppointmentUpdateCommand = new AppointmentUpdateCommand();
+            RemoveAppointmentCommand = new RemoveAppointmentCommand(this);
         }
     }
 }

@@ -35,4 +35,8 @@
         <v:SecretaryPatientCRUDView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
+        <v:AppointmentUpdateView/>
+    </DataTemplate>
+
 </ResourceDictionary>

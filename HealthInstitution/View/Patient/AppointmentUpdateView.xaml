@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HealthInstitution.View.AppointmentCreationView"
+﻿<UserControl x:Class="HealthInstitution.View.AppointmentUpdateView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,7 +21,7 @@
             <TextBlock Text="Minutes:" FontSize="18"/>
             <TextBox PreviewTextInput="MinutesValidationTextBox" Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="50"/>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="1" Margin="0,10,0,40" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Doctor:" FontSize="18"/>
             <ComboBox Margin="10,0,0,0" SelectedItem="{Binding SelectedDoctor}" ItemsSource="{Binding Doctors}" SelectedValuePath = "Id" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="210">
@@ -40,6 +40,6 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
-        <Button Grid.Row="2" Content="Make Appointment" HorizontalAlignment="Center" VerticalAlignment="Top" Height="65" Width="180" Command="{Binding MakeAppointmentCommand}"/>
+        <Button Grid.Row="2" Content="Update Appointment" HorizontalAlignment="Center" VerticalAlignment="Top" Height="65" Width="180" Command="{Binding UpdateAppointmentCommand}"/>
     </Grid>
 </UserControl>

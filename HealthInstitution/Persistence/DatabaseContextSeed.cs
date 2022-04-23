@@ -82,6 +82,7 @@ namespace HealthInstitution.Persistence
 
             // Rooom
             var r1 = new Room(RoomType.Storage, "A1");
+            var r2 = new Room(RoomType.ExaminationRoom, "E1");
 
             context.Rooms.Add(r1);
 
@@ -89,8 +90,8 @@ namespace HealthInstitution.Persistence
             var an1 = new Anamnesis("This is anamnesis");
 
             // Appointments
-            var ap1 = new Appointment(d1, p1, DateTime.Now, r1, an1);
-            var ap2 = new Appointment(d2, p2, DateTime.Now.AddDays(1), r1, an1);
+            var ap1 = new Appointment(d1, p1, DateTime.Now, r2, an1);
+            var ap2 = new Appointment(d2, p2, DateTime.Now.AddDays(1), r2, an1);
 
             context.Appointments.Add(ap1);
             context.Appointments.Add(ap2);

@@ -9,6 +9,9 @@ namespace HealthInstitution.Services.Intefaces
 {
     public interface IAppointmentService : ICrudService<Appointment> {
         IEnumerable<Appointment> ReadDoctorAppointemnts(Doctor doc, DateTime fromDate, DateTime toDate);
+        IEnumerable<Appointment> ReadDoctorAppointemntsWithoutChosen(Doctor doc, DateTime fromDate, DateTime toDate, Appointment chosenAppointment);
+        IEnumerable<Appointment> ReadAppointemntsInInterval(DateTime fromDate, DateTime toDate);
+        IEnumerable<Appointment> ReadAppointemntsInIntervalWithoutChosen(DateTime fromDate, DateTime toDate, Appointment chosenAppointment);
         IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
     }
 

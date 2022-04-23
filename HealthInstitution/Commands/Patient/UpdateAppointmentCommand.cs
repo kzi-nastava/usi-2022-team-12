@@ -11,10 +11,11 @@ using System.Windows;
 
 namespace HealthInstitution.Commands
 {
-    public class MakeAppointmentCommand : CommandBase
+    public class UpdateAppointmentCommand : CommandBase
     {
-        private readonly AppointmentCreationViewModel? _viewModel;
-        public MakeAppointmentCommand(AppointmentCreationViewModel viewModel) {
+        private readonly AppointmentUpdateViewModel? _viewModel;
+        public UpdateAppointmentCommand(AppointmentUpdateViewModel viewModel)
+        {
             _viewModel = viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -29,19 +30,20 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.Date <= DateTime.Now) && !string.IsNullOrEmpty(_viewModel.Hours) && !string.IsNullOrEmpty(_viewModel.Minutes) 
+            return !(_viewModel.Date <= DateTime.Now) && !string.IsNullOrEmpty(_viewModel.Hours) && !string.IsNullOrEmpty(_viewModel.Minutes)
                 && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
         }
 
-        public override void Execute(object? parameter) {
+        public override void Execute(object? parameter)
+        {
             DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
             DateTime endTime = startTime.AddMinutes(15);
-            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppointemnts(_viewModel.SelectedDoctor, startTime, endTime);
-            var appointmentsInInterval = _viewModel._appointmentService.ReadAppointemntsInInterval(startTime, endTime);
+            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppointemntsWithoutChosen(_viewModel.SelectedDoctor, startTime, endTime, _viewModel.ChosenAppointment);
+            var appointmentsInInterval = _viewModel._appointmentService.ReadAppointemntsInIntervalWithoutChosen(startTime, endTime, _viewModel.ChosenAppointment);
             var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
 
-
-            if (doctorAppointments.Count() != 0) {
+            if (doctorAppointments.Count() != 0)
+            {
                 MessageBox.Show("Selected doctor is busy at selected time");
                 return;
             }
@@ -52,25 +54,30 @@ namespace HealthInstitution.Commands
                 emptyRoom = room;
                 foreach (var appointment in appointmentsInInterval)
                 {
-                    if (room == appointment.Room) {
+                    if (room == appointment.Room)
+                    {
                         emptyRoom = null;
                         break;
                     }
                 }
-                if (emptyRoom != null) {
+                if (emptyRoom != null)
+                {
                     break;
                 }
             }
 
-            if (emptyRoom == null) {
+            if (emptyRoom == null)
+            {
                 MessageBox.Show("All rooms are busy at the time");
                 return;
             }
 
             var an = new Anamnesis("This is anamnesis");
-            var ap = new Appointment(_viewModel.SelectedDoctor, GlobalStore.ReadObject<Patient>("LoggedUser"), startTime, emptyRoom, an);
-            _viewModel._appointmentService.Create(ap);
-            MessageBox.Show("Appointment created Successfully");
+            _viewModel.ChosenAppointment.StartDate = startTime;
+            _viewModel.ChosenAppointment.EndDate = endTime;
+            _viewModel.ChosenAppointment.Doctor = _viewModel.SelectedDoctor;
+            _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
+            MessageBox.Show("Appointment updated Successfully");
             EventBus.FireEvent("PatientAppointments");
         }
     }
