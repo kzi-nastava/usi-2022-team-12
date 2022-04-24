@@ -78,6 +78,7 @@ namespace HealthInstitution.Commands
             if (activityCount > 8)
             {
                 pt.IsBlocked = true;
+                _viewModel._patientService.Update(pt);
                 MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
                 EventBus.FireEvent("BackToLogin");
             }

@@ -72,6 +72,14 @@ namespace HealthInstitution.Commands
                 return;
             }
 
+            if (_viewModel.ChosenAppointment.StartDate == startTime && _viewModel.ChosenAppointment.EndDate == endTime
+                && _viewModel.ChosenAppointment.Doctor == _viewModel.SelectedDoctor) 
+            {
+                MessageBox.Show("You didn't update any of information!\n(Appointment remains the same)");
+                EventBus.FireEvent("PatientAppointments");
+                return;
+            }
+
 
             _viewModel.ChosenAppointment.StartDate = startTime;
             _viewModel.ChosenAppointment.EndDate = endTime;
@@ -91,6 +99,7 @@ namespace HealthInstitution.Commands
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
+                    _viewModel._patientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
@@ -107,6 +116,7 @@ namespace HealthInstitution.Commands
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
+                    _viewModel._patientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }

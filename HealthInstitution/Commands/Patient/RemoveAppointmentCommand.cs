@@ -37,6 +37,7 @@ namespace HealthInstitution.Commands
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
+                    _viewModel._patientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
@@ -54,6 +55,7 @@ namespace HealthInstitution.Commands
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
+                    _viewModel._patientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }

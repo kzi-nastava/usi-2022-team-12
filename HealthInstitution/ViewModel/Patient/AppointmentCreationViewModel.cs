@@ -19,6 +19,7 @@ namespace HealthInstitution.ViewModel
         public readonly IAppointmentService _appointmentService;
         public readonly IRoomService _roomService;
         public readonly IActivityService _activityService;
+        public readonly IPatientService _patientService;
 
         private DateTime _date;
         public DateTime Date
@@ -75,12 +76,13 @@ namespace HealthInstitution.ViewModel
         }
         public ICommand? MakeAppointmentCommand { get; }
 
-        public AppointmentCreationViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService, IActivityService activityService)
+        public AppointmentCreationViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService, IActivityService activityService, IPatientService patientService)
         {
             _activityService = activityService;
             _doctorService = doctorService;
             _appointmentService = appointmentService;
             _roomService = roomService;
+            _patientService = patientService;
             Date = DateTime.Now;
             Doctors = doctorService.ReadAll().ToList();
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
