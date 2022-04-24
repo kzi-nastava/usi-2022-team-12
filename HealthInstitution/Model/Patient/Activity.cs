@@ -13,12 +13,15 @@ namespace HealthInstitution.Model
         private ActivityType _activityType;
         public ActivityType ActivityType { get => _activityType; set => OnPropertyChanged(ref _activityType, value); }
 
+        private Patient _patient;
+        public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }
         #endregion
 
         #region Constructor
 
-        public Activity(DateTime dateOfAction, ActivityType activityType)
+        public Activity(Patient pt, DateTime dateOfAction, ActivityType activityType)
         {
+            _patient = pt;
             _dateOfAction = dateOfAction;
             _activityType = activityType;
         }

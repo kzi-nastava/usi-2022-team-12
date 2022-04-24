@@ -14,6 +14,7 @@ namespace HealthInstitution.ViewModel
     public class PatientAppointmentsViewModel : ViewModelBase
     {
         public readonly IAppointmentService _appointmentService;
+        public readonly IAppointmentRequestService _appointmentRequestService;
         public ICommand? AppointmentCreationCommand { get; }
         public ICommand? AppointmentUpdateCommand { get; }
         public ICommand? RemoveAppointmentCommand { get; }
@@ -41,9 +42,10 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public PatientAppointmentsViewModel(IAppointmentService appointmentService)
+        public PatientAppointmentsViewModel(IAppointmentService appointmentService, IAppointmentRequestService appointmentRequestService)
         {
             _appointmentService = appointmentService;
+            _appointmentRequestService = appointmentRequestService;
             Appointments = _appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).ToList();
             SelectedAppointment = Appointments.First();
             AppointmentCreationCommand = new AppointmentCreationCommand();

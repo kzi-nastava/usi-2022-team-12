@@ -44,7 +44,7 @@ namespace HealthInstitution.Commands
 
             if (doctorAppointments.Count() != 0)
             {
-                MessageBox.Show("Selected doctor is busy at selected time");
+                MessageBox.Show("Selected doctor is busy at selected time!");
                 return;
             }
 
@@ -68,19 +68,32 @@ namespace HealthInstitution.Commands
 
             if (emptyRoom == null)
             {
-                MessageBox.Show("All rooms are busy at the time");
+                MessageBox.Show("All rooms are busy at selected time!");
                 return;
             }
 
-            var an = new Anamnesis("This is anamnesis");
+
             _viewModel.ChosenAppointment.StartDate = startTime;
             _viewModel.ChosenAppointment.EndDate = endTime;
             _viewModel.ChosenAppointment.Doctor = _viewModel.SelectedDoctor;
-            _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
-            Activity act = new Activity(DateTime.Now, ActivityType.Update);
+
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            pt.AddActivity(act);
-            MessageBox.Show("Appointment updated Successfully");
+            if (DateTime.Now.AddDays(2) > _viewModel.ChosenAppointment.StartDate)
+            {
+                AppointmentRequest appointmentRequest = new AppointmentRequest(pt, _viewModel.ChosenAppointment, ActivityType.Update);
+                _viewModel._appointmentRequestService.Create(appointmentRequest);
+                Activity act = new Activity(DateTime.Now, ActivityType.Update);
+                pt.AddActivity(act);
+                MessageBox.Show("Request for appointment update created successfully!\nPlease wait for secretary to review it.");
+            }
+            else {
+                _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
+                Activity act = new Activity(DateTime.Now, ActivityType.Update);
+                pt.AddActivity(act);
+                MessageBox.Show("Appointment updated successfully!");
+            }
+
+            
             EventBus.FireEvent("PatientAppointments");
         }
     }

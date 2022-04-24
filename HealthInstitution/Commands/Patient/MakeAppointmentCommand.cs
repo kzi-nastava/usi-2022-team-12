@@ -42,7 +42,7 @@ namespace HealthInstitution.Commands
 
 
             if (doctorAppointments.Count() != 0) {
-                MessageBox.Show("Selected doctor is busy at selected time");
+                MessageBox.Show("Selected doctor is busy at selected time!");
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace HealthInstitution.Commands
             }
 
             if (emptyRoom == null) {
-                MessageBox.Show("All rooms are busy at the time");
+                MessageBox.Show("All rooms are busy at selected time!");
                 return;
             }
 
@@ -73,8 +73,11 @@ namespace HealthInstitution.Commands
             _viewModel._appointmentService.Create(app);
             Activity act = new Activity(DateTime.Now, ActivityType.Create);
             pt.AddActivity(act);
-            MessageBox.Show("Appointment created Successfully");
+            MessageBox.Show("Appointment created successfully!");
             EventBus.FireEvent("PatientAppointments");
+
+            var activities = pt.Activities.ToList<Activity>().FindAll(act => act.ActivityType == ActivityType.Delete || act.ActivityType == ActivityType.Delete);
+            
         }
     }
 }
