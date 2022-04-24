@@ -68,16 +68,23 @@ namespace HealthInstitution.Commands
             }
 
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            var an = new Anamnesis("This is anamnesis");
-            var app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, emptyRoom, an);
+            Anamnesis an = new Anamnesis("Type anamnesis here");
+            Appointment app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, emptyRoom, an);
             _viewModel._appointmentService.Create(app);
-            Activity act = new Activity(DateTime.Now, ActivityType.Create);
-            pt.AddActivity(act);
+            Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
+            _viewModel._activityService.Create(act);
             MessageBox.Show("Appointment created successfully!");
-            EventBus.FireEvent("PatientAppointments");
-
-            var activities = pt.Activities.ToList<Activity>().FindAll(act => act.ActivityType == ActivityType.Delete || act.ActivityType == ActivityType.Delete);
-            
+            var activityCount = _viewModel._activityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+            if (activityCount > 8)
+            {
+                pt.IsBlocked = true;
+                MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
+                EventBus.FireEvent("BackToLogin");
+            }
+            else 
+            {
+                EventBus.FireEvent("PatientAppointments");
+            }
         }
     }
 }

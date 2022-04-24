@@ -19,9 +19,12 @@ namespace HealthInstitution.Model
 
         #region Constructor
 
-        public Activity(Patient pt, DateTime dateOfAction, ActivityType activityType)
+        public Activity() { 
+        
+        }
+        public Activity(Patient patient, DateTime dateOfAction, ActivityType activityType)
         {
-            _patient = pt;
+            _patient = patient;
             _dateOfAction = dateOfAction;
             _activityType = activityType;
         }

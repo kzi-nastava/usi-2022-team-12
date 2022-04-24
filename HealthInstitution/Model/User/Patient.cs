@@ -16,7 +16,6 @@ namespace HealthInstitution.Model
         public Patient()
         {
             _isBlocked = false;
-            _activities = new List<Activity>();
         }
 
         #endregion

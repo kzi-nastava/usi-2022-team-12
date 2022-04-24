@@ -82,19 +82,39 @@ namespace HealthInstitution.Commands
             {
                 AppointmentRequest appointmentRequest = new AppointmentRequest(pt, _viewModel.ChosenAppointment, ActivityType.Update);
                 _viewModel._appointmentRequestService.Create(appointmentRequest);
-                Activity act = new Activity(DateTime.Now, ActivityType.Update);
-                pt.AddActivity(act);
                 MessageBox.Show("Request for appointment update created successfully!\nPlease wait for secretary to review it.");
-            }
-            else {
-                _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
-                Activity act = new Activity(DateTime.Now, ActivityType.Update);
-                pt.AddActivity(act);
-                MessageBox.Show("Appointment updated successfully!");
-            }
 
-            
-            EventBus.FireEvent("PatientAppointments");
+                Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);
+                _viewModel._activityService.Create(act);
+                
+                var activityCount = _viewModel._activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                if (activityCount >= 5)
+                {
+                    pt.IsBlocked = true;
+                    MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
+                    EventBus.FireEvent("BackToLogin");
+                }
+            }
+            else 
+            {
+                _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
+                MessageBox.Show("Appointment updated successfully!");
+
+                Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);
+                _viewModel._activityService.Create(act);
+
+                var activityCount = _viewModel._activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                if (activityCount >= 5)
+                {
+                    pt.IsBlocked = true;
+                    MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
+                    EventBus.FireEvent("BackToLogin");
+                }
+                else
+                {
+                    EventBus.FireEvent("PatientAppointments");
+                }
+            }
         }
     }
 }

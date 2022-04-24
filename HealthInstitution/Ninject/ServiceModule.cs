@@ -17,6 +17,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IRoomService)).To(typeof(RoomService));
             Bind(typeof(IAppointmentService)).To(typeof(AppointmentService));
             Bind(typeof(IAppointmentRequestService)).To(typeof(AppointmentRequestService));
+            Bind(typeof(IActivityService)).To(typeof(ActivityService));
 
             //Bind(typeof(IDialogService)).To(typeof(DialogService));
 
