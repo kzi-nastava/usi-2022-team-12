@@ -67,9 +67,12 @@ namespace HealthInstitution.Commands
                 return;
             }
 
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             var an = new Anamnesis("This is anamnesis");
-            var ap = new Appointment(_viewModel.SelectedDoctor, GlobalStore.ReadObject<Patient>("LoggedUser"), startTime, emptyRoom, an);
-            _viewModel._appointmentService.Create(ap);
+            var app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, emptyRoom, an);
+            _viewModel._appointmentService.Create(app);
+            Activity act = new Activity(DateTime.Now, ActivityType.Create);
+            pt.AddActivity(act);
             MessageBox.Show("Appointment created Successfully");
             EventBus.FireEvent("PatientAppointments");
         }

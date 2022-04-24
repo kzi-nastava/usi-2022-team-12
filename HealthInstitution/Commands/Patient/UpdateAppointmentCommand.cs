@@ -77,6 +77,9 @@ namespace HealthInstitution.Commands
             _viewModel.ChosenAppointment.EndDate = endTime;
             _viewModel.ChosenAppointment.Doctor = _viewModel.SelectedDoctor;
             _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
+            Activity act = new Activity(DateTime.Now, ActivityType.Update);
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
+            pt.AddActivity(act);
             MessageBox.Show("Appointment updated Successfully");
             EventBus.FireEvent("PatientAppointments");
         }

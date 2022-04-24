@@ -26,8 +26,10 @@ namespace HealthInstitution.Commands
             }
             else 
             {
-                
                 _viewModel._appointmentService.Delete(apt.Id);
+                Activity act = new Activity(DateTime.Now, ActivityType.Delete);
+                Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
+                pt.AddActivity(act);
                 MessageBox.Show("Appointment deleted Successfully");
                 EventBus.FireEvent("PatientAppointments");
                 /*
