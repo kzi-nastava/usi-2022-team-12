@@ -59,7 +59,10 @@ namespace HealthInstitution.Commands
                         }
                         break;
                     case Role.Doctor:
+                        Doctor doc = (Doctor)user;
+                        GlobalStore.AddObject("LoggedUser", doc);
                         EventBus.FireEvent("DoctorLogin");
+                        TitleManager.Title = "Doctor";
                         break;
                     case Role.Secretary:
                         EventBus.FireEvent("SecretaryLogin");

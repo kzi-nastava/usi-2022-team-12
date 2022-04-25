@@ -6,6 +6,15 @@
     <DataTemplate DataType="{x:Type vm:LoginViewModel}">
         <v:LoginView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DoctorHomeViewModel}">
+        <v:DoctorHomeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DoctorScheduleViewModel}">
+        <v:DoctorScheduleView/>
+    </DataTemplate>
+    <!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">
+        <v:LoginView/>
+    </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:PatientHomeViewModel}">
         <v:PatientHomeView/>
@@ -19,9 +28,7 @@
         <v:AppointmentCreationView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:DoctorScheduleListingViewModel}">
-        <v:DoctorScheduleListingView/>
-    </DataTemplate>
+
 
     <DataTemplate DataType="{x:Type vm:SecretaryHomeViewModel}">
         <v:SecretaryHomeView/>
@@ -29,6 +36,6 @@
 
     <DataTemplate DataType="{x:Type vm:SecretaryPatientCRUDViewModel}">
         <v:SecretaryPatientCRUDView/>
-    </DataTemplate>
+    </DataTemplate>-->
 
 </ResourceDictionary>
