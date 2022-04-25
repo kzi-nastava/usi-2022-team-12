@@ -20,7 +20,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding FullName}"
+                <TextBlock Text="{Binding FullName, StringFormat={}Dr. {0}}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
