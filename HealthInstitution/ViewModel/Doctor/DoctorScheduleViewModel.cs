@@ -1,4 +1,6 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Commands;
+using HealthInstitution.Model;
+using HealthInstitution.Ninject;
 using HealthInstitution.Services.Implementation;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
@@ -8,6 +10,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
@@ -15,11 +19,13 @@ namespace HealthInstitution.ViewModel
     {
         public class AppointmentViewModel : ViewModelBase
         {
-            private readonly Appointment _appointment;
+            private readonly Appointment _appointment;            
+            public Patient Patient => _appointment.Patient;
             public string PatientName => _appointment.Patient.FullName;              
             public string Date => _appointment.StartDate.ToString("D");                
             public string Time => _appointment.StartDate.ToString("t");                
             public string Room => _appointment.Room.Name;
+            public string IsDone => _appointment.IsDone ? "Yes" : "No";
             public AppointmentViewModel(Appointment appointment)
             {
                 _appointment = appointment;
@@ -49,6 +55,17 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(Next3Days));
             }
         }
+        private AppointmentViewModel _selectedAppointment;
+
+        public AppointmentViewModel SelectedAppointment
+        {
+            get => _selectedAppointment;
+            set
+            {
+                _selectedAppointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
+            }
+        }
         private DateTime EndDate
         {
             get
@@ -69,15 +86,16 @@ namespace HealthInstitution.ViewModel
 
         public IEnumerable<AppointmentViewModel> Appointments => _appointments;
 
+        public ICommand? OpenMedicalRecordCommand { get; }
         public DoctorScheduleViewModel(AppointmentService appointemntService)
         {
+            OpenMedicalRecordCommand = new NavigateMedicalRecordCommand(this);
             _userDate = DateTime.Now;
             _appointmentService = appointemntService;
             _appointments = new ObservableCollection<AppointmentViewModel>();
             UpdateData();
 
         }
-
         public void UpdateData()
         {
             DateTime startDate = UserDate;
