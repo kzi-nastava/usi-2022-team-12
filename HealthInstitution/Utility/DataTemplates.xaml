@@ -12,6 +12,9 @@
     <DataTemplate DataType="{x:Type vm:DoctorScheduleViewModel}">
         <v:DoctorScheduleView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MedicalRecordViewModel}">
+        <v:MedicalRecordView/>
+    </DataTemplate>
     <!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">
         <v:LoginView/>
     </DataTemplate>
