@@ -103,6 +103,10 @@ namespace HealthInstitution.Commands
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
+                else
+                {
+                    EventBus.FireEvent("PatientAppointments");
+                }
             }
             else 
             {
