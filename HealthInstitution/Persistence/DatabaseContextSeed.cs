@@ -88,10 +88,16 @@ namespace HealthInstitution.Persistence
             // Anamnesis
             var an1 = new Anamnesis("This is anamnesis");
 
+            context.Anamnesis.Add(an1);
+
             // Appointments
             var ap1 = new Appointment(d1, p1, DateTime.Now, r1, an1);
+            var ap2 = new Appointment(d2, p2, DateTime.Now, r1, an1);
+            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), r1, an1);
 
             context.Appointments.Add(ap1);
+            context.Appointments.Add(ap2);
+            context.Appointments.Add(ap3);
 
             context.SaveChanges();
         }
