@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
 using HealthInstitution.Ninject;
+using HealthInstitution.Services.Implementation;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace HealthInstitution.ViewModel
 
         public string FullName
         {
-            get => "Dr. " + GlobalStore.ReadObject<Doctor>("LoggedUser").FullName;
+            get => GlobalStore.ReadObject<Doctor>("LoggedUser").FullName;
         }
         public DoctorHomeViewModel()
         {
@@ -33,6 +34,12 @@ namespace HealthInstitution.ViewModel
             EventBus.RegisterHandler("DoctorSchedule", () =>
             {
                 DoctorScheduleViewModel viewModel = ServiceLocator.Get<DoctorScheduleViewModel>();
+                SwitchCurrentViewModel(viewModel);
+            });
+            EventBus.RegisterHandler("MedicalHistory", () =>
+            {
+                //MedicalHistoryViewModel viewModel = ServiceLocator.Get<MedicalHistoryViewModel>();
+                MedicalRecordViewModel viewModel = new MedicalRecordViewModel(ServiceLocator.Get<MedicalRecordService>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 SwitchCurrentViewModel(viewModel);
             });
         }
