@@ -1,5 +1,7 @@
 ﻿using HealthInstitution.Model;
 using System;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace HealthInstitution.Persistence
 {
@@ -20,6 +22,22 @@ namespace HealthInstitution.Persistence
             context.Patients.Add(p4);
             context.Patients.Add(p5);
 
+            // Allergens
+            var alr1 = new Allergen("peanuts");
+
+            context.Allergens.Add(alr1);
+
+            // Illnesses
+            var il1 = new Illness("Illness1");
+
+            context.Illness.Add(il1);
+
+            // Medical records
+            var mr1 = new MedicalRecord(180.5, 70.4, p1);
+            mr1.AddAllergen(alr1);
+            mr1.AddIllness(il1);
+
+            context.MedicalRecords.Add(mr1);
 
             // Secretaries
             var c1 = new Secretary { FirstName = "Nikola", LastName = "Petrovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "nikolapetrovic", Role = Role.Secretary };
@@ -85,15 +103,11 @@ namespace HealthInstitution.Persistence
 
             context.Rooms.Add(r1);
 
-            // Anamnesis
-            var an1 = new Anamnesis("This is anamnesis");
-
-            context.Anamnesis.Add(an1);
 
             // Appointments
-            var ap1 = new Appointment(d1, p1, DateTime.Now, r1, an1);
-            var ap2 = new Appointment(d2, p2, DateTime.Now, r1, an1);
-            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), r1, an1);
+            var ap1 = new Appointment(d1, p1, DateTime.Now, r1, "This is anamnesis", false);
+            var ap2 = new Appointment(d2, p2, DateTime.Now, r1, "This is anamnesis", false);
+            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), r1, "This is anamnesis", false);
 
             context.Appointments.Add(ap1);
             context.Appointments.Add(ap2);
