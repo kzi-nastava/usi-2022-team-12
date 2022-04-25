@@ -33,7 +33,7 @@ namespace HealthInstitution.Commands
             var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)
             {
-                _viewModel.ErrMsgText = "Email or password are incorrect";
+                _viewModel.ErrMsgText = "Email or password is incorrect";
                 _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
             else {
