@@ -3,6 +3,7 @@ using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -21,7 +22,7 @@ namespace HealthInstitution.ViewModel
         {
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
             LogOutCommand = new LogOutCommand();
-            SwitchCurrentViewModel(ServiceLocator.Get<AppointmentCreationViewModel>());
+            SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
         }
 
@@ -29,8 +30,20 @@ namespace HealthInstitution.ViewModel
         {
             EventBus.RegisterHandler("PatientAppointments", () =>
             {
+                PatientAppointmentsViewModel Pavm = ServiceLocator.Get<PatientAppointmentsViewModel>();
+                SwitchCurrentViewModel(Pavm);
+            });
+
+            EventBus.RegisterHandler("AppointmentCreation", () =>
+            {
                 AppointmentCreationViewModel Acvm = ServiceLocator.Get<AppointmentCreationViewModel>();
                 SwitchCurrentViewModel(Acvm);
+            });
+
+            EventBus.RegisterHandler("AppointmentUpdate", () =>
+            {
+                AppointmentUpdateViewModel Auvm = ServiceLocator.Get<AppointmentUpdateViewModel>();
+                SwitchCurrentViewModel(Auvm);
             });
         }
     }

@@ -11,6 +11,10 @@
         <v:PatientHomeView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:PatientAppointmentsViewModel}">
+        <v:PatientAppointmentsView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:DoctorHomeViewModel}">
         <v:DoctorHomeView/>
     </DataTemplate>
@@ -29,6 +33,10 @@
 
     <DataTemplate DataType="{x:Type vm:SecretaryPatientCRUDViewModel}">
         <v:SecretaryPatientCRUDView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
+        <v:AppointmentUpdateView/>
     </DataTemplate>
 
 </ResourceDictionary>
