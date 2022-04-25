@@ -17,7 +17,7 @@ namespace HealthInstitution.ViewModel
 
         public readonly IUserService<User> _userService;
 
-        private string? _email;
+        private string? _email = "igormirkovic";
         public string? Email
         {
             get => _email;
@@ -28,7 +28,7 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string? _password;
+        private string? _password = "test123";
         public string? Password
         {
             get => _password;
