@@ -51,9 +51,8 @@ namespace HealthInstitution.ViewModel
             _activityService = activityService;
             _patientService = patientService;
             Appointments = _appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).ToList();
-            SelectedAppointment = Appointments.First();
             AppointmentCreationCommand = new AppointmentCreationCommand();
-            AppointmentUpdateCommand = new AppointmentUpdateCommand();
+            AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);
         }
     }

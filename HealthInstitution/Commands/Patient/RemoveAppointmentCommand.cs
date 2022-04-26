@@ -14,8 +14,23 @@ namespace HealthInstitution.Commands
     public class RemoveAppointmentCommand : CommandBase
     {
         private readonly PatientAppointmentsViewModel? _viewModel;
-        public RemoveAppointmentCommand(PatientAppointmentsViewModel vm) {
-            _viewModel = vm;
+        public RemoveAppointmentCommand(PatientAppointmentsViewModel viewModel)
+        {
+            _viewModel = viewModel;
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_viewModel.SelectedAppointment))
+            {
+                OnCanExecuteChange();
+            }
+        }
+
+        public override bool CanExecute(object? parameter)
+        {
+            return !(_viewModel.SelectedAppointment == null) && base.CanExecute(parameter);
         }
         public override void Execute(object? parameter)
         {
@@ -63,11 +78,6 @@ namespace HealthInstitution.Commands
                 {
                     EventBus.FireEvent("PatientAppointments");
                 }
-
-                /*
-                _viewModel.Appointments.Remove(apt);
-                _viewModel.SelectedAppointment = _viewModel.Appointments.First();
-                */
             }
         }
     }
