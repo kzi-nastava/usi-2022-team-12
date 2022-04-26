@@ -34,7 +34,8 @@ namespace HealthInstitution.Persistence
 
 
         // Appointment related things
-        public DbSet<Anamnesis> Anamnesis { get; set; }
+        public DbSet<Allergen> Allergens { get; set; }
+        public DbSet<Illness> Illness { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
 

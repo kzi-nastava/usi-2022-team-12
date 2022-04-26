@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace HealthInstitution.View
 {
     /// <summary>
-    /// Interaction logic for DoctorScheduleListingView.xaml
+    /// Interaction logic for MedicalHistoryView.xaml
     /// </summary>
-    public partial class DoctorScheduleListingView : UserControl
+    public partial class MedicalRecordView : UserControl
     {
-        public DoctorScheduleListingView()
+        public MedicalRecordView()
         {
             InitializeComponent();
         }
