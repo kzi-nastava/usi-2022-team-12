@@ -41,6 +41,7 @@ namespace HealthInstitution.Commands
                 switch (user.Role) {
                     case Role.Manager:
                         //todo
+                        TitleManager.Title = "Manager";
                         break;
                     case Role.Administrator:
                         //todo
@@ -51,6 +52,7 @@ namespace HealthInstitution.Commands
                         {
                             GlobalStore.AddObject("LoggedUser", pt);
                             EventBus.FireEvent("PatientLogin");
+                            TitleManager.Title = "Patient";
                         }
                         else 
                         {
@@ -66,6 +68,7 @@ namespace HealthInstitution.Commands
                         break;
                     case Role.Secretary:
                         EventBus.FireEvent("SecretaryLogin");
+                        TitleManager.Title = "Secretary";
                         break;
                     default:
                         MessageBox.Show("ERR");

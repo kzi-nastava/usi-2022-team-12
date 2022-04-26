@@ -38,7 +38,7 @@ namespace HealthInstitution.Commands
         {
             DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
             DateTime endTime = startTime.AddMinutes(15);
-            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppointemntsWithoutChosen(_viewModel.SelectedDoctor, startTime, endTime, _viewModel.ChosenAppointment);
+            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppoinmentsWithoutChosen(_viewModel.SelectedDoctor, startTime, endTime, _viewModel.ChosenAppointment);
             var appointmentsInInterval = _viewModel._appointmentService.ReadAppointemntsInIntervalWithoutChosen(startTime, endTime, _viewModel.ChosenAppointment);
             var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
 
@@ -81,14 +81,11 @@ namespace HealthInstitution.Commands
             }
 
 
-            _viewModel.ChosenAppointment.StartDate = startTime;
-            _viewModel.ChosenAppointment.EndDate = endTime;
-            _viewModel.ChosenAppointment.Doctor = _viewModel.SelectedDoctor;
-
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             if (DateTime.Now.AddDays(2) > _viewModel.ChosenAppointment.StartDate)
             {
-                AppointmentRequest appointmentRequest = new AppointmentRequest(pt, _viewModel.ChosenAppointment, ActivityType.Update);
+                AppointmentUpdateRequest appointmentRequest = new AppointmentUpdateRequest { Patient = pt, Appointment = _viewModel.ChosenAppointment, 
+                    ActivityType = ActivityType.Update , Status = Status.Pending, StartDate = startTime, EndDate = endTime, Doctor = _viewModel.SelectedDoctor};
                 _viewModel._appointmentRequestService.Create(appointmentRequest);
                 MessageBox.Show("Request for appointment update created successfully!\nPlease wait for secretary to review it.");
 
@@ -110,6 +107,9 @@ namespace HealthInstitution.Commands
             }
             else 
             {
+                _viewModel.ChosenAppointment.StartDate = startTime;
+                _viewModel.ChosenAppointment.EndDate = endTime;
+                _viewModel.ChosenAppointment.Doctor = _viewModel.SelectedDoctor;
                 _viewModel._appointmentService.Update(_viewModel.ChosenAppointment);
                 MessageBox.Show("Appointment updated successfully!");
 

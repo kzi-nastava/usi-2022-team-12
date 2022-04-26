@@ -68,8 +68,7 @@ namespace HealthInstitution.Commands
             }
 
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            Anamnesis an = new Anamnesis("Type anamnesis here");
-            Appointment app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, endTime, emptyRoom, an);
+            Appointment app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, endTime, emptyRoom, "Type anamnesis here", false);
             _viewModel._appointmentService.Create(app);
             Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
             _viewModel._activityService.Create(act);

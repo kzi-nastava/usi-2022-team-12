@@ -24,7 +24,7 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(apt => apt.Doctor == doc && apt.StartDate < toDate && fromDate < apt.EndDate).ToList();
         }
 
-        public IEnumerable<Appointment> ReadDoctorAppointemntsWithoutChosen(Doctor doc, DateTime fromDate, DateTime toDate, Appointment chosenAppointment)
+        public IEnumerable<Appointment> ReadDoctorAppoinmentsWithoutChosen(Doctor doc, DateTime fromDate, DateTime toDate, Appointment chosenAppointment)
         {
             return _entities.Where(apt => apt != chosenAppointment && apt.Doctor == doc && apt.StartDate < toDate && fromDate < apt.EndDate).ToList();
         }
