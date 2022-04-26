@@ -100,14 +100,15 @@ namespace HealthInstitution.Persistence
 
             // Rooom
             var r1 = new Room(RoomType.Storage, "A1");
+            var r2 = new Room(RoomType.ExaminationRoom, "E1");
 
             context.Rooms.Add(r1);
 
 
             // Appointments
-            var ap1 = new Appointment(d1, p1, DateTime.Now, r1, "This is anamnesis", false);
-            var ap2 = new Appointment(d2, p2, DateTime.Now, r1, "This is anamnesis", false);
-            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), r1, "This is anamnesis", false);
+            var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, "This is anamnesis", false);
+            var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, "This is anamnesis", false);
+            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, "This is anamnesis", false);
 
             context.Appointments.Add(ap1);
             context.Appointments.Add(ap2);

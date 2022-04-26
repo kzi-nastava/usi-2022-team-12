@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Text.RegularExpressions;
 
 namespace HealthInstitution.View
 {
     /// <summary>
-    /// Interaction logic for AppointmentCreation.xaml
+    /// Interaction logic for UpdateAppointmentView.xaml
     /// </summary>
-    public partial class AppointmentCreationView : UserControl
+    public partial class AppointmentUpdateView : UserControl
     {
-        public AppointmentCreationView()
+        public AppointmentUpdateView()
         {
             InitializeComponent();
         }
@@ -43,4 +42,3 @@ namespace HealthInstitution.View
         }
     }
 }
-

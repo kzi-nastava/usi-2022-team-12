@@ -8,13 +8,13 @@ namespace HealthInstitution.ViewModel
 {
     public class SecretaryPatientCRUDViewModel : ViewModelBase
     {
-        public ObservableCollection<Patient> Patients { get; set; }
+        public ObservableCollection<Model.Patient> Patients { get; set; }
 
         private readonly IPatientService _patientService;
 
         public SecretaryPatientCRUDViewModel(IPatientService patientService)
         {
-            Patients = new ObservableCollection<Patient>(patientService.ReadAll());
+            Patients = new ObservableCollection<Model.Patient>(patientService.ReadAll());
             _patientService = patientService;
         }
     }
