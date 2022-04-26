@@ -41,6 +41,7 @@ namespace HealthInstitution.Commands
                 switch (user.Role) {
                     case Role.Manager:
                         //todo
+                        TitleManager.Title = "Manager";
                         break;
                     case Role.Administrator:
                         //todo
@@ -49,8 +50,9 @@ namespace HealthInstitution.Commands
                         Patient pt = (Patient)user;
                         if (!pt.IsBlocked)
                         {
-                            EventBus.FireEvent("PatientLogin");
                             GlobalStore.AddObject("LoggedUser", pt);
+                            EventBus.FireEvent("PatientLogin");
+                            TitleManager.Title = "Patient";
                         }
                         else 
                         {
@@ -66,6 +68,7 @@ namespace HealthInstitution.Commands
                         break;
                     case Role.Secretary:
                         EventBus.FireEvent("SecretaryLogin");
+                        TitleManager.Title = "Secretary";
                         break;
                     default:
                         MessageBox.Show("ERR");

@@ -1,7 +1,7 @@
 ﻿
 namespace HealthInstitution.Model
 {
-    public class AppointmentRequest : BaseObservableEntity
+    public abstract class AppointmentRequest : BaseObservableEntity
     {
         #region Attributes
 
@@ -16,6 +16,7 @@ namespace HealthInstitution.Model
 
         private Status _status;
         public Status Status { get => _status; set => OnPropertyChanged(ref _status, value);}
+
 
         #endregion
 

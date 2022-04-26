@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Commands\Manager\" />
     <Folder Include="Commands\Secretary\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Persistence\Database\" />
     <Folder Include="ViewModel\Manager\" />
     <Folder Include="View\Manager\" />
