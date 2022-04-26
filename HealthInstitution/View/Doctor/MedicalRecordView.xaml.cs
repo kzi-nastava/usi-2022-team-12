@@ -18,9 +18,9 @@ namespace HealthInstitution.View
     /// <summary>
     /// Interaction logic for MedicalHistoryView.xaml
     /// </summary>
-    public partial class MedicalHistoryView : UserControl
+    public partial class MedicalRecordView : UserControl
     {
-        public MedicalHistoryView()
+        public MedicalRecordView()
         {
             InitializeComponent();
         }
