@@ -18,7 +18,7 @@ namespace HealthInstitution.ViewModel
             get => GlobalStore.ReadObject<Patient>("LoggedUser").FirstName; 
         }
 
-        public PatientHomeViewModel(IPatientService patientService)
+        public PatientHomeViewModel()
         {
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
             LogOutCommand = new LogOutCommand();

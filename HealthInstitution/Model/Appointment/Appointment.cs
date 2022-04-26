@@ -33,12 +33,12 @@ namespace HealthInstitution.Model
 
         }
 
-        public Appointment(Doctor doctor, Patient patient, DateTime startDate, Room room, Anamnesis anamnesis)
+        public Appointment(Doctor doctor, Patient patient, DateTime startDate, DateTime endDate, Room room, Anamnesis anamnesis)
         {
             _doctor = doctor;
             _patient = patient;
             _startDate = startDate;
-            _endDate = startDate.AddMinutes(15);
+            _endDate = endDate;
             _room = room;
             _anamnesis = anamnesis;
         }

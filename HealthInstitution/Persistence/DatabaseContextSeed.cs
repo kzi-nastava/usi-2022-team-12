@@ -90,8 +90,8 @@ namespace HealthInstitution.Persistence
             var an1 = new Anamnesis("This is anamnesis");
 
             // Appointments
-            var ap1 = new Appointment(d1, p1, DateTime.Now, r2, an1);
-            var ap2 = new Appointment(d2, p2, DateTime.Now.AddDays(1), r2, an1);
+            var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, an1);
+            var ap2 = new Appointment(d2, p2, DateTime.Now.AddDays(1), DateTime.Now.AddDays(1).AddMinutes(15), r2, an1);
 
             context.Appointments.Add(ap1);
             context.Appointments.Add(ap2);
