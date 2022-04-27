@@ -17,6 +17,8 @@ namespace HealthInstitution.ViewModel
 
         public ICommand? ViewRoomEquipmentCommand { get; }
 
+        public ICommand? CreateRoomCommand { get; }
+
         private List<Room> _rooms;
 
         public List<Room> Rooms
@@ -44,6 +46,7 @@ namespace HealthInstitution.ViewModel
         public RoomsCRUDViewModel(IRoomService roomService)
         {
             ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand();
+            CreateRoomCommand = new CreateRoomCommand();
             _roomService = roomService;
             Rooms = _roomService.ReadAll().ToList();
             

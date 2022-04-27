@@ -7,5 +7,7 @@ namespace HealthInstitution.Services.Intefaces
     {
         IEnumerable<Room> ReadRoomsWithType(RoomType rt);
 
+        IEnumerable<Room> ReadRoomsWithName(string name);
+
     }
 }

@@ -51,4 +51,10 @@
         <v:RoomEquipmentView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:RoomCreateViewModel}">
+        <v:RoomCreateView/>
+    </DataTemplate>
+
+
+
 </ResourceDictionary>

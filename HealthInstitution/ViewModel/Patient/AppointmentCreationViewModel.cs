@@ -82,7 +82,7 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _appointmentService = appointmentService;
             _roomService = roomService;
-            _patientService = patientService;
+            _patientService = patientService;  
             Date = DateTime.Now;
             Doctors = doctorService.ReadAll().ToList();
             MakeAppointmentCommand = new MakeAppointmentCommand(this);

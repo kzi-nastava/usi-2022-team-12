@@ -34,6 +34,12 @@ namespace HealthInstitution.ViewModel
                 RoomEquipmentViewModel Revm = ServiceLocator.Get<RoomEquipmentViewModel>();
                 SwitchCurrentViewModel(Revm);
             });
+
+            EventBus.RegisterHandler("CreateRoom", () =>
+            {
+                RoomCreateViewModel Rcvm = ServiceLocator.Get<RoomCreateViewModel>();
+                SwitchCurrentViewModel(Rcvm);
+            });
         }
     }
 }
