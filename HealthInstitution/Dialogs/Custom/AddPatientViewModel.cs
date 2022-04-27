@@ -1,7 +1,10 @@
-﻿using HealthInstitution.Dialogs.Service;
+﻿using HealthInstitution.Commands.Secretary;
+using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
+using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using HealthInstitution.Validation;
+using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -9,7 +12,7 @@ using System.Windows.Input;
 
 namespace HealthInstitution.Dialogs.Custom
 {
-    public class AddPatientViewModel : DialogViewModelBase<AddPatientViewModel, Patient>
+    public class AddPatientViewModel : DialogViewModelBase<AddPatientViewModel>
     {
 
         #region Properties
@@ -79,9 +82,7 @@ namespace HealthInstitution.Dialogs.Custom
 
         #region Commands
 
-        public ICommand Add { get; private set; }
-
-        public ICommand Close { get; private set; }
+        public ICommand AddPatient { get; private set; }
 
         #endregion
 
@@ -91,32 +92,30 @@ namespace HealthInstitution.Dialogs.Custom
 
         #endregion
 
-        public AddPatientViewModel(IDialogService dialogService) :
-            base("Add patient", 650, 600)
+        public AddPatientViewModel(IDialogService dialogService, IPatientService patientService,
+            SecretaryPatientCRUDViewModel secretartyPatientCRUDVM) :
+            base("Add patient", 700, 550)
         {
             _dialogService = dialogService;
 
-            Add = new RelayCommand<IDialogWindow>(w =>
-            {
-                CloseDialogWithResult(w, new Patient
-                {
-                    EmailAddress = Email,
-                    Password = Password,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    Role = Role.Patient,
-                    IsBlocked = false,
-                    Activities = new List<Activity>()
-                });
-            });
-
-            Close = new RelayCommand<IDialogWindow>(w =>  CloseDialogWithResult(w, null));
+            AddPatient = new AddPatientCommand(this, patientService, secretartyPatientCRUDVM);
         }
 
 
+        public void ResetFields()
+        {
+            Email = null;
+            FirstName = null;
+            LastName = null;
+            Password = null;
+            ConfirmPassword = null;
+            DateOfBirth = DateTime.Now;
+            ResetDirtyValues();
+            IsValid();
+        }
+
         public bool IsValid()
         {
-            MessageBox.Show("USP");
             bool valid = true;
 
             // Email

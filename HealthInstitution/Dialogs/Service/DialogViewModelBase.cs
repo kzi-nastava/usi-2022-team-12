@@ -2,7 +2,7 @@
 
 namespace HealthInstitution.Dialogs.Service
 {
-    public abstract class DialogViewModelBase<V, T> : ValidationModel<V>
+    public abstract class DialogViewModelBase<T> : ValidationModel<T>
     {
         public string Title { get; set; }
         public string Message { get; set; }
@@ -13,8 +13,6 @@ namespace HealthInstitution.Dialogs.Service
         public double WindowHeight { get { return _windowHeight; } set { OnPropertyChanged(ref _windowHeight, value); OnPropertyChanged("ContentHeight"); } }
         public double ContentWidth { get => WindowWidth - 60; }
         public double ContentHeight { get => WindowHeight - 60; }
-
-        public T DialogResult { get; set; }
 
         public DialogViewModelBase(string title, string message, int windowWidht, int windowHeight) : base()
         {
@@ -44,10 +42,8 @@ namespace HealthInstitution.Dialogs.Service
         {
         }
 
-        public void CloseDialogWithResult(IDialogWindow dialog, T result)
+        public void CloseDialogWithResult(IDialogWindow dialog, object result)
         {
-            DialogResult = result;
-
             if (dialog != null)
             {
                 dialog.DialogResult = true;

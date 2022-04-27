@@ -44,7 +44,7 @@
                            AncestorType={x:Type Window}}}" />
                     </TextBox.InputBindings>
                 </TextBox>
-                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding UsernameError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
+                <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding EmailError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
                 <!--Date of birth-->
                 <DatePicker Style="{DynamicResource MaterialDesignFloatingHintDatePicker}" materialDesign:HintAssist.Hint="Enter date of birth" IsTodayHighlighted="True" Margin="10 15 10 0" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding DateOfBirthError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
@@ -72,7 +72,7 @@
                     </TextBox.InputBindings>
                 </TextBox>
                 <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" Foreground="Red" DataContext="{Binding ConfirmPasswordError}" Text="{Binding ErrorMessage}" Visibility="{Binding HasError, Converter={StaticResource b2vc}}" Margin="10 0 10 0" FontSize="10" />
-                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add" Margin="10 25 10 15" Foreground="White" Command="{Binding AddPatient}" FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>
+                <Button FontSize="14" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Content="Add" Margin="10 25 10 15" Foreground="White" Command="{Binding AddPatient}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>
             </StackPanel>
         </materialDesign:Card>
     </Grid>

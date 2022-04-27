@@ -7,7 +7,7 @@ namespace HealthInstitution.ViewModel
 {
     public class SecretaryHomeViewModel : NavigableViewModel
     {
-        public ICommand LogOutCommand { get; set; }
+        public ICommand LogOutCommand { get; }
 
         public SecretaryHomeViewModel()
         {

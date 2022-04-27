@@ -1,6 +1,8 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HealthInstitution.Services.Implementation
 {
@@ -8,5 +10,16 @@ namespace HealthInstitution.Services.Implementation
     {
         public PatientService(DatabaseContext context) :
             base(context) {}
+
+
+        public IEnumerable<Patient> ReadAllValidPatients()
+        {
+            return _entities.Where(p => p.IsBlocked == false).ToList();
+        }
+
+        public IEnumerable<Patient> ReadAllBlockedPatients()
+        {
+            return _entities.Where(p => p.IsBlocked == true).ToList();
+        }
     }
 }

@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:HealthInstitution.ViewModel"
-                    xmlns:v="clr-namespace:HealthInstitution.View">
+                    xmlns:v="clr-namespace:HealthInstitution.View"
+                    xmlns:dc="clr-namespace:HealthInstitution.Dialogs.Custom">
 
     <DataTemplate DataType="{x:Type vm:LoginViewModel}">
         <v:LoginView/>
@@ -30,5 +31,11 @@
     <DataTemplate DataType="{x:Type vm:SecretaryPatientCRUDViewModel}">
         <v:SecretaryPatientCRUDView/>
     </DataTemplate>
+    
+    
+    <!--Dialog data templates-->
 
+    <DataTemplate DataType="{x:Type dc:AddPatientViewModel}">
+        <dc:AddPatientView/>
+    </DataTemplate>
 </ResourceDictionary>

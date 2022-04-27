@@ -9,8 +9,8 @@ namespace HealthInstitution.Model
         private bool _isBlocked;
         public bool IsBlocked { get => _isBlocked; set => OnPropertyChanged(ref _isBlocked, value); }
 
-        private readonly IList<Activity> _activities;
-        public virtual IList<Activity> Activities { get => _activities; }
+        private IList<Activity> _activities;
+        public virtual IList<Activity> Activities { get => _activities; set => OnPropertyChanged(ref _activities, value); }
 
         #endregion
 
