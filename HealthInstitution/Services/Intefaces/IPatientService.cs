@@ -8,6 +8,8 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Patient> ReadAllValidPatients();
 
         public IEnumerable<Patient> ReadAllBlockedPatients();
+
+        public void BlockPatient(Patient patientToBlock);
     }
 
 

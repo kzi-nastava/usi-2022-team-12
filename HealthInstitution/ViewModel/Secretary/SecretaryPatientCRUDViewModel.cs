@@ -41,9 +41,11 @@ namespace HealthInstitution.ViewModel
 
         #region Commands
 
-        public ICommand AddPatient { get; set; }
+        public ICommand AddPatient { get; private set; }
 
-        public ICommand UpdatePatient { get; set; }
+        public ICommand UpdatePatient { get; private set; }
+
+        public ICommand BlockPatient { get; private set; }
 
         #endregion
 
@@ -71,6 +73,20 @@ namespace HealthInstitution.ViewModel
                     _dialogService.OpenDialog(updatePatientViewModel);
                 }
             });
+
+            BlockPatient = new RelayCommand(() =>
+            {
+                if (_selectedPatient == null)
+                {
+                    MessageBox.Show("You did not select any patient to delete.");
+                }
+                else
+                {
+                    _patientService.BlockPatient(_selectedPatient);
+                    UpdatePage();
+                }
+            });
+
         }
 
         public void UpdatePage()

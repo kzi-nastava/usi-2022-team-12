@@ -21,5 +21,11 @@ namespace HealthInstitution.Services.Implementation
         {
             return _entities.Where(p => p.IsBlocked == true).ToList();
         }
+
+        public void BlockPatient(Patient patientToBlock)
+        {
+            patientToBlock.IsBlocked = true;
+            Update(patientToBlock);
+        }
     }
 }
