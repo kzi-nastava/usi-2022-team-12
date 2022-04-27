@@ -40,6 +40,12 @@ namespace HealthInstitution.ViewModel
                 RoomCreateViewModel Rcvm = ServiceLocator.Get<RoomCreateViewModel>();
                 SwitchCurrentViewModel(Rcvm);
             });
+
+            EventBus.RegisterHandler("OpenUpdateRoom", () =>
+            {   
+                RoomUpdateViewModel Ruvm = ServiceLocator.Get<RoomUpdateViewModel>();
+                SwitchCurrentViewModel(Ruvm);
+            });
         }
     }
 }

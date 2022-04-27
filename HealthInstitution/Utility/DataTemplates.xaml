@@ -55,6 +55,10 @@
         <v:RoomCreateView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:RoomUpdateViewModel}">
+        <v:RoomUpdateView/>
+    </DataTemplate>
+
 
 
 </ResourceDictionary>
