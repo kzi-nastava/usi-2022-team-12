@@ -1,0 +1,99 @@
+﻿using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.ViewModel;
+using System;
+using System.Collections.Generic;
+
+namespace HealthInstitution.Commands.Secretary
+{
+    public class HandlePatientCommand : CommandBase
+    {
+        private readonly HandlePatientViewModel _handlePatientVM;
+        private readonly IPatientService _patientService;
+        private readonly SecretaryPatientCRUDViewModel _secretaryPatientCRUDVM;
+
+        private Guid _patientId;
+
+        public HandlePatientCommand(HandlePatientViewModel handlePatientVM, IPatientService patientService,
+            SecretaryPatientCRUDViewModel secretaryPatientCRUDVM, Guid patientId)
+        {
+            _handlePatientVM = handlePatientVM;
+            _patientService = patientService;
+            _handlePatientVM.PropertyChanged += _addPatientVM_PropertyChanged;
+            _secretaryPatientCRUDVM = secretaryPatientCRUDVM;
+            _patientId = patientId;
+        }
+
+        private void _addPatientVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(HandlePatientViewModel.CanExecute))
+            {
+                OnCanExecuteChange(sender, e);
+            }
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _handlePatientVM.CanExecute;
+        }
+
+        public override void Execute(object? parameter)
+        {
+            if (_patientId == Guid.Empty)
+            {
+                if (!_patientService.AlreadyInUse(_handlePatientVM.EmailAddress))
+                {
+                    HandleAction(parameter, AddPatient);
+                }
+                else
+                {
+                    _handlePatientVM.EmailAddressError.ErrorMessage = "Email already in use.";
+                }
+            }
+            else
+            {
+                HandleAction(parameter, UpdatePatient);
+            }
+        }
+
+        public void HandleAction(object parameter, Action action)
+        {
+            action();
+            _secretaryPatientCRUDVM.UpdatePage();
+            _handlePatientVM.ResetFields();
+            _handlePatientVM.CloseDialogWithResult((IDialogWindow)parameter, null);
+        }
+
+        public void AddPatient()
+        {
+            var patientToRegister = new Patient
+            {
+                EmailAddress = _handlePatientVM.EmailAddress,
+                Password = _handlePatientVM.Password,
+                FirstName = _handlePatientVM.FirstName,
+                LastName = _handlePatientVM.LastName,
+                DateOfBirth = _handlePatientVM.DateOfBirth,
+                Role = Role.Patient,
+                IsBlocked = false,
+                Activities = new List<Activity>()
+            };
+
+            _patientService.Create(patientToRegister);
+        }
+
+        public void UpdatePatient()
+        {
+            var patientToUpdate = _patientService.Read(_patientId);
+
+            patientToUpdate.EmailAddress = _handlePatientVM.EmailAddress;
+            patientToUpdate.Password = _handlePatientVM.Password;
+            patientToUpdate.FirstName = _handlePatientVM.FirstName;
+            patientToUpdate.LastName = _handlePatientVM.LastName;
+            patientToUpdate.DateOfBirth = _handlePatientVM.DateOfBirth;
+
+            _patientService.Update(patientToUpdate);
+        }
+    }
+}

@@ -9,5 +9,22 @@ namespace HealthInstitution.Services.Implementation
     {
         public PatientService(DatabaseContext context) :
             base(context) {}
+
+
+        public IEnumerable<Patient> ReadAllValidPatients()
+        {
+            return _entities.Where(p => p.IsBlocked == false).ToList();
+        }
+
+        public IEnumerable<Patient> ReadAllBlockedPatients()
+        {
+            return _entities.Where(p => p.IsBlocked == true).ToList();
+        }
+
+        public void BlockPatient(Patient patientToBlock)
+        {
+            patientToBlock.IsBlocked = true;
+            Update(patientToBlock);
+        }
     }
 }
