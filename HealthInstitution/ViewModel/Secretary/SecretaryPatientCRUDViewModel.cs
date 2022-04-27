@@ -4,13 +4,17 @@ using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
     public class SecretaryPatientCRUDViewModel : ObservableEntity
     {
+        #region Properties
+
         private ObservableCollection<Patient> _patients;
         public ObservableCollection<Patient> Patients
         {
@@ -18,11 +22,30 @@ namespace HealthInstitution.ViewModel
             set { OnPropertyChanged(ref _patients, value); }
         }
 
+        private Patient _selectedPatient;
+        public Patient SelectedPatient
+        {
+            get { return _selectedPatient; }
+            set { OnPropertyChanged(ref _selectedPatient, value); }
+        }
+
+        #endregion
+
+        #region Services
+
         private readonly IPatientService _patientService;
 
         private readonly IDialogService _dialogService;
 
-        public ICommand AddPatient { get; set; } 
+        #endregion
+
+        #region Commands
+
+        public ICommand AddPatient { get; set; }
+
+        public ICommand UpdatePatient { get; set; }
+
+        #endregion
 
         public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientService patientService)
         {
@@ -30,10 +53,24 @@ namespace HealthInstitution.ViewModel
             _patientService = patientService;
             _dialogService = dialogService;
 
-            AddPatientViewModel addPatientViewModel = new AddPatientViewModel(dialogService, patientService, this);
-
             AddPatient = new RelayCommand(() =>
-            _dialogService.OpenDialog(addPatientViewModel));
+            {
+                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientService, this, Guid.Empty);
+                _dialogService.OpenDialog(handlePatientViewModel);
+            });
+
+            UpdatePatient = new RelayCommand(() =>
+            {
+                if (_selectedPatient == null)
+                {
+                    MessageBox.Show("You did not select any patient to update.");
+                }
+                else
+                {
+                    HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientService, this, _selectedPatient.Id);
+                    _dialogService.OpenDialog(updatePatientViewModel);
+                }
+            });
         }
 
         public void UpdatePage()

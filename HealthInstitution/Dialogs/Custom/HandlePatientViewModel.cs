@@ -1,28 +1,24 @@
 ﻿using HealthInstitution.Commands.Secretary;
 using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
 using HealthInstitution.Validation;
 using HealthInstitution.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.Dialogs.Custom
 {
-    public class AddPatientViewModel : DialogViewModelBase<AddPatientViewModel>
+    public class HandlePatientViewModel : DialogViewModelBase<HandlePatientViewModel>
     {
 
         #region Properties
 
-        private string _email;
+        private string _emailAddress;
         [ValidationField]
-        public string Email
+        public string EmailAddress
         {
-            get { return _email; }
-            set { _email = value; OnPropertyChanged(nameof(Email)); OnPropertyChanged(nameof(CanAdd)); }
+            get { return _emailAddress; }
+            set { _emailAddress = value; OnPropertyChanged(nameof(EmailAddress)); OnPropertyChanged(nameof(CanExecute)); }
         }
 
         private string _firstName;
@@ -30,7 +26,7 @@ namespace HealthInstitution.Dialogs.Custom
         public string FirstName
         {
             get { return _firstName; }
-            set { _firstName = value; OnPropertyChanged(nameof(FirstName)); OnPropertyChanged(nameof(CanAdd)); }
+            set { _firstName = value; OnPropertyChanged(nameof(FirstName)); OnPropertyChanged(nameof(CanExecute)); }
         }
 
         private string _lastName;
@@ -38,7 +34,7 @@ namespace HealthInstitution.Dialogs.Custom
         public string LastName
         {
             get { return _lastName; }
-            set { _lastName = value; OnPropertyChanged(nameof(LastName)); OnPropertyChanged(nameof(CanAdd)); }
+            set { _lastName = value; OnPropertyChanged(nameof(LastName)); OnPropertyChanged(nameof(CanExecute)); }
         }
 
         private string _password;
@@ -46,7 +42,7 @@ namespace HealthInstitution.Dialogs.Custom
         public string Password
         {
             get { return _password; }
-            set { _password = value; OnPropertyChanged(nameof(Password)); OnPropertyChanged(nameof(CanAdd)); }
+            set { _password = value; OnPropertyChanged(nameof(Password)); OnPropertyChanged(nameof(CanExecute)); }
         }
 
         private string _confirmPassword;
@@ -54,7 +50,7 @@ namespace HealthInstitution.Dialogs.Custom
         public string ConfirmPassword
         {
             get { return _confirmPassword; }
-            set { _confirmPassword = value; OnPropertyChanged(nameof(ConfirmPassword)); OnPropertyChanged(nameof(CanAdd)); }
+            set { _confirmPassword = value; OnPropertyChanged(nameof(ConfirmPassword)); OnPropertyChanged(nameof(CanExecute)); }
         }
 
         private DateTime _dateOfBirth = DateTime.Now;
@@ -62,8 +58,18 @@ namespace HealthInstitution.Dialogs.Custom
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
-            set { _dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); OnPropertyChanged(nameof(CanAdd)); }
+            set { _dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); OnPropertyChanged(nameof(CanExecute)); }
         }
+
+        #endregion
+
+        #region Additional properties
+
+        public bool ReadOnlyEmailAddress { get; private set; }
+
+        private Guid _patientId;
+
+        public string ActionButtonName { get; private set; }
 
         #endregion
 
@@ -71,18 +77,18 @@ namespace HealthInstitution.Dialogs.Custom
 
         public ErrorMessageViewModel FirstNameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel LastNameError { get; private set; } = new ErrorMessageViewModel();
-        public ErrorMessageViewModel EmailError { get; private set; } = new ErrorMessageViewModel();
+        public ErrorMessageViewModel EmailAddressError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel PasswordError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel ConfirmPasswordError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel DateOfBirthError { get; private set; } = new ErrorMessageViewModel();
 
-        public bool CanAdd => IsValid();
+        public bool CanExecute => IsValid();
 
         #endregion
 
         #region Commands
 
-        public ICommand AddPatient { get; private set; }
+        public ICommand HandlePatient { get; private set; }
 
         #endregion
 
@@ -90,21 +96,37 @@ namespace HealthInstitution.Dialogs.Custom
 
         private readonly IDialogService _dialogService;
 
+        private readonly IPatientService _patientService;
+
         #endregion
 
-        public AddPatientViewModel(IDialogService dialogService, IPatientService patientService,
-            SecretaryPatientCRUDViewModel secretartyPatientCRUDVM) :
+        public HandlePatientViewModel(IDialogService dialogService, IPatientService patientService,
+            SecretaryPatientCRUDViewModel secretartyPatientCRUDVM, Guid patientId) :
             base("Add patient", 700, 550)
         {
             _dialogService = dialogService;
+            _patientService = patientService;
+            _patientId = patientId;
 
-            AddPatient = new AddPatientCommand(this, patientService, secretartyPatientCRUDVM);
+            if (patientId != Guid.Empty)
+            {
+                FetchPatient();
+                ActionButtonName = "Update";
+                ReadOnlyEmailAddress = true;
+            } 
+            else
+            {
+                ActionButtonName = "Add";
+                ReadOnlyEmailAddress = false;
+            }
+
+            HandlePatient = new HandlePatientCommand(this, patientService, secretartyPatientCRUDVM, patientId);
         }
 
 
         public void ResetFields()
         {
-            Email = null;
+            EmailAddress = null;
             FirstName = null;
             LastName = null;
             Password = null;
@@ -114,19 +136,32 @@ namespace HealthInstitution.Dialogs.Custom
             IsValid();
         }
 
+        public void FetchPatient()
+        {
+            var patient = _patientService.Read(_patientId);
+
+            EmailAddress = patient.EmailAddress;
+            FirstName = patient.FirstName;
+            LastName = patient.LastName;
+            Password = patient.Password;
+            ConfirmPassword = patient.Password;
+            DateOfBirth = patient.DateOfBirth;
+
+        }
+
         public bool IsValid()
         {
             bool valid = true;
 
             // Email
-            if (string.IsNullOrEmpty(Email) && IsDirty(nameof(Email))) 
+            if (string.IsNullOrEmpty(EmailAddress) && IsDirty(nameof(EmailAddress))) 
             {
-                EmailError.ErrorMessage = "Email cannot be empty.";
+                EmailAddressError.ErrorMessage = "Email cannot be empty.";
                 valid = false;
             } 
             else
             {
-                EmailError.ErrorMessage = null;
+                EmailAddressError.ErrorMessage = null;
             }
 
             // First name

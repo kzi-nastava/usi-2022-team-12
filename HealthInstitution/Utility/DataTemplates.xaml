@@ -35,7 +35,7 @@
     
     <!--Dialog data templates-->
 
-    <DataTemplate DataType="{x:Type dc:AddPatientViewModel}">
-        <dc:AddPatientView/>
+    <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
+        <dc:HandlePatientView/>
     </DataTemplate>
 </ResourceDictionary>
