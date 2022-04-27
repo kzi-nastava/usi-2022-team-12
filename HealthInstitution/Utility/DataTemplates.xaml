@@ -37,6 +37,18 @@
 
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
         <v:AppointmentUpdateView/>
+    </DataTemplate> 
+    
+    <DataTemplate DataType="{x:Type vm:ManagerHomeViewModel}">
+        <v:ManagerHomeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomsCRUDViewModel}">
+        <v:RoomsCRUDView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomEquipmentViewModel}">
+        <v:RoomEquipmentView/>
     </DataTemplate>
 
 </ResourceDictionary>

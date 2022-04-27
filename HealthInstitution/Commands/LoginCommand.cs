@@ -40,7 +40,7 @@ namespace HealthInstitution.Commands
                 ViewModelBase viewModel;
                 switch (user.Role) {
                     case Role.Manager:
-                        //todo
+                        EventBus.FireEvent("ManagerLogin");
                         break;
                     case Role.Administrator:
                         //todo
