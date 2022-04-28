@@ -23,5 +23,9 @@ namespace HealthInstitution.Commands
             CanExecuteChanged?.Invoke(this, new EventArgs());
         }
 
+        protected void OnCanExecuteChange(object sender, EventArgs e)
+        {
+            CanExecuteChanged?.Invoke(sender, e);
+        }
     }
 }

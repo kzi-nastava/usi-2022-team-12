@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Persistence;
+﻿using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Persistence;
 using HealthInstitution.Services.Implementation;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.ViewModel;
@@ -21,7 +22,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IIllnessService)).To(typeof(IllnessService));
             Bind(typeof(IAllergenService)).To(typeof(AllergenService));
 
-            //Bind(typeof(IDialogService)).To(typeof(DialogService));
+            Bind(typeof(IDialogService)).To(typeof(DialogService));
 
             Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope();
 

@@ -18,7 +18,14 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="Blue"
+                                             SecondaryColor="LightBlue" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <!--Fonts-->
+            <FontFamily x:Key="Password">pack://application:,,,/Fonts/#password</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
