@@ -44,7 +44,7 @@
             <Button Content="View equipment" Padding="5" FontSize="14" Command="{Binding ViewRoomEquipmentCommand}"/>
             <Button Content="Add room" Padding="5" Margin="15 0 0 0" FontSize="14" Command="{Binding CreateRoomCommand}"/>
             <Button Content="Update room" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding OpenUpdateRoomCommand}"/>
-            <Button Content="Remove room" Padding="5" Margin="15 0 0 0"  FontSize="14"/>
+            <Button Content="Remove room" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding DeleteRoomCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -19,15 +19,6 @@
             <TextBox Margin="10, 0, 50, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="{Binding RoomName, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="Type:" FontSize="18"/>
             <ComboBox Margin="10,0,50,0" SelectedItem="{Binding SelectedType}" ItemsSource="{Binding RoomTypes}" HorizontalAlignment="Left" Width="210">
-                <!--<ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>-->
             </ComboBox>
         </StackPanel>
         <Button Grid.Row="2" Margin="0, 30" FontSize="18" Content="Add room" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="180" Command="{Binding AddRoomCommand}"/>

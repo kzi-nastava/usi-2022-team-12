@@ -13,13 +13,16 @@ namespace HealthInstitution.ViewModel
 {
     public class RoomsCRUDViewModel : ViewModelBase
     {
-        public readonly IRoomService _roomService;
+        public readonly IRoomService roomService;
+        public readonly IAppointmentService appointmentService;
 
         public ICommand? ViewRoomEquipmentCommand { get; }
 
         public ICommand? CreateRoomCommand { get; }
 
         public ICommand? OpenUpdateRoomCommand { get; }
+
+        public ICommand? DeleteRoomCommand { get; }
 
         private List<Room> _rooms;
 
@@ -45,13 +48,17 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public RoomsCRUDViewModel(IRoomService roomService)
+        public RoomsCRUDViewModel(IRoomService roomService, IAppointmentService appointmentService)
         {
+            roomService = roomService;
+            appointmentService = appointmentService;
+            
             ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand();
             CreateRoomCommand = new CreateRoomCommand();
             OpenUpdateRoomCommand = new OpenUpdateRoomCommand();
-            _roomService = roomService;
-            Rooms = _roomService.ReadAll().ToList();
+            DeleteRoomCommand = new DeleteRoomCommand(appointmentService, roomService);
+            
+            Rooms = roomService.ReadAll().ToList();
             
         }
     }

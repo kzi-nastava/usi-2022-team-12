@@ -38,5 +38,10 @@ namespace HealthInstitution.Services.Implementation
         {
             return _entities.Where(apt => apt.Patient == pt).ToList();
         }
+
+        public IEnumerable<Appointment> ReadRoomAppointments(Room r)
+        {
+            return _entities.Where(apt => apt.Room == r).ToList();
+        }
     }
 }

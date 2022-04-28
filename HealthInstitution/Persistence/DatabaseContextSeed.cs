@@ -71,6 +71,9 @@ namespace HealthInstitution.Persistence
             context.Equipments.Add(e3);
             context.Equipments.Add(e4);
             context.Equipments.Add(e5);
+            context.Equipments.Add(e6);
+            context.Equipments.Add(e7);
+            context.Equipments.Add(e8);
 
             // Ingredient
             var i1 = new Ingredient { Name = "Kalcijum" };
