@@ -17,13 +17,9 @@ namespace HealthInstitution.Model
         private Doctor _doctor;
         public virtual Doctor Doctor { get => _doctor; set => OnPropertyChanged(ref _doctor, value); }
 
-        public AppointmentUpdateRequest() { }
+        private Room _room;
+        public virtual Room Room { get => _room; set => OnPropertyChanged(ref _room, value); }
 
-        public AppointmentUpdateRequest(DateTime startDate, DateTime endDate, Doctor doctor)
-        {
-            _startDate = startDate;
-            _endDate = endDate;
-            _doctor = doctor;
-        }
+        public AppointmentUpdateRequest() { }
     }
 }

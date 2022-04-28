@@ -105,7 +105,8 @@ namespace HealthInstitution.Services.Implementation
                     Status = Status.Pending,
                     StartDate = startDate,
                     EndDate = endDate,
-                    Doctor = selectedDoctor
+                    Doctor = selectedDoctor,
+                    Room = emptyRoom
                 };
                 _appointmentUpdateRequestService.Create(appointmentRequest);
                 return false;
@@ -115,6 +116,7 @@ namespace HealthInstitution.Services.Implementation
                 selectedAppointment.StartDate = startDate;
                 selectedAppointment.EndDate = endDate;
                 selectedAppointment.Doctor = selectedDoctor;
+                selectedAppointment.Room = emptyRoom;
                 Update(selectedAppointment);
                 return true;
             }
