@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:converters="clr-namespace:HealthInstitution.Converters"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <converters:BoolToYNConverter x:Key="BoolToYNConverter"/>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -60,7 +63,7 @@
                     <GridViewColumn Header="Is Done" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding IsDone}"/>
+                                <TextBlock Padding="0 0 20 0" Text="{Binding IsDone, Converter={StaticResource BoolToYNConverter}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Intefaces
 {
-    public interface IMedicalRecordService : ICrudService<MedicalRecord>
+    public interface IIllnessService : ICrudService<Illness>
     {
-        MedicalRecord GetMedicalRecordForPatient(Patient patient);
+
     }
 }

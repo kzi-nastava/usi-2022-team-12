@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Commands
 {
-    internal class NavigateMedicalRecordCommand : CommandBase
+    public class StartAppointmentCommand : CommandBase
     {
         private DoctorScheduleViewModel _viewModel;
-        public NavigateMedicalRecordCommand(ViewModelBase viewModel)
+        public StartAppointmentCommand(ViewModelBase viewModel)
         {
             _viewModel = (DoctorScheduleViewModel)viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -28,12 +28,16 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _viewModel.SelectedAppointment is not null && base.CanExecute(parameter);
+            return _viewModel.SelectedAppointment is not null
+                && !_viewModel.SelectedAppointment.IsDone
+                && _viewModel.SelectedAppointment.Appointment.StartDate.Date >= DateTime.Now.Date
+                && base.CanExecute(parameter);
         }
+
         public override void Execute(object? parameter)
         {
-            GlobalStore.AddObject("SelectedPatient", _viewModel.SelectedAppointment.Patient);
-            EventBus.FireEvent("MedicalRecord");
+            GlobalStore.AddObject("SelectedAppointment", _viewModel.SelectedAppointment.Appointment);
+            EventBus.FireEvent("Examination");
         }
     }
 }

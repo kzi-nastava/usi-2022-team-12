@@ -15,9 +15,9 @@ namespace HealthInstitution.ViewModel
     {
         private readonly MedicalRecordService _medicalRecordService;
 
-        private Patient _patient;
+        private readonly Patient _patient;
 
-        private MedicalRecord _medicalRecord;
+        private readonly MedicalRecord _medicalRecord;
         public string PatientFullName => _patient.FullName;
 
         public string Height => _medicalRecord.Height.ToString();

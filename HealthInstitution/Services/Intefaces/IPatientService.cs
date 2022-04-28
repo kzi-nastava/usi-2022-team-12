@@ -9,6 +9,8 @@ namespace HealthInstitution.Services.Intefaces
 
         public IEnumerable<Patient> ReadAllBlockedPatients();
 
+        public IEnumerable<Patient> FilterPatientsBySearchText(string searchText);
+
         public void BlockPatient(Patient patientToBlock);
 
         public void UnblockPatient(Patient patientToUnblock);

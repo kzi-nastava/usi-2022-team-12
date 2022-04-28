@@ -16,18 +16,15 @@ using System.Windows.Shapes;
 namespace HealthInstitution.View
 {
     /// <summary>
-    /// Interaction logic for SecretaryPatientCRUDView.xaml
+    /// Interaction logic for ExaminationView.xaml
     /// </summary>
-    public partial class SecretaryPatientCRUDView : UserControl
+    public partial class ExaminationView : UserControl
     {
-        public SecretaryPatientCRUDView()
+        public ExaminationView()
         {
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
     }
 }

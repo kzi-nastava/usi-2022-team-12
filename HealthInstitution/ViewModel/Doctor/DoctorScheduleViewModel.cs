@@ -19,13 +19,16 @@ namespace HealthInstitution.ViewModel
     {
         public class AppointmentViewModel : ViewModelBase
         {
-            private readonly Appointment _appointment;            
+            private readonly Appointment _appointment;
+            public Appointment Appointment => _appointment;
             public Patient Patient => _appointment.Patient;
-            public string PatientName => _appointment.Patient.FullName;              
-            public string Date => _appointment.StartDate.ToString("D");                
+            public string PatientName => _appointment.Patient.FullName;
+            //public string Date => _appointment.StartDate.ToString("D");
+
+            public DateTime Date => _appointment.StartDate;
             public string Time => _appointment.StartDate.ToString("t");                
             public string Room => _appointment.Room.Name;
-            public string IsDone => _appointment.IsDone ? "Yes" : "No";
+            public bool IsDone => _appointment.IsDone;
             public AppointmentViewModel(Appointment appointment)
             {
                 _appointment = appointment;
@@ -87,12 +90,14 @@ namespace HealthInstitution.ViewModel
         public IEnumerable<AppointmentViewModel> Appointments => _appointments;
 
         public ICommand? OpenMedicalRecordCommand { get; }
+        public ICommand? StartAppointmentCommand { get; }
         public DoctorScheduleViewModel(AppointmentService appointemntService)
         {
-            OpenMedicalRecordCommand = new NavigateMedicalRecordCommand(this);
             _userDate = DateTime.Now;
             _appointmentService = appointemntService;
             _appointments = new ObservableCollection<AppointmentViewModel>();
+            OpenMedicalRecordCommand = new NavigateMedicalRecordCommand(this);
+            StartAppointmentCommand = new StartAppointmentCommand(this);
             UpdateData();
 
         }

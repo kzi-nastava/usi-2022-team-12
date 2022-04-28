@@ -32,9 +32,9 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
+                             IsChecked="True"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding NavigateScheduleCommand}"/>
-
                 </StackPanel>
 
                 <Button Content="Log out"

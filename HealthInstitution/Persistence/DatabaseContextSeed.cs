@@ -28,7 +28,7 @@ namespace HealthInstitution.Persistence
             context.Allergens.Add(alr1);
 
             // Illnesses
-            var il1 = new Illness("Illness1");
+            var il1 = new Illness { Name = "Illness1"};
 
             context.Illness.Add(il1);
 
@@ -106,9 +106,14 @@ namespace HealthInstitution.Persistence
 
 
             // Appointments
-            var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, "This is anamnesis", false);
-            var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, "This is anamnesis", false);
-            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, "This is anamnesis", false);
+            //var ap1 = new Appointment { Doctor = d1, Patient=p1, StartDate=DateTime.Now, EndDate=DateTime.Now.AddMinutes(15), Room=r2, IsDone=false };
+            var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
+
+            //var ap2 = new Appointment { Doctor = d2, Patient = p2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddMinutes(15), Room = r2, IsDone = false };
+            var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
+
+            //var ap3 = new Appointment { Doctor = d1, Patient = p3, StartDate = DateTime.Now, EndDate = DateTime.Now.AddMinutes(15), Room = r2, IsDone = false };
+            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, null, false);
 
             context.Appointments.Add(ap1);
             context.Appointments.Add(ap2);

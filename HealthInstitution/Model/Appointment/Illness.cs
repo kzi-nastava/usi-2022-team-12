@@ -17,7 +17,7 @@ namespace HealthInstitution.Model
         #endregion
 
         #region Constructor
-
+        public Illness() { }
         public Illness(string name)
         {
             Name = name;
