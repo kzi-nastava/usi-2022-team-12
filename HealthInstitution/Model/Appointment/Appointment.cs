@@ -24,8 +24,8 @@ namespace HealthInstitution.Model
         private bool _isDone;
         public bool IsDone { get => _isDone; set => OnPropertyChanged(ref _isDone, value);}
 
-        private string _anamnesis;
-        public string Anamnesis { get => _anamnesis; set => OnPropertyChanged(ref _anamnesis, value); }
+        private string? _anamnesis;
+        public string? Anamnesis { get => _anamnesis; set => OnPropertyChanged(ref _anamnesis, value); }
 
         #endregion
 
