@@ -35,7 +35,7 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding ChangeView}"/>
+                             Command="{Binding EquipmentOverviewCommand}"/>
 
                     <RadioButton Content="Arrange equipment"
                              Height="50"

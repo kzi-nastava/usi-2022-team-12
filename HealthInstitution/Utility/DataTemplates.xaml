@@ -59,6 +59,10 @@
         <v:RoomUpdateView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:EquipmentOverviewViewModel}">
+        <v:EquipmentOverviewView/>
+    </DataTemplate>
+
 
 
 </ResourceDictionary>

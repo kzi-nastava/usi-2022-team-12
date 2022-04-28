@@ -13,9 +13,12 @@ namespace HealthInstitution.ViewModel
 
         public ICommand? RoomsOverviewCommand { get; set; }
 
+        public ICommand? EquipmentOverviewCommand { get; set; }
+
         public ManagerHomeViewModel ()
         {
             RoomsOverviewCommand = new RoomsOverviewCommand();
+            EquipmentOverviewCommand = new EquipmentOverviewCommand();
             LogOutCommand = new LogOutCommand ();
             SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
             RegisterHandler();
@@ -45,6 +48,12 @@ namespace HealthInstitution.ViewModel
             {   
                 RoomUpdateViewModel Ruvm = ServiceLocator.Get<RoomUpdateViewModel>();
                 SwitchCurrentViewModel(Ruvm);
+            });
+
+            EventBus.RegisterHandler("EquipmentOverview", () =>
+            {
+                EquipmentOverviewViewModel Eovm = ServiceLocator.Get<EquipmentOverviewViewModel>();
+                SwitchCurrentViewModel(Eovm);
             });
         }
     }
