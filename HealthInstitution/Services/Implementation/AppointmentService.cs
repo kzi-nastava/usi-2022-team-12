@@ -22,26 +22,22 @@ namespace HealthInstitution.Services.Implementation
 
         public bool makeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
 
-            //doctors availabilty check
-            var doctorAvailability = IsDoctorAvailable(selectedDoctor, startDate, endDate);
-            if (!doctorAvailability)
+            //doctor availabilty check
+            bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDate, endDate);
+            bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDate, endDate);
+            if (!doctorAvailability || !doctorRequestAvailability)
             {
                 throw new DoctorBusyException();
             }
 
-            doctorAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDate, endDate);
-            if (!doctorAvailability)
-            {
-                throw new DoctorBusyException();
-            }
-
-            //rooms availabilty check
+            //room availabilty check
             var examinationRooms = _roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
             Room emptyRoom = null;
             foreach (var room in examinationRooms)
             {
-                var roomAvailability = IsRoomAvailable(room, startDate, endDate);
-                if (roomAvailability)
+                bool roomAvailability = IsRoomAvailable(room, startDate, endDate);
+                bool roomRequestAvailability = _appointmentUpdateRequestService.IsRoomAvailable(room, startDate, endDate);
+                if (roomAvailability && roomRequestAvailability)
                 {
                     emptyRoom = room;
                     break;
@@ -59,14 +55,9 @@ namespace HealthInstitution.Services.Implementation
         }
 
         public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
-            var doctorAvailability = IsDoctorAvailableForUpdate(selectedDoctor, startDate, endDate, selectedAppointment);
-            if (!doctorAvailability)
-            {
-                throw new DoctorBusyException();
-            }
-
-            doctorAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDate, endDate);
-            if (!doctorAvailability)
+            bool doctorAvailability = IsDoctorAvailableForUpdate(selectedDoctor, startDate, endDate, selectedAppointment);
+            bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDate, endDate);
+            if (!doctorAvailability || !doctorRequestAvailability)
             {
                 throw new DoctorBusyException();
             }
@@ -76,8 +67,9 @@ namespace HealthInstitution.Services.Implementation
             Room emptyRoom = null;
             foreach (var room in examinationRooms)
             {
-                var available = IsRoomAvailableForUpdate(room, startDate, endDate, selectedAppointment);
-                if (available)
+                bool roomAvailability = IsRoomAvailableForUpdate(room, startDate, endDate, selectedAppointment);
+                bool roomRequestAvailability = _appointmentUpdateRequestService.IsRoomAvailable(room, startDate, endDate);
+                if (roomAvailability && roomRequestAvailability)
                 {
                     emptyRoom = room;
                     break;

@@ -20,5 +20,10 @@ namespace HealthInstitution.Services.Implementation
         {
             return (_entities.Where(req => req.Doctor == doctor && req.StartDate < toDate && fromDate < req.EndDate).Count() == 0);
         }
+
+        public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate)
+        {
+            return (_entities.Where(req => req.Room == room && req.StartDate < toDate && fromDate < req.EndDate).Count() == 0);
+        }
     }
 }

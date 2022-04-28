@@ -63,11 +63,11 @@ namespace HealthInstitution.Commands
                     }
                 }
             }
-            catch (DoctorBusyException ex)
+            catch (DoctorBusyException)
             {
                 MessageBox.Show("Selected doctor is busy at selected time!");
             }
-            catch (RoomBusyException ex)
+            catch (RoomBusyException)
             {
                 MessageBox.Show("All rooms are busy at selected time!");
             }

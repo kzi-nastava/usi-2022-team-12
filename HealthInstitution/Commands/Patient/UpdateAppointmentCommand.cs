@@ -70,15 +70,15 @@ namespace HealthInstitution.Commands
                     EventBus.FireEvent("PatientAppointments");
                 }
             }
-            catch (DoctorBusyException ex)
+            catch (DoctorBusyException)
             {
                 MessageBox.Show("Selected doctor is busy at selected time!");
             }
-            catch (RoomBusyException ex)
+            catch (RoomBusyException)
             {
                 MessageBox.Show("All rooms are busy at selected time!");
             }
-            catch (UpdateFailedException ex) {
+            catch (UpdateFailedException) {
                 MessageBox.Show("You didn't update any of information!\n(Appointment remains the same)");
                 EventBus.FireEvent("PatientAppointments");
             }
