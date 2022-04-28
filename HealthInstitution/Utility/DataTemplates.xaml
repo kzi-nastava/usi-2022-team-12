@@ -2,11 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:HealthInstitution.ViewModel"
                     xmlns:v="clr-namespace:HealthInstitution.View">
-
+    <!-- General -->
     <DataTemplate DataType="{x:Type vm:LoginViewModel}">
         <v:LoginView/>
     </DataTemplate>
+    <!-- General -->
     
+    <!-- Doctor -->
     <DataTemplate DataType="{x:Type vm:DoctorHomeViewModel}">
         <v:DoctorHomeView/>
     </DataTemplate>
@@ -18,7 +20,13 @@
     <DataTemplate DataType="{x:Type vm:MedicalRecordViewModel}">
         <v:MedicalRecordView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ExaminationViewModel}">
+        <v:ExaminationView/>
+    </DataTemplate>
+    <!-- Doctor -->
     
+    <!-- Patient -->
     <DataTemplate DataType="{x:Type vm:PatientHomeViewModel}">
         <v:PatientHomeView/>
     </DataTemplate>
@@ -30,7 +38,9 @@
     <DataTemplate DataType="{x:Type vm:AppointmentCreationViewModel}">
         <v:AppointmentCreationView/>
     </DataTemplate>
-
+    <!-- Patient -->
+    
+    <!-- Secretary -->
     <DataTemplate DataType="{x:Type vm:SecretaryHomeViewModel}">
         <v:SecretaryHomeView/>
     </DataTemplate>
@@ -42,5 +52,8 @@
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
         <v:AppointmentUpdateView/>
     </DataTemplate>
+    <!-- Secretary -->
 
+    <!-- Manager -->
+    <!-- Manager -->
 </ResourceDictionary>
