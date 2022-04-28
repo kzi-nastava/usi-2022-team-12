@@ -2,6 +2,7 @@
 using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Implementation;
+using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
@@ -31,15 +32,23 @@ namespace HealthInstitution.ViewModel
 
         private void RegisterHandler()
         {
+            DoctorScheduleViewModel doctorScheduleViewModel = ServiceLocator.Get<DoctorScheduleViewModel>();
             EventBus.RegisterHandler("DoctorSchedule", () =>
             {
-                DoctorScheduleViewModel viewModel = ServiceLocator.Get<DoctorScheduleViewModel>();
+                SwitchCurrentViewModel(doctorScheduleViewModel);
+            });
+            EventBus.RegisterHandler("MedicalRecord", () =>
+            {
+                MedicalRecordViewModel viewModel = new(ServiceLocator.Get<MedicalRecordService>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 SwitchCurrentViewModel(viewModel);
             });
-            EventBus.RegisterHandler("MedicalHistory", () =>
+            EventBus.RegisterHandler("Examination", () =>
             {
-                //MedicalHistoryViewModel viewModel = ServiceLocator.Get<MedicalHistoryViewModel>();
-                MedicalRecordViewModel viewModel = new MedicalRecordViewModel(ServiceLocator.Get<MedicalRecordService>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                ExaminationViewModel viewModel = new(ServiceLocator.Get<MedicalRecordService>(),
+                                                    ServiceLocator.Get<IIllnessService>(),
+                                                    ServiceLocator.Get<IAllergenService>(),
+                                                    ServiceLocator.Get<IAppointmentService>(),
+                                                    GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
         }
