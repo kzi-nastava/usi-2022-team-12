@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace HealthInstitution.Services.Intefaces
 {
     public interface IAppointmentService : ICrudService<Appointment> {
-        IEnumerable<Appointment> ReadDoctorAppointemnts(Doctor doc, DateTime fromDate, DateTime toDate);
-        IEnumerable<Appointment> ReadDoctorAppoinmentsWithoutChosen(Doctor doc, DateTime fromDate, DateTime toDate, Appointment chosenAppointment);
-        IEnumerable<Appointment> ReadAppointemntsInInterval(DateTime fromDate, DateTime toDate);
-        IEnumerable<Appointment> ReadAppointemntsInIntervalWithoutChosen(DateTime fromDate, DateTime toDate, Appointment chosenAppointment);
         IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
+        bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
+        bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
+        bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate);
+        bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
     }
 
 }

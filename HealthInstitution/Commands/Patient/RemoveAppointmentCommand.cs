@@ -42,7 +42,7 @@ namespace HealthInstitution.Commands
             else if (DateTime.Now.AddDays(2) > apt.StartDate) {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
                 AppointmentDeleteRequest appointmentRequest = new AppointmentDeleteRequest { Patient = pt, Appointment = apt, ActivityType = ActivityType.Delete };
-                _viewModel._appointmentRequestService.Create(appointmentRequest);
+                _viewModel._appointmentDeleteRequestService.Create(appointmentRequest);
                 MessageBox.Show("Request for appointment deletion created successfully!\nPlease wait for secretary to review it.");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);

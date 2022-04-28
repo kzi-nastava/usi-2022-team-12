@@ -18,30 +18,28 @@ namespace HealthInstitution.Services.Implementation
         {
             return _entities.Where(e => e.Doctor == doctor && e.StartDate.Date >= start.Date && e.StartDate.Date <= end.Date);
         }
-        
-        public IEnumerable<Appointment> ReadDoctorAppointemnts(Doctor doc, DateTime fromDate, DateTime toDate)
-        {
-            return _entities.Where(apt => apt.Doctor == doc && apt.StartDate < toDate && fromDate < apt.EndDate).ToList();
-        }
-
-        public IEnumerable<Appointment> ReadDoctorAppoinmentsWithoutChosen(Doctor doc, DateTime fromDate, DateTime toDate, Appointment chosenAppointment)
-        {
-            return _entities.Where(apt => apt != chosenAppointment && apt.Doctor == doc && apt.StartDate < toDate && fromDate < apt.EndDate).ToList();
-        }
-
-        public IEnumerable<Appointment> ReadAppointemntsInInterval(DateTime fromDate, DateTime toDate)
-        {
-            return _entities.Where(apt => apt.StartDate < toDate && fromDate < apt.EndDate).ToList();
-        }
-
-        public IEnumerable<Appointment> ReadAppointemntsInIntervalWithoutChosen(DateTime fromDate, DateTime toDate, Appointment chosenAppointment) 
-        {
-            return _entities.Where(apt => apt != chosenAppointment && apt.StartDate < toDate && fromDate < apt.EndDate).ToList();
-        }
 
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt).ToList();
+        }
+
+        public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
+        {
+            return (_entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0);
+        }
+        public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
+        {
+            return ((_entities.Where(apt => apt != aptToUpdate && apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+        }
+
+        public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate)
+        {
+            return ((_entities.Where(apt => apt.Room == room && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+        }
+        public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
+        {
+            return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
         }
     }
 }

@@ -36,28 +36,30 @@ namespace HealthInstitution.Commands
         public override void Execute(object? parameter) {
             DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
             DateTime endTime = startTime.AddMinutes(15);
-            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppointemnts(_viewModel.SelectedDoctor, startTime, endTime);
-            var appointmentsInInterval = _viewModel._appointmentService.ReadAppointemntsInInterval(startTime, endTime);
-            var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
 
-
-            if (doctorAppointments.Count() != 0) {
+            //doctors availabilty check
+            var doctorAvailability = _viewModel._appointmentService.IsDoctorAvailable(_viewModel.SelectedDoctor, startTime, endTime);
+            if (!doctorAvailability) {
                 MessageBox.Show("Selected doctor is busy at selected time!");
                 return;
             }
 
+            doctorAvailability = _viewModel._appointmentUpdateRequestService.IsDoctorAvailable(_viewModel.SelectedDoctor, startTime, endTime);
+            if (!doctorAvailability)
+            {
+                MessageBox.Show("Selected doctor may be busy at selected time!");
+                return;
+            }
+
+            //rooms availabilty check
+            var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
             Room emptyRoom = null;
             foreach (var room in examinationRooms)
             {
-                emptyRoom = room;
-                foreach (var appointment in appointmentsInInterval)
+                var roomAvailability = _viewModel._appointmentService.IsRoomAvailable(room, startTime, endTime);
+                if (roomAvailability) 
                 {
-                    if (room == appointment.Room) {
-                        emptyRoom = null;
-                        break;
-                    }
-                }
-                if (emptyRoom != null) {
+                    emptyRoom = room;
                     break;
                 }
             }

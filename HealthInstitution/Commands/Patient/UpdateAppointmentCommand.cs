@@ -38,30 +38,31 @@ namespace HealthInstitution.Commands
         {
             DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
             DateTime endTime = startTime.AddMinutes(15);
-            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppoinmentsWithoutChosen(_viewModel.SelectedDoctor, startTime, endTime, _viewModel.ChosenAppointment);
-            var appointmentsInInterval = _viewModel._appointmentService.ReadAppointemntsInIntervalWithoutChosen(startTime, endTime, _viewModel.ChosenAppointment);
-            var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
 
-            if (doctorAppointments.Count() != 0)
+            //doctors availabilty check
+            var doctorAvailability = _viewModel._appointmentService.IsDoctorAvailableForUpdate(_viewModel.SelectedDoctor, startTime, endTime, _viewModel.ChosenAppointment);
+            if (!doctorAvailability)
             {
                 MessageBox.Show("Selected doctor is busy at selected time!");
                 return;
             }
 
+            doctorAvailability = _viewModel._appointmentUpdateRequestService.IsDoctorAvailable(_viewModel.SelectedDoctor, startTime, endTime);
+            if (!doctorAvailability)
+            {
+                MessageBox.Show("Selected doctor may be busy at selected time!");
+                return;
+            }
+
+            //rooms availabilty check
+            var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
             Room emptyRoom = null;
             foreach (var room in examinationRooms)
             {
-                emptyRoom = room;
-                foreach (var appointment in appointmentsInInterval)
+                var available = _viewModel._appointmentService.IsRoomAvailableForUpdate(room, startTime, endTime, _viewModel.ChosenAppointment);
+                if (available)
                 {
-                    if (room == appointment.Room)
-                    {
-                        emptyRoom = null;
-                        break;
-                    }
-                }
-                if (emptyRoom != null)
-                {
+                    emptyRoom = room;
                     break;
                 }
             }
@@ -86,7 +87,7 @@ namespace HealthInstitution.Commands
             {
                 AppointmentUpdateRequest appointmentRequest = new AppointmentUpdateRequest { Patient = pt, Appointment = _viewModel.ChosenAppointment, 
                     ActivityType = ActivityType.Update , Status = Status.Pending, StartDate = startTime, EndDate = endTime, Doctor = _viewModel.SelectedDoctor};
-                _viewModel._appointmentRequestService.Create(appointmentRequest);
+                _viewModel._appointmentUpdateRequestService.Create(appointmentRequest);
                 MessageBox.Show("Request for appointment update created successfully!\nPlease wait for secretary to review it.");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);

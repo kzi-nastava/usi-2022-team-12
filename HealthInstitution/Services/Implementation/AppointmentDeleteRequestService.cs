@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Implementation
 {
-    public class AppointmentRequestService : CrudService<AppointmentRequest>, IAppointmentRequestService
+    public class AppointmentDeleteRequestService : CrudService<AppointmentDeleteRequest>, IAppointmentDeleteRequestService
     {
-        public AppointmentRequestService(DatabaseContext context) : base(context)
+        public AppointmentDeleteRequestService(DatabaseContext context) : base(context)
         {
 
         }
