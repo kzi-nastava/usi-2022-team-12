@@ -10,12 +10,10 @@ namespace HealthInstitution.ViewModel
 {
     public class AppointmentCreationViewModel : ViewModelBase
     {
-        public readonly IDoctorService _doctorService;
-        public readonly IAppointmentService _appointmentService;
-        public readonly IAppointmentUpdateRequestService _appointmentUpdateRequestService;
-        public readonly IRoomService _roomService;
-        public readonly IActivityService _activityService;
-        public readonly IPatientService _patientService;
+        public readonly IAppointmentService appointmentService;
+        public readonly IActivityService activityService;
+        public readonly IDoctorService doctorService;
+        public readonly IPatientService patientService;
 
         private DateTime _date;
         public DateTime Date
@@ -72,16 +70,14 @@ namespace HealthInstitution.ViewModel
         }
         public ICommand? MakeAppointmentCommand { get; }
 
-        public AppointmentCreationViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService, IActivityService activityService, IPatientService patientService, IAppointmentUpdateRequestService appointmentUpdateRequestService)
+        public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {
-            _activityService = activityService;
-            _doctorService = doctorService;
-            _appointmentService = appointmentService;
-            _appointmentUpdateRequestService = appointmentUpdateRequestService;
-            _roomService = roomService;
-            _patientService = patientService;
+            this.activityService = activityService;
+            this.appointmentService = appointmentService;
+            this.doctorService = doctorService;
+            this.patientService = patientService;
             Date = DateTime.Now;
-            Doctors = doctorService.ReadAll().ToList();
+            Doctors = this.doctorService.ReadAll().ToList();
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
         }
     }

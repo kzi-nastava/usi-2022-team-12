@@ -39,42 +39,45 @@ namespace HealthInstitution.Commands
             {
                 MessageBox.Show("You can't remove expired appointment!");
             }
+
             else if (DateTime.Now.AddDays(1) > apt.StartDate)
             {
                 MessageBox.Show("You can't remove appointment in last 24h!");
             }
+
             else if (DateTime.Now.AddDays(2) > apt.StartDate) {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
                 AppointmentDeleteRequest appointmentRequest = new AppointmentDeleteRequest { Patient = pt, Appointment = apt, ActivityType = ActivityType.Delete };
-                _viewModel._appointmentDeleteRequestService.Create(appointmentRequest);
+                _viewModel.appointmentDeleteRequestService.Create(appointmentRequest);
                 MessageBox.Show("Request for appointment deletion created successfully!\nPlease wait for secretary to review it.");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel._activityService.Create(act);
+                _viewModel.activityService.Create(act);
                 
-                var activityCount = _viewModel._activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel._patientService.Update(pt);
+                    _viewModel.patientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
             }
+
             else
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                _viewModel._appointmentService.Delete(apt.Id);
+                _viewModel.appointmentService.Delete(apt.Id);
                 MessageBox.Show("Appointment deleted successfully!");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel._activityService.Create(act);
+                _viewModel.activityService.Create(act);
                 
-                var activityCount = _viewModel._activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel._patientService.Update(pt);
+                    _viewModel.patientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }

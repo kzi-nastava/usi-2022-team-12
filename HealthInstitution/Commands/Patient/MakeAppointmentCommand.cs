@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Exceptions;
+using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
@@ -33,59 +34,42 @@ namespace HealthInstitution.Commands
                 && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
         }
 
-        public override void Execute(object? parameter) {
+        public override void Execute(object? parameter)
+        {
             DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
             DateTime endTime = startTime.AddMinutes(15);
 
-            //doctors availabilty check
-            var doctorAvailability = _viewModel._appointmentService.IsDoctorAvailable(_viewModel.SelectedDoctor, startTime, endTime);
-            if (!doctorAvailability) {
-                MessageBox.Show("Selected doctor is busy at selected time!");
-                return;
-            }
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
 
-            doctorAvailability = _viewModel._appointmentUpdateRequestService.IsDoctorAvailable(_viewModel.SelectedDoctor, startTime, endTime);
-            if (!doctorAvailability)
+            try
             {
-                MessageBox.Show("Selected doctor may be busy at selected time!");
-                return;
-            }
-
-            //rooms availabilty check
-            var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
-            Room emptyRoom = null;
-            foreach (var room in examinationRooms)
-            {
-                var roomAvailability = _viewModel._appointmentService.IsRoomAvailable(room, startTime, endTime);
-                if (roomAvailability) 
+                var appointmentCreated = _viewModel.appointmentService.makeAppointment(pt, _viewModel.SelectedDoctor, startTime, endTime);
+                if (appointmentCreated)
                 {
-                    emptyRoom = room;
-                    break;
+                    Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
+                    _viewModel.activityService.Create(act);
+                    MessageBox.Show("Appointment created successfully!");
+                    var activityCount = _viewModel.activityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+                    if (activityCount > 8)
+                    {
+                        pt.IsBlocked = true;
+                        _viewModel.patientService.Update(pt);
+                        MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
+                        EventBus.FireEvent("BackToLogin");
+                    }
+                    else
+                    {
+                        EventBus.FireEvent("PatientAppointments");
+                    }
                 }
             }
-
-            if (emptyRoom == null) {
+            catch (DoctorBusyException ex)
+            {
+                MessageBox.Show("Selected doctor is busy at selected time!");
+            }
+            catch (RoomBusyException ex)
+            {
                 MessageBox.Show("All rooms are busy at selected time!");
-                return;
-            }
-
-            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            Appointment app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, endTime, emptyRoom, "Type anamnesis here", false);
-            _viewModel._appointmentService.Create(app);
-            Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
-            _viewModel._activityService.Create(act);
-            MessageBox.Show("Appointment created successfully!");
-            var activityCount = _viewModel._activityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
-            if (activityCount > 8)
-            {
-                pt.IsBlocked = true;
-                _viewModel._patientService.Update(pt);
-                MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
-                EventBus.FireEvent("BackToLogin");
-            }
-            else 
-            {
-                EventBus.FireEvent("PatientAppointments");
             }
         }
     }

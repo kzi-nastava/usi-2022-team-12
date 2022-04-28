@@ -13,12 +13,9 @@ namespace HealthInstitution.ViewModel
 {
     public class AppointmentUpdateViewModel : ViewModelBase
     {
-        public readonly IDoctorService _doctorService;
-        public readonly IAppointmentService _appointmentService;
-        public readonly IRoomService _roomService;
-        public readonly IAppointmentUpdateRequestService _appointmentUpdateRequestService;
-        public readonly IActivityService _activityService;
-        public readonly IPatientService _patientService;
+        public readonly IAppointmentService appointmentService;
+        public readonly IActivityService activityService;
+        public readonly IPatientService patientService;
 
         private DateTime _date;
         public DateTime Date
@@ -90,12 +87,9 @@ namespace HealthInstitution.ViewModel
         public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService, IAppointmentUpdateRequestService appointmentUpdateRequestService, IActivityService activityService, IPatientService patientService)
         {
             ChosenAppointment = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
-            _doctorService = doctorService;
-            _appointmentService = appointmentService;
-            _roomService = roomService;
-            _appointmentUpdateRequestService = appointmentUpdateRequestService;
-            _activityService = activityService;
-            _patientService = patientService;
+            this.appointmentService = appointmentService;
+            this.activityService = activityService;
+            this.patientService = patientService;
             Doctors = doctorService.ReadAll().ToList();
 
             Date = ChosenAppointment.StartDate.Date;
