@@ -11,6 +11,9 @@ namespace HealthInstitution.ViewModel
     {
         #region Properties
 
+        private string _searchText;
+        public string SearchText { get => _searchText; set => OnPropertyChanged(ref _searchText, value); }
+
         private ObservableCollection<Patient> _blockedPatients;
         public ObservableCollection<Patient> BlockedPatients
         {
@@ -35,6 +38,8 @@ namespace HealthInstitution.ViewModel
 
         #region Commands
 
+        public ICommand SearchCommand { get; private set; }
+
         public ICommand UnblockPatient { get; private set; }
 
         #endregion
@@ -43,6 +48,11 @@ namespace HealthInstitution.ViewModel
         {
             BlockedPatients = new ObservableCollection<Patient>(patientService.ReadAllBlockedPatients());
             _patientService = patientService;
+
+            SearchCommand = new RelayCommand(() =>
+            {
+                Search();
+            });
 
             UnblockPatient = new RelayCommand(() =>
             {
@@ -62,6 +72,14 @@ namespace HealthInstitution.ViewModel
         private void UpdatePage()
         {
             BlockedPatients = new ObservableCollection<Patient>(_patientService.ReadAllBlockedPatients());
+        }
+
+        private void Search()
+        {
+            if (SearchText == "")
+                UpdatePage();
+            else
+                BlockedPatients = new ObservableCollection<Patient>(_patientService.FilterPatientsBySearchText(SearchText));
         }
     }
 }

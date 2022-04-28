@@ -15,6 +15,9 @@ namespace HealthInstitution.ViewModel
     {
         #region Properties
 
+        private string _searchText;
+        public string SearchText { get => _searchText; set => OnPropertyChanged(ref _searchText, value); }
+
         private ObservableCollection<Patient> _patients;
         public ObservableCollection<Patient> Patients
         {
@@ -41,6 +44,8 @@ namespace HealthInstitution.ViewModel
 
         #region Commands
 
+        public ICommand SearchCommand { get; private set; }
+
         public ICommand AddPatient { get; private set; }
 
         public ICommand UpdatePatient { get; private set; }
@@ -54,6 +59,11 @@ namespace HealthInstitution.ViewModel
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
             _patientService = patientService;
             _dialogService = dialogService;
+
+            SearchCommand = new RelayCommand(() =>
+            {
+                Search();
+            });
 
             AddPatient = new RelayCommand(() =>
             {
@@ -92,7 +102,14 @@ namespace HealthInstitution.ViewModel
         public void UpdatePage()
         {
             Patients = new ObservableCollection<Patient>(_patientService.ReadAllValidPatients());
+        }
 
+        private void Search()
+        {
+            if (SearchText == "")
+                UpdatePage();
+            else
+                Patients = new ObservableCollection<Patient>(_patientService.FilterPatientsBySearchText(SearchText));
         }
     }
 }
