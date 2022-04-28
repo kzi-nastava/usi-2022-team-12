@@ -39,6 +39,22 @@ namespace HealthInstitution.Model
             _patient = patient;
         }
 
+        public MedicalRecord(MedicalRecord medicalRecord) : base(medicalRecord)
+        {
+            _height = medicalRecord._height;
+            _weight = medicalRecord._weight;
+            _patient = medicalRecord._patient;
+            _illnessHistory = new List<Illness>();
+            _allergens =new List<Allergen>();
+            foreach(var illness in medicalRecord.IllnessHistory)
+            {
+                _illnessHistory.Add(illness);
+            }
+            foreach(var allergen in medicalRecord.Allergens)
+            {
+                _allergens.Add(allergen);
+            }
+        }
         #endregion
 
         #region Methods
