@@ -17,6 +17,7 @@ namespace HealthInstitution.Model
 
         #region Constructor
 
+        public Allergen() { }
         public Allergen(string name)
         {
             Name = name;
