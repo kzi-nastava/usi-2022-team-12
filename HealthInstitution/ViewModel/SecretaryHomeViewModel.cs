@@ -7,12 +7,32 @@ namespace HealthInstitution.ViewModel
 {
     public class SecretaryHomeViewModel : NavigableViewModel
     {
-        public ICommand LogOutCommand { get; }
+
+        #region Commands
+
+        public ICommand LogOutCommand { get; private set; }
+
+        public ICommand ShowValidPatients { get; private set; }
+
+        public ICommand ShowBlockedPatients { get; private set; }
+
+        #endregion
 
         public SecretaryHomeViewModel()
         {
             SwitchCurrentViewModel(ServiceLocator.Get<SecretaryPatientCRUDViewModel>());
             LogOutCommand = new LogOutCommand();
+
+            ShowValidPatients = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryPatientCRUDViewModel>());
+            });
+
+
+            ShowBlockedPatients = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryBlockedPatientsViewModel>());
+            });
 
             RegisterHandler();
         }

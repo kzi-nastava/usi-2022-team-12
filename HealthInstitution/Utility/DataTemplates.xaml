@@ -39,8 +39,12 @@
     <DataTemplate DataType="{x:Type vm:SecretaryPatientCRUDViewModel}">
         <v:SecretaryPatientCRUDView/>
     </DataTemplate>
-    
-    
+
+    <DataTemplate DataType="{x:Type vm:SecretaryBlockedPatientsViewModel}">
+        <v:SecretaryBlockedPatientsView/>
+    </DataTemplate>
+
+
     <!--Dialog data templates-->
 
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">

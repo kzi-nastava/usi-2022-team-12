@@ -27,5 +27,11 @@ namespace HealthInstitution.Services.Implementation
             patientToBlock.IsBlocked = true;
             Update(patientToBlock);
         }
+
+        public void UnblockPatient(Patient patientToUnblock)
+        {
+            patientToUnblock.IsBlocked = false;
+            Update(patientToUnblock);
+        }
     }
 }
