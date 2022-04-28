@@ -9,5 +9,6 @@ namespace HealthInstitution.Services.Intefaces
 {
     public interface IMedicalRecordService : ICrudService<MedicalRecord>
     {
+        MedicalRecord GetMedicalRecordForPatient(Patient patient);
     }
 }
