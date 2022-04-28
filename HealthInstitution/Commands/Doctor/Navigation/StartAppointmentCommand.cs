@@ -1,4 +1,5 @@
-﻿using HealthInstitution.ViewModel;
+﻿using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +36,8 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            throw new NotImplementedException();
+            GlobalStore.AddObject("SelectedAppointment", _viewModel.SelectedAppointment.Appointment);
+            EventBus.FireEvent("Examination");
         }
     }
 }
