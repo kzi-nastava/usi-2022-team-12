@@ -25,6 +25,14 @@
     <DataTemplate DataType="{x:Type vm:ExaminationViewModel}">
         <v:ExaminationView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorAppointmentCreationViewModel}">
+        <v:DoctorAppointmentCreationView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:DoctorAppointmentUpdateViewModel}">
+        <v:DoctorAppointmentUpdateView/>
+    </DataTemplate>
     <!-- Doctor -->
     
     <!-- Patient -->
