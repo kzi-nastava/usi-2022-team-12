@@ -17,14 +17,7 @@
         <ListView Grid.Row="1" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding Appointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Beginning" Width="auto" DisplayMemberBinding="{Binding StartDate}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="0 0 20 0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="End" Width="auto" DisplayMemberBinding="{Binding EndDate}">
+                    <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>
@@ -45,7 +38,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
+                    <GridViewColumn Header="Begin time" Width="auto" DisplayMemberBinding="{Binding StartDate}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>

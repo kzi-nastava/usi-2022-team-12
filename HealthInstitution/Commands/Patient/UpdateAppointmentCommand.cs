@@ -23,7 +23,7 @@ namespace HealthInstitution.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.Date) || e.PropertyName == nameof(_viewModel.Hours) || e.PropertyName == nameof(_viewModel.Minutes) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
+            if (e.PropertyName == nameof(_viewModel.StartDateTime) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
             {
                 OnCanExecuteChange();
             }
@@ -31,19 +31,18 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.Date <= DateTime.Now) && !string.IsNullOrEmpty(_viewModel.Hours) && !string.IsNullOrEmpty(_viewModel.Minutes)
-                && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
+            return !(_viewModel.StartDateTime <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
-            DateTime endTime = startTime.AddMinutes(15);
+            DateTime startDateTime = _viewModel.StartDateTime;
+            DateTime endDateTime = startDateTime.AddMinutes(15);
 
             try
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var updated = _viewModel.appointmentService.updateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startTime, endTime);
+                var updated = _viewModel.appointmentService.updateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
 
                 if (updated)
                 {

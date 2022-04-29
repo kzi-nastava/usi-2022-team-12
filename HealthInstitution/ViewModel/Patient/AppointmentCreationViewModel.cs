@@ -15,36 +15,14 @@ namespace HealthInstitution.ViewModel
         public readonly IDoctorService doctorService;
         public readonly IPatientService patientService;
 
-        private DateTime _date;
-        public DateTime Date
+        private DateTime _startDateTime;
+        public DateTime StartDateTime
         {
-            get => _date;
+            get => _startDateTime;
             set
             {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
-            }
-        }
-
-        private string _hours;
-        public string? Hours
-        {
-            get => _hours;
-            set
-            {
-                _hours = value;
-                OnPropertyChanged(nameof(Hours));
-            }
-        } 
-        
-        private string _minutes;
-        public string? Minutes
-        {
-            get => _minutes;
-            set
-            {
-                _minutes = value;
-                OnPropertyChanged(nameof(Minutes));
+                _startDateTime = value;
+                OnPropertyChanged(nameof(StartDateTime));
             }
         }
 
@@ -69,6 +47,7 @@ namespace HealthInstitution.ViewModel
             }
         }
         public ICommand? MakeAppointmentCommand { get; }
+        public ICommand? PatientAppointmentsCommand { get; }
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {
@@ -76,9 +55,10 @@ namespace HealthInstitution.ViewModel
             this.appointmentService = appointmentService;
             this.doctorService = doctorService;
             this.patientService = patientService;
-            Date = DateTime.Now;
+            StartDateTime = DateTime.Now;
             Doctors = this.doctorService.ReadAll().ToList();
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
+            PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }
 }
