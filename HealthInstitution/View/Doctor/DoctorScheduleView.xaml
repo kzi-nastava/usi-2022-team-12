@@ -7,15 +7,16 @@
              xmlns:converters="clr-namespace:HealthInstitution.Converters"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="600">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:BoolToYNConverter x:Key="BoolToYNConverter"/>
+        <converters:DateToStringConverter x:Key="DateToStringConverter"/>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Appointmens Schedule" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
@@ -24,7 +25,7 @@
             <DatePicker SelectedDateFormat="Long" SelectedDate="{Binding UserDate}" Margin="10 0 0 0"/>
             <CheckBox Content="Include next 3 days" Margin="20 0 0 0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="16" IsChecked="{Binding Next3Days}"/>
         </StackPanel>
-        <ListView Grid.Row="2" Margin="0 10 0 0" MaxHeight="190" Height="200" SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Appointments}">
+        <ListView Grid.Row="2" Margin="0 10 0 0" MaxHeight="290" Height="290" VerticalAlignment="Top" SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Appointments}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -35,14 +36,14 @@
                     <GridViewColumn Header="Date" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Date}"/>
+                                <TextBlock Padding="0 0 20 0" Text="{Binding Date, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Time" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Time}"/>
+                                <TextBlock Padding="0 0 20 0" Text="{Binding Time, Converter={StaticResource DateToStringConverter}, ConverterParameter=t}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -72,7 +73,10 @@
         </ListView>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 0">
             <Button Content="Open medical record" Padding="5" Command="{Binding OpenMedicalRecordCommand}" FontSize="14"/>
-            <Button Content="Start appointment" Padding="5" Margin="15 0 0 0" Command="{Binding StartAppointmentCommand}" FontSize="14"/> 
+            <Button Content="Start appointment" Padding="5" Margin="15 0 0 0" Command="{Binding StartAppointmentCommand}" FontSize="14"/>
+            <Button Content="Update appointment" Padding="5" Margin="15 0 0 0" Command="{Binding UpdateAppointmentCommand}" FontSize="14"/>
+            <Button Content="Cancel appointment" Padding="5" Margin="15 0 0 0" Command="{Binding CancelAppointmentCommand}" FontSize="14"/>
+            <Button Content="Make new appointment" Padding="5" Margin="15 0 0 0" Command="{Binding CreateAppointmentCommand}" FontSize="14"/>
         </StackPanel>
     </Grid>
 </UserControl>
