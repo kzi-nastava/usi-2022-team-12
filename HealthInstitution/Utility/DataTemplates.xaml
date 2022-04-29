@@ -63,6 +63,14 @@
         <v:EquipmentOverviewView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:ArrangeEquipmentViewModel}">
+        <v:ArrangeEquipmentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomChoiceViewModel}">
+        <v:RoomChoiceView/>
+    </DataTemplate>
+
 
 
 </ResourceDictionary>

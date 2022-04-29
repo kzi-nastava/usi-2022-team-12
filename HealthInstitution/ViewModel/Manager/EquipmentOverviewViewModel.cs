@@ -65,6 +65,19 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private bool _isRoomSelected;
+        public bool IsRoomSelected
+        {
+            get { return _isRoomSelected; }
+            set
+            {
+                if (_isRoomSelected == value) return;
+
+                _isRoomSelected = value;
+                OnPropertyChanged(nameof(IsRoomSelected));
+            }
+        }
+
         private RoomType _selectedRoomType;
         public RoomType SelectedRoomType
         {
@@ -87,6 +100,19 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private bool _isQuantitySelected;
+        public bool IsQuantitySelected
+        {
+            get { return _isQuantitySelected; }
+            set
+            {
+                if (_isQuantitySelected == value) return;
+
+                _isQuantitySelected = value;
+                OnPropertyChanged(nameof(IsQuantitySelected));
+            }
+        }
+
         private string _selectedQuantity;
         public string SelectedQuantity
         {
@@ -106,6 +132,19 @@ namespace HealthInstitution.ViewModel
             {
                 _quantityTypes = value;
                 OnPropertyChanged(nameof(QuantityTypes));
+            }
+        }
+
+        private bool _isEquipmentSelected;
+        public bool IsEquipmentSelected
+        {
+            get { return _isEquipmentSelected; }
+            set
+            {
+                if (_isEquipmentSelected == value) return;
+
+                _isEquipmentSelected = value;
+                OnPropertyChanged(nameof(IsEquipmentSelected));
             }
         }
 
@@ -144,13 +183,55 @@ namespace HealthInstitution.ViewModel
 
         public void loadTable()
         {
+     
             _tableModels.Clear();
             foreach (var room in Rooms)
             {
                 foreach (var item in room.Inventory)
                 {
-                    if (_searchBox.Equals("") || item.Item.Name.Contains(_searchBox))
+                    if (_searchBox.Equals("") || item.Item.Name.ToLower().Contains(_searchBox.ToLower()))
                     {
+                        if (IsRoomSelected)
+                        {
+                            if (!room.RoomType.Equals(SelectedRoomType))
+                            {
+                                continue;
+                            }
+                        }
+                        if (IsQuantitySelected)
+                        {
+                            if (_selectedQuantity.Equals("0"))
+                            {
+                                var quant = item.Quantity;
+                                if (quant != 0)
+                                {
+                                    continue;
+                                }
+                            }
+                            if (_selectedQuantity.Equals("1-10"))
+                            {
+                                var quant = item.Quantity;
+                                if (quant < 1 || quant > 10)
+                                {
+                                    continue;
+                                }
+                            }
+                            if (_selectedQuantity.Equals("10+"))
+                            {
+                                var quant = item.Quantity;
+                                if (quant < 10)
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        if (IsEquipmentSelected)
+                        {
+                            if (!item.Item.EquipmentType.Equals(SelectedEquipmentType))
+                            {
+                                continue;
+                            }
+                        }
                         TableModel tm = new TableModel(item.Item.Name, item.Quantity, room.Name);
                         _tableModels.Add(tm);
                     }
@@ -187,14 +268,15 @@ namespace HealthInstitution.ViewModel
             _inventory = new ObservableCollection<Entry<Equipment>>();
             _roomInventory = new ObservableCollection<Room>();
             Rooms = roomService.ReadAll().ToList();
-            foreach (var room in Rooms)
-            {
-                foreach (var item in room.Inventory)
-                {
-                    TableModel tm = new TableModel(item.Item.Name, item.Quantity, room.Name);
-                    _tableModels.Add(tm);
-                }    
-            }
+            //foreach (var room in Rooms)
+            //{
+            //    foreach (var item in room.Inventory)
+            //    {
+            //        TableModel tm = new TableModel(item.Item.Name, item.Quantity, room.Name);
+            //        _tableModels.Add(tm);
+            //    }    
+            //}
+            loadTable();
             SearchEquipmentCommand = new SearchEquipmentCommand(this);
 
         }

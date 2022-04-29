@@ -35,13 +35,17 @@ namespace HealthInstitution.Model
             foreach (Entry<Equipment> includedEntry in _inventory)
             {
                 if (includedEntry.Item.Id == entry.Item.Id)
-                {
-                    // Baci exception
+                {                    
                     return;
                 }
             }
             
             _inventory.Add(entry);
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         #endregion
