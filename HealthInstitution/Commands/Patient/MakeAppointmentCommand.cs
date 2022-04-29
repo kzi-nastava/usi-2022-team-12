@@ -43,7 +43,7 @@ namespace HealthInstitution.Commands
 
             try
             {
-                var appointmentCreated = _viewModel.appointmentService.makeAppointment(pt, _viewModel.SelectedDoctor, startTime, endTime);
+                var appointmentCreated = _viewModel.appointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startTime, endTime);
                 if (appointmentCreated)
                 {
                     Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
