@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace HealthInstitution.Converters
 {
-    internal class BoolToYNConverter : IValueConverter
+    public class BoolToYNConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
