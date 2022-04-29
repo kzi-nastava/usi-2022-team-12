@@ -31,10 +31,13 @@ namespace HealthInstitution.Persistence
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
+        public DbSet<AppointmentUpdateRequest> AppointmentUpdateRequests { get; set; }
+        public DbSet<AppointmentDeleteRequest> AppointmentDeleteRequests { get; set; }
 
 
         // Appointment related things
-        public DbSet<Anamnesis> Anamnesis { get; set; }
+        public DbSet<Allergen> Allergens { get; set; }
+        public DbSet<Illness> Illness { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
 

@@ -5,31 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="600"
+             d:DesignHeight="480" d:DesignWidth="600"
              Background="White">
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Your Appointmens" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
         <ListView Grid.Row="1" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding Appointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Beginning" Width="auto" DisplayMemberBinding="{Binding StartDate}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="0 0 20 0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="End" Width="auto" DisplayMemberBinding="{Binding EndDate}">
+                    <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>
@@ -50,7 +38,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
+                    <GridViewColumn Header="Begin time" Width="auto" DisplayMemberBinding="{Binding StartDate}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>
@@ -60,7 +55,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 20 0 0">
             <Button Content="Make appointment" Padding="5" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
             <Button Content="Update appointment" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding AppointmentUpdateCommand}"/>
             <Button Content="Remove appointment" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding RemoveAppointmentCommand}"/>

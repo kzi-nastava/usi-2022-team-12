@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -7,6 +7,16 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\password.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Fonts\password.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
@@ -21,8 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Doctor\" />
+    <Folder Include="Commands\Manager\" />
     <Folder Include="Commands\Secretary\" />
+    <Folder Include="Commands\Doctor\" />
     <Folder Include="Persistence\Database\" />
   </ItemGroup>
 

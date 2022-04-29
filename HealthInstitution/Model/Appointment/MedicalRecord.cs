@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HealthInstitution.Model;
+using System.Collections.Generic;
 
 namespace HealthInstitution.Model
 {
@@ -15,11 +16,11 @@ namespace HealthInstitution.Model
         private double _weight;
         public double Weight { get => _weight; set => OnPropertyChanged(ref _weight, value); }
 
-        private readonly IList<string> _illnessHistory;
-        public IList<string> IllnessHistory { get => _illnessHistory; }
+        private IList<Illness> _illnessHistory;
+        public virtual IList<Illness> IllnessHistory { get => _illnessHistory; set => OnPropertyChanged(ref _illnessHistory, value); }
 
-        private readonly IList<string> _allergens;
-        public IList<string> Allergens { get => _allergens;}
+        private IList<Allergen> _allergens;
+        public virtual IList<Allergen> Allergens { get => _allergens; set => OnPropertyChanged(ref _allergens, value); }
 
         private Patient _patient;
         public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }
@@ -33,41 +34,55 @@ namespace HealthInstitution.Model
         {
             _height = height;
             _weight = weight;
-            _illnessHistory = new List<string>();
-            _allergens = new List<string>();
+            _illnessHistory = new List<Illness>();
+            _allergens = new List<Allergen>();
             _patient = patient;
         }
 
+        public MedicalRecord(MedicalRecord medicalRecord) : base(medicalRecord)
+        {
+            _height = medicalRecord._height;
+            _weight = medicalRecord._weight;
+            _patient = medicalRecord._patient;
+            _illnessHistory = new List<Illness>();
+            _allergens =new List<Allergen>();
+            foreach(var illness in medicalRecord.IllnessHistory)
+            {
+                _illnessHistory.Add(illness);
+            }
+            foreach(var allergen in medicalRecord.Allergens)
+            {
+                _allergens.Add(allergen);
+            }
+        }
         #endregion
 
         #region Methods
 
-        public void AddIllness(string illness)
+        public void AddIllness(Illness illness)
         {
-            foreach (string includedIllness in IllnessHistory)
+            foreach (Illness includedIllness in IllnessHistory)
             {
                 if (includedIllness.Equals(illness))
                 {
                     // Baci exception
                     return;
                 }
-
-                IllnessHistory.Add(illness);
             }
+            IllnessHistory.Add(illness);
         }
 
-        public void AddAllergen(string allergen)
+        public void AddAllergen(Allergen allergen)
         {
-            foreach (string includedAllergen in Allergens)
+            foreach (Allergen includedAllergen in Allergens)
             {
                 if (includedAllergen.Equals(allergen))
                 {
                     // Baci exception
                     return;
                 }
-
-                IllnessHistory.Add(allergen);
             }
+            Allergens.Add(allergen);
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string? _password;
+        private string? _password = "test123";
         public string? Password
         {
             get => _password;

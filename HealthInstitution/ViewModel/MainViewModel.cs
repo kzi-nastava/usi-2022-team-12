@@ -6,9 +6,21 @@ namespace HealthInstitution.ViewModel
 {
     public class MainViewModel : NavigableViewModel
     { 
+        private string _viewTitle;
+        public string ViewTitle
+        {
+            get => _viewTitle;
+        }
+        private void OnTitleChanged()
+        {
+            _viewTitle = TitleManager.Title;
+            OnPropertyChanged(nameof(ViewTitle));
+        }
         public LoginViewModel Lvm { get; set; }
         public MainViewModel(LoginViewModel lvm)
         {
+            TitleManager.TitleChanged += OnTitleChanged;
+            TitleManager.Title = "Login";
             Lvm = lvm;
             SwitchCurrentViewModel(lvm);
             RegisterHandler();

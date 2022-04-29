@@ -1,12 +1,16 @@
-﻿<UserControl x:Class="HealthInstitution.View.DoctorScheduleListingView"
+﻿<UserControl x:Class="HealthInstitution.View.DoctorScheduleView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:converters="clr-namespace:HealthInstitution.Converters"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="450" d:DesignWidth="600">
+    <UserControl.Resources>
+        <converters:BoolToYNConverter x:Key="BoolToYNConverter"/>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -17,10 +21,10 @@
         <TextBlock Grid.Row="0" Text="Appointmens Schedule" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="Date:" FontSize="16"/>
-            <DatePicker SelectedDateFormat="Long" Margin="10 0 0 0"/>
-            <CheckBox Content="Include next 3 days" Margin="20 0 0 0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
+            <DatePicker SelectedDateFormat="Long" SelectedDate="{Binding UserDate}" Margin="10 0 0 0"/>
+            <CheckBox Content="Include next 3 days" Margin="20 0 0 0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="16" IsChecked="{Binding Next3Days}"/>
         </StackPanel>
-        <ListView Grid.Row="2" Margin="0 10 0 0" MaxHeight="190" Height="200" ItemsSource="{Binding Appointments}">
+        <ListView Grid.Row="2" Margin="0 10 0 0" MaxHeight="190" Height="200" SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Appointments}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -53,6 +57,13 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0" Text="{Binding Room}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Is Done" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0" Text="{Binding IsDone, Converter={StaticResource BoolToYNConverter}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

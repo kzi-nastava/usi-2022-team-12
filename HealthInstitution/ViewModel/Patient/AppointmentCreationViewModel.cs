@@ -3,54 +3,26 @@ using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
     public class AppointmentCreationViewModel : ViewModelBase
     {
-        public readonly IDoctorService _doctorService;
-        public readonly IAppointmentService _appointmentService;
-        public readonly IRoomService _roomService;
-        public readonly IActivityService _activityService;
-        public readonly IPatientService _patientService;
+        public readonly IAppointmentService appointmentService;
+        public readonly IActivityService activityService;
+        public readonly IDoctorService doctorService;
+        public readonly IPatientService patientService;
 
-        private DateTime _date;
-        public DateTime Date
+        private DateTime _startDateTime;
+        public DateTime StartDateTime
         {
-            get => _date;
+            get => _startDateTime;
             set
             {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
-            }
-        }
-
-        private string _hours;
-        public string? Hours
-        {
-            get => _hours;
-            set
-            {
-                _hours = value;
-                OnPropertyChanged(nameof(Hours));
-            }
-        } 
-        
-        private string _minutes;
-        public string? Minutes
-        {
-            get => _minutes;
-            set
-            {
-                _minutes = value;
-                OnPropertyChanged(nameof(Minutes));
+                _startDateTime = value;
+                OnPropertyChanged(nameof(StartDateTime));
             }
         }
 
@@ -75,17 +47,18 @@ namespace HealthInstitution.ViewModel
             }
         }
         public ICommand? MakeAppointmentCommand { get; }
+        public ICommand? PatientAppointmentsCommand { get; }
 
-        public AppointmentCreationViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService, IActivityService activityService, IPatientService patientService)
+        public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {
-            _activityService = activityService;
-            _doctorService = doctorService;
-            _appointmentService = appointmentService;
-            _roomService = roomService;
-            _patientService = patientService;  
-            Date = DateTime.Now;
-            Doctors = doctorService.ReadAll().ToList();
+            this.activityService = activityService;
+            this.appointmentService = appointmentService;
+            this.doctorService = doctorService;
+            this.patientService = patientService;
+            StartDateTime = DateTime.Now;
+            Doctors = this.doctorService.ReadAll().ToList();
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
+            PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }
 }

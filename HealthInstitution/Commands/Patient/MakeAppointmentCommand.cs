@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Exceptions;
+using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
@@ -21,7 +22,7 @@ namespace HealthInstitution.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.Date) || e.PropertyName == nameof(_viewModel.Hours) || e.PropertyName == nameof(_viewModel.Minutes) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
+            if (e.PropertyName == nameof(_viewModel.StartDateTime) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
             {
                 OnCanExecuteChange();
             }
@@ -29,62 +30,42 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.Date <= DateTime.Now) && !string.IsNullOrEmpty(_viewModel.Hours) && !string.IsNullOrEmpty(_viewModel.Minutes) 
-                && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
+            return !(_viewModel.StartDateTime <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
         }
 
-        public override void Execute(object? parameter) {
-            DateTime startTime = _viewModel.Date.AddHours(Int32.Parse(_viewModel.Hours)).AddMinutes(Int32.Parse(_viewModel.Minutes));
-            DateTime endTime = startTime.AddMinutes(15);
-            var doctorAppointments = _viewModel._appointmentService.ReadDoctorAppointemnts(_viewModel.SelectedDoctor, startTime, endTime);
-            var appointmentsInInterval = _viewModel._appointmentService.ReadAppointemntsInInterval(startTime, endTime);
-            var examinationRooms = _viewModel._roomService.ReadRoomsWithType(RoomType.ExaminationRoom);
-
-
-            if (doctorAppointments.Count() != 0) {
-                MessageBox.Show("Selected doctor is busy at selected time!");
-                return;
-            }
-
-            Room emptyRoom = null;
-            foreach (var room in examinationRooms)
-            {
-                emptyRoom = room;
-                foreach (var appointment in appointmentsInInterval)
-                {
-                    if (room == appointment.Room) {
-                        emptyRoom = null;
-                        break;
-                    }
-                }
-                if (emptyRoom != null) {
-                    break;
-                }
-            }
-
-            if (emptyRoom == null) {
-                MessageBox.Show("All rooms are busy at selected time!");
-                return;
-            }
+        public override void Execute(object? parameter)
+        {
+            DateTime startDateTime = _viewModel.StartDateTime;
+            DateTime endDateTime = startDateTime.AddMinutes(15);
 
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            Anamnesis an = new Anamnesis("Type anamnesis here");
-            Appointment app = new Appointment(_viewModel.SelectedDoctor, pt, startTime, emptyRoom, an);
-            _viewModel._appointmentService.Create(app);
-            Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
-            _viewModel._activityService.Create(act);
-            MessageBox.Show("Appointment created successfully!");
-            var activityCount = _viewModel._activityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
-            if (activityCount > 8)
+
+            try
             {
-                pt.IsBlocked = true;
-                _viewModel._patientService.Update(pt);
-                MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
-                EventBus.FireEvent("BackToLogin");
+                _viewModel.appointmentService.makeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
+                _viewModel.activityService.Create(act);
+                MessageBox.Show("Appointment created successfully!");
+                var activityCount = _viewModel.activityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+                if (activityCount > 8)
+                {
+                    pt.IsBlocked = true;
+                    _viewModel.patientService.Update(pt);
+                    MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
+                    EventBus.FireEvent("BackToLogin");
+                }
+                else
+                {
+                    EventBus.FireEvent("PatientAppointments");
+                }
             }
-            else 
+            catch (DoctorBusyException)
             {
-                EventBus.FireEvent("PatientAppointments");
+                MessageBox.Show("Selected doctor is busy at selected time!");
+            }
+            catch (RoomBusyException)
+            {
+                MessageBox.Show("All rooms are busy at selected time!");
             }
         }
     }

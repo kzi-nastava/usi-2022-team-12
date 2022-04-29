@@ -35,7 +35,7 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding PatientAppointmentsCommand}"/>
+                             Command="{Binding PatientAppointmentsCommand}" IsChecked="True"/>
                 </StackPanel>
 
                 <Button Content="Log out"

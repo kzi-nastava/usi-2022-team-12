@@ -21,8 +21,11 @@ namespace HealthInstitution.Model
         private Room _room;
         public virtual Room Room { get => _room; set => OnPropertyChanged(ref _room, value); }
 
-        private Anamnesis _anamnesis;
-        public virtual Anamnesis Anamnesis { get => _anamnesis; set => OnPropertyChanged(ref _anamnesis, value); }
+        private bool _isDone;
+        public bool IsDone { get => _isDone; set => OnPropertyChanged(ref _isDone, value);}
+
+        private string? _anamnesis;
+        public string? Anamnesis { get => _anamnesis; set => OnPropertyChanged(ref _anamnesis, value); }
 
         #endregion
 
@@ -33,12 +36,13 @@ namespace HealthInstitution.Model
 
         }
 
-        public Appointment(Doctor doctor, Patient patient, DateTime startDate, Room room, Anamnesis anamnesis)
+        public Appointment(Doctor doctor, Patient patient, DateTime startDate, DateTime endDate, Room room, string anamnesis, bool isDone)
         {
+            _isDone = isDone;
             _doctor = doctor;
             _patient = patient;
             _startDate = startDate;
-            _endDate = startDate.AddMinutes(15);
+            _endDate = endDate;
             _room = room;
             _anamnesis = anamnesis;
         }

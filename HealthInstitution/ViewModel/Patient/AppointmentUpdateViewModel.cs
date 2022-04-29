@@ -13,43 +13,19 @@ namespace HealthInstitution.ViewModel
 {
     public class AppointmentUpdateViewModel : ViewModelBase
     {
-        public readonly IDoctorService _doctorService;
-        public readonly IAppointmentService _appointmentService;
-        public readonly IRoomService _roomService;
-        public readonly IAppointmentRequestService _appointmentRequestService;
-        public readonly IActivityService _activityService;
-        public readonly IPatientService _patientService;
+        public readonly IAppointmentService appointmentService;
+        public readonly IActivityService activityService;
+        public readonly IPatientService patientService;
+        public readonly IDoctorService doctorService;
 
-        private DateTime _date;
-        public DateTime Date
+        private DateTime _startDateTime;
+        public DateTime StartDateTime
         {
-            get => _date;
+            get => _startDateTime;
             set
             {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
-            }
-        }
-
-        private string _hours;
-        public string? Hours
-        {
-            get => _hours;
-            set
-            {
-                _hours = value;
-                OnPropertyChanged(nameof(Hours));
-            }
-        }
-
-        private string _minutes;
-        public string? Minutes
-        {
-            get => _minutes;
-            set
-            {
-                _minutes = value;
-                OnPropertyChanged(nameof(Minutes));
+                _startDateTime = value;
+                OnPropertyChanged(nameof(StartDateTime));
             }
         }
 
@@ -74,7 +50,6 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(Doctors));
             }
         }
-        public ICommand? UpdateAppointmentCommand { get; }
 
         private Appointment _chosenAppointment;
         public Appointment ChosenAppointment
@@ -87,23 +62,23 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IRoomService roomService, IAppointmentRequestService appointmentRequestService, IActivityService activityService, IPatientService patientService)
+        public ICommand? UpdateAppointmentCommand { get; }
+        public ICommand? PatientAppointmentsCommand { get; }
+
+        public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IActivityService activityService, IPatientService patientService)
         {
             ChosenAppointment = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
-            _doctorService = doctorService;
-            _appointmentService = appointmentService;
-            _roomService = roomService;
-            _appointmentRequestService = appointmentRequestService;
-            _activityService = activityService;
-            _patientService = patientService;
+            this.appointmentService = appointmentService;
+            this.activityService = activityService;
+            this.patientService = patientService;
+            this.doctorService = doctorService;
             Doctors = doctorService.ReadAll().ToList();
 
-            Date = ChosenAppointment.StartDate.Date;
+            StartDateTime = ChosenAppointment.StartDate;
             SelectedDoctor = ChosenAppointment.Doctor;
-            Hours = ChosenAppointment.StartDate.Hour.ToString();
-            Minutes = ChosenAppointment.StartDate.Minute.ToString();
 
             UpdateAppointmentCommand = new UpdateAppointmentCommand(this);
+            PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }
 }
