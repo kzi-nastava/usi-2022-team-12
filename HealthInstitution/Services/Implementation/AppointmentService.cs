@@ -20,7 +20,7 @@ namespace HealthInstitution.Services.Implementation
             _roomService = roomService;
         }
 
-        public bool makeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
+        public bool MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
 
             //doctor availabilty check
             bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDate, endDate);
@@ -49,7 +49,7 @@ namespace HealthInstitution.Services.Implementation
                 throw new RoomBusyException();
             }
 
-            Appointment app = new Appointment(selectedDoctor, selectedPatient, startDate, endDate, emptyRoom, "Type anamnesis here", false);
+            Appointment app = new Appointment(selectedDoctor, selectedPatient, startDate, endDate, emptyRoom, null, false);
             Create(app);
             return true;
         }
@@ -82,7 +82,7 @@ namespace HealthInstitution.Services.Implementation
             }
 
             if (selectedAppointment.StartDate == startDate && selectedAppointment.EndDate == endDate
-                && selectedAppointment.Doctor == selectedDoctor)
+                && selectedAppointment.Doctor == selectedDoctor && selectedAppointment.Patient == selectedPatient)
             {
                 throw new UpdateFailedException();
             }
