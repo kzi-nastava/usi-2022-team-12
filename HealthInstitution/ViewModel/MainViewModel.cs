@@ -45,6 +45,14 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Dhvm);
             });
 
+            EventBus.RegisterHandler("ManagerLogin", () =>
+            {
+                ManagerHomeViewModel Mhvm = ServiceLocator.Get<ManagerHomeViewModel>();
+                SwitchCurrentViewModel(Mhvm);
+            });
+
+
+
             EventBus.RegisterHandler("BackToLogin", () =>
             {
                 EventBus.Clear();

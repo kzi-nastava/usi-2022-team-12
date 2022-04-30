@@ -67,11 +67,43 @@
 
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
         <v:AppointmentUpdateView/>
+    </DataTemplate> 
+    
+    <DataTemplate DataType="{x:Type vm:ManagerHomeViewModel}">
+        <v:ManagerHomeView/>
     </DataTemplate>
     <!-- Secretary -->
 
     <!-- Manager -->
+    <DataTemplate DataType="{x:Type vm:RoomsCRUDViewModel}">
+        <v:RoomsCRUDView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomEquipmentViewModel}">
+        <v:RoomEquipmentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomCreateViewModel}">
+        <v:RoomCreateView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomUpdateViewModel}">
+        <v:RoomUpdateView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:EquipmentOverviewViewModel}">
+        <v:EquipmentOverviewView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ArrangeEquipmentViewModel}">
+        <v:ArrangeEquipmentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomChoiceViewModel}">
+        <v:RoomChoiceView/>
+    </DataTemplate>
     <!-- Manager -->
+    
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
         <dc:HandlePatientView/>
     </DataTemplate>
