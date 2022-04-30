@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
 using HealthInstitution.Services.Implementation;
+using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,9 @@ namespace HealthInstitution.ViewModel
 {
     public class MedicalRecordViewModel : ViewModelBase
     {
-        private readonly MedicalRecordService _medicalRecordService;
+        private readonly IMedicalRecordService _medicalRecordService;
+
+        private readonly IAppointmentService _appointmentService;
 
         private readonly Patient _patient;
 
@@ -37,11 +40,15 @@ namespace HealthInstitution.ViewModel
 
         private readonly ObservableCollection<Allergen> _allergens;
         public IEnumerable<Allergen > Allergens => _allergens;
+
+        private readonly ObservableCollection<Appointment> _appointments;
+        public IEnumerable<Appointment> Appointments => _appointments;
         public string Weight =>_medicalRecord.Weight.ToString();
         public ICommand? BackCommand { get; }
-        public MedicalRecordViewModel(MedicalRecordService medicalRecordService, Patient patient)
+        public MedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService, Patient patient)
         {
             BackCommand = new NavigateScheduleCommand();
+            _appointmentService = appointmentService;
             _medicalRecordService = medicalRecordService;
             _patient = patient;
             _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(patient);
@@ -54,6 +61,12 @@ namespace HealthInstitution.ViewModel
             foreach(var allergen in _medicalRecord.Allergens)
             {
                 _allergens.Add(allergen);
+            }
+            _appointments = new ObservableCollection<Appointment>();
+            IEnumerable<Appointment> apps = appointmentService.ReadPatientAppointments(patient);
+            foreach(var appointment in apps)
+            {
+                _appointments.Add(appointment);
             }
         }
     }
