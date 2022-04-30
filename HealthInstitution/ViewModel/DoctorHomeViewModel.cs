@@ -39,7 +39,9 @@ namespace HealthInstitution.ViewModel
             });
             EventBus.RegisterHandler("MedicalRecord", () =>
             {
-                MedicalRecordViewModel viewModel = new(ServiceLocator.Get<MedicalRecordService>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                MedicalRecordViewModel viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
+                                                        ServiceLocator.Get<IAppointmentService>(),
+                                                        GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 SwitchCurrentViewModel(viewModel);
             });
             EventBus.RegisterHandler("Examination", () =>

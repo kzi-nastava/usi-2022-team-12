@@ -12,15 +12,18 @@ namespace HealthInstitution.Commands.Secretary
     {
         private readonly HandlePatientViewModel _handlePatientVM;
         private readonly IPatientService _patientService;
+        private readonly IMedicalRecordService _medicalRecordService;
         private readonly SecretaryPatientCRUDViewModel _secretaryPatientCRUDVM;
 
         private Guid _patientId;
 
         public HandlePatientCommand(HandlePatientViewModel handlePatientVM, IPatientService patientService,
+            IMedicalRecordService medicalRecordService,
             SecretaryPatientCRUDViewModel secretaryPatientCRUDVM, Guid patientId)
         {
             _handlePatientVM = handlePatientVM;
             _patientService = patientService;
+            _medicalRecordService = medicalRecordService;
             _handlePatientVM.PropertyChanged += _addPatientVM_PropertyChanged;
             _secretaryPatientCRUDVM = secretaryPatientCRUDVM;
             _patientId = patientId;
@@ -81,6 +84,10 @@ namespace HealthInstitution.Commands.Secretary
             };
 
             _patientService.Create(patientToRegister);
+
+            var medicalRecord = new MedicalRecord { Height = 0, Weight = 0, IllnessHistory = new List<Illness>(), Allergens = new List<Allergen>(), Patient = patientToRegister };
+
+            _medicalRecordService.Create(medicalRecord);
         }
 
         public void UpdatePatient()

@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="Password" />
-            <TextBox Grid.Row="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" FontFamily="{DynamicResource ResourceKey=Password}" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Row="2" Foreground="Red" Visibility="{Binding ErrMsgVisibility}" Text="{Binding ErrMsgText}" Margin="0 15 0 0"/>
         </Grid>

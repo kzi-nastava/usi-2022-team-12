@@ -40,6 +40,9 @@ namespace HealthInstitution.Commands
                 ViewModelBase viewModel;
                 switch (user.Role) {
                     case Role.Manager:
+                        Manager mn = (Manager)user;
+                        GlobalStore.AddObject("LoggedUser", mn);
+                        EventBus.FireEvent("ManagerLogin");
                         //todo
                         TitleManager.Title = "Manager";
                         break;

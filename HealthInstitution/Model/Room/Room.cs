@@ -13,7 +13,7 @@ namespace HealthInstitution.Model
         public RoomType RoomType { get => _roomType; set => OnPropertyChanged(ref _roomType, value); }
 
         private readonly IList<Entry<Equipment>> _inventory;
-        public virtual IList<Entry<Equipment>> Inventory { get => _inventory;}
+        public virtual IList<Entry<Equipment>> Inventory { get => _inventory; }
 
         #endregion
 
@@ -35,13 +35,17 @@ namespace HealthInstitution.Model
             foreach (Entry<Equipment> includedEntry in _inventory)
             {
                 if (includedEntry.Item.Id == entry.Item.Id)
-                {
-                    // Baci exception
+                {                    
                     return;
                 }
             }
-            
+
             _inventory.Add(entry);
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         #endregion

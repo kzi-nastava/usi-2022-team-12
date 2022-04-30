@@ -16,5 +16,10 @@ namespace HealthInstitution.Services.Implementation
         public IEnumerable<Room> ReadRoomsWithType(RoomType rt) {
             return _entities.Where(rm => rm.RoomType == rt).ToList();
         }
+
+        public IEnumerable<Room> ReadRoomsWithName(string name)
+        {
+            return _entities.Where(rm => rm.Name == name).ToList();
+        }
     }
 }
