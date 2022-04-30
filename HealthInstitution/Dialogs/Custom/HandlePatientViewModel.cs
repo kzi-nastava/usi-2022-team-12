@@ -99,16 +99,20 @@ namespace HealthInstitution.Dialogs.Custom
 
         private readonly IDialogService _dialogService;
 
+        private readonly IMedicalRecordService _medicalRecordService;
+
         private readonly IPatientService _patientService;
 
         #endregion
 
         public HandlePatientViewModel(IDialogService dialogService, IPatientService patientService,
+            IMedicalRecordService medicalRecordService,
             SecretaryPatientCRUDViewModel secretartyPatientCRUDVM, Guid patientId) :
             base("Add patient", 700, 550)
         {
             _dialogService = dialogService;
             _patientService = patientService;
+            _medicalRecordService = medicalRecordService;
             _patientId = patientId;
 
             if (patientId != Guid.Empty)
@@ -123,7 +127,7 @@ namespace HealthInstitution.Dialogs.Custom
                 ReadOnlyEmailAddress = false;
             }
 
-            HandlePatient = new HandlePatientCommand(this, patientService, secretartyPatientCRUDVM, patientId);
+            HandlePatient = new HandlePatientCommand(this, patientService, medicalRecordService, secretartyPatientCRUDVM, patientId);
         }
 
 

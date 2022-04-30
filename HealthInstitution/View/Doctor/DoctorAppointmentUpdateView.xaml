@@ -26,7 +26,7 @@
             <materialDesign:TimePicker Margin="10 0 0 0" SelectedTime="{Binding Time}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 25 0 0">
-            <TextBox Width="200" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding SearchText}"/>
+            <TextBox Width="200" Margin="10 0 0 0" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search text" Text="{Binding SearchText}"/>
             <Button Content="Search" Command="{Binding SearchPatientCommand}" IsDefault="True" Margin="10 0 0 0"/>
         </StackPanel>
         <ListView Grid.Row="2" VerticalAlignment="Top" Margin="0 10 0 0" MaxHeight="290" Height="290"  SelectedItem="{Binding SelectedPatient, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Patients}">

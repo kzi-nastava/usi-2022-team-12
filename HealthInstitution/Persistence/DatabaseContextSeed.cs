@@ -7,40 +7,30 @@ namespace HealthInstitution.Persistence
     {
         public static void Seed(DatabaseContext context)
         {
-            // Patients
-            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic", Role = Role.Patient, IsBlocked = true };
-            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic", Role = Role.Patient, IsBlocked = false };
-            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@gmail.com", Role = Role.Patient, IsBlocked = false };
-            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic", Role = Role.Patient, IsBlocked = false };
-            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic", Role = Role.Patient, IsBlocked = false };
+            //// Patients
+            //var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true };
+            //var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false };
+            //var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false };
+            //var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false };
+            //var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false };
 
-            context.Patients.Add(p1);
-            context.Patients.Add(p2);
-            context.Patients.Add(p3);
-            context.Patients.Add(p4);
-            context.Patients.Add(p5);
-
-            // Allergens
-            var alr1 = new Allergen("peanuts");
-
-            context.Allergens.Add(alr1);
-
-            // Illnesses
-            var il1 = new Illness { Name = "Illness1" };
-
-            context.Illness.Add(il1);
+            //context.Patients.Add(p1);
+            //context.Patients.Add(p2);
+            //context.Patients.Add(p3);
+            //context.Patients.Add(p4);
+            //context.Patients.Add(p5);
 
             // Medical records
-            var mr1 = new MedicalRecord(180.5, 70.4, p1);
-            mr1.AddAllergen(alr1);
-            mr1.AddIllness(il1);
+            //var mr1 = new MedicalRecord(180.5, 70.4, p1);
+            //mr1.AddAllergen(alr1);
+            //mr1.AddIllness(il1);
 
-            context.MedicalRecords.Add(mr1);
+            //context.MedicalRecords.Add(mr1);
 
             // Secretaries
-            var c1 = new Secretary { FirstName = "Nikola", LastName = "Petrovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "nikolapetrovic", Role = Role.Secretary };
-            var c2 = new Secretary { FirstName = "Tamara", LastName = "Vujanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "tamaravujanovic", Role = Role.Secretary };
-            var c3 = new Secretary { FirstName = "Petar", LastName = "Blagojevic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "petarblagojevic", Role = Role.Secretary };
+            var c1 = new Secretary { FirstName = "Nikola", LastName = "Petrovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "nikolapetrovic@example.com", Role = Role.Secretary };
+            var c2 = new Secretary { FirstName = "Tamara", LastName = "Vujanovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "tamaravujanovic@example.com", Role = Role.Secretary };
+            var c3 = new Secretary { FirstName = "Petar", LastName = "Blagojevic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "petarblagojevic@example.com", Role = Role.Secretary };
 
             context.Secretaries.Add(c1);
             context.Secretaries.Add(c2);
@@ -48,9 +38,9 @@ namespace HealthInstitution.Persistence
 
 
             // Doctors
-            var d1 = new Doctor { FirstName = "Igor", LastName = "Mirkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-48), EmailAddress = "igormirkovic", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
-            var d2 = new Doctor { FirstName = "Veljko", LastName = "Vukovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "veljkovukovic", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
-            var d3 = new Doctor { FirstName = "Gordana", LastName = "Milicic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "gordanamilicic", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
+            var d1 = new Doctor { FirstName = "Igor", LastName = "Mirkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-48), EmailAddress = "igormirkovic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
+            var d2 = new Doctor { FirstName = "Veljko", LastName = "Vukovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "veljkovukovic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
+            var d3 = new Doctor { FirstName = "Gordana", LastName = "Milicic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "gordanamilicic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
 
             context.Doctors.Add(d1);
             context.Doctors.Add(d2);
@@ -59,8 +49,8 @@ namespace HealthInstitution.Persistence
 
             // Managers
 
-            var m1 = new Manager { FirstName = "Velibor", LastName = "Stojkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-60), EmailAddress = "veliborstojkovic", Role = Role.Manager };
-            var m2 = new Manager { FirstName = "Radivoje", LastName = "Zivkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-65), EmailAddress = "radivojezivkovic", Role = Role.Manager };
+            var m1 = new Manager { FirstName = "Velibor", LastName = "Stojkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-60), EmailAddress = "veliborstojkovic@example.com", Role = Role.Manager };
+            var m2 = new Manager { FirstName = "Radivoje", LastName = "Zivkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-65), EmailAddress = "radivojezivkovic@example.com", Role = Role.Manager };
 
             context.Managers.Add(m1);
             context.Managers.Add(m2);
@@ -92,18 +82,18 @@ namespace HealthInstitution.Persistence
             context.Equipments.Add(e8);
 
             // Ingredient
-            var i1 = new Ingredient { Name = "Kalcijum" };
+            var i1 = new Ingredient { Name = "Calcium" };
 
             context.Ingredients.Add(i1);
 
             // Medicine 
-            var me1 = new Medicine("Opis leka");
+            var me1 = new Medicine("Probiotic");
             me1.AddIngredient(i1);
 
             context.Medicines.Add(me1);
 
             // Room
-            var r1 = new Room(RoomType.Storage, "A1");
+            var r1 = new Room(RoomType.Storage, "S");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");
             var r3 = new Room(RoomType.ExaminationRoom, "E2");
             var r4 = new Room(RoomType.ExaminationRoom, "E3");
@@ -207,49 +197,49 @@ namespace HealthInstitution.Persistence
 
 
             // Appointments
-            var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
+            //var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
 
-            var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
-            
-            var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, null, false);
+            //var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
 
-            context.Appointments.Add(ap1);
-            context.Appointments.Add(ap2);
-            context.Appointments.Add(ap3);
+            //var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, null, false);
+
+            //context.Appointments.Add(ap1);
+            //context.Appointments.Add(ap2);
+            //context.Appointments.Add(ap3);
 
             // Appointment update requests
-            var aru1 = new AppointmentUpdateRequest()
-            {
-                Patient = p1,
-                Appointment = ap1,
-                ActivityType = ActivityType.Update,
-                Status = Status.Pending,
-                StartDate = DateTime.Now.AddDays(2),
-                EndDate = DateTime.Now.AddDays(2).AddMinutes(15),
-                Doctor = d2,
-                Room = r2
-            };
+            //var aru1 = new AppointmentUpdateRequest()
+            //{
+            //    Patient = p1,
+            //    Appointment = ap1,
+            //    ActivityType = ActivityType.Update,
+            //    Status = Status.Pending,
+            //    StartDate = DateTime.Now.AddDays(2),
+            //    EndDate = DateTime.Now.AddDays(2).AddMinutes(15),
+            //    Doctor = d2,
+            //    Room = r2
+            //};
 
-            var aru2 = new AppointmentUpdateRequest()
-            {
-                Patient = p2,
-                Appointment = ap2,
-                ActivityType = ActivityType.Update,
-                Status = Status.Pending,
-                StartDate = DateTime.Now.AddDays(2),
-                EndDate = DateTime.Now.AddDays(2).AddMinutes(15),
-                Doctor = d2,
-                Room = r2
-            };
+            //var aru2 = new AppointmentUpdateRequest()
+            //{
+            //    Patient = p2,
+            //    Appointment = ap2,
+            //    ActivityType = ActivityType.Update,
+            //    Status = Status.Pending,
+            //    StartDate = DateTime.Now.AddDays(2),
+            //    EndDate = DateTime.Now.AddDays(2).AddMinutes(15),
+            //    Doctor = d2,
+            //    Room = r2
+            //};
 
-            context.AppointmentUpdateRequests.Add(aru1);
-            context.AppointmentUpdateRequests.Add(aru2);
+            //context.AppointmentUpdateRequests.Add(aru1);
+            //context.AppointmentUpdateRequests.Add(aru2);
 
             // Appointment delete requests
 
-            var adr1 = new AppointmentDeleteRequest() { Patient = p1, Appointment = ap1, ActivityType = ActivityType.Delete, Status = Status.Pending };
+            //var adr1 = new AppointmentDeleteRequest() { Patient = p1, Appointment = ap1, ActivityType = ActivityType.Delete, Status = Status.Pending };
 
-            context.AppointmentDeleteRequests.Add(adr1);
+            //context.AppointmentDeleteRequests.Add(adr1);
 
             context.SaveChanges();
         }

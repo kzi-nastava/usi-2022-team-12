@@ -104,7 +104,6 @@ namespace HealthInstitution.ViewModel
                     {
                         var appointmentToDelete = _selectedAppointmentRequest.Appointment;
                         _appointmentService.Delete(appointmentToDelete.Id);
-
                     }
                     else
                     {

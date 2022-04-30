@@ -38,6 +38,8 @@ namespace HealthInstitution.ViewModel
 
         private readonly IPatientService _patientService;
 
+        private readonly IMedicalRecordService _medicalRecordService;
+
         private readonly IDialogService _dialogService;
 
         private readonly IAppointmentService _appointmentService;
@@ -58,10 +60,11 @@ namespace HealthInstitution.ViewModel
 
         #endregion
 
-        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientService patientService, IAppointmentService appointmentService)
+        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientService patientService, IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
             _patientService = patientService;
+            _medicalRecordService = medicalRecordService;
             _dialogService = dialogService;
             _appointmentService = appointmentService;
 
@@ -72,9 +75,8 @@ namespace HealthInstitution.ViewModel
 
             AddPatient = new RelayCommand(() =>
             {
-                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientService, this, Guid.Empty);
+                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientService, medicalRecordService, this, Guid.Empty);
                 _dialogService.OpenDialog(handlePatientViewModel);
-                MessageBox.Show("Patient added succesfully.");
             });
 
             UpdatePatient = new RelayCommand(() =>
@@ -85,7 +87,7 @@ namespace HealthInstitution.ViewModel
                 }
                 else
                 {
-                    HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientService, this, _selectedPatient.Id);
+                    HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientService, medicalRecordService, this, _selectedPatient.Id);
                     _dialogService.OpenDialog(updatePatientViewModel);
                     MessageBox.Show("Patient updated succesfully.");
                 }
