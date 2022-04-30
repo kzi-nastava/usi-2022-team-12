@@ -23,20 +23,27 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(p => p.IsBlocked == true).ToList();
         }
 
+        public IEnumerable<Patient> FilterPatientsBySearchText(string searchText)
+        {
+            searchText = searchText.ToLower();
+            return _entities.Where(p => p.EmailAddress.ToLower().Contains(searchText) || p.FirstName.ToLower().Contains(searchText)
+           || p.LastName.ToLower().Contains(searchText) || p.DateOfBirth.ToString().Contains(searchText)).ToList();
+        }
+
         public IEnumerable<Patient> FilterValidPatientsBySearchText(string searchText)
         {
             searchText = searchText.ToLower();
             return _entities.Where(p => p.IsBlocked == false)
-                            .Where(p => p.EmailAddress.ToLower().StartsWith(searchText) || p.FirstName.ToLower().StartsWith(searchText)
-            || p.LastName.ToLower().StartsWith(searchText) || p.DateOfBirth.ToString().StartsWith(searchText)).ToList();
+                            .Where(p => p.EmailAddress.ToLower().Contains(searchText) || p.FirstName.ToLower().Contains(searchText)
+            || p.LastName.ToLower().Contains(searchText) || p.DateOfBirth.ToString().Contains(searchText)).ToList();
         }
 
         public IEnumerable<Patient> FilterBlockedPatientsBySearchText(string searchText)
         {
             searchText = searchText.ToLower();
             return _entities.Where(p => p.IsBlocked == true)
-                            .Where(p => p.EmailAddress.ToLower().StartsWith(searchText) || p.FirstName.ToLower().StartsWith(searchText)
-            || p.LastName.ToLower().StartsWith(searchText) || p.DateOfBirth.ToString().StartsWith(searchText)).ToList();
+                            .Where(p => p.EmailAddress.ToLower().Contains(searchText) || p.FirstName.ToLower().Contains(searchText)
+            || p.LastName.ToLower().Contains(searchText) || p.DateOfBirth.ToString().Contains(searchText)).ToList();
         }
 
         public void BlockPatient(Patient patientToBlock)

@@ -120,6 +120,12 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(e => e.Doctor == doctor && e.StartDate.Date >= start.Date && e.StartDate.Date <= end.Date);
         }
 
+        public IEnumerable<Appointment> ReadFinishedAppointmentsForPatient(Patient pt)
+        {
+            return _entities.Where(ap => ap.IsDone == true)
+                            .Where(apt => apt.Patient == pt).ToList();
+        }
+
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt).ToList();

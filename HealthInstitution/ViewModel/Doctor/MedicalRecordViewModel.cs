@@ -25,25 +25,25 @@ namespace HealthInstitution.ViewModel
 
         public string Height => _medicalRecord.Height.ToString();
 
-        public string Age => CalculateAge(_patient.DateOfBirth).ToString(); 
+        public string Age => CalculateAge(_patient.DateOfBirth).ToString();
 
         private static int CalculateAge(DateTime dateOfBirth)
         {
             int age = 0;
             age = DateTime.Now.Subtract(dateOfBirth).Days;
             age = age / 365;
-            return age;            
+            return age;
         }
 
         private readonly ObservableCollection<Illness> _illnessHistoryData;
         public IEnumerable<Illness> IllnessHistoryData => _illnessHistoryData;
 
         private readonly ObservableCollection<Allergen> _allergens;
-        public IEnumerable<Allergen > Allergens => _allergens;
+        public IEnumerable<Allergen> Allergens => _allergens;
 
         private readonly ObservableCollection<Appointment> _appointments;
         public IEnumerable<Appointment> Appointments => _appointments;
-        public string Weight =>_medicalRecord.Weight.ToString();
+        public string Weight => _medicalRecord.Weight.ToString();
         public ICommand? BackCommand { get; }
         public MedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService, Patient patient)
         {
@@ -53,18 +53,18 @@ namespace HealthInstitution.ViewModel
             _patient = patient;
             _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(patient);
             _illnessHistoryData = new ObservableCollection<Illness>();
-            foreach(var illnes in _medicalRecord.IllnessHistory)
+            foreach (var illnes in _medicalRecord.IllnessHistory)
             {
                 _illnessHistoryData.Add(illnes);
             }
             _allergens = new ObservableCollection<Allergen>();
-            foreach(var allergen in _medicalRecord.Allergens)
+            foreach (var allergen in _medicalRecord.Allergens)
             {
                 _allergens.Add(allergen);
             }
             _appointments = new ObservableCollection<Appointment>();
-            IEnumerable<Appointment> apps = appointmentService.ReadPatientAppointments(patient);
-            foreach(var appointment in apps)
+            IEnumerable<Appointment> apps = appointmentService.ReadFinishedAppointmentsForPatient(patient);
+            foreach (var appointment in apps)
             {
                 _appointments.Add(appointment);
             }
