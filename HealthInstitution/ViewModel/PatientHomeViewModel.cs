@@ -10,13 +10,17 @@ namespace HealthInstitution.ViewModel
 {
     public class PatientHomeViewModel : NavigableViewModel
     {
+        #region commands
         public ICommand LogOutCommand { get; set; }
         public ICommand? PatientAppointmentsCommand { get; }
+        #endregion
 
+        #region attributes
         public string PatientName 
         { 
-            get => GlobalStore.ReadObject<Patient>("LoggedUser").FirstName; 
+            get => GlobalStore.ReadObject<Patient>("LoggedUser").FirstName;
         }
+        #endregion
 
         public PatientHomeViewModel()
         {
@@ -26,6 +30,8 @@ namespace HealthInstitution.ViewModel
             RegisterHandler();
         }
 
+
+        #region handlers
         private void RegisterHandler()
         {
             EventBus.RegisterHandler("PatientAppointments", () =>
@@ -46,5 +52,6 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Auvm);
             });
         }
+        #endregion
     }
 }
