@@ -4,6 +4,7 @@ using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Validation;
 using HealthInstitution.ViewModel;
 using System;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace HealthInstitution.Dialogs.Custom
@@ -75,6 +76,8 @@ namespace HealthInstitution.Dialogs.Custom
 
         #region Error message view models
 
+        private static readonly Regex _emailregex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z");
+
         public ErrorMessageViewModel FirstNameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel LastNameError { get; private set; } = new ErrorMessageViewModel();
         public ErrorMessageViewModel EmailAddressError { get; private set; } = new ErrorMessageViewModel();
@@ -113,7 +116,7 @@ namespace HealthInstitution.Dialogs.Custom
                 FetchPatient();
                 ActionButtonName = "Update";
                 ReadOnlyEmailAddress = true;
-            } 
+            }
             else
             {
                 ActionButtonName = "Add";
@@ -154,18 +157,23 @@ namespace HealthInstitution.Dialogs.Custom
             bool valid = true;
 
             // Email
-            if (string.IsNullOrEmpty(EmailAddress) && IsDirty(nameof(EmailAddress))) 
+            if (string.IsNullOrEmpty(EmailAddress) && IsDirty(nameof(EmailAddress)))
             {
                 EmailAddressError.ErrorMessage = "Email cannot be empty.";
                 valid = false;
-            } 
+            }
+            else if (!string.IsNullOrEmpty(EmailAddress) && !_emailregex.IsMatch(EmailAddress))
+            {
+                EmailAddressError.ErrorMessage = "Email is not in correct format.";
+                valid = false;
+            }
             else
             {
                 EmailAddressError.ErrorMessage = null;
             }
 
             // First name
-            if (string.IsNullOrEmpty(FirstName) && IsDirty(nameof(FirstName))) 
+            if (string.IsNullOrEmpty(FirstName) && IsDirty(nameof(FirstName)))
             {
                 FirstNameError.ErrorMessage = "First name cannot be empty.";
                 valid = false;
@@ -176,7 +184,7 @@ namespace HealthInstitution.Dialogs.Custom
             }
 
             // Last name
-            if (string.IsNullOrEmpty(LastName) && IsDirty(nameof(LastName))) 
+            if (string.IsNullOrEmpty(LastName) && IsDirty(nameof(LastName)))
             {
                 LastNameError.ErrorMessage = "Last name cannot be empty.";
                 valid = false;
@@ -187,7 +195,7 @@ namespace HealthInstitution.Dialogs.Custom
             }
 
             // Password
-            if (string.IsNullOrEmpty(Password) && IsDirty(nameof(Password))) 
+            if (string.IsNullOrEmpty(Password) && IsDirty(nameof(Password)))
             {
                 PasswordError.ErrorMessage = "Password cannot be empty.";
                 valid = false;
@@ -198,7 +206,7 @@ namespace HealthInstitution.Dialogs.Custom
             }
 
             // Confirm password
-            if (ConfirmPassword != Password && IsDirty(nameof(ConfirmPassword))) 
+            if (ConfirmPassword != Password && IsDirty(nameof(ConfirmPassword)))
             {
                 ConfirmPasswordError.ErrorMessage = "Password and confirm password must match.";
                 valid = false;
@@ -211,7 +219,7 @@ namespace HealthInstitution.Dialogs.Custom
             // Date of birth
             DateTime today = DateTime.Today;
             int age = today.Year - DateOfBirth.Year;
-            if (DateOfBirth > today.AddYears(-age)) 
+            if (DateOfBirth > today.AddYears(-age))
             {
                 age--;
             }

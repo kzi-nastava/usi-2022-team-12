@@ -40,6 +40,8 @@ namespace HealthInstitution.ViewModel
 
         private readonly IDialogService _dialogService;
 
+        private readonly IAppointmentService _appointmentService;
+
         #endregion
 
         #region Commands
@@ -56,11 +58,12 @@ namespace HealthInstitution.ViewModel
 
         #endregion
 
-        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientService patientService)
+        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientService patientService, IAppointmentService appointmentService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
             _patientService = patientService;
             _dialogService = dialogService;
+            _appointmentService = appointmentService;
 
             SearchCommand = new RelayCommand(() =>
             {
@@ -71,6 +74,7 @@ namespace HealthInstitution.ViewModel
             {
                 HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientService, this, Guid.Empty);
                 _dialogService.OpenDialog(handlePatientViewModel);
+                MessageBox.Show("Patient added succesfully.");
             });
 
             UpdatePatient = new RelayCommand(() =>
@@ -93,10 +97,15 @@ namespace HealthInstitution.ViewModel
                 {
                     MessageBox.Show("You did not select any patient to update.");
                 }
+                else if (_appointmentService.PatientHasAnAppointment(_selectedPatient.Id))
+                {
+                    MessageBox.Show("Patient can not be deleted.");
+                }
                 else
                 {
                     _patientService.Delete(_selectedPatient.Id);
                     MessageBox.Show("Patient deleted succesfully.");
+                    UpdatePage();
                 }
             });
 

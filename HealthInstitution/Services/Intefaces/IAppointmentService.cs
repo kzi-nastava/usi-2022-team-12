@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Intefaces
 {
-    public interface IAppointmentService : ICrudService<Appointment> {
+    public interface IAppointmentService : ICrudService<Appointment>
+    {
         IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
         IEnumerable<Appointment> ReadRoomAppointments(Room r);
-        
+
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor);
         void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
         bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
@@ -18,6 +19,7 @@ namespace HealthInstitution.Services.Intefaces
         bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
         bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate);
         bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
+        public bool PatientHasAnAppointment(Guid patientId);
     }
 
 }
