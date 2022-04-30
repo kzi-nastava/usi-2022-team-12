@@ -29,14 +29,21 @@ namespace HealthInstitution.Commands
         {
             _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
             var apts = _appointmentService.ReadRoomAppointments(_selectedRoom);
-            if (apts.Count() == 0)
+            
+
+            if (_selectedRoom.Inventory.Count() != 0)
             {
-                _roomService.Delete(_selectedRoom.Id);
-                MessageBox.Show("Room deleted successfully!");
+                MessageBox.Show("Room with that name has equipment!");
+            }
+            else if (apts.Count() != 0)
+            {
+                MessageBox.Show("Room with that name has appointments!");
             }
             else 
             {
-                MessageBox.Show("Room with that name has appointments!");
+                _roomService.Delete(_selectedRoom.Id);
+                MessageBox.Show("Room deleted successfully!");
+                EventBus.FireEvent("RoomsOverview");
             }
 
         }
