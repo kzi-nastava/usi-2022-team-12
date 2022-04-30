@@ -63,6 +63,7 @@ namespace HealthInstitution.ViewModel
                 else
                 {
                     _patientService.UnblockPatient(_selectedPatient);
+                    MessageBox.Show("Patient unblocked succesfully.");
                     UpdatePage();
                 }
             });
@@ -76,10 +77,10 @@ namespace HealthInstitution.ViewModel
 
         private void Search()
         {
-            if (SearchText == "")
+            if (SearchText == "" || SearchText == null)
                 UpdatePage();
             else
-                BlockedPatients = new ObservableCollection<Patient>(_patientService.FilterPatientsBySearchText(SearchText));
+                BlockedPatients = new ObservableCollection<Patient>(_patientService.FilterBlockedPatientsBySearchText(SearchText));
         }
     }
 }

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
@@ -34,6 +34,7 @@
     <Folder Include="Commands\Manager\" />
     <Folder Include="Commands\Secretary\" />
     <Folder Include="Commands\Doctor\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Persistence\Database\" />
     <Folder Include="ViewModel\Manager\" />
     <Folder Include="View\Manager\" />

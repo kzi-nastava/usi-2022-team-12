@@ -1,7 +1,5 @@
 ﻿using HealthInstitution.Model;
 using System;
-using System.Collections.Generic;
-using System.Windows;
 
 namespace HealthInstitution.Persistence
 {
@@ -10,8 +8,8 @@ namespace HealthInstitution.Persistence
         public static void Seed(DatabaseContext context)
         {
             // Patients
-            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic", Role = Role.Patient, IsBlocked=true };
-            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic", Role = Role.Patient, IsBlocked = false};
+            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic", Role = Role.Patient, IsBlocked = true };
+            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic", Role = Role.Patient, IsBlocked = false };
             var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@gmail.com", Role = Role.Patient, IsBlocked = false };
             var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic", Role = Role.Patient, IsBlocked = false };
             var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic", Role = Role.Patient, IsBlocked = false };
@@ -28,7 +26,7 @@ namespace HealthInstitution.Persistence
             context.Allergens.Add(alr1);
 
             // Illnesses
-            var il1 = new Illness { Name = "Illness1"};
+            var il1 = new Illness { Name = "Illness1" };
 
             context.Illness.Add(il1);
 
@@ -52,7 +50,7 @@ namespace HealthInstitution.Persistence
             // Doctors
             var d1 = new Doctor { FirstName = "Igor", LastName = "Mirkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-48), EmailAddress = "igormirkovic", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
             var d2 = new Doctor { FirstName = "Veljko", LastName = "Vukovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "veljkovukovic", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
-            var d3 = new Doctor { FirstName = "Gordana", LastName = "Milicic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "gordanamilicic", Role = Role.Doctor, Specialization=DoctorSpecialization.Pediatrician };
+            var d3 = new Doctor { FirstName = "Gordana", LastName = "Milicic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "gordanamilicic", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
 
             context.Doctors.Add(d1);
             context.Doctors.Add(d2);
@@ -69,7 +67,7 @@ namespace HealthInstitution.Persistence
 
             // Administrator
 
-            var a1 = new Administrator { FirstName = "Administrator", LastName = "Administrator", Password = "admin", DateOfBirth = DateTime.Now.AddYears(-60), EmailAddress = "admin" , Role=Role.Administrator};
+            var a1 = new Administrator { FirstName = "Administrator", LastName = "Administrator", Password = "admin", DateOfBirth = DateTime.Now.AddYears(-60), EmailAddress = "admin", Role = Role.Administrator };
 
             context.Administrators.Add(a1);
 
@@ -98,7 +96,7 @@ namespace HealthInstitution.Persistence
 
             context.Medicines.Add(me1);
 
-            // Rooom
+            // Room
             var r1 = new Room(RoomType.Storage, "A1");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");
 
@@ -118,6 +116,40 @@ namespace HealthInstitution.Persistence
             context.Appointments.Add(ap1);
             context.Appointments.Add(ap2);
             context.Appointments.Add(ap3);
+
+            // Appointment update requests
+            var aru1 = new AppointmentUpdateRequest()
+            {
+                Patient = p1,
+                Appointment = ap1,
+                ActivityType = ActivityType.Update,
+                Status = Status.Pending,
+                StartDate = DateTime.Now.AddDays(2),
+                EndDate = DateTime.Now.AddDays(2).AddMinutes(15),
+                Doctor = d2,
+                Room = r2
+            };
+
+            var aru2 = new AppointmentUpdateRequest()
+            {
+                Patient = p2,
+                Appointment = ap2,
+                ActivityType = ActivityType.Update,
+                Status = Status.Pending,
+                StartDate = DateTime.Now.AddDays(2),
+                EndDate = DateTime.Now.AddDays(2).AddMinutes(15),
+                Doctor = d2,
+                Room = r2
+            };
+
+            context.AppointmentUpdateRequests.Add(aru1);
+            context.AppointmentUpdateRequests.Add(aru2);
+
+            // Appointment delete requests
+
+            var adr1 = new AppointmentDeleteRequest() { Patient = p1, Appointment = ap1, ActivityType = ActivityType.Delete, Status = Status.Pending };
+
+            context.AppointmentDeleteRequests.Add(adr1);
 
             context.SaveChanges();
         }

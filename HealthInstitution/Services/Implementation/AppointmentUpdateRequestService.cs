@@ -2,14 +2,11 @@
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Implementation
 {
-    public class AppointmentUpdateRequestService : CrudService<AppointmentUpdateRequest>, IAppointmentUpdateRequestService
+    public class AppointmentUpdateRequestService : AppointmentRequestService<AppointmentUpdateRequest>, IAppointmentUpdateRequestService
     {
         public AppointmentUpdateRequestService(DatabaseContext context) : base(context)
         {

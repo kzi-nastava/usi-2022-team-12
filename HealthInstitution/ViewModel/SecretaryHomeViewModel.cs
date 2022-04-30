@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Ninject;
 using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -15,6 +16,8 @@ namespace HealthInstitution.ViewModel
         public ICommand ShowValidPatients { get; private set; }
 
         public ICommand ShowBlockedPatients { get; private set; }
+
+        public ICommand ShowAppointmentRequests { get; private set; }
 
         #endregion
 
@@ -32,6 +35,12 @@ namespace HealthInstitution.ViewModel
             ShowBlockedPatients = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryBlockedPatientsViewModel>());
+            });
+
+
+            ShowAppointmentRequests = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryAppointmentRequestsViewModel>());
             });
 
             RegisterHandler();

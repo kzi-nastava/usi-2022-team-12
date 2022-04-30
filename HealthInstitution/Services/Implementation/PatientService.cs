@@ -9,7 +9,8 @@ namespace HealthInstitution.Services.Implementation
     public class PatientService : UserService<Patient>, IPatientService
     {
         public PatientService(DatabaseContext context) :
-            base(context) {}
+            base(context)
+        { }
 
 
         public IEnumerable<Patient> ReadAllValidPatients()
@@ -22,10 +23,20 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(p => p.IsBlocked == true).ToList();
         }
 
-        public IEnumerable<Patient> FilterPatientsBySearchText(string searchText)
+        public IEnumerable<Patient> FilterValidPatientsBySearchText(string searchText)
         {
-            return _entities.Where(p => p.EmailAddress.StartsWith(searchText) || p.FirstName.StartsWith(searchText) 
-            || p.LastName.StartsWith(searchText) || p.DateOfBirth.ToString().StartsWith(searchText)).ToList();
+            searchText = searchText.ToLower();
+            return _entities.Where(p => p.IsBlocked == false)
+                            .Where(p => p.EmailAddress.ToLower().StartsWith(searchText) || p.FirstName.ToLower().StartsWith(searchText)
+            || p.LastName.ToLower().StartsWith(searchText) || p.DateOfBirth.ToString().StartsWith(searchText)).ToList();
+        }
+
+        public IEnumerable<Patient> FilterBlockedPatientsBySearchText(string searchText)
+        {
+            searchText = searchText.ToLower();
+            return _entities.Where(p => p.IsBlocked == true)
+                            .Where(p => p.EmailAddress.ToLower().StartsWith(searchText) || p.FirstName.ToLower().StartsWith(searchText)
+            || p.LastName.ToLower().StartsWith(searchText) || p.DateOfBirth.ToString().StartsWith(searchText)).ToList();
         }
 
         public void BlockPatient(Patient patientToBlock)

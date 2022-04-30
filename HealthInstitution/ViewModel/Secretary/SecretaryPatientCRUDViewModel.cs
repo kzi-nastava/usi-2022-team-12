@@ -50,6 +50,8 @@ namespace HealthInstitution.ViewModel
 
         public ICommand UpdatePatient { get; private set; }
 
+        public ICommand DeletePatient { get; private set; }
+
         public ICommand BlockPatient { get; private set; }
 
         #endregion
@@ -81,6 +83,20 @@ namespace HealthInstitution.ViewModel
                 {
                     HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientService, this, _selectedPatient.Id);
                     _dialogService.OpenDialog(updatePatientViewModel);
+                    MessageBox.Show("Patient updated succesfully.");
+                }
+            });
+
+            DeletePatient = new RelayCommand(() =>
+            {
+                if (_selectedPatient == null)
+                {
+                    MessageBox.Show("You did not select any patient to update.");
+                }
+                else
+                {
+                    _patientService.Delete(_selectedPatient.Id);
+                    MessageBox.Show("Patient deleted succesfully.");
                 }
             });
 
@@ -93,6 +109,7 @@ namespace HealthInstitution.ViewModel
                 else
                 {
                     _patientService.BlockPatient(_selectedPatient);
+                    MessageBox.Show("Patient blocked succesfully.");
                     UpdatePage();
                 }
             });
@@ -106,10 +123,10 @@ namespace HealthInstitution.ViewModel
 
         private void Search()
         {
-            if (SearchText == "")
+            if (SearchText == "" || SearchText == null)
                 UpdatePage();
             else
-                Patients = new ObservableCollection<Patient>(_patientService.FilterPatientsBySearchText(SearchText));
+                Patients = new ObservableCollection<Patient>(_patientService.FilterValidPatientsBySearchText(SearchText));
         }
     }
 }
