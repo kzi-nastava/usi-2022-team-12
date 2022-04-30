@@ -13,14 +13,14 @@ namespace HealthInstitution.ViewModel
 {
     public class PatientAppointmentsViewModel : ViewModelBase
     {
+        #region services
         public readonly IAppointmentService appointmentService;
         public readonly IAppointmentDeleteRequestService appointmentDeleteRequestService;
         public readonly IActivityService activityService;
         public readonly IPatientService patientService;
-        public ICommand? AppointmentCreationCommand { get; }
-        public ICommand? AppointmentUpdateCommand { get; }
-        public ICommand? RemoveAppointmentCommand { get; }
+        #endregion
 
+        #region attributes
         private List<Appointment> _appointments;
         public List<Appointment> Appointments
         {
@@ -43,6 +43,13 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(SelectedAppointment));
             }
         }
+        #endregion
+
+        #region commands
+        public ICommand? AppointmentCreationCommand { get; }
+        public ICommand? AppointmentUpdateCommand { get; }
+        public ICommand? RemoveAppointmentCommand { get; }
+        #endregion
 
         public PatientAppointmentsViewModel(IAppointmentService appointmentService, IAppointmentDeleteRequestService appointmentDeleteRequestService, IActivityService activityService, IPatientService patientService)
         {
@@ -50,7 +57,7 @@ namespace HealthInstitution.ViewModel
             this.appointmentDeleteRequestService = appointmentDeleteRequestService;
             this.activityService = activityService;
             this.patientService = patientService;
-            Appointments = this.appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).ToList();
+            Appointments = this.appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).OrderByDescending(apt => apt.StartDate).ToList();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);
