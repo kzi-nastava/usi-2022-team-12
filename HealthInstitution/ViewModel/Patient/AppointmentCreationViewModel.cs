@@ -10,11 +10,14 @@ namespace HealthInstitution.ViewModel
 {
     public class AppointmentCreationViewModel : ViewModelBase
     {
+        #region services
         public readonly IAppointmentService appointmentService;
         public readonly IActivityService activityService;
         public readonly IDoctorService doctorService;
         public readonly IPatientService patientService;
+        #endregion
 
+        #region attributes
         private DateTime _startDateTime;
         public DateTime StartDateTime
         {
@@ -46,8 +49,12 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(Doctors));
             }
         }
+        #endregion
+
+        #region commands
         public ICommand? MakeAppointmentCommand { get; }
         public ICommand? PatientAppointmentsCommand { get; }
+        #endregion
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {

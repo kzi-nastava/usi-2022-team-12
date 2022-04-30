@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Background="White">
@@ -17,8 +18,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Equipment overview" FontSize="20" FontWeight="Bold" Margin="0 0 0 15"/>
         <StackPanel Grid.Row="1" Margin="0,10,0,0" Orientation="Horizontal">
-            <TextBlock FontSize="18" Text="🔍"/>
-            <TextBox FontSize="18" Margin="10, 0, 50, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Text="{Binding SearchBox}"/>
+            <TextBlock FontSize="18" Text="🔍" VerticalAlignment="Center"/>
+            <TextBox FontSize="18" Margin="10, 0, 50, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search text" Text="{Binding SearchBox}"/>
         </StackPanel>
         <TextBlock Grid.Row="2" Text="Filters:" FontSize="20" Margin="0,10,0,0" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
@@ -37,11 +38,6 @@
             <Button Margin="10, 0" FontSize="18" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100" Command="{Binding SearchEquipmentCommand}"/>
         </StackPanel>
         <ListView Grid.Row="4" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding TableModels}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item" Width="auto">

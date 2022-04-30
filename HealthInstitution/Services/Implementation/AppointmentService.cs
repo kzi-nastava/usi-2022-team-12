@@ -20,7 +20,8 @@ namespace HealthInstitution.Services.Implementation
             _roomService = roomService;
         }
 
-        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
+        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate)
+        {
 
             //doctor availabilty check
             bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDate, endDate);
@@ -53,7 +54,8 @@ namespace HealthInstitution.Services.Implementation
             Create(app);
         }
 
-        public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
+        public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate)
+        {
             bool doctorAvailability = IsDoctorAvailableForUpdate(selectedDoctor, startDate, endDate, selectedAppointment);
             bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDate, endDate);
             if (!doctorAvailability || !doctorRequestAvailability)
@@ -85,7 +87,7 @@ namespace HealthInstitution.Services.Implementation
             {
                 throw new UpdateFailedException();
             }
-                
+
             if (DateTime.Now.AddDays(2) > selectedAppointment.StartDate)
             {
                 AppointmentUpdateRequest appointmentRequest = new AppointmentUpdateRequest
@@ -118,6 +120,12 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(e => e.Doctor == doctor && e.StartDate.Date >= start.Date && e.StartDate.Date <= end.Date);
         }
 
+        public IEnumerable<Appointment> ReadFinishedAppointmentsForPatient(Patient pt)
+        {
+            return _entities.Where(ap => ap.IsDone == true)
+                            .Where(apt => apt.Patient == pt).ToList();
+        }
+
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt).ToList();
@@ -143,6 +151,17 @@ namespace HealthInstitution.Services.Implementation
         public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
             return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+        }
+
+
+        /// <summary>
+        /// Check if patient is present in atleast one appointment
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool PatientHasAnAppointment(Guid patientId)
+        {
+            return (_entities.Where(apt => apt.Patient.Id == patientId).Count() != 0);
         }
     }
 }

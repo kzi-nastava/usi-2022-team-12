@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="Fonts\password.ttf" />
+    <None Remove="Resources\main.jpg" />
+    <None Remove="Resources\main3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +36,18 @@
     <Folder Include="Commands\Secretary\" />
     <Folder Include="Commands\Doctor\" />
     <Folder Include="Persistence\Database\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\main.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\LoginView.xaml">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>
