@@ -20,7 +20,7 @@ namespace HealthInstitution.Services.Implementation
             _roomService = roomService;
         }
 
-        public bool MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
+        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
 
             //doctor availabilty check
             bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDate, endDate);
@@ -51,7 +51,6 @@ namespace HealthInstitution.Services.Implementation
 
             Appointment app = new Appointment(selectedDoctor, selectedPatient, startDate, endDate, emptyRoom, null, false);
             Create(app);
-            return true;
         }
 
         public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {

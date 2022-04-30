@@ -10,7 +10,7 @@ namespace HealthInstitution.Services.Intefaces
     public interface IAppointmentService : ICrudService<Appointment> {
         IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor);
-        bool MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
+        void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
         bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
         bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
         bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
