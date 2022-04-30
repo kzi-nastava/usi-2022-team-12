@@ -24,8 +24,9 @@ namespace HealthInstitution.Services.Implementation
 
         public IEnumerable<Patient> FilterPatientsBySearchText(string searchText)
         {
-            return _entities.Where(p => p.EmailAddress.StartsWith(searchText) || p.FirstName.StartsWith(searchText) 
-            || p.LastName.StartsWith(searchText) || p.DateOfBirth.ToString().StartsWith(searchText)).ToList();
+            string searchTextLower = searchText.ToLower();
+            return _entities.Where(p => p.EmailAddress.ToLower().StartsWith(searchTextLower) || p.FirstName.ToLower().StartsWith(searchTextLower) 
+            || p.LastName.ToLower().StartsWith(searchTextLower) || p.DateOfBirth.ToString().ToLower().StartsWith(searchTextLower)).ToList();
         }
 
         public void BlockPatient(Patient patientToBlock)

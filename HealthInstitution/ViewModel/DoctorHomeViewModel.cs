@@ -44,11 +44,21 @@ namespace HealthInstitution.ViewModel
             });
             EventBus.RegisterHandler("Examination", () =>
             {
-                ExaminationViewModel viewModel = new(ServiceLocator.Get<MedicalRecordService>(),
+                ExaminationViewModel viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
                                                     ServiceLocator.Get<IIllnessService>(),
                                                     ServiceLocator.Get<IAllergenService>(),
                                                     ServiceLocator.Get<IAppointmentService>(),
                                                     GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
+                SwitchCurrentViewModel(viewModel);
+            });
+            EventBus.RegisterHandler("CreateAppointment", () =>
+            {
+                DoctorAppointmentCreationViewModel viewModel = new(ServiceLocator.Get<IPatientService>(), ServiceLocator.Get<IAppointmentService>());
+                SwitchCurrentViewModel(viewModel);
+            });
+            EventBus.RegisterHandler("UpdateAppointment", () =>
+            {
+                DoctorAppointmentUpdateViewModel viewModel = new(ServiceLocator.Get<IPatientService>(), ServiceLocator.Get<IAppointmentService>(), GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
         }

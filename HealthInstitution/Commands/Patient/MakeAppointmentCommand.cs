@@ -1,4 +1,4 @@
-﻿using HealthInstitution.Exceptions;
+using HealthInstitution.Exceptions;
 using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
@@ -42,7 +42,7 @@ namespace HealthInstitution.Commands
 
             try
             {
-                _viewModel.appointmentService.makeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                _viewModel.appointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
                 _viewModel.activityService.Create(act);
                 MessageBox.Show("Appointment created successfully!");
