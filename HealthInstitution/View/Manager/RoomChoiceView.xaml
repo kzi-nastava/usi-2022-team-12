@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Background="White">
@@ -21,5 +22,13 @@
             <ComboBox FontSize="16" Margin="10,0,50,0" SelectedItem="{Binding SelectedRoom2, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Rooms}" HorizontalAlignment="Left" Width="50"></ComboBox>
             <Button Content="Confirm rooms choice" Command="{Binding ConfirmRoomChoiceCommand}"></Button>
         </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0, 20">
+            <TextBlock Text="Date:" FontSize="18" VerticalAlignment="Bottom" Margin="0, 0, 10, 0"></TextBlock>
+            <DatePicker SelectedDateFormat="Long" VerticalAlignment="Bottom" Margin="0, 0, 20, 0" SelectedDate="{Binding ArrangeDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Time:" FontSize="18" VerticalAlignment="Bottom" Margin="0, 0, 10, 0"></TextBlock>
+            <materialDesign:TimePicker  HorizontalAlignment="Left" FontSize="18" SelectedTime="{Binding ArrangeDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        
+        
     </Grid>
 </UserControl>

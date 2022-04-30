@@ -37,6 +37,7 @@ namespace HealthInstitution.Commands
         {
             GlobalStore.AddObject("ArrangeRoom1", _viewModel.SelectedRoom1);
             GlobalStore.AddObject("ArrangeRoom2", _viewModel.SelectedRoom2);
+            GlobalStore.AddObject("ArrangeTime", _viewModel.ArrangeDateTime);
             EventBus.FireEvent("RoomsConfirmed");
         }
     }

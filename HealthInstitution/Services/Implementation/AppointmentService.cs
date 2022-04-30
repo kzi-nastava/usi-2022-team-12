@@ -126,6 +126,7 @@ namespace HealthInstitution.Services.Implementation
         public IEnumerable<Appointment> ReadRoomAppointments(Room r)
         {
             return _entities.Where(apt => apt.Room == r).ToList();
+        }
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return (_entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0);

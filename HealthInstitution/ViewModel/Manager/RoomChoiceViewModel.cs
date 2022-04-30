@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -51,12 +52,25 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private DateTime _arrangeDateTime;
+        public DateTime ArrangeDateTime
+        {
+            get => _arrangeDateTime;
+            set
+            {
+                _arrangeDateTime = value;
+                OnPropertyChanged(nameof(ArrangeDateTime));
+            }
+        }
+
         public RoomChoiceViewModel(IRoomService roomService)
         {
+            
             roomService = roomService;
             Rooms = roomService.ReadAll().ToList();
             SelectedRoom1 = Rooms[0];
             SelectedRoom2 = Rooms[1];
+            ArrangeDateTime = DateTime.Now;
             ConfirmRoomChoiceCommand = new ConfirmRoomChoiceCommand(this);
         }
     }

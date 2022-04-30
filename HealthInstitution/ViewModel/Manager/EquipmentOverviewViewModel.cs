@@ -268,14 +268,6 @@ namespace HealthInstitution.ViewModel
             _inventory = new ObservableCollection<Entry<Equipment>>();
             _roomInventory = new ObservableCollection<Room>();
             Rooms = roomService.ReadAll().ToList();
-            //foreach (var room in Rooms)
-            //{
-            //    foreach (var item in room.Inventory)
-            //    {
-            //        TableModel tm = new TableModel(item.Item.Name, item.Quantity, room.Name);
-            //        _tableModels.Add(tm);
-            //    }    
-            //}
             loadTable();
             SearchEquipmentCommand = new SearchEquipmentCommand(this);
 

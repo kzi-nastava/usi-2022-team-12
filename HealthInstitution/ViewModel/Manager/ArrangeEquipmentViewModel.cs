@@ -19,11 +19,32 @@ namespace HealthInstitution.ViewModel
         private readonly ObservableCollection<Entry<Equipment>> _inventory1;
         private readonly ObservableCollection<Entry<Equipment>> _inventory2;
 
+        public readonly IEntryService _entryService;
+        public readonly IRoomService _roomService;
+
+
+        public IEnumerable<Entry<Equipment>> Inventory1Binding
+        {
+            get
+            {
+                return _inventory1.Where(e => e.Quantity > 0);
+            }
+        }
+        public IEnumerable<Entry<Equipment>> Inventory2Binding
+        {
+            get
+            {
+                return _inventory2.Where(e => e.Quantity > 0);
+            }
+        }
+
         public IEnumerable<Entry<Equipment>> Inventory1 => _inventory1;
         public IEnumerable<Entry<Equipment>> Inventory2 => _inventory2;
 
         public ICommand? FirstToSecondCommand { get; }
         public ICommand? SecondToFirstCommand { get; }
+
+        public ICommand? ConfirmArrangementCommand { get; }
 
 
         private string _roomName1;
@@ -91,11 +112,12 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(SelectedEntry2));
             }
         }
-
+      
         public void MoveItemBetweenRooms(Entry<Equipment> selectedEntry, 
             ObservableCollection<Entry<Equipment>> senderInventory, 
             ObservableCollection<Entry<Equipment>> receiverInventory)
         {
+
             if (senderInventory.Count() == 0)
             {
                 MessageBox.Show("Chosen room doesn't have any equipment!");
@@ -109,11 +131,7 @@ namespace HealthInstitution.ViewModel
             {
                 if (selectedEntry.Item.Name.Equals(item.Item.Name))
                 {
-                    item.Quantity -= 1;
-                    if (item.Quantity == 0)
-                    {
-                        senderInventory.Remove(item);
-                    }
+                    item.Quantity -= 1;                          
                     break;
                 }
             }
@@ -129,16 +147,16 @@ namespace HealthInstitution.ViewModel
             }
             if (!itemExisted)
             {
-                Entry<Equipment> newEntry = new Entry<Equipment> { Item = selectedEntry.Item, Quantity = 1 }; ;
+                Entry<Equipment> newEntry = new Entry<Equipment> { Item = selectedEntry.Item, Quantity = 1};               
                 receiverInventory.Add(newEntry);
             }
 
-            CollectionViewSource.GetDefaultView(_inventory1).Refresh();
-            CollectionViewSource.GetDefaultView(_inventory2).Refresh();
+            OnPropertyChanged(nameof(Inventory1Binding));
+            OnPropertyChanged(nameof(Inventory2Binding));
             
         }
 
-        public ArrangeEquipmentViewModel()
+        public ArrangeEquipmentViewModel(IEntryService entryService, IRoomService roomService)
         {
             _room1 = GlobalStore.ReadObject<Room>("ArrangeRoom1");
             _room2 = GlobalStore.ReadObject<Room>("ArrangeRoom2");
@@ -150,7 +168,7 @@ namespace HealthInstitution.ViewModel
             {
                 if (item.Quantity != 0)
                 {
-                    Entry<Equipment> entryHelper = new Entry<Equipment> {Item = item.Item, Quantity = item.Quantity, CreatedAt = item.CreatedAt, Id = item.Id, IsActive = item.IsActive};
+                    Entry<Equipment> entryHelper = new Entry<Equipment> {Item = item.Item, Quantity = item.Quantity};
                     _inventory1.Add(entryHelper);
                 }
                 
@@ -159,7 +177,7 @@ namespace HealthInstitution.ViewModel
             {
                 if (item.Quantity != 0)
                 {
-                    Entry<Equipment> entryHelper = new Entry<Equipment> {Item = item.Item, Quantity = item.Quantity, CreatedAt = item.CreatedAt, Id = item.Id, IsActive = item.IsActive};
+                    Entry<Equipment> entryHelper = new Entry<Equipment> {Item = item.Item, Quantity = item.Quantity};
                     _inventory2.Add(entryHelper);
                 }
             }
@@ -167,6 +185,10 @@ namespace HealthInstitution.ViewModel
             _selectedEntry2 = _inventory2.FirstOrDefault();
             FirstToSecondCommand = new FirstToSecondCommand(this);
             SecondToFirstCommand = new SecondToFirstCommand(this);
+            _entryService = entryService;
+            _roomService = roomService;
+            ConfirmArrangementCommand = new ConfirmArrangementCommand(this);
+            
         }
     }
 }
