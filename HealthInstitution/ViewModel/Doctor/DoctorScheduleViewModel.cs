@@ -23,10 +23,8 @@ namespace HealthInstitution.ViewModel
             public Appointment Appointment => _appointment;
             public Patient Patient => _appointment.Patient;
             public string PatientName => _appointment.Patient.FullName;
-            //public string Date => _appointment.StartDate.ToString("D");
-
             public DateTime Date => _appointment.StartDate;
-            public string Time => _appointment.StartDate.ToString("t");                
+            public DateTime Time => _appointment.StartDate;                
             public string Room => _appointment.Room.Name;
             public bool IsDone => _appointment.IsDone;
             public AppointmentViewModel(Appointment appointment)
@@ -83,23 +81,34 @@ namespace HealthInstitution.ViewModel
                 }
             }
         }
-        public readonly AppointmentService _appointmentService;
+        private readonly IAppointmentService _appointmentService;
+
+        public IAppointmentService AppointmentService => _appointmentService;
 
         private readonly ObservableCollection<AppointmentViewModel> _appointments;
 
         public IEnumerable<AppointmentViewModel> Appointments => _appointments;
 
-        public ICommand? OpenMedicalRecordCommand { get; }
-        public ICommand? StartAppointmentCommand { get; }
-        public DoctorScheduleViewModel(AppointmentService appointemntService)
+        public ICommand OpenMedicalRecordCommand { get; }
+        public ICommand StartAppointmentCommand { get; }
+        public ICommand CreateAppointmentCommand { get; }
+        public ICommand UpdateAppointmentCommand { get; }
+        public ICommand CancelAppointmentCommand { get; }
+        public DoctorScheduleViewModel(IAppointmentService appointemntService)
         {
             _userDate = DateTime.Now;
             _appointmentService = appointemntService;
             _appointments = new ObservableCollection<AppointmentViewModel>();
             OpenMedicalRecordCommand = new NavigateMedicalRecordCommand(this);
             StartAppointmentCommand = new StartAppointmentCommand(this);
+            CreateAppointmentCommand = new NavigateDoctorAppointmentCreationCommand(this);
+            UpdateAppointmentCommand = new NavigateDoctorAppointmentUpdateCommand(this);
+            CancelAppointmentCommand = new DoctorCancelAppointmentCommand(this);
             UpdateData();
-
+            EventBus.RegisterHandler("UpdateSchedule", () =>
+            {
+                UpdateData();
+            });
         }
         public void UpdateData()
         {

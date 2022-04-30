@@ -20,7 +20,7 @@ namespace HealthInstitution.Services.Implementation
             _roomService = roomService;
         }
 
-        public bool makeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
+        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
 
             //doctor availabilty check
             bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDate, endDate);
@@ -49,9 +49,8 @@ namespace HealthInstitution.Services.Implementation
                 throw new RoomBusyException();
             }
 
-            Appointment app = new Appointment(selectedDoctor, selectedPatient, startDate, endDate, emptyRoom, "Type anamnesis here", false);
+            Appointment app = new Appointment(selectedDoctor, selectedPatient, startDate, endDate, emptyRoom, null, false);
             Create(app);
-            return true;
         }
 
         public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate) {
@@ -82,7 +81,7 @@ namespace HealthInstitution.Services.Implementation
             }
 
             if (selectedAppointment.StartDate == startDate && selectedAppointment.EndDate == endDate
-                && selectedAppointment.Doctor == selectedDoctor)
+                && selectedAppointment.Doctor == selectedDoctor && selectedAppointment.Patient == selectedPatient)
             {
                 throw new UpdateFailedException();
             }
@@ -124,6 +123,10 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(apt => apt.Patient == pt).ToList();
         }
 
+        public IEnumerable<Appointment> ReadRoomAppointments(Room r)
+        {
+            return _entities.Where(apt => apt.Room == r).ToList();
+        }
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return (_entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0);

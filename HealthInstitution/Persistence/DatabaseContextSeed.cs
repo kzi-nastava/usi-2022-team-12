@@ -73,17 +73,23 @@ namespace HealthInstitution.Persistence
 
             // Equipments
 
-            var e1 = new Equipment { EquipmentType = EquipmentType.HallwayEquipment, Name = "Chair" };
+            var e1 = new Equipment { EquipmentType = EquipmentType.ExaminationEquipment, Name = "Chair" };
             var e2 = new Equipment { EquipmentType = EquipmentType.OperationEquipment, Name = "Operation table" };
             var e3 = new Equipment { EquipmentType = EquipmentType.Furniture, Name = "Sofa" };
             var e4 = new Equipment { EquipmentType = EquipmentType.ExaminationEquipment, Name = "Knife" };
             var e5 = new Equipment { EquipmentType = EquipmentType.HallwayEquipment, Name = "Hallway chair" };
+            var e6 = new Equipment { EquipmentType = EquipmentType.Furniture, Name = "TV" };
+            var e7 = new Equipment { EquipmentType = EquipmentType.ExaminationEquipment, Name = "Bed" };
+            var e8 = new Equipment { EquipmentType = EquipmentType.OperationEquipment, Name = "Oxygen Generator" };
 
             context.Equipments.Add(e1);
             context.Equipments.Add(e2);
             context.Equipments.Add(e3);
             context.Equipments.Add(e4);
             context.Equipments.Add(e5);
+            context.Equipments.Add(e6);
+            context.Equipments.Add(e7);
+            context.Equipments.Add(e8);
 
             // Ingredient
             var i1 = new Ingredient { Name = "Kalcijum" };
@@ -99,18 +105,112 @@ namespace HealthInstitution.Persistence
             // Room
             var r1 = new Room(RoomType.Storage, "A1");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");
+            var r3 = new Room(RoomType.ExaminationRoom, "E2");
+            var r4 = new Room(RoomType.ExaminationRoom, "E3");
+            var r5 = new Room(RoomType.OperationRoom, "O1");
+            var r6 = new Room(RoomType.OperationRoom, "O2");
+            var r7 = new Room(RoomType.OperationRoom, "O3");
+            var r8 = new Room(RoomType.RestingRoom, "R1");
+            var r9 = new Room(RoomType.RestingRoom, "R2");
+            var r10 = new Room(RoomType.RestingRoom, "R3");
+
+            // Storage equipment
+
+            Entry<Equipment> entry1 = new Entry<Equipment> { Item = e1, Quantity = 15 };
+            Entry<Equipment> entry2 = new Entry<Equipment> { Item = e2, Quantity = 5 };
+            Entry<Equipment> entry3 = new Entry<Equipment> { Item = e3, Quantity = 7 };
+            Entry<Equipment> entry4 = new Entry<Equipment> { Item = e4, Quantity = 50 };
+            Entry<Equipment> entry5 = new Entry<Equipment> { Item = e5, Quantity = 30 };
+            Entry<Equipment> entry6 = new Entry<Equipment> { Item = e6, Quantity = 10 };
+            Entry<Equipment> entry7 = new Entry<Equipment> { Item = e7, Quantity = 20 };
+            Entry<Equipment> entry8 = new Entry<Equipment> { Item = e8, Quantity = 3 };
+
+
+            r1.AddEquipment(entry1);
+            r1.AddEquipment(entry2);
+            r1.AddEquipment(entry3);
+            r1.AddEquipment(entry4);
+            r1.AddEquipment(entry5);
+            r1.AddEquipment(entry6);
+            r1.AddEquipment(entry7);
+            r1.AddEquipment(entry8);
+
+            // ExaminationRoom equipment
+
+            Entry<Equipment> entryE1 = new Entry<Equipment> { Item = e1, Quantity = 3 };
+            Entry<Equipment> entryE2 = new Entry<Equipment> { Item = e4, Quantity = 5 };
+            Entry<Equipment> entryE3 = new Entry<Equipment> { Item = e7, Quantity = 2 };
+            Entry<Equipment> entryE4 = new Entry<Equipment> { Item = e1, Quantity = 3 };
+            Entry<Equipment> entryE5 = new Entry<Equipment> { Item = e4, Quantity = 5 };
+            Entry<Equipment> entryE6 = new Entry<Equipment> { Item = e7, Quantity = 2 };
+            Entry<Equipment> entryE7 = new Entry<Equipment> { Item = e1, Quantity = 3 };
+            Entry<Equipment> entryE8 = new Entry<Equipment> { Item = e4, Quantity = 5 };
+            Entry<Equipment> entryE9 = new Entry<Equipment> { Item = e7, Quantity = 2 };
+
+            r2.AddEquipment(entryE1);
+            r2.AddEquipment(entryE2);
+            r2.AddEquipment(entryE3);
+
+            r3.AddEquipment(entryE4);
+            r3.AddEquipment(entryE5);
+            r3.AddEquipment(entryE6);
+
+            r4.AddEquipment(entryE7);
+            r4.AddEquipment(entryE8);
+            r4.AddEquipment(entryE9);
+
+            // OperationRoom equipment
+
+            Entry<Equipment> entryO1 = new Entry<Equipment> { Item = e2, Quantity = 2 };
+            Entry<Equipment> entryO2 = new Entry<Equipment> { Item = e8, Quantity = 1 };
+            Entry<Equipment> entryO3 = new Entry<Equipment> { Item = e2, Quantity = 1 };
+            Entry<Equipment> entryO4 = new Entry<Equipment> { Item = e2, Quantity = 1 };
+            Entry<Equipment> entryO5 = new Entry<Equipment> { Item = e8, Quantity = 1 };
+
+            r5.AddEquipment(entryO1);
+            r5.AddEquipment(entryO2);
+
+            r6.AddEquipment(entryO3);
+
+            r7.AddEquipment(entryO4);
+            r7.AddEquipment(entryO5);
+
+            // RestingRoom equipment
+
+            Entry<Equipment> entryR1 = new Entry<Equipment> { Item = e3, Quantity = 4 };
+            Entry<Equipment> entryR2 = new Entry<Equipment> { Item = e6, Quantity = 1 };
+            Entry<Equipment> entryR3 = new Entry<Equipment> { Item = e3, Quantity = 4 };
+            Entry<Equipment> entryR4 = new Entry<Equipment> { Item = e6, Quantity = 1 };
+            Entry<Equipment> entryR5 = new Entry<Equipment> { Item = e3, Quantity = 4 };
+            Entry<Equipment> entryR6 = new Entry<Equipment> { Item = e6, Quantity = 1 };
+
+            r8.AddEquipment(entryR1);
+            r8.AddEquipment(entryR2);
+
+            r9.AddEquipment(entryR3);
+            r9.AddEquipment(entryR4);
+
+            r10.AddEquipment(entryR5);
+            r10.AddEquipment(entryR6);
+
 
             context.Rooms.Add(r1);
+            context.Rooms.Add(r2);
+            context.Rooms.Add(r3);
+            context.Rooms.Add(r4);
+            context.Rooms.Add(r5);
+            context.Rooms.Add(r6);
+            context.Rooms.Add(r7);
+            context.Rooms.Add(r8);
+            context.Rooms.Add(r9);
+            context.Rooms.Add(r10);
 
 
             // Appointments
-            //var ap1 = new Appointment { Doctor = d1, Patient=p1, StartDate=DateTime.Now, EndDate=DateTime.Now.AddMinutes(15), Room=r2, IsDone=false };
             var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
 
-            //var ap2 = new Appointment { Doctor = d2, Patient = p2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddMinutes(15), Room = r2, IsDone = false };
             var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
-
-            //var ap3 = new Appointment { Doctor = d1, Patient = p3, StartDate = DateTime.Now, EndDate = DateTime.Now.AddMinutes(15), Room = r2, IsDone = false };
+            
             var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, null, false);
 
             context.Appointments.Add(ap1);
