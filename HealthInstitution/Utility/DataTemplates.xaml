@@ -29,7 +29,7 @@
     <DataTemplate DataType="{x:Type vm:DoctorAppointmentCreationViewModel}">
         <v:DoctorAppointmentCreationView/>
     </DataTemplate>
-    
+
     <DataTemplate DataType="{x:Type vm:DoctorAppointmentUpdateViewModel}">
         <v:DoctorAppointmentUpdateView/>
     </DataTemplate>
@@ -68,10 +68,6 @@
 
     <!--Dialog data templates-->
 
-    <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
-        <v:AppointmentUpdateView/>
-    </DataTemplate> 
-    
     <DataTemplate DataType="{x:Type vm:ManagerHomeViewModel}">
         <v:ManagerHomeView/>
     </DataTemplate>
@@ -106,7 +102,7 @@
         <v:RoomChoiceView/>
     </DataTemplate>
     <!-- Manager -->
-    
+
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
         <dc:HandlePatientView/>
     </DataTemplate>

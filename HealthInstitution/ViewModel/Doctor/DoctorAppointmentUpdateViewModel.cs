@@ -105,7 +105,7 @@ namespace HealthInstitution.ViewModel
             }
             else
             {
-                patients = _patientService.FilterPatientsBySearchText(prefix);
+                patients = _patientService.FilterValidPatientsBySearchText(prefix);
             }
             foreach (var patient in patients)
             {
