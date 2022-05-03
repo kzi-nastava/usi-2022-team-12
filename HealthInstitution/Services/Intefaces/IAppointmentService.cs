@@ -9,6 +9,7 @@ namespace HealthInstitution.Services.Intefaces
 {
     public interface IAppointmentService : ICrudService<Appointment>
     {
+        public IEnumerable<Appointment> ReadFinishedAppointmentsForPatient(Patient pt);
         IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
         IEnumerable<Appointment> ReadRoomAppointments(Room r);
 

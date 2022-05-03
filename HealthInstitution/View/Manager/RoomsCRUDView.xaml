@@ -15,11 +15,6 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Rooms overview" FontSize="20" FontWeight="Bold" Margin="0 0 0 0"/>
         <ListView Grid.Row="1" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding Rooms, Mode=TwoWay}"  SelectedItem="{Binding SelectedRoom, Mode=TwoWay}" >
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
@@ -36,7 +31,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                   
+
                 </GridView>
             </ListView.View>
         </ListView>

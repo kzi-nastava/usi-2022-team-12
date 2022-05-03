@@ -49,7 +49,7 @@
                                     <DataTemplate>
                                         <TextBlock Padding="0 0 20 0">
                                             <TextBlock.Text>
-                                                <Binding Path="DoctorName.FullName"/>
+                                                <Binding Path="Doctor.FullName"/>
                                             </TextBlock.Text>
                                         </TextBlock>
                                     </DataTemplate>

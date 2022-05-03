@@ -45,7 +45,8 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("You can't remove appointment in last 24h!");
             }
 
-            else if (DateTime.Now.AddDays(2) > apt.StartDate) {
+            else if (DateTime.Now.AddDays(2) > apt.StartDate)
+            {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
                 AppointmentDeleteRequest appointmentRequest = new AppointmentDeleteRequest { Patient = pt, Appointment = apt, ActivityType = ActivityType.Delete, Status = Status.Pending };
                 _viewModel.appointmentDeleteRequestService.Create(appointmentRequest);
@@ -53,7 +54,7 @@ namespace HealthInstitution.Commands
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
                 _viewModel.activityService.Create(act);
-                
+
                 var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
@@ -72,7 +73,7 @@ namespace HealthInstitution.Commands
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
                 _viewModel.activityService.Create(act);
-                
+
                 var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {

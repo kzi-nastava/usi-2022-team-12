@@ -18,11 +18,6 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding RoomName1}" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
                 <ListView Grid.Row="1" MaxHeight="290" Height="300" ItemsSource="{Binding Inventory1Binding, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedEntry1, Mode=TwoWay}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Item" Width="auto">
@@ -54,11 +49,6 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding RoomName2}" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
                 <ListView Grid.Row="1"  MaxHeight="290" Height="300" ItemsSource="{Binding Inventory2Binding, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedEntry2, Mode=TwoWay}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Item" Width="auto">
