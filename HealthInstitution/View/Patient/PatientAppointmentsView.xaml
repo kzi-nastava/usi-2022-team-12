@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HealthInstitution.View"
              xmlns:converters="clr-namespace:HealthInstitution.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="900"
+             d:DesignHeight="300" d:DesignWidth="600"
              Background="White">
     <UserControl.Resources>
         <converters:DateToStringConverter x:Key="DateToStringConverter"/>

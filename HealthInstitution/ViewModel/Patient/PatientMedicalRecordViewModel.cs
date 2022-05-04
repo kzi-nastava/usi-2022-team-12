@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Commands;
+using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
@@ -83,11 +84,22 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(PastAppointments));
             }
         }
-        public ICommand BackCommand { get; }
+
+        private Appointment _selectedAppointment;
+        public Appointment SelectedAppointment 
+        {
+            get => _selectedAppointment;
+            set 
+            {
+                _selectedAppointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
+            }
+        }
+        public ICommand SearchByAnamnesisCommand { get; }
 
         public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
         {
-            //BackCommand = new NavigateScheduleCommand();
+            SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
             this.appointmentService = appointmentService;
             this.medicalRecordService = medicalRecordService;
             Patient = GlobalStore.ReadObject<Patient>("LoggedUser");

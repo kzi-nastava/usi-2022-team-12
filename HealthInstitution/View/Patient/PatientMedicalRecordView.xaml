@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HealthInstitution.View"
              xmlns:converters="clr-namespace:HealthInstitution.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800"
+             d:DesignHeight="650" d:DesignWidth="800"
              Background="White">
     <UserControl.Resources>
         <converters:DateToStringConverter x:Key="DateToStringConverter"/>
@@ -19,8 +19,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Patient medical record" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
-        <Separator Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 25 0 25"/>
+        <TextBlock Grid.Row="0" Text="Patient medical record" FontSize="18" FontWeight="Bold" Margin="0 0 0 0"/>
+        <Separator Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 15 0 15"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -43,56 +43,69 @@
             </StackPanel>
         </Grid>
         <Separator Grid.Row="3" HorizontalAlignment="Stretch" Margin="0 25 0 15"/>
-        <StackPanel Grid.Row="4" Orientation="Vertical">
-            <TextBlock Text="Past appointments" FontSize="15" FontWeight="Bold" />
-            <ListView  Margin="0 10 0 0" Height="auto" ItemsSource="{Binding PastAppointments}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Doctor" Width="auto">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding ="0 0 20 0">
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0} {1}">
-                                                <Binding Path="Doctor.FirstName"/>
-                                                <Binding Path="Doctor.LastName"/>
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Begin time" Width="auto"  DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Anamnesis" Width="auto">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0" Text="{Binding Anamnesis}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+        
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Height="auto">
+                <TextBlock Text="Past appointments" FontSize="15" FontWeight="Bold" />
+                <ListView Margin="0 10 0 0" Height="auto" ItemsSource="{Binding PastAppointments}" SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Doctor" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding ="0 0 20 0">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="Doctor.FirstName"/>
+                                                    <Binding Path="Doctor.LastName"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Begin time" Width="auto"  DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Anamnesis" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0" Text="{Binding Anamnesis}" TextTrimming="CharacterEllipsis"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Height="auto" Margin="50 50 0 0">
+                <TextBlock Text="Anamnesis details:" FontSize="16"  Margin="0 0 0 10"/>
+                <TextBox Padding="10" Height="240" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding SelectedAppointment.Anamnesis}" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True">
+                    
+                </TextBox>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
