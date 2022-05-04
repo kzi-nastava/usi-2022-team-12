@@ -13,6 +13,7 @@ namespace HealthInstitution.ViewModel
         #region commands
         public ICommand LogOutCommand { get; set; }
         public ICommand? PatientAppointmentsCommand { get; }
+        public ICommand? PatientMedicalRecordCommand { get; }
         #endregion
 
         #region attributes
@@ -25,6 +26,7 @@ namespace HealthInstitution.ViewModel
         public PatientHomeViewModel()
         {
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            PatientMedicalRecordCommand = new PatientMedicalRecordCommand();
             LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
@@ -38,6 +40,12 @@ namespace HealthInstitution.ViewModel
             {
                 PatientAppointmentsViewModel Pavm = ServiceLocator.Get<PatientAppointmentsViewModel>();
                 SwitchCurrentViewModel(Pavm);
+            });
+
+            EventBus.RegisterHandler("PatientMedicalRecord", () =>
+            {
+                PatientMedicalRecordViewModel Pmrvm = ServiceLocator.Get<PatientMedicalRecordViewModel>();
+                SwitchCurrentViewModel(Pmrvm);
             });
 
             EventBus.RegisterHandler("AppointmentCreation", () =>

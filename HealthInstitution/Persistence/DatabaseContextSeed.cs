@@ -21,7 +21,7 @@ namespace HealthInstitution.Persistence
             context.Patients.Add(p5);
 
             //Medical records
-            var mr1 = new MedicalRecord(180.5, 70.4, p1);
+            var mr1 = new MedicalRecord(180.5, 70.4, p2);
             var alr1 = new Allergen("these nuts");
             var il1 = new Illness("paranoid");
             mr1.AddAllergen(alr1);

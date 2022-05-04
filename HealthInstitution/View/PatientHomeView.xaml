@@ -36,6 +36,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding PatientAppointmentsCommand}" IsChecked="True"/>
+                    <RadioButton Content="Medical record"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding PatientMedicalRecordCommand}" IsChecked="False"/>
                 </StackPanel>
 
                 <Button Content="Log out"
