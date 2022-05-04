@@ -99,6 +99,30 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private string _selectedSort;
+        public string SelectedSort
+        {
+            get => _selectedSort;
+            set
+            {
+                _selectedSort = value;
+
+                if (SelectedSort.Equals("Date"))
+                {
+                    PastAppointments = PastAppointments.OrderBy(apt => apt.StartDate).ToList<Appointment>();
+                }
+                else if (SelectedSort.Equals("Doctor"))
+                {
+                    PastAppointments = PastAppointments.OrderBy(apt => apt.Doctor.FullName).ToList<Appointment>();
+                }
+                else if (SelectedSort.Equals("Specialization"))
+                {
+                    PastAppointments = PastAppointments.OrderBy(apt => apt.Doctor.Specialization).ToList<Appointment>();
+                }
+                OnPropertyChanged(nameof(SelectedSort));
+            }
+        }
+
         public ICommand SearchByAnamnesisCommand { get; }
 
         public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
@@ -106,6 +130,7 @@ namespace HealthInstitution.ViewModel
             SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
             this.appointmentService = appointmentService;
             this.medicalRecordService = medicalRecordService;
+            SelectedSort = "";
             Patient = GlobalStore.ReadObject<Patient>("LoggedUser");
             _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
             IllnessHistoryData = _medicalRecord.IllnessHistory.ToList<Illness>();
@@ -130,6 +155,7 @@ namespace HealthInstitution.ViewModel
             else {
                 PastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
             }
+            SelectedSort = "";
         }
     }
 }
