@@ -14,5 +14,10 @@ namespace HealthInstitution.Commands
             _viewModel = viewModel;
 
         }
+
+        public override void Execute(object? parameter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
