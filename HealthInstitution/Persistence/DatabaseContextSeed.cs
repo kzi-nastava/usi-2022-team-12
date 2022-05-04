@@ -8,24 +8,26 @@ namespace HealthInstitution.Persistence
         public static void Seed(DatabaseContext context)
         {
             //// Patients
-            //var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true };
-            //var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false };
-            //var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false };
-            //var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false };
-            //var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false };
+            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true };
+            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false };
+            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false };
+            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false };
+            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false };
 
-            //context.Patients.Add(p1);
-            //context.Patients.Add(p2);
-            //context.Patients.Add(p3);
-            //context.Patients.Add(p4);
-            //context.Patients.Add(p5);
+            context.Patients.Add(p1);
+            context.Patients.Add(p2);
+            context.Patients.Add(p3);
+            context.Patients.Add(p4);
+            context.Patients.Add(p5);
 
-            // Medical records
-            //var mr1 = new MedicalRecord(180.5, 70.4, p1);
-            //mr1.AddAllergen(alr1);
-            //mr1.AddIllness(il1);
+            //Medical records
+            var mr1 = new MedicalRecord(180.5, 70.4, p1);
+            var alr1 = new Allergen("these nuts");
+            var il1 = new Illness("paranoid");
+            mr1.AddAllergen(alr1);
+            mr1.AddIllness(il1);
 
-            //context.MedicalRecords.Add(mr1);
+            context.MedicalRecords.Add(mr1);
 
             // Secretaries
             var c1 = new Secretary { FirstName = "Nikola", LastName = "Petrovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "nikolapetrovic@example.com", Role = Role.Secretary };

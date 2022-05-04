@@ -21,14 +21,25 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region attributes
-        private List<Appointment> _appointments;
-        public List<Appointment> Appointments
+        private List<Appointment> _futureAppointments;
+        public List<Appointment> FutureAppointments
         {
-            get => _appointments;
+            get => _futureAppointments;
             set
             {
-                _appointments = value;
-                OnPropertyChanged(nameof(Appointments));
+                _futureAppointments = value;
+                OnPropertyChanged(nameof(FutureAppointments));
+            }
+        }
+
+        private List<Appointment> _pastAppointments;
+        public List<Appointment> PastAppointments
+        {
+            get => _pastAppointments;
+            set
+            {
+                _pastAppointments = value;
+                OnPropertyChanged(nameof(PastAppointments));
             }
         }
 
@@ -57,7 +68,9 @@ namespace HealthInstitution.ViewModel
             this.appointmentDeleteRequestService = appointmentDeleteRequestService;
             this.activityService = activityService;
             this.patientService = patientService;
-            Appointments = this.appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).OrderByDescending(apt => apt.StartDate).ToList();
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
+            FutureAppointments = this.appointmentService.ReadFuturePatientAppointments(pt).OrderByDescending(apt => apt.StartDate).ToList();
+            PastAppointments = this.appointmentService.ReadFinishedAppointmentsForPatient(pt).OrderByDescending(apt => apt.StartDate).ToList();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);

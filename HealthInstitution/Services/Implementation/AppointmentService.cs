@@ -128,7 +128,16 @@ namespace HealthInstitution.Services.Implementation
 
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
         {
-            return _entities.Where(apt => apt.Patient == pt).ToList();
+            return _entities.Where(apt => apt.Patient == pt);
+        }
+
+        public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt) 
+        {
+            return _entities.Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now);
+        }
+        public IEnumerable<Appointment> ReadPastPatientAppointments(Patient pt) 
+        {
+            return _entities.Where(apt => apt.Patient == pt && apt.StartDate < DateTime.Now);
         }
 
         public IEnumerable<Appointment> ReadRoomAppointments(Room r)
@@ -152,7 +161,6 @@ namespace HealthInstitution.Services.Implementation
         {
             return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
         }
-
 
         /// <summary>
         /// Check if patient is present in atleast one appointment

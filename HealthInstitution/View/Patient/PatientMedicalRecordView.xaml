@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="HealthInstitution.View.PatientMedicalRecordView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:converters="clr-namespace:HealthInstitution.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="White">
+    <UserControl.Resources>
+        <converters:DateToStringConverter x:Key="DateToStringConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Patient medical record" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
+        <Separator Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 25 0 25"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Grid.Row="2" Text="{Binding Age, StringFormat={}age: {0}}" FontSize="16" Margin="0 0 0 10"/>
+                <TextBlock Grid.Row="3" Text="{Binding Height, StringFormat={}height: {0}cm}" FontSize="16" Margin="0 0 0 10"/>
+                <TextBlock Grid.Row="4" Text="{Binding Weight, StringFormat={}weight: {0}kg}" FontSize="16" Margin="0 0 0 10"/>
+            </StackPanel>
+            <StackPanel Margin="20 0 0 0" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Past appointments" FontSize="16" />
+                <ListView  Margin="0 10 0 0" MaxHeight="150" Height="150" VerticalAlignment="Top"  ItemsSource="{Binding Appointments}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Date" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0" Text="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Doctor" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0">
+                                            <TextBlock.Text>
+                                                <Binding Path="Doctor.FullName"/>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Anamnesis" Width="auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0" Text="{Binding Anamnesis}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Separator Grid.Row="3" HorizontalAlignment="Stretch" Margin="0 25 0 25"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Width="250">
+                <TextBlock Text="Illness history:" FontSize="16" Margin="0 0 0 10"/>
+                <ListBox ItemsSource="{Binding IllnessHistoryData}" DisplayMemberPath="Name" Width="250" Height="130" MaxHeight="130" BorderBrush="Black" BorderThickness="2"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Width="250" Margin="25 0 0 0">
+                <TextBlock Text="Allergens:" FontSize="16" Margin="0 0 0 10"/>
+                <ListBox ItemsSource="{Binding Allergens}" DisplayMemberPath="Name" Width="250" Height="130" MaxHeight="130" BorderBrush="Black" BorderThickness="2"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
