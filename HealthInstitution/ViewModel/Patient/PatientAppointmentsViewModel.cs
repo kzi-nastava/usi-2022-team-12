@@ -32,17 +32,6 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private List<Appointment> _pastAppointments;
-        public List<Appointment> PastAppointments
-        {
-            get => _pastAppointments;
-            set
-            {
-                _pastAppointments = value;
-                OnPropertyChanged(nameof(PastAppointments));
-            }
-        }
-
         private Appointment _selectedAppointment;
         public Appointment SelectedAppointment
         {
@@ -70,7 +59,6 @@ namespace HealthInstitution.ViewModel
             this.patientService = patientService;
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             FutureAppointments = this.appointmentService.ReadFuturePatientAppointments(pt).OrderByDescending(apt => apt.StartDate).ToList();
-            PastAppointments = this.appointmentService.ReadFinishedAppointmentsForPatient(pt).OrderByDescending(apt => apt.StartDate).ToList();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);

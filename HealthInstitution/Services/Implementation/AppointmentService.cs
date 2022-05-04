@@ -123,7 +123,7 @@ namespace HealthInstitution.Services.Implementation
         public IEnumerable<Appointment> ReadFinishedAppointmentsForPatient(Patient pt)
         {
             return _entities.Where(ap => ap.IsDone == true)
-                            .Where(apt => apt.Patient == pt).ToList();
+                            .Where(apt => apt.Patient == pt);
         }
 
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
@@ -160,6 +160,10 @@ namespace HealthInstitution.Services.Implementation
         public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
             return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+        }
+
+        public IEnumerable<Appointment> FilterFinishedAppointmentsByAnamnesisSearchText(string text, Patient pt) { 
+            return _entities.Where(apt => apt.Anamnesis.Contains(text) && apt.IsDone == true && apt.Patient == pt);
         }
 
         /// <summary>

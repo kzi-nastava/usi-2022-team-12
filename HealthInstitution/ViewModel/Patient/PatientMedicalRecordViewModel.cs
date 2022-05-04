@@ -44,14 +44,6 @@ namespace HealthInstitution.ViewModel
         public string Age => CalculateAge(_patient.DateOfBirth).ToString();
         public string Weight => _medicalRecord.Weight.ToString();
 
-        private static int CalculateAge(DateTime dateOfBirth)
-        {
-            int age = 0;
-            age = DateTime.Now.Subtract(dateOfBirth).Days;
-            age = age / 365;
-            return age;
-        }
-
         private List<Illness> _illnessHistoryData;
         public List<Illness> IllnessHistoryData
         {
@@ -95,6 +87,18 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(SelectedAppointment));
             }
         }
+
+        private string _searchByAnamnesisText;
+        public string SearchByAnamnesisText
+        {
+            get => _searchByAnamnesisText;
+            set
+            {
+                _searchByAnamnesisText = value;
+                OnPropertyChanged(nameof(SearchByAnamnesisText));
+            }
+        }
+
         public ICommand SearchByAnamnesisCommand { get; }
 
         public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
@@ -107,6 +111,25 @@ namespace HealthInstitution.ViewModel
             IllnessHistoryData = _medicalRecord.IllnessHistory.ToList<Illness>();
             Allergens = _medicalRecord.Allergens.ToList<Allergen>();
             PastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
+        }
+
+        private static int CalculateAge(DateTime dateOfBirth)
+        {
+            int age = 0;
+            age = DateTime.Now.Subtract(dateOfBirth).Days;
+            age = age / 365;
+            return age;
+        }
+
+        public void SearchByAnamnesis(string text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                PastAppointments = appointmentService.FilterFinishedAppointmentsByAnamnesisSearchText(text, Patient).ToList<Appointment>();
+            }
+            else {
+                PastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
+            }
         }
     }
 }

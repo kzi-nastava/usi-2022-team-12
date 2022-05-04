@@ -50,7 +50,7 @@
         <TextBlock Grid.Row="4" Text="Past appointments" FontSize="15" FontWeight="Bold" />
        
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0 10 0 0">
-            <TextBox Width="200" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding SearchText}" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Type anamnesis here"/>
+            <TextBox Width="200" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding SearchByAnamnesisText}" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search by anamensis"/>
             <Button Content="Search" Command="{Binding SearchByAnamnesisCommand}" IsDefault="True" Margin="10 0 0 0"/>
         </StackPanel>
         
@@ -59,7 +59,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
-            <ListView Grid.Column="0" Margin="0 10 0 0" Height="auto" ItemsSource="{Binding PastAppointments}" SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}">
+            <ListView Grid.Column="0" Margin="0 10 0 0" Height="auto" ItemsSource="{Binding PastAppointments, Mode=TwoWay}" SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
@@ -109,7 +109,7 @@
             </ListView>
             <StackPanel Grid.Column="1" Height="auto" Margin="50 50 0 0">
                 <TextBlock Text="Anamnesis details:" FontSize="16"  Margin="0 0 0 10"/>
-                <TextBox Padding="10" Height="220" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding SelectedAppointment.Anamnesis}" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True">
+                <TextBox Padding="10" Height="200" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding SelectedAppointment.Anamnesis}" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True">
                     
                 </TextBox>
             </StackPanel>
