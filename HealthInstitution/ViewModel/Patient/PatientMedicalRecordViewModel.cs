@@ -13,11 +13,15 @@ namespace HealthInstitution.ViewModel
 {
     public class PatientMedicalRecordViewModel : ViewModelBase
     {
-        public IMedicalRecordService medicalRecordService;
+        #region services
+        private readonly IMedicalRecordService _medicalRecordService;
+        private readonly IAppointmentService _appointmentService;
 
-        public IAppointmentService appointmentService;
+        public IMedicalRecordService MedicalRecordService => _medicalRecordService;
+        public IAppointmentService AppointmentService => _appointmentService;
+        #endregion
 
-
+        #region attributes
         private MedicalRecord _medicalRecord;
         public MedicalRecord MedicalRecord
         {
@@ -40,9 +44,9 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public string Height => _medicalRecord.Height.ToString();
-        public string Age => CalculateAge(_patient.DateOfBirth).ToString();
-        public string Weight => _medicalRecord.Weight.ToString();
+        public string Height => MedicalRecord.Height.ToString();
+        public string Age => CalculateAge(Patient.DateOfBirth).ToString();
+        public string Weight => MedicalRecord.Weight.ToString();
 
         private List<Illness> _illnessHistoryData;
         public List<Illness> IllnessHistoryData
@@ -122,22 +126,13 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(SelectedSort));
             }
         }
+        #endregion
 
+        #region commands
         public ICommand SearchByAnamnesisCommand { get; }
+        #endregion
 
-        public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
-        {
-            SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
-            this.appointmentService = appointmentService;
-            this.medicalRecordService = medicalRecordService;
-            SelectedSort = "";
-            Patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-            _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
-            IllnessHistoryData = _medicalRecord.IllnessHistory.ToList<Illness>();
-            Allergens = _medicalRecord.Allergens.ToList<Allergen>();
-            PastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
-        }
-
+        #region methods
         private static int CalculateAge(DateTime dateOfBirth)
         {
             int age = 0;
@@ -150,12 +145,27 @@ namespace HealthInstitution.ViewModel
         {
             if (!string.IsNullOrEmpty(text))
             {
-                PastAppointments = appointmentService.FilterFinishedAppointmentsByAnamnesisSearchText(text, Patient).ToList<Appointment>();
+                PastAppointments = AppointmentService.FilterFinishedAppointmentsByAnamnesisSearchText(text, Patient).ToList<Appointment>();
             }
-            else {
-                PastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
+            else
+            {
+                PastAppointments = AppointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
             }
             SelectedSort = "";
+        }
+        #endregion
+
+        public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
+        {
+            SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
+            _appointmentService = appointmentService;
+            _medicalRecordService = medicalRecordService;
+            _selectedSort = "";
+            _patient = GlobalStore.ReadObject<Patient>("LoggedUser");
+            _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
+            _illnessHistoryData = _medicalRecord.IllnessHistory.ToList<Illness>();
+            _allergens = _medicalRecord.Allergens.ToList<Allergen>();
+            _pastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
         }
     }
 }

@@ -14,10 +14,15 @@ namespace HealthInstitution.ViewModel
     public class AppointmentUpdateViewModel : ViewModelBase
     {
         #region services
-        public readonly IAppointmentService appointmentService;
-        public readonly IActivityService activityService;
-        public readonly IPatientService patientService;
-        public readonly IDoctorService doctorService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IActivityService _activityService;
+        private readonly IPatientService _patientService;
+        private readonly IDoctorService _doctorService;
+
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IActivityService ActivityService => _activityService;
+        public IPatientService PatientService => _patientService;
+        public IDoctorService DoctorService => _doctorService;
         #endregion endregion
 
         #region attributes
@@ -74,10 +79,10 @@ namespace HealthInstitution.ViewModel
         public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IActivityService activityService, IPatientService patientService)
         {
             ChosenAppointment = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
-            this.appointmentService = appointmentService;
-            this.activityService = activityService;
-            this.patientService = patientService;
-            this.doctorService = doctorService;
+            _appointmentService = appointmentService;
+            _activityService = activityService;
+            _patientService = patientService;
+            _doctorService = doctorService;
             Doctors = doctorService.ReadAll().ToList();
 
             StartDateTime = ChosenAppointment.StartDate;

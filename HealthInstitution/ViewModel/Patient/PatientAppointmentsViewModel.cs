@@ -14,10 +14,14 @@ namespace HealthInstitution.ViewModel
     public class PatientAppointmentsViewModel : ViewModelBase
     {
         #region services
-        public readonly IAppointmentService appointmentService;
-        public readonly IAppointmentDeleteRequestService appointmentDeleteRequestService;
-        public readonly IActivityService activityService;
-        public readonly IPatientService patientService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IAppointmentDeleteRequestService _appointmentDeleteRequestService;
+        private readonly IActivityService _activityService;
+        private readonly IPatientService _patientService;
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IAppointmentDeleteRequestService AppointmentDeleteRequestService => _appointmentDeleteRequestService;
+        public IActivityService ActivityService => _activityService;
+        public IPatientService PatientService => _patientService;
         #endregion
 
         #region attributes
@@ -53,12 +57,12 @@ namespace HealthInstitution.ViewModel
 
         public PatientAppointmentsViewModel(IAppointmentService appointmentService, IAppointmentDeleteRequestService appointmentDeleteRequestService, IActivityService activityService, IPatientService patientService)
         {
-            this.appointmentService = appointmentService;
-            this.appointmentDeleteRequestService = appointmentDeleteRequestService;
-            this.activityService = activityService;
-            this.patientService = patientService;
+            _appointmentService = appointmentService;
+            _appointmentDeleteRequestService = appointmentDeleteRequestService;
+            _activityService = activityService;
+            _patientService = patientService;
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            FutureAppointments = this.appointmentService.ReadFuturePatientAppointments(pt).OrderByDescending(apt => apt.StartDate).ToList();
+            FutureAppointments = AppointmentService.ReadFuturePatientAppointments(pt).OrderByDescending(apt => apt.StartDate).ToList();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);
