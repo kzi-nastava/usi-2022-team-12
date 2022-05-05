@@ -63,7 +63,7 @@
         <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
             <ListView Grid.Column="0" Margin="0 10 0 0" Height="auto" ItemsSource="{Binding PastAppointments, Mode=TwoWay}" SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}">
                 <ListView.View>
@@ -89,14 +89,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Begin time" Width="auto"  DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
+                        <GridViewColumn Header="Date" Width="auto"  DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Padding="0 0 20 0"/>

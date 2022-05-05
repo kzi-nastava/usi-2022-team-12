@@ -23,7 +23,7 @@
 
         <StackPanel Grid.Row="1" Margin="0,10,0,40" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBlock Text="Time:" FontSize="18"/>
-            <materialDesign:TimePicker Margin="20,0,0,0" SelectedTime="{Binding StartDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></materialDesign:TimePicker>
+            <materialDesign:TimePicker Is24Hours="True" Margin="20,0,0,0" SelectedTime="{Binding StartDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></materialDesign:TimePicker>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,10,0,60" Orientation="Horizontal" HorizontalAlignment="Left">
