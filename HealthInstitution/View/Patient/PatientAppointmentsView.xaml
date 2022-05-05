@@ -4,17 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:converters="clr-namespace:HealthInstitution.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600"
              Background="White">
-    <Grid Margin="15">
+    <UserControl.Resources>
+        <converters:DateToStringConverter x:Key="DateToStringConverter"/>
+    </UserControl.Resources>
+    <Grid Background="White" Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Your Appointments" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
-        <ListView Grid.Row="1" Margin="0 10 0 0" Height="auto" ItemsSource="{Binding Appointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
+        <ListView Grid.Row="0" Margin="0 0 0 0" Height="auto" ItemsSource="{Binding FutureAppointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
@@ -38,14 +43,21 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Begin time" Width="auto" DisplayMemberBinding="{Binding StartDate}">
+                    <GridViewColumn Header="Begin time" Width="auto"  DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=T}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate}">
+                    <GridViewColumn Header="End time" Width="auto" DisplayMemberBinding="{Binding EndDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=T}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Date" Width="auto" DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=D}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="0 0 20 0"/>
@@ -55,10 +67,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Right">
-            <Button Content="Make appointment" Padding="5" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
-            <Button Content="Update appointment" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding AppointmentUpdateCommand}"/>
-            <Button Content="Remove appointment" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding RemoveAppointmentCommand}"/>
+        <Separator Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 25 0 15"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 10" HorizontalAlignment="Right">
+            <Button Content="Make appointment" Height="40" Padding="5" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
+            <Button Content="Update appointment" Height="40" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding AppointmentUpdateCommand}"/>
+            <Button Content="Remove appointment" Height="40" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding RemoveAppointmentCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

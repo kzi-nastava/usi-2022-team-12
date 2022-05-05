@@ -42,15 +42,15 @@ namespace HealthInstitution.Commands
 
             try
             {
-                _viewModel.appointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                _viewModel.AppointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
-                _viewModel.activityService.Create(act);
+                _viewModel.ActivityService.Create(act);
                 MessageBox.Show("Appointment created successfully!");
-                var activityCount = _viewModel.activityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount > 8)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.patientService.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
                     EventBus.FireEvent("BackToLogin");
                 }

@@ -11,10 +11,15 @@ namespace HealthInstitution.ViewModel
     public class AppointmentCreationViewModel : ViewModelBase
     {
         #region services
-        public readonly IAppointmentService appointmentService;
-        public readonly IActivityService activityService;
-        public readonly IDoctorService doctorService;
-        public readonly IPatientService patientService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IActivityService _activityService;
+        private readonly IDoctorService _doctorService;
+        private readonly IPatientService _patientService;
+
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IActivityService ActivityService => _activityService;
+        public IDoctorService DoctorService => _doctorService;
+        public IPatientService PatientService => _patientService;
         #endregion
 
         #region attributes
@@ -58,12 +63,12 @@ namespace HealthInstitution.ViewModel
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {
-            this.activityService = activityService;
-            this.appointmentService = appointmentService;
-            this.doctorService = doctorService;
-            this.patientService = patientService;
+            _activityService = activityService;
+            _appointmentService = appointmentService;
+            _doctorService = doctorService;
+            _patientService = patientService;
             StartDateTime = DateTime.Now;
-            Doctors = this.doctorService.ReadAll().ToList();
+            Doctors = DoctorService.ReadAll().ToList();
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }

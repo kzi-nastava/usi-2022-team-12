@@ -42,7 +42,7 @@ namespace HealthInstitution.Commands
             try
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var updated = _viewModel.appointmentService.updateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                var updated = _viewModel.AppointmentService.updateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
 
                 if (updated)
                 {
@@ -54,13 +54,13 @@ namespace HealthInstitution.Commands
                 }
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);
-                _viewModel.activityService.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.patientService.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
