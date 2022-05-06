@@ -84,7 +84,7 @@ namespace HealthInstitution.Commands
                 }
                 else
                 {
-                    EventBus.FireEvent("PatientAppointments");
+                    _viewModel.FutureAppointments = _viewModel.AppointmentService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
                 }
             }
         }
