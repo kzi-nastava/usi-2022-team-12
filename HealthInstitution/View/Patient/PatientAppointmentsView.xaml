@@ -43,6 +43,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Header="Specialization" Width="auto" DisplayMemberBinding="{Binding Doctor.Specialization}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Begin time" Width="auto"  DisplayMemberBinding="{Binding StartDate, Converter={StaticResource DateToStringConverter}, ConverterParameter=T}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
