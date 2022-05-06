@@ -48,6 +48,12 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Pmrvm);
             });
 
+            EventBus.RegisterHandler("RecommendAppointmentCreation", () =>
+            {
+                RecommendAppointmentCreationViewModel Racvm = ServiceLocator.Get<RecommendAppointmentCreationViewModel>();
+                SwitchCurrentViewModel(Racvm);
+            });
+
             EventBus.RegisterHandler("AppointmentCreation", () =>
             {
                 AppointmentCreationViewModel Acvm = ServiceLocator.Get<AppointmentCreationViewModel>();

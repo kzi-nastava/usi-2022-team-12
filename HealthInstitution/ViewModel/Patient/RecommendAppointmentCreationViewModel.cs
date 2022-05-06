@@ -4,11 +4,13 @@ using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
-    public class AppointmentCreationViewModel : ViewModelBase
+    public class RecommendAppointmentCreationViewModel : ViewModelBase
     {
         #region services
         private readonly IAppointmentService _appointmentService;
@@ -23,14 +25,47 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region attributes
-        private DateTime _startDateTime;
-        public DateTime StartDateTime
+        private DateTime _deadlineDate;
+        public DateTime DeadlineDate
         {
-            get => _startDateTime;
+            get => _deadlineDate;
             set
             {
-                _startDateTime = value;
-                OnPropertyChanged(nameof(StartDateTime));
+                _deadlineDate = value;
+                OnPropertyChanged(nameof(DeadlineDate));
+            }
+        }
+
+        private DateTime _startTime;
+        public DateTime StartTime
+        {
+            get => _startTime;
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged(nameof(StartTime));
+            }
+        }
+
+        private DateTime _endTime;
+        public DateTime EndTime
+        {
+            get => _endTime;
+            set
+            {
+                _endTime = value;
+                OnPropertyChanged(nameof(EndTime));
+            }
+        }
+
+        private string _selectedPriority;
+        public string SelectedPriority
+        {
+            get => _selectedPriority;
+            set
+            {
+                _selectedPriority = value;
+                OnPropertyChanged(nameof(SelectedPriority));
             }
         }
 
@@ -46,10 +81,11 @@ namespace HealthInstitution.ViewModel
         }
 
         private List<Doctor> _doctors;
-        public List<Doctor> Doctors 
-        { 
+        public List<Doctor> Doctors
+        {
             get => _doctors;
-            set {
+            set
+            {
                 _doctors = value;
                 OnPropertyChanged(nameof(Doctors));
             }
@@ -57,22 +93,24 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region commands
-        public ICommand? MakeAppointmentCommand { get; }
-        public ICommand? PatientAppointmentsCommand { get; }
+        public ICommand RecommendAppointmentCommand;
         #endregion
 
-        public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
+        public RecommendAppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {
             _activityService = activityService;
             _appointmentService = appointmentService;
             _doctorService = doctorService;
             _patientService = patientService;
 
-            StartDateTime = DateTime.Now;
-            Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            DeadlineDate = DateTime.Now;
+            StartTime = DateTime.Now;
+            EndTime = DateTime.Now;
 
-            MakeAppointmentCommand = new MakeAppointmentCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            _selectedPriority = "";
+            Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            RecommendAppointmentCommand = new RecommendAppointmentCommand(this);
+
         }
     }
 }

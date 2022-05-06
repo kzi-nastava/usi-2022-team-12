@@ -83,7 +83,7 @@ namespace HealthInstitution.ViewModel
             _activityService = activityService;
             _patientService = patientService;
             _doctorService = doctorService;
-            Doctors = doctorService.ReadAll().ToList();
+            Doctors = doctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             StartDateTime = ChosenAppointment.StartDate;
             SelectedDoctor = ChosenAppointment.Doctor;

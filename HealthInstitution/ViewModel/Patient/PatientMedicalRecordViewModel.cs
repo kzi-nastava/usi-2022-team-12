@@ -157,15 +157,17 @@ namespace HealthInstitution.ViewModel
 
         public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
         {
-            SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
             _appointmentService = appointmentService;
             _medicalRecordService = medicalRecordService;
+
             _selectedSort = "";
             _patient = GlobalStore.ReadObject<Patient>("LoggedUser");
             _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
             _illnessHistoryData = _medicalRecord.IllnessHistory.ToList<Illness>();
             _allergens = _medicalRecord.Allergens.ToList<Allergen>();
             _pastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
+
+            SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
         }
     }
 }
