@@ -62,7 +62,7 @@ namespace HealthInstitution.ViewModel
             _activityService = activityService;
             _patientService = patientService;
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            FutureAppointments = AppointmentService.ReadFuturePatientAppointments(pt).OrderByDescending(apt => apt.StartDate).ToList();
+            FutureAppointments = AppointmentService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);
