@@ -8,9 +8,12 @@ namespace HealthInstitution.Services.Implementation
 {
     public class PatientService : UserService<Patient>, IPatientService
     {
-        public PatientService(DatabaseContext context) :
+        private readonly IActivityService _activityService;
+        public PatientService(DatabaseContext context, IActivityService activityService) :
             base(context)
-        { }
+        {
+            _activityService = activityService;
+        }
 
 
         public IEnumerable<Patient> ReadAllValidPatients()
@@ -56,6 +59,16 @@ namespace HealthInstitution.Services.Implementation
         {
             patientToUnblock.IsBlocked = false;
             Update(patientToUnblock);
+
+            var updateOrRemoveAct = _activityService.ReadPatientUpdateOrRemoveActivity(patientToUnblock, 30).ToList<Activity>();
+            var makeAct = _activityService.ReadPatientMakeActivity(patientToUnblock, 30).ToList<Activity>();
+            foreach (var act in updateOrRemoveAct) {
+                _activityService.Delete(act.Id);
+            }
+            foreach (var act in makeAct)
+            {
+                _activityService.Delete(act.Id);
+            }
         }
     }
 }
