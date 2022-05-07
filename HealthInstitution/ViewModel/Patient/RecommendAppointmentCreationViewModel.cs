@@ -93,7 +93,7 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region commands
-        public ICommand RecommendAppointmentCommand;
+        public ICommand RecommendAppointmentCommand { get; }
         #endregion
 
         public RecommendAppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
