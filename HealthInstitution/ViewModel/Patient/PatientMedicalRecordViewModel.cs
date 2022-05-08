@@ -48,14 +48,14 @@ namespace HealthInstitution.ViewModel
         public string Age => CalculateAge(Patient.DateOfBirth).ToString();
         public string Weight => MedicalRecord.Weight.ToString();
 
-        private List<Illness> _illnessHistoryData;
-        public List<Illness> IllnessHistoryData
+        private List<Illness> _illnessHistory;
+        public List<Illness> IllnessHistory
         {
-            get => _illnessHistoryData;
+            get => _illnessHistory;
             set
             {
-                _illnessHistoryData = value;
-                OnPropertyChanged(nameof(IllnessHistoryData));
+                _illnessHistory = value;
+                OnPropertyChanged(nameof(IllnessHistory));
             }
         }
 
@@ -92,14 +92,14 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string _searchByAnamnesisText;
-        public string SearchByAnamnesisText
+        private string _anamnesisSearchCriteria;
+        public string AnamnesisSearchCriteria
         {
-            get => _searchByAnamnesisText;
+            get => _anamnesisSearchCriteria;
             set
             {
-                _searchByAnamnesisText = value;
-                OnPropertyChanged(nameof(SearchByAnamnesisText));
+                _anamnesisSearchCriteria = value;
+                OnPropertyChanged(nameof(AnamnesisSearchCriteria));
             }
         }
 
@@ -163,7 +163,7 @@ namespace HealthInstitution.ViewModel
             _selectedSort = "";
             _patient = GlobalStore.ReadObject<Patient>("LoggedUser");
             _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
-            _illnessHistoryData = _medicalRecord.IllnessHistory.ToList<Illness>();
+            _illnessHistory = _medicalRecord.IllnessHistory.ToList<Illness>();
             _allergens = _medicalRecord.Allergens.ToList<Allergen>();
             _pastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
 
