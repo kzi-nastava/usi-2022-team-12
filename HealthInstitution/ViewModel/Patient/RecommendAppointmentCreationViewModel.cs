@@ -90,6 +90,28 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(Doctors));
             }
         }
+
+        private List<Appointment> _recommendedAppointments;
+        public List<Appointment> RecommendedAppointments 
+        {
+            get => _recommendedAppointments;
+            set 
+            {
+                _recommendedAppointments = value;
+                OnPropertyChanged(nameof(RecommendedAppointments));
+            }
+        }
+
+        private Appointment _selectedAppointment;
+        public Appointment SelectedAppointment
+        {
+            get => _selectedAppointment;
+            set
+            {
+                _selectedAppointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
+            }
+        }
         #endregion
 
         #region commands
@@ -103,7 +125,7 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
 
-            DeadlineDate = DateTime.Now;
+            DeadlineDate = DateTime.Now.Date;
             StartTime = DateTime.Now;
             EndTime = DateTime.Now;
 

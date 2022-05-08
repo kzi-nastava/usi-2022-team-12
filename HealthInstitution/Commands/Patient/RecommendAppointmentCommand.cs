@@ -1,4 +1,6 @@
-﻿using HealthInstitution.ViewModel;
+﻿using HealthInstitution.Model;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,12 +31,14 @@ namespace HealthInstitution.Commands
         public override bool CanExecute(object? parameter)
         {
             return !(_viewModel.DeadlineDate.AddSeconds(_viewModel.StartTime.TimeOfDay.TotalSeconds) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && 
-                !(String.IsNullOrEmpty(_viewModel.SelectedPriority)) && base.CanExecute(parameter);
+                !(_viewModel.SelectedPriority == null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
+            _viewModel.RecommendedAppointments = _viewModel.AppointmentService.RecommendAppointments(pt, _viewModel.SelectedDoctor,
+                _viewModel.StartTime, _viewModel.EndTime, _viewModel.DeadlineDate, _viewModel.SelectedPriority);
         }
     }
 }

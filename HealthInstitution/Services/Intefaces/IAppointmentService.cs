@@ -15,12 +15,14 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Appointment> ReadRoomAppointments(Room r);
         public IEnumerable<Appointment> FilterFinishedAppointmentsByAnamnesisSearchText(string text, Patient pt);
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor);
-        void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
-        bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
-        bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
-        bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
-        bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate);
-        bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
+        public List<Appointment> RecommendAppointments(Patient selectedPatient, Doctor selectedDoctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority);
+        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);
+        public bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);
+        public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
+        public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
+        public Room FindFreeRoom(RoomType roomType, DateTime startDateTime, DateTime endDateTime);
+        public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate);
+        public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
         public bool PatientHasAnAppointment(Guid patientId);
     }
 
