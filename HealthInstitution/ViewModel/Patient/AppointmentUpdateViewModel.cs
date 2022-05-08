@@ -26,14 +26,25 @@ namespace HealthInstitution.ViewModel
         #endregion endregion
 
         #region attributes
-        private DateTime _startDateTime;
-        public DateTime StartDateTime
+        private DateTime _startDate;
+        public DateTime StartDate
         {
-            get => _startDateTime;
+            get => _startDate;
             set
             {
-                _startDateTime = value;
-                OnPropertyChanged(nameof(StartDateTime));
+                _startDate = value;
+                OnPropertyChanged(nameof(StartDate));
+            }
+        }
+
+        private DateTime _startTime;
+        public DateTime StartTime
+        {
+            get => _startTime;
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged(nameof(StartTime));
             }
         }
 
@@ -85,7 +96,8 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             Doctors = doctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
-            StartDateTime = ChosenAppointment.StartDate;
+            StartDate = ChosenAppointment.StartDate;
+            StartTime = ChosenAppointment.StartDate;
             SelectedDoctor = ChosenAppointment.Doctor;
 
             UpdateAppointmentCommand = new UpdateAppointmentCommand(this);

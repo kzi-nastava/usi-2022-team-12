@@ -20,61 +20,106 @@ namespace HealthInstitution.Services.Implementation
             _roomService = roomService;
         }
 
-        public List<Appointment> RecommendAppointments(Patient selectedPatient, Doctor selectedDoctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority) 
+        public Appointment FindFirstFreeAppointmentForDoctor(Patient patient, Doctor doctor)
+        {
+            DateTime startDateTime = DateTime.Now;
+            DateTime endDateTime = DateTime.Now.AddMinutes(15);
+
+            bool appointmentFound = false;
+            Room emptyRoom = null;
+
+            while (true)
+            {
+                //doctor availabilty check
+                bool doctorAvailability = IsDoctorAvailable(doctor, startDateTime, endDateTime);
+                bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(doctor, startDateTime, endDateTime);
+                if (doctorAvailability && doctorRequestAvailability)
+                {
+                    //room availabilty check
+                    emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, startDateTime, endDateTime);
+                    if (emptyRoom != null)
+                    {
+                        appointmentFound = true;
+                        break;
+                    };
+                }
+                startDateTime = startDateTime.AddMinutes(15);
+                endDateTime = endDateTime.AddMinutes(15);
+            }
+            if (appointmentFound)
+            {
+                return new Appointment(doctor, patient, startDateTime, endDateTime, emptyRoom, null, false);
+            }
+            return null;
+        }
+
+        public Appointment FindFirstFreeAppointmentForDoctorAndInterval(Patient patient, Doctor doctor, DateTime startTime, DateTime endTime, DateTime deadline) 
+        {
+            DateTime startDateTime = DateTime.Now.Date.AddSeconds(startTime.TimeOfDay.TotalSeconds);
+            DateTime endDateTime = DateTime.Now.Date.AddSeconds(startTime.TimeOfDay.TotalSeconds).AddMinutes(15);
+            DateTime upperBound = DateTime.Now.Date.AddSeconds(endTime.TimeOfDay.TotalSeconds);
+            if (startTime.TimeOfDay > endTime.TimeOfDay)
+            {
+                upperBound = upperBound.AddDays(1);
+            }
+
+            bool recommendationFound = false;
+            Room emptyRoom = null;
+
+            while (startDateTime.Date <= deadline.Date)
+            {
+                while (endDateTime <= upperBound)
+                {
+                    //doctor availabilty check
+                    bool doctorAvailability = IsDoctorAvailable(doctor, startDateTime, endDateTime);
+                    bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(doctor, startDateTime, endDateTime);
+                    if (doctorAvailability && doctorRequestAvailability)
+                    {
+                        //room availabilty check
+                        emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, startDateTime, endDateTime);
+                        if (emptyRoom != null)
+                        {
+                            recommendationFound = true;
+                            break;
+                        }
+                    }
+                    startDateTime = startDateTime.AddMinutes(15);
+                    endDateTime = endDateTime.AddMinutes(15);
+                }
+                if (recommendationFound)
+                {
+                    break;
+                }
+                upperBound = upperBound.AddDays(1);
+                startDateTime = startDateTime.AddDays(1).Date.AddSeconds(startTime.TimeOfDay.TotalSeconds);
+                endDateTime = endDateTime.AddDays(1).Date.AddSeconds(startTime.TimeOfDay.TotalSeconds).AddMinutes(15);
+            }
+
+            if (recommendationFound)
+            {
+                return new Appointment(doctor, patient, startDateTime, endDateTime, emptyRoom, null, false);
+            }
+            return null;
+        }
+
+        public List<Appointment> RecommendAppointments(Patient patient, Doctor doctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority) 
         {
             try
             {
+                Appointment apt = FindFirstFreeAppointmentForDoctorAndInterval(patient, doctor, startTime, endTime, deadline);
+                if (apt != null)
+                {
+                    List<Appointment> tempList = new List<Appointment>();
+                    tempList.Add(apt);
+                    return tempList;
+                }
+
                 if (priority == "Doctor")
                 {
-                    DateTime startDateTime = DateTime.Now.Date.AddSeconds(startTime.TimeOfDay.TotalSeconds);
-                    DateTime endDateTime = DateTime.Now.Date.AddSeconds(startTime.TimeOfDay.TotalSeconds).AddMinutes(15);
-                    DateTime upperBound = DateTime.Now.Date.AddSeconds(endTime.TimeOfDay.TotalSeconds);
-                    if (startTime.TimeOfDay > endTime.TimeOfDay)
-                    {
-                        upperBound = upperBound.AddDays(1);
-                    }
-
-                    
-                    bool recommendationFound = false;
-                    Room emptyRoom = null;
-
-                    while (startDateTime.Date <= deadline.Date)
-                    {
-                        while (endDateTime <= upperBound)
-                        {
-                            //doctor availabilty check
-                            bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime);
-                            bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime);
-                            if (doctorAvailability && doctorRequestAvailability)
-                            {
-                                //room availabilty check
-                                emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, startDateTime, endDateTime);
-                                if (emptyRoom != null)
-                                {
-                                    recommendationFound = true;
-                                    break;
-                                }
-                            }
-                            startDateTime = startDateTime.AddMinutes(15);
-                            endDateTime = endDateTime.AddMinutes(15);
-                        }
-                        if (recommendationFound) {
-                            break;
-                        }
-                        upperBound = upperBound.AddDays(1);
-                        startDateTime = startDateTime.AddDays(1).Date.AddSeconds(startTime.TimeOfDay.TotalSeconds);
-                        endDateTime = endDateTime.AddDays(1).Date.AddSeconds(startTime.TimeOfDay.TotalSeconds).AddMinutes(15);
-                    }
-                    if (!recommendationFound)
-                    {
-                        throw new RecommendationNotFoundException();
-                    }
-                    else {
-                        Appointment app = new Appointment(selectedDoctor, selectedPatient, startDateTime, endDateTime, emptyRoom, null, false);
-                        List<Appointment> tempList = new List<Appointment>();
-                        tempList.Add(app);
-                        return tempList;
-                    }
+                    apt = FindFirstFreeAppointmentForDoctor(patient, doctor);
+                    List<Appointment> tempList = new List<Appointment>();
+                    tempList.Add(apt);
+                    return tempList;
                 }
                 else if (priority == "Deadline")
                 {
