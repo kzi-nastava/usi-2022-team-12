@@ -13,7 +13,12 @@ namespace HealthInstitution.Services.Implementation
     {
         public DoctorService(DatabaseContext context) : base(context)
         {
+            
+        }
 
+        public IEnumerable<Doctor> ReadDoctorsWithSpecialization(DoctorSpecialization specialization)
+        {
+            return _entities.Where(doc => doc.Specialization == specialization);
         }
     }
 }

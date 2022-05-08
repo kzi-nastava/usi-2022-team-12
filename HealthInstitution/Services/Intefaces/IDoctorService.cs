@@ -9,6 +9,6 @@ namespace HealthInstitution.Services.Intefaces
 {
     public interface IDoctorService : ICrudService<Doctor>
     {
-
+        public IEnumerable<Doctor> ReadDoctorsWithSpecialization(DoctorSpecialization specialization);
     }
 }

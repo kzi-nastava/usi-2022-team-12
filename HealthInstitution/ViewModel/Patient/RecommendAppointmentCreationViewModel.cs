@@ -116,6 +116,8 @@ namespace HealthInstitution.ViewModel
 
         #region commands
         public ICommand RecommendAppointmentCommand { get; }
+        public ICommand ConfirmRecommendationCommand { get; }
+        public ICommand PatientAppointmentsCommand { get; }
         #endregion
 
         public RecommendAppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
@@ -132,7 +134,8 @@ namespace HealthInstitution.ViewModel
             _selectedPriority = "";
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
             RecommendAppointmentCommand = new RecommendAppointmentCommand(this);
-
+            ConfirmRecommendationCommand = new ConfirmRecommendationCommand(this);
+            PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }
 }
