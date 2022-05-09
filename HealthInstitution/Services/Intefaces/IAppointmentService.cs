@@ -16,6 +16,7 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Appointment> FilterFinishedAppointmentsByAnamnesisSearchText(string text, Patient pt);
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor);
         void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
+        public Room FindFreeRoom(RoomType roomType, DateTime startDateTime, DateTime endDateTime);
         bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDate, DateTime endDate);
         bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
         bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
