@@ -6,8 +6,8 @@ namespace HealthInstitution.Model
     {
         #region Attributes
 
-        private readonly IList<Ingredient> _ingredients;
-        public virtual IList<Ingredient> Ingredients { get => _ingredients; }
+        private IList<Ingredient> _ingredients;
+        public virtual IList<Ingredient> Ingredients { get => _ingredients; set => OnPropertyChanged(ref _ingredients, value); }
 
         private string _description;
         public string Description { get => _description; set => OnPropertyChanged(ref _description, value); }
