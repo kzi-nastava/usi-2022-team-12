@@ -27,6 +27,9 @@ namespace HealthInstitution.Model
         private string? _anamnesis;
         public string? Anamnesis { get => _anamnesis; set => OnPropertyChanged(ref _anamnesis, value); }
 
+        private AppointmentType _appointmentType;
+        public AppointmentType AppointmentType { get => _appointmentType; set => OnPropertyChanged(ref _appointmentType, value); }
+
         #endregion
 
         #region Constructor
