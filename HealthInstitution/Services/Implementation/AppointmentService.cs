@@ -55,8 +55,8 @@ namespace HealthInstitution.Services.Implementation
                             break;
                         }
                     }
-                    startDateTime = startDateTime.AddMinutes(15);
-                    endDateTime = endDateTime.AddMinutes(15);
+                    startDateTime = startDateTime.AddMinutes(1);
+                    endDateTime = endDateTime.AddMinutes(1);
                 }
                 if (appointmentFound && emptyRoom != null)
                 {
@@ -98,8 +98,8 @@ namespace HealthInstitution.Services.Implementation
                         break;
                     };
                 }
-                startDateTime = startDateTime.AddMinutes(15);
-                endDateTime = endDateTime.AddMinutes(15);
+                startDateTime = startDateTime.AddMinutes(1);
+                endDateTime = endDateTime.AddMinutes(1);
             }
             if (appointmentFound && emptyRoom != null)
             {
@@ -154,8 +154,8 @@ namespace HealthInstitution.Services.Implementation
                     {
                         break;
                     }
-                    startDateTime = startDateTime.AddMinutes(15);
-                    endDateTime = endDateTime.AddMinutes(15);
+                    startDateTime = startDateTime.AddMinutes(1);
+                    endDateTime = endDateTime.AddMinutes(1);
                 }
                 if (appointmentFound)
                 {
@@ -166,7 +166,52 @@ namespace HealthInstitution.Services.Implementation
                 endDateTime = endDateTime.AddDays(1).Date.AddSeconds(startTime.TimeOfDay.TotalSeconds).AddMinutes(15);
             }
 
-            if (appointmentFound && emptyRoom != null)
+            if (appointmentFound && emptyRoom != null && freeDoctor != null)
+            {
+                return new Appointment(freeDoctor, patient, startDateTime, endDateTime, emptyRoom, null, false);
+            }
+            return null;
+        }
+
+        public Appointment FindFirstFreeAppointmentToDeadline(Patient patient, DateTime deadline, DoctorSpecialization specialization)
+        {
+            DateTime startDateTime = DateTime.Now.Date.AddMinutes(DateTime.Now.TimeOfDay.TotalMinutes).AddMinutes(60);
+            startDateTime = startDateTime.AddSeconds(-startDateTime.Second);
+            DateTime endDateTime = startDateTime.AddMinutes(15);
+
+            bool appointmentFound = false;
+            Room emptyRoom = null;
+            Doctor freeDoctor = null;
+            var doctors = _doctorService.ReadDoctorsWithSpecialization(specialization);
+
+            while (startDateTime.Date <= deadline.Date)
+            {
+                foreach (var doctor in doctors)
+                {
+                    //doctor availabilty check
+                    bool doctorAvailability = IsDoctorAvailable(doctor, startDateTime, endDateTime);
+                    bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(doctor, startDateTime, endDateTime);
+                    if (doctorAvailability && doctorRequestAvailability)
+                    {
+                        //room availabilty check
+                        emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, startDateTime, endDateTime);
+                        if (emptyRoom != null)
+                        {
+                            freeDoctor = doctor;
+                            appointmentFound = true;
+                            break;
+                        }
+                    }
+                }
+                if (appointmentFound)
+                {
+                    break;
+                }
+                startDateTime = startDateTime.AddMinutes(1);
+                endDateTime = endDateTime.AddMinutes(1);
+            }
+
+            if (appointmentFound && emptyRoom != null && freeDoctor != null)
             {
                 return new Appointment(freeDoctor, patient, startDateTime, endDateTime, emptyRoom, null, false);
             }
@@ -199,7 +244,7 @@ namespace HealthInstitution.Services.Implementation
                         throw new RecommendationNotFoundException();
                     }
                 }
-                else if (priority == "Deadline")
+                else if (priority == "TimeInterval")
                 {
                     apt = FindFirstFreeAppointmentForIntervalToDeadline(patient,startTime, endTime, deadline, doctor.Specialization);
                     if (apt != null)
@@ -220,6 +265,13 @@ namespace HealthInstitution.Services.Implementation
             }
             catch (RecommendationNotFoundException) 
             {
+                Appointment apt = FindFirstFreeAppointmentToDeadline(patient, deadline, doctor.Specialization);
+                if (apt != null)
+                {
+                    List<Appointment> tempList = new List<Appointment>();
+                    tempList.Add(apt);
+                    return tempList;
+                }
                 return null;
             }
         }

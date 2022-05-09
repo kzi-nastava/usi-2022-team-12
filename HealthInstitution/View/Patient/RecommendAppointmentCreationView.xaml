@@ -76,7 +76,7 @@
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0">
                     <TextBlock Text="Priority:" FontSize="18" Margin="0 0 0 0" VerticalAlignment="Center"/>
-                    <RadioButton Content="Date" Margin="20 0 0 0" IsChecked="{Binding SelectedPriority, Converter={StaticResource ResourceKey=RecommendAppointmentPriorityConverter}, ConverterParameter=Deadline}"/>
+                    <RadioButton Content="Time interval" Margin="20 0 0 0" IsChecked="{Binding SelectedPriority, Converter={StaticResource ResourceKey=RecommendAppointmentPriorityConverter}, ConverterParameter=TimeInterval}"/>
                     <RadioButton Content="Doctor" Margin="20 0 0 0" IsChecked="{Binding SelectedPriority, Converter={StaticResource ResourceKey=RecommendAppointmentPriorityConverter}, ConverterParameter=Doctor}"/>
                 </StackPanel>
             </Grid>

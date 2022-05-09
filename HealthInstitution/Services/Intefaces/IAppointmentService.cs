@@ -18,6 +18,7 @@ namespace HealthInstitution.Services.Intefaces
         public Appointment FindFirstFreeAppointmentForDoctorToDeadline(Patient patient, Doctor doctor, DateTime deadline);
         public Appointment FindFirstFreeAppointmentForIntervalToDeadline(Patient patient, DateTime startTime, DateTime endTime, DateTime deadline, DoctorSpecialization specialization);
         public Appointment FindFirstFreeAppointmentForDoctorAndIntervalToDeadline(Patient patient, Doctor doctor, DateTime startTime, DateTime endTime, DateTime deadline);
+        public Appointment FindFirstFreeAppointmentToDeadline(Patient patient, DateTime deadline, DoctorSpecialization specialization);
         public List<Appointment> RecommendAppointments(Patient selectedPatient, Doctor selectedDoctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority);
         public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);
         public bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);

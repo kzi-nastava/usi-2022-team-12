@@ -1,10 +1,13 @@
-﻿using HealthInstitution.ViewModel;
+﻿using HealthInstitution.Model;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HealthInstitution.Commands
 {
@@ -32,7 +35,23 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            
+            _viewModel.AppointmentService.Create(_viewModel.SelectedAppointment);
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
+            Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
+            _viewModel.ActivityService.Create(act);
+            MessageBox.Show("Appointment created successfully!");
+            var activityCount = _viewModel.ActivityService.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+            if (activityCount > 8)
+            {
+                pt.IsBlocked = true;
+                _viewModel.PatientService.Update(pt);
+                MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
+                EventBus.FireEvent("BackToLogin");
+            }
+            else
+            {
+                EventBus.FireEvent("PatientAppointments");
+            }
         }
     }
 }
