@@ -40,7 +40,7 @@ namespace HealthInstitution.Services.Implementation
 
             while (startDateTime.Date <= deadline.Date)
             {
-                while (endDateTime <= upperBound)
+                while (startDateTime <= upperBound)
                 {
                     //doctor availabilty check
                     bool doctorAvailability = IsDoctorAvailable(doctor, startDateTime, endDateTime);
@@ -131,7 +131,7 @@ namespace HealthInstitution.Services.Implementation
 
             while (startDateTime.Date <= deadline.Date)
             {
-                while (endDateTime <= upperBound)
+                while (startDateTime <= upperBound)
                 {
                     foreach (var doctor in doctors)
                     {
