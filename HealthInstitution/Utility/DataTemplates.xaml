@@ -105,6 +105,10 @@
     <DataTemplate DataType="{x:Type vm:RoomChoiceViewModel}">
         <v:RoomChoiceView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:RoomRenovationViewModel}">
+        <v:RoomRenovationView/>
+    </DataTemplate>
     <!-- Manager -->
 
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
