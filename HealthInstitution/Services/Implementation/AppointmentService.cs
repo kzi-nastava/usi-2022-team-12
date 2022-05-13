@@ -254,10 +254,7 @@ namespace HealthInstitution.Services.Implementation
                         throw new RecommendationNotFoundException();
                     }
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
             catch (RecommendationNotFoundException) 
             {
