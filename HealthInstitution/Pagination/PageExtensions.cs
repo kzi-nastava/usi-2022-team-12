@@ -1,12 +1,13 @@
 ﻿using HealthInstitution.Pagination.Requests;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HealthInstitution.Pagination
 {
     public static class PageExtensions
     {
-        public static Page<TEntity> ToPage<TEntity>(this IQueryable<TEntity> processedDbSet, PageRequest page) where TEntity : class
+        public static Page<TEntity> ToPage<TEntity>(this IEnumerable<TEntity> processedDbSet, PageRequest page) where TEntity : class
         {
             var totalElements = processedDbSet.Count();
             var totalPages = (int)Math.Ceiling((double)totalElements / page.Size);

@@ -1,9 +1,11 @@
-﻿using HealthInstitution.Dialogs.Service;
+﻿using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -33,13 +35,9 @@ namespace HealthInstitution.ViewModel
 
         #region Services
 
-        private readonly IPatientService _patientService;
-
-        private readonly IMedicalRecordService _medicalRecordService;
-
         private readonly IDialogService _dialogService;
-
-        private readonly IAppointmentService _appointmentService;
+        private readonly IPatientService _patientService;
+        private readonly IReferralService _referralService;
 
         #endregion
 
@@ -51,13 +49,13 @@ namespace HealthInstitution.ViewModel
 
         #endregion
 
-        public SecretaryReferralUsageViewModel(IDialogService dialogService, IPatientService patientService, IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
+        public SecretaryReferralUsageViewModel(IDialogService dialogService, IPatientService patientService,
+            IReferralService referralService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
             _patientService = patientService;
-            _medicalRecordService = medicalRecordService;
+            _referralService = referralService;
             _dialogService = dialogService;
-            _appointmentService = appointmentService;
 
             SearchCommand = new RelayCommand(() =>
             {
@@ -66,10 +64,16 @@ namespace HealthInstitution.ViewModel
 
             ShowReferrals = new RelayCommand(() =>
             {
-                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientService, medicalRecordService, this, Guid.Empty);
-                _dialogService.OpenDialog(handlePatientViewModel);
+                if (_selectedPatient == null)
+                {
+                    MessageBox.Show("You did not select any patient");
+                }
+                else
+                {
+                    ReferralUsageViewModel refferalUsageViewModel = new ReferralUsageViewModel(_referralService);
+                    _dialogService.OpenDialog(refferalUsageViewModel);
+                }
             });
-
         }
 
         public void UpdatePage()

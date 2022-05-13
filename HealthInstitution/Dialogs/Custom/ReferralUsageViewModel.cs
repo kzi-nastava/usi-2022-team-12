@@ -1,4 +1,8 @@
-﻿using HealthInstitution.Dialogs.Service;
+﻿using HealthInstitution.Dialogs.DialogPagination;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Pagination;
+using HealthInstitution.Pagination.Requests;
+using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Validation;
 using System;
 using System.Collections.ObjectModel;
@@ -10,10 +14,8 @@ namespace HealthInstitution.Dialogs.Custom
     {
         #region properties
 
-        public string DoctorEmail { get; set; }
+        public string DoctorEmailAddress { get; set; }
         public string DoctorFullName { get; set; }
-        public string PatientEmail { get; set; }
-        public string PatientFullName { get; set; }
         [ValidationField]
         public DateTime DateOfAppointment { get; set; }
         public ICommand UseReferral { get; set; }
@@ -57,22 +59,41 @@ namespace HealthInstitution.Dialogs.Custom
         #endregion
     }
 
-    public class ReferralUsageViewModel : DialogViewModelBase<ReferralUsageViewModel>
+    public class ReferralUsageViewModel : DialogPagingViewModelBase<ReferralUsageViewModel>
     {
         private readonly IReferralService _referralService;
 
         public ObservableCollection<ReferralCardViewModel> ReferralViewModels { get; private set; } = new ObservableCollection<ReferralCardViewModel>();
 
-        public ReferralUsageViewModel()
+        public ReferralUsageViewModel(IReferralService referralService) : base("Referral overview", "", 1000, 750)
         {
-
+            _referralService = referralService;
+            UpdatePage(0);
         }
 
-        public void UpdatePage()
+        public override void UpdatePage(int pageNumber)
         {
             ReferralViewModels.Clear();
-            var referrals = IReferralService.GetValidReferrals().toPage;
+            var page = PageExtensions.ToPage(_referralService.ReadAll(),
+                new ReferralPage
+                {
+                    Page = pageNumber,
+                    Size = Size,
+                    Query = ""
+                }
+            );
 
+            foreach (var entity in page.Entities)
+            {
+                var referralModel = new ReferralCardViewModel
+                {
+                    DoctorEmailAddress = entity.Doctor.EmailAddress,
+                    DoctorFullName = entity.Doctor.FullName,
+                    DateOfAppointment = DateTime.Today
+                };
+                ReferralViewModels.Add(referralModel);
+            }
+            OnPageFetched(page);
         }
     }
 }

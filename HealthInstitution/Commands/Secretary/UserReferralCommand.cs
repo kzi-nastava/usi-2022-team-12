@@ -1,7 +1,6 @@
 ﻿using HealthInstitution.Dialogs.Custom;
 using HealthInstitution.Services.Intefaces;
 using System;
-using System.Collections.Generic;
 
 namespace HealthInstitution.Commands.Secretary
 {
@@ -30,26 +29,11 @@ namespace HealthInstitution.Commands.Secretary
 
         public override bool CanExecute(object parameter)
         {
-            return ReferralCardViewModel.CanExecute;
+            return true;
         }
 
         public override void Execute(object? parameter)
         {
-            if (_patientId == Guid.Empty)
-            {
-                if (!_patientService.AlreadyInUse(_handlePatientVM.EmailAddress))
-                {
-                    HandleAction(parameter, AddPatient);
-                }
-                else
-                {
-                    _handlePatientVM.EmailAddressError.ErrorMessage = "Email already in use.";
-                }
-            }
-            else
-            {
-                HandleAction(parameter, UpdatePatient);
-            }
         }
     }
 }
