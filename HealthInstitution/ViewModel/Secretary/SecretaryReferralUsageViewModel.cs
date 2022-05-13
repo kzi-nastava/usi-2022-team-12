@@ -1,9 +1,9 @@
 ﻿using HealthInstitution.Dialogs.Custom;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
+using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -36,8 +36,10 @@ namespace HealthInstitution.ViewModel
         #region Services
 
         private readonly IDialogService _dialogService;
-        private readonly IPatientService _patientService;
         private readonly IReferralService _referralService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IDoctorService _doctorService;
+        private readonly IPatientService _patientService;
 
         #endregion
 
@@ -49,12 +51,14 @@ namespace HealthInstitution.ViewModel
 
         #endregion
 
-        public SecretaryReferralUsageViewModel(IDialogService dialogService, IPatientService patientService,
-            IReferralService referralService)
+        public SecretaryReferralUsageViewModel(IDialogService dialogService, IReferralService referralService,
+            IAppointmentService appointmentService, IDoctorService doctorService, IPatientService patientService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
-            _patientService = patientService;
             _referralService = referralService;
+            _appointmentService = appointmentService;
+            _doctorService = doctorService;
+            _patientService = patientService;
             _dialogService = dialogService;
 
             SearchCommand = new RelayCommand(() =>
@@ -68,9 +72,14 @@ namespace HealthInstitution.ViewModel
                 {
                     MessageBox.Show("You did not select any patient");
                 }
+                else if (!_referralService.PatientHasValidReferral(_selectedPatient.Id))
+                {
+                    MessageBox.Show("Patient does not have any referral.");
+                }
                 else
                 {
-                    ReferralUsageViewModel refferalUsageViewModel = new ReferralUsageViewModel(_referralService);
+                    ReferralUsageViewModel refferalUsageViewModel = new ReferralUsageViewModel(SelectedPatient.Id, _referralService,
+                        _appointmentService, _doctorService, _patientService);
                     _dialogService.OpenDialog(refferalUsageViewModel);
                 }
             });

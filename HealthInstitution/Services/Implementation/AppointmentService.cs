@@ -136,11 +136,12 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(apt => apt.Patient == pt);
         }
 
-        public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt) 
+        public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now);
         }
-        public IEnumerable<Appointment> ReadPastPatientAppointments(Patient pt) 
+
+        public IEnumerable<Appointment> ReadPastPatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt && apt.StartDate < DateTime.Now);
         }
@@ -149,10 +150,12 @@ namespace HealthInstitution.Services.Implementation
         {
             return _entities.Where(apt => apt.Room == r).ToList();
         }
+
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return (_entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0);
         }
+
         public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
             return ((_entities.Where(apt => apt != aptToUpdate && apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
@@ -162,12 +165,14 @@ namespace HealthInstitution.Services.Implementation
         {
             return ((_entities.Where(apt => apt.Room == room && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
         }
+
         public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
             return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
         }
 
-        public IEnumerable<Appointment> FilterFinishedAppointmentsByAnamnesisSearchText(string text, Patient pt) { 
+        public IEnumerable<Appointment> FilterFinishedAppointmentsByAnamnesisSearchText(string text, Patient pt)
+        {
             return _entities.Where(apt => apt.Anamnesis.Contains(text) && apt.IsDone == true && apt.Patient == pt);
         }
 
