@@ -35,6 +35,7 @@
   <ItemGroup>
     <Folder Include="Commands\Secretary\" />
     <Folder Include="Commands\Doctor\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Persistence\Database\" />
   </ItemGroup>
 
