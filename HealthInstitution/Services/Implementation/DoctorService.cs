@@ -5,16 +5,24 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Implementation
 {
-    public class DoctorService : CrudService<Doctor>, IDoctorService
+    public class DoctorService : UserService<Doctor>, IDoctorService
     {
         public DoctorService(DatabaseContext context) : base(context)
         {
+        }
 
+        public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization)
+        {
+            return _entities.Where(d => d.Specialization == doctorSpecialization).ToList();
+            
+        }
+
+        public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization)
+        {
+            return _entities.Where(doc => doc.Specialization == specialization);
         }
 
         public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText)

@@ -4,6 +4,9 @@ using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -17,19 +20,28 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region attributes
-        public string PatientName 
-        { 
+        public string PatientName
+        {
             get => GlobalStore.ReadObject<Patient>("LoggedUser").FirstName;
         }
         #endregion
 
-        public PatientHomeViewModel()
+        #region Services
+
+        INotificationService _notificationService;
+
+        #endregion
+
+        public PatientHomeViewModel(INotificationService notificationService)
         {
+            _notificationService = notificationService;
+
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
             PatientMedicalRecordCommand = new PatientMedicalRecordCommand();
             LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
+            CheckNotifications();
         }
 
 
@@ -48,6 +60,12 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Pmrvm);
             });
 
+            EventBus.RegisterHandler("RecommendAppointmentCreation", () =>
+            {
+                RecommendAppointmentCreationViewModel Racvm = ServiceLocator.Get<RecommendAppointmentCreationViewModel>();
+                SwitchCurrentViewModel(Racvm);
+            });
+
             EventBus.RegisterHandler("AppointmentCreation", () =>
             {
                 AppointmentCreationViewModel Acvm = ServiceLocator.Get<AppointmentCreationViewModel>();
@@ -61,5 +79,23 @@ namespace HealthInstitution.ViewModel
             });
         }
         #endregion
+
+        public void CheckNotifications()
+        {
+            Guid userId = GlobalStore.ReadObject<Patient>("LoggedUser").Id;
+
+            IList<Notification> notifications = _notificationService.GetValidNotificationsForUser(userId);
+
+            if (notifications.Count != 0)
+            {
+                foreach (var notification in notifications)
+                {
+                    MessageBox.Show(notification.Content);
+
+                    notification.IsShown = true;
+                    _notificationService.Update(notification);
+                }
+            }
+        }
     }
 }

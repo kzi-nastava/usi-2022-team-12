@@ -24,7 +24,7 @@ namespace HealthInstitution.ViewModel
             public Patient Patient => _appointment.Patient;
             public string PatientName => _appointment.Patient.FullName;
             public DateTime Date => _appointment.StartDate;
-            public DateTime Time => _appointment.StartDate;                
+            public DateTime Time => _appointment.StartDate;
             public string Room => _appointment.Room.Name;
             public bool IsDone => _appointment.IsDone;
             public AppointmentViewModel(Appointment appointment)
@@ -116,6 +116,7 @@ namespace HealthInstitution.ViewModel
             DateTime endDate = EndDate;
             Doctor doctor = GlobalStore.ReadObject<Doctor>("LoggedUser");
             IEnumerable<Appointment> appointments = _appointmentService.GetAppointmentsForDateRangeAndDoctor(startDate, endDate, doctor);
+
             _appointments.Clear();
             foreach (Appointment appointment in appointments)
             {
