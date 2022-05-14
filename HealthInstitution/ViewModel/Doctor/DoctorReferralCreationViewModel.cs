@@ -64,12 +64,7 @@ namespace HealthInstitution.ViewModel
         {
             _doctorService = doctorService;
             _patient = patient;
-            _doctors = new ObservableCollection<Doctor>();
-            IEnumerable<Doctor> doctors = _doctorService.ReadAll();
-            foreach (Doctor doctor in doctors)
-            {
-                _doctors.Add(doctor);
-            }
+            UpdateData(null);
             _referrals = new ObservableCollection<Referral>();
             List<Referral> refferals = GlobalStore.ReadObject<List<Referral>>("NewReferrals");
             foreach (Referral referral in refferals)
@@ -78,13 +73,12 @@ namespace HealthInstitution.ViewModel
             }
             SearchDoctorCommand = new SearchDoctorCommand(this);
             IssueRefferalCommand = new IssueRefferalCommand(this);
-            BackToExaminationCommand = new BackToExaminationCommand(this);
+            BackToExaminationCommand = new BackToExaminationCommandFromReferral(this);
 
         }
 
-        public void UpdateData(string prefix)
+        public void UpdateData(string? prefix)
         {
-            _referrals = new ObservableCollection<Referral>();
             _doctors = new ObservableCollection<Doctor>();
             IEnumerable<Doctor> doctors;
             if (string.IsNullOrEmpty(prefix))
@@ -105,7 +99,7 @@ namespace HealthInstitution.ViewModel
         public void addReferral(Referral referral)
         {
             _referrals.Add(referral);
-            OnPropertyChanged(nameof(Referral));
+            OnPropertyChanged(nameof(Referrals));
         }
     }
 }

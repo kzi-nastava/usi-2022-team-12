@@ -94,7 +94,9 @@ namespace HealthInstitution.Persistence
             context.Ingredients.Add(i1);
 
             // Medicine 
-            var me1 = new Medicine("Probiotic");
+            var me1 = new Medicine();
+            me1.Name = "Probiotic";
+            me1.Description = "For stomach.";
             me1.AddIngredient(i1);
 
             context.Medicines.Add(me1);

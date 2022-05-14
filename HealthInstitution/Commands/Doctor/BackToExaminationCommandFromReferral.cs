@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Commands
 {
-    public class BackToExaminationCommand : CommandBase
+    public class BackToExaminationCommandFromReferral : CommandBase
     {
         DoctorReferralCreationViewModel _viewModel;
-        public BackToExaminationCommand(DoctorReferralCreationViewModel viewModel) {
+        public BackToExaminationCommandFromReferral(DoctorReferralCreationViewModel viewModel) {
             _viewModel = viewModel;
         }
         public override void Execute(object? parameter)

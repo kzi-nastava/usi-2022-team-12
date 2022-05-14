@@ -46,8 +46,14 @@ namespace HealthInstitution.ViewModel
             });
             EventBus.RegisterHandler("CreateRefferal", () =>
             {
-                DoctorReferralCreationViewModel viewModel = new(ServiceLocator.Get<IDoctorService>(),
-                                                            GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                DoctorReferralCreationViewModel viewModel = new(ServiceLocator.Get<IDoctorService>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                SwitchCurrentViewModel(viewModel);
+            });
+            EventBus.RegisterHandler("CreatePrescription", () =>
+            {
+                IMedicalRecordService medicalRecordService = ServiceLocator.Get<IMedicalRecordService>();
+                MedicalRecord medicalRecord = medicalRecordService.GetMedicalRecordForPatient(GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                PrescriptionViewModel viewModel = new(ServiceLocator.Get<IMedicineService>(), medicalRecord);
                 SwitchCurrentViewModel(viewModel);
             });
             ExaminationViewModel? viewModel = null;
@@ -58,6 +64,8 @@ namespace HealthInstitution.ViewModel
                                                     ServiceLocator.Get<IAllergenService>(),
                                                     ServiceLocator.Get<IAppointmentService>(),
                                                     ServiceLocator.Get<IReferralService>(),
+                                                    ServiceLocator.Get<IPrescribedMedicineService>(),
+                                                    ServiceLocator.Get<IPrescriptionService>(),
                                                     GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });

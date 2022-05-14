@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace HealthInstitution.Services.Implementation
         {
             searchText = searchText.ToLower();
             return _entities.Where(p => p.FirstName.ToLower().Contains(searchText)
-           || p.LastName.ToLower().Contains(searchText) || (p.Role == Role.Doctor && p.Specialization.ToString().ToLower().Contains(searchText))).ToList();
+           || p.LastName.ToLower().Contains(searchText));
         }
     }
 }

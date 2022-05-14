@@ -23,6 +23,7 @@ namespace HealthInstitution.Commands
             _viewModel.NewIllnesses.Clear();
             _viewModel.NewAllergens.Clear();
             GlobalStore.AddObject("NewReferrals", new List<Referral>());
+            GlobalStore.AddObject("Prescription", new List<Prescription>());
         }
 
         public UndoMRChangesCommand(ExaminationViewModel viewModel)
