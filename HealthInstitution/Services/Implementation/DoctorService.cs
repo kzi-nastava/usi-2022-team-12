@@ -16,7 +16,7 @@ namespace HealthInstitution.Services.Implementation
             
         }
 
-        public IEnumerable<Doctor> ReadDoctorsWithSpecialization(DoctorSpecialization specialization)
+        public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization)
         {
             return _entities.Where(doc => doc.Specialization == specialization);
         }
