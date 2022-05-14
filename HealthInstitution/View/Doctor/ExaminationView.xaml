@@ -7,7 +7,7 @@
              xmlns:validation="clr-namespace:HealthInstitution.Validations.Doctor"
              Background="White"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="990">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="validatorStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -124,9 +124,10 @@
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
-            <Button Content="Save changes and finish examination" Style="{StaticResource validatorStyle}" Padding="5" Command="{Binding FinishExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="300"/>
-            <Button Content="Undo changes" Padding="5" Command="{Binding UndoChangesCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Margin="20 0 0 0"/>
-            <Button Content="Cancel examination" Padding="5" Command="{Binding CancelExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Margin="20 0 0 0"/>
+            <Button Content="Save changes and finish examination" Style="{StaticResource validatorStyle}" Padding="5" Command="{Binding FinishExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="290"/>
+            <Button Content="Undo changes" Padding="5" Command="{Binding UndoChangesCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180" Margin="20 0 0 0"/>
+            <Button Content="Cancel examination" Padding="5" Command="{Binding CancelExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180" Margin="20 0 0 0"/>
+            <Button Content="Create referral" Padding="5" Command="{Binding CreateReferralCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180" Margin="20 0 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>
