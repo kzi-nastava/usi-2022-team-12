@@ -65,6 +65,11 @@ namespace HealthInstitution.Commands
             medicalRecord.Height = _viewModel.UpdatedMedicalRecord.Height;
             medicalRecord.Weight = _viewModel.UpdatedMedicalRecord.Weight;
             _viewModel.MedicalRecordService.Update(medicalRecord);
+            List<Referral> referrals = GlobalStore.ReadObject<List<Referral>>("NewReferrals");
+            foreach (Referral referral in referrals)
+            {
+                _viewModel.ReferralService.Create(referral);
+            }
         }
     }
 }
