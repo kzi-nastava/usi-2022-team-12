@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
-    internal class DoctorHomeViewModel : NavigableViewModel
+    public class DoctorHomeViewModel : NavigableViewModel
     {
         public ICommand? LogOutCommand { get; }
         public ICommand? NavigateScheduleCommand { get; }
@@ -44,13 +44,25 @@ namespace HealthInstitution.ViewModel
                                                         GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 SwitchCurrentViewModel(viewModel);
             });
+            EventBus.RegisterHandler("CreateRefferal", () =>
+            {
+                DoctorReferralCreationViewModel viewModel = new(ServiceLocator.Get<IDoctorService>(),
+                                                            GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                SwitchCurrentViewModel(viewModel);
+            });
+            ExaminationViewModel? viewModel = null;
             EventBus.RegisterHandler("Examination", () =>
             {
-                ExaminationViewModel viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
+                viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
                                                     ServiceLocator.Get<IIllnessService>(),
                                                     ServiceLocator.Get<IAllergenService>(),
                                                     ServiceLocator.Get<IAppointmentService>(),
+                                                    ServiceLocator.Get<IReferralService>(),
                                                     GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
+                SwitchCurrentViewModel(viewModel);
+            });
+            EventBus.RegisterHandler("ReturnToExamination", () =>
+            {
                 SwitchCurrentViewModel(viewModel);
             });
             EventBus.RegisterHandler("CreateAppointment", () =>
