@@ -1,7 +1,6 @@
 ﻿using HealthInstitution.Dialogs.Custom;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
-using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;

@@ -14,21 +14,25 @@ namespace HealthInstitution.ViewModel
     public class PatientAppointmentsViewModel : ViewModelBase
     {
         #region services
-        public readonly IAppointmentService appointmentService;
-        public readonly IAppointmentDeleteRequestService appointmentDeleteRequestService;
-        public readonly IActivityService activityService;
-        public readonly IPatientService patientService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IAppointmentDeleteRequestService _appointmentDeleteRequestService;
+        private readonly IActivityService _activityService;
+        private readonly IPatientService _patientService;
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IAppointmentDeleteRequestService AppointmentDeleteRequestService => _appointmentDeleteRequestService;
+        public IActivityService ActivityService => _activityService;
+        public IPatientService PatientService => _patientService;
         #endregion
 
         #region attributes
-        private List<Appointment> _appointments;
-        public List<Appointment> Appointments
+        private List<Appointment> _futureAppointments;
+        public List<Appointment> FutureAppointments
         {
-            get => _appointments;
+            get => _futureAppointments;
             set
             {
-                _appointments = value;
-                OnPropertyChanged(nameof(Appointments));
+                _futureAppointments = value;
+                OnPropertyChanged(nameof(FutureAppointments));
             }
         }
 
@@ -46,6 +50,7 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region commands
+        public ICommand? RecommendAppointmentCreationCommand { get; }
         public ICommand? AppointmentCreationCommand { get; }
         public ICommand? AppointmentUpdateCommand { get; }
         public ICommand? RemoveAppointmentCommand { get; }
@@ -53,11 +58,15 @@ namespace HealthInstitution.ViewModel
 
         public PatientAppointmentsViewModel(IAppointmentService appointmentService, IAppointmentDeleteRequestService appointmentDeleteRequestService, IActivityService activityService, IPatientService patientService)
         {
-            this.appointmentService = appointmentService;
-            this.appointmentDeleteRequestService = appointmentDeleteRequestService;
-            this.activityService = activityService;
-            this.patientService = patientService;
-            Appointments = this.appointmentService.ReadPatientAppointments(GlobalStore.ReadObject<Patient>("LoggedUser")).OrderByDescending(apt => apt.StartDate).ToList();
+            _appointmentService = appointmentService;
+            _appointmentDeleteRequestService = appointmentDeleteRequestService;
+            _activityService = activityService;
+            _patientService = patientService;
+
+            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
+            FutureAppointments = AppointmentService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
+
+            RecommendAppointmentCreationCommand = new RecommendAppointmentCreationCommand();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);

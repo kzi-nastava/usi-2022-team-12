@@ -49,17 +49,17 @@ namespace HealthInstitution.Commands
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
                 AppointmentDeleteRequest appointmentRequest = new AppointmentDeleteRequest { Patient = pt, Appointment = apt, ActivityType = ActivityType.Delete, Status = Status.Pending };
-                _viewModel.appointmentDeleteRequestService.Create(appointmentRequest);
+                _viewModel.AppointmentDeleteRequestService.Create(appointmentRequest);
                 MessageBox.Show("Request for appointment deletion created successfully!\nPlease wait for secretary to review it.");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel.activityService.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.patientService.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
@@ -68,23 +68,23 @@ namespace HealthInstitution.Commands
             else
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                _viewModel.appointmentService.Delete(apt.Id);
+                _viewModel.AppointmentService.Delete(apt.Id);
                 MessageBox.Show("Appointment deleted successfully!");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel.activityService.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.patientService.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
                 else
                 {
-                    EventBus.FireEvent("PatientAppointments");
+                    _viewModel.FutureAppointments = _viewModel.AppointmentService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
                 }
             }
         }

@@ -50,6 +50,13 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ArrangeEquipmentCommand}"/>
 
+                    <RadioButton Content="Room renovation"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding RoomRenovationCommand}"/>
+
                 </StackPanel>
 
                 <Button Content="Log out"

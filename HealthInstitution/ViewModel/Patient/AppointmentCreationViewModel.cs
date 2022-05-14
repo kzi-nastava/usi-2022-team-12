@@ -11,21 +11,37 @@ namespace HealthInstitution.ViewModel
     public class AppointmentCreationViewModel : ViewModelBase
     {
         #region services
-        public readonly IAppointmentService appointmentService;
-        public readonly IActivityService activityService;
-        public readonly IDoctorService doctorService;
-        public readonly IPatientService patientService;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IActivityService _activityService;
+        private readonly IDoctorService _doctorService;
+        private readonly IPatientService _patientService;
+
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IActivityService ActivityService => _activityService;
+        public IDoctorService DoctorService => _doctorService;
+        public IPatientService PatientService => _patientService;
         #endregion
 
         #region attributes
-        private DateTime _startDateTime;
-        public DateTime StartDateTime
+        private DateTime _startDate;
+        public DateTime StartDate
         {
-            get => _startDateTime;
+            get => _startDate;
             set
             {
-                _startDateTime = value;
-                OnPropertyChanged(nameof(StartDateTime));
+                _startDate = value;
+                OnPropertyChanged(nameof(StartDate));
+            }
+        }
+
+        private DateTime _startTime;
+        public DateTime StartTime
+        {
+            get => _startTime;
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged(nameof(StartTime));
             }
         }
 
@@ -58,12 +74,15 @@ namespace HealthInstitution.ViewModel
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
         {
-            this.activityService = activityService;
-            this.appointmentService = appointmentService;
-            this.doctorService = doctorService;
-            this.patientService = patientService;
-            StartDateTime = DateTime.Now;
-            Doctors = this.doctorService.ReadAll().ToList();
+            _activityService = activityService;
+            _appointmentService = appointmentService;
+            _doctorService = doctorService;
+            _patientService = patientService;
+
+            StartDate = DateTime.Now;
+            StartTime = DateTime.Now;
+            Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }

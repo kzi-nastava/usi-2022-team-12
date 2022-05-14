@@ -38,19 +38,29 @@ namespace HealthInstitution.Commands
         {
             string roomName = _viewModel.RoomName;
             var rooms = _viewModel._roomService.ReadRoomsWithName(roomName);
+            var renRooms = _viewModel._roomRenovationService.ReadAll();
 
-            if (rooms.Count() == 0)
+            foreach (var renRoom in renRooms)
             {
-                Room r = new Room(_viewModel.SelectedType, roomName);
-                _viewModel._roomService.Create(r);
-                MessageBox.Show("Room created successfully!");
-                EventBus.FireEvent("RoomsOverview");
+                if (renRoom.AdvancedDivide != null)
+                {
+                    if (renRoom.RenovatedSmallRoom1Name.Equals(roomName) || renRoom.RenovatedSmallRoom2Name.Equals(roomName))
+                    {
+                        MessageBox.Show("Room with that name already exists! Currently in renovation.");
+                        return;
+                    }
+                }
             }
-            else
+            if (rooms.Count() != 0)
             {
                 MessageBox.Show("Room with that name already exists!");
-                return;
+                return;  
             }
+
+            Room r = new Room(_viewModel.SelectedType, roomName);
+            _viewModel._roomService.Create(r);
+            MessageBox.Show("Room created successfully!");
+            EventBus.FireEvent("RoomsOverview");
 
             EventBus.FireEvent("AddRoom");
         }

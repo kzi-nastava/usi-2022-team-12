@@ -34,12 +34,15 @@ namespace HealthInstitution.Persistence
         public DbSet<AppointmentUpdateRequest> AppointmentUpdateRequests { get; set; }
         public DbSet<AppointmentDeleteRequest> AppointmentDeleteRequests { get; set; }
 
-
         // Appointment related things
         public DbSet<Allergen> Allergens { get; set; }
         public DbSet<Illness> Illness { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+
+        // Secretary related things
+        public DbSet<Referral> Referrals { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public DatabaseContext()
         {

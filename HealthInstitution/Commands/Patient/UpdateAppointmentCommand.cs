@@ -23,7 +23,7 @@ namespace HealthInstitution.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.StartDateTime) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
+            if (e.PropertyName == nameof(_viewModel.StartDate) || e.PropertyName == nameof(_viewModel.StartTime) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
             {
                 OnCanExecuteChange();
             }
@@ -31,18 +31,18 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.StartDateTime <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
+            return !(_viewModel.StartDate.Date.AddMinutes(_viewModel.StartTime.TimeOfDay.TotalMinutes) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            DateTime startDateTime = _viewModel.StartDateTime;
+            DateTime startDateTime = _viewModel.StartDate.Date.AddMinutes(_viewModel.StartTime.TimeOfDay.TotalMinutes);
             DateTime endDateTime = startDateTime.AddMinutes(15);
 
             try
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var updated = _viewModel.appointmentService.updateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                var updated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
 
                 if (updated)
                 {
@@ -54,13 +54,13 @@ namespace HealthInstitution.Commands
                 }
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);
-                _viewModel.activityService.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.activityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.patientService.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
