@@ -44,9 +44,10 @@ namespace HealthInstitution.Commands
             DateTime endDate = startDate.AddMinutes(15);
 
             Doctor doctor = GlobalStore.ReadObject<Doctor>("LoggedUser");
+            bool isUpdated;
             try
             {
-                _viewModel.AppointmentService.updateAppointment(_viewModel.Appointment, _viewModel.SelectedPatient, doctor, startDate, endDate);                
+                isUpdated = _viewModel.AppointmentService.updateAppointment(_viewModel.Appointment, _viewModel.SelectedPatient, doctor, startDate, endDate);                
             }
             catch (DoctorBusyException)
             {
@@ -62,6 +63,14 @@ namespace HealthInstitution.Commands
             {
                 MessageBox.Show("You didn't update any of information!\n(Appointment remains the same)");
                 return;
+            }
+            if (isUpdated)
+            {
+                MessageBox.Show("Appointment is updated");
+            }
+            else
+            {
+                MessageBox.Show("Request for update has been sent to secretary");
             }
             EventBus.FireEvent("UpdateSchedule");
             EventBus.FireEvent("DoctorSchedule");
