@@ -2,6 +2,7 @@
 using HealthInstitution.Model;
 using HealthInstitution.Services.Implementation;
 using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 using HealthInstitution.View;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace HealthInstitution.ViewModel
 
         private readonly IAppointmentService _appointmentService;
 
+        private readonly IReferralService _referralService;
+
         private readonly Patient _patient;
 
         private readonly Appointment _appointment;
@@ -47,6 +50,7 @@ namespace HealthInstitution.ViewModel
         public IAllergenService AllergenService => _allergenService;
         public IMedicalRecordService MedicalRecordService => _medicalRecordService;
         public IAppointmentService AppointmentService => _appointmentService;
+        public IReferralService ReferralService => _referralService;
         public MedicalRecord MedicalRecord => _medicalRecord;
         public Appointment Appointment => _appointment;
         public string NewAllergenName
@@ -134,7 +138,7 @@ namespace HealthInstitution.ViewModel
                 {
                     _illnessHistoryData.Add(illness);
                 }
-                OnPropertyChanged(nameof(Illness));
+                OnPropertyChanged(nameof(IllnessHistoryData));
             }
         }
         public void AddIllness(Illness illness)
@@ -172,8 +176,9 @@ namespace HealthInstitution.ViewModel
         public ICommand AddIllnessCommand { get; }
         public ICommand AddAllergenCommand { get; }
         public ICommand FinishExaminationCommand { get; }
+        public ICommand CreateReferralCommand { get; }
         #endregion Commands
-        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, Appointment appointment)
+        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, Appointment appointment)
         {
             _anamnesis = "";
             _newIllnessName = "";
@@ -183,6 +188,7 @@ namespace HealthInstitution.ViewModel
             _newIllnesses = new List<Illness>();
             _medicalRecordService = medicalRecordService;
             _illnessService = illnessService;
+            _referralService = referralService;
             _allergenService = allergenService;
             _appointmentService = appointmentService;
             _appointment = appointment;
@@ -196,7 +202,9 @@ namespace HealthInstitution.ViewModel
             AddIllnessCommand = new AddIllnessCommand(this);
             AddAllergenCommand = new AddAllergenCommand(this);
             FinishExaminationCommand = new FinishExaminationCommand(this);
+            CreateReferralCommand = new NavigateReferralCommand();
             PropertyChanged += OnUndo;
+            GlobalStore.AddObject("NewReferrals", new List<Referral>());
         }
         private void OnUndo(object? sender, PropertyChangedEventArgs e)
         {
