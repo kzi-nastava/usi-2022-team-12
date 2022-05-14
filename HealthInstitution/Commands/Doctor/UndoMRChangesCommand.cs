@@ -1,4 +1,5 @@
 ﻿using HealthInstitution.Model;
+using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace HealthInstitution.Commands
             _viewModel.NewAllergenName = "";
             _viewModel.NewIllnesses.Clear();
             _viewModel.NewAllergens.Clear();
+            GlobalStore.AddObject("NewReferrals", new List<Referral>());
         }
 
         public UndoMRChangesCommand(ExaminationViewModel viewModel)
