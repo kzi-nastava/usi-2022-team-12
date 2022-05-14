@@ -10,6 +10,11 @@ namespace HealthInstitution.Services.Implementation
     {
         public DoctorService(DatabaseContext context) : base(context)
         {
+        }
+
+        public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization)
+        {
+            return _entities.Where(d => d.Specialization == doctorSpecialization).ToList();
             
         }
 

@@ -26,6 +26,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IAllergenService)).To(typeof(AllergenService));
             Bind(typeof(IMedicalRecordService)).To(typeof(MedicalRecordService));
             Bind(typeof(IReferralService)).To(typeof(ReferralService));
+            Bind(typeof(INotificationService)).To(typeof(NotificationService));
 
             Bind(typeof(IDialogService)).To(typeof(DialogService));
 
