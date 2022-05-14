@@ -15,6 +15,12 @@ namespace HealthInstitution.Services.Implementation
         public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization)
         {
             return _entities.Where(d => d.Specialization == doctorSpecialization).ToList();
+            
+        }
+
+        public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization)
+        {
+            return _entities.Where(doc => doc.Specialization == specialization);
         }
     }
 }

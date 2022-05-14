@@ -6,5 +6,6 @@ namespace HealthInstitution.Services.Intefaces
     public interface IDoctorService : IUserService<Doctor>
     {
         public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization);
+        public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization);
     }
 }

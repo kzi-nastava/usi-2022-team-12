@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600"
+             d:DesignHeight="600" d:DesignWidth="900"
              Background="White">
     <UserControl.Resources>
         <converters:DateToStringConverter x:Key="DateToStringConverter"/>
@@ -75,10 +75,13 @@
             </ListView.View>
         </ListView>
         <Separator Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 25 0 15"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 10" HorizontalAlignment="Right">
-            <Button Content="Make appointment" Height="40" Padding="5" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
-            <Button Content="Update appointment" Height="40" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding AppointmentUpdateCommand}"/>
-            <Button Content="Remove appointment" Height="40" Padding="5" Margin="15 0 0 0"  FontSize="14" Command="{Binding RemoveAppointmentCommand}"/>
-        </StackPanel>
+        <Grid Grid.Row="2" Margin="0 10 0 10">
+            <Button Content="Recommend me appointment" HorizontalAlignment="Left" Height="40" Padding="5" FontSize="14" Command="{Binding RecommendAppointmentCreationCommand}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Make appointment" Height="40" Padding="5" Margin="0 0 0 0" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>
+                <Button Content="Update appointment" Height="40" Padding="5" Margin="20 0 0 0"  FontSize="14" Command="{Binding AppointmentUpdateCommand}"/>
+                <Button Content="Remove appointment" Height="40" Padding="5" Margin="20 0 0 0"  FontSize="14" Command="{Binding RemoveAppointmentCommand}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

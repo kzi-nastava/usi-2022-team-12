@@ -50,6 +50,7 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region commands
+        public ICommand? RecommendAppointmentCreationCommand { get; }
         public ICommand? AppointmentCreationCommand { get; }
         public ICommand? AppointmentUpdateCommand { get; }
         public ICommand? RemoveAppointmentCommand { get; }
@@ -61,8 +62,11 @@ namespace HealthInstitution.ViewModel
             _appointmentDeleteRequestService = appointmentDeleteRequestService;
             _activityService = activityService;
             _patientService = patientService;
+
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             FutureAppointments = AppointmentService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
+
+            RecommendAppointmentCreationCommand = new RecommendAppointmentCreationCommand();
             AppointmentCreationCommand = new AppointmentCreationCommand();
             AppointmentUpdateCommand = new AppointmentUpdateCommand(this);
             RemoveAppointmentCommand = new RemoveAppointmentCommand(this);
