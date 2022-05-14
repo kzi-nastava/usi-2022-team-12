@@ -34,6 +34,63 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private string _bigRoomDivisionName;
+        public string? BigRoomDivisionName
+        {
+            get => _bigRoomDivisionName;
+            set
+            {
+                _bigRoomDivisionName = value;
+                OnPropertyChanged(nameof(BigRoomDivisionName));
+            }
+        }
+
+        private string _roomDivision1;
+        public string? RoomDivision1
+        {
+            get => _roomDivision1;
+            set
+            {
+                _roomDivision1 = value;
+                OnPropertyChanged(nameof(RoomDivision1));
+            }
+        }
+
+        private string _roomDivision2;
+        public string? RoomDivision2
+        {
+            get => _roomDivision2;
+            set
+            {
+                _roomDivision2 = value;
+                OnPropertyChanged(nameof(RoomDivision2));
+            }
+        }
+
+        private List<Room> _rooms1;
+
+        public List<Room> Rooms1
+        {
+            get => _rooms1;
+            set
+            {
+                _rooms1 = value;
+                OnPropertyChanged(nameof(Rooms1));
+            }
+        }
+
+        private List<Room> _rooms2;
+
+        public List<Room> Rooms2
+        {
+            get => _rooms2;
+            set
+            {
+                _rooms2 = value;
+                OnPropertyChanged(nameof(Rooms2));
+            }
+        }
+
         private Room _selectedRoom;
         public Room SelectedRoom
         {
@@ -42,6 +99,10 @@ namespace HealthInstitution.ViewModel
             {
                 _selectedRoom = value;
                 GlobalStore.AddObject("SelectedRoom", value);
+                if (value != null)
+                {
+                    BigRoomDivisionName = value.Name;
+                }
                 OnPropertyChanged(nameof(SelectedRoom));
             }
         }
@@ -68,15 +129,20 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public RoomRenovationViewModel(IRoomService roomService, IAppointmentService appointmentService, IRoomRenovationService roomRenovationService)
+        public RoomRenovationViewModel(IRoomService roomService, IAppointmentService appointmentService, 
+            IRoomRenovationService roomRenovationService)
         {
             roomService = roomService;
             appointmentService = appointmentService;
             roomRenovationService = roomRenovationService;
             Rooms = roomService.ReadAll().ToList();
+            Rooms1 = roomService.ReadAll().ToList();
+            Rooms2 = roomService.ReadAll().ToList();
+            
             SelectedRoom = null;
 
             StandardRenovationCommand = new StandardRenovationCommand(this, appointmentService, roomRenovationService);
+            DivideRenovationCommand = new DivideRenovationCommand(this, appointmentService, roomRenovationService, roomService);
 
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;
