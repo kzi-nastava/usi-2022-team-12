@@ -33,6 +33,10 @@
     <DataTemplate DataType="{x:Type vm:DoctorAppointmentUpdateViewModel}">
         <v:DoctorAppointmentUpdateView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorReferralCreationViewModel}">
+        <v:DoctorReferralCreationView/>
+    </DataTemplate>
     <!-- Doctor -->
 
     <!-- Patient -->
