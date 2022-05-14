@@ -15,6 +15,7 @@ namespace HealthInstitution.ViewModel
     public class RoomCreateViewModel : ViewModelBase
     {
         public readonly IRoomService _roomService;
+        public readonly IRoomRenovationService _roomRenovationService;
         public ICommand? AddRoomCommand { get; }
 
         private string _roomName;
@@ -50,9 +51,10 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public RoomCreateViewModel(IRoomService roomService)
+        public RoomCreateViewModel(IRoomService roomService, IRoomRenovationService roomRenovationService)
         {
             _roomService = roomService;
+            _roomRenovationService = roomRenovationService;
             SelectedType = RoomType.ExaminationRoom;
             RoomTypes = new List<RoomType>();
             RoomTypes.Add(RoomType.ExaminationRoom);

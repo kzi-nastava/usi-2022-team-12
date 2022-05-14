@@ -13,11 +13,13 @@ namespace HealthInstitution.Services.Implementation
         private readonly IDoctorService _doctorService;
         private readonly IAppointmentUpdateRequestService _appointmentUpdateRequestService;
         private readonly IRoomService _roomService;
-        public AppointmentService(DatabaseContext context, IDoctorService doctorService, IAppointmentUpdateRequestService appointmentUpdateRequestService, IRoomService roomService) : base(context)
+        private readonly IRoomRenovationService _roomRenovationService;
+        public AppointmentService(DatabaseContext context, IDoctorService doctorService, IAppointmentUpdateRequestService appointmentUpdateRequestService, IRoomService roomService, IRoomRenovationService roomRenovationService) : base(context)
         {
             _doctorService = doctorService;
             _appointmentUpdateRequestService = appointmentUpdateRequestService;
             _roomService = roomService;
+            _roomRenovationService = roomRenovationService;
         }
 
         public Appointment FindFirstFreeAppointmentForDoctorAndInterval(Patient patient, Doctor doctor, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline) 
@@ -239,7 +241,8 @@ namespace HealthInstitution.Services.Implementation
         public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
             if (!IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) || 
-                !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
+                !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
+                _roomRenovationService.IsRoomNotRenovating(room, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
             }
