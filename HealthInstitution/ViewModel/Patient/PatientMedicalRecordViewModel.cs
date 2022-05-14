@@ -5,8 +5,6 @@ using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -145,7 +143,7 @@ namespace HealthInstitution.ViewModel
         {
             if (!string.IsNullOrEmpty(text))
             {
-                PastAppointments = AppointmentService.FilterFinishedAppointmentsByAnamnesisSearchText(text, Patient).ToList<Appointment>();
+                PastAppointments = AppointmentService.FindFinishedAppointmentsWithAnamnesis(Patient, text).ToList<Appointment>();
             }
             else
             {

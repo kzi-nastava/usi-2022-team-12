@@ -147,17 +147,15 @@ namespace HealthInstitution.Services.Implementation
                         if (emptyRoom != null)
                         {
                             freeAppointments.Add(new Appointment(doctor, patient, start, end, emptyRoom, null, false));
+                            start = start.AddMinutes(15);
+                            end = end.AddMinutes(15);
                         }
                     }
 
                     if (freeAppointments.Count >= freeAppointmentsCount)
                     {
-                        break;
+                        return freeAppointments;
                     }
-                }
-                if (freeAppointments.Count >= freeAppointmentsCount)
-                {
-                    break;
                 }
                 start = start.AddMinutes(1);
                 end = end.AddMinutes(1);
@@ -209,10 +207,10 @@ namespace HealthInstitution.Services.Implementation
             }
             catch (RecommendationNotFoundException) 
             {
-                List<Appointment> freeAppointments = FindFreeAppointments(patient, deadline, doctor.Specialization, 3);
-                if (freeAppointments.Count != 0)
+                List<Appointment> suggestedAppointment = FindFreeAppointments(patient, deadline, doctor.Specialization, 3);
+                if (suggestedAppointment.Count != 0)
                 {
-                    return freeAppointments;
+                    return suggestedAppointment;
                 }
                 return null;
             }
@@ -220,11 +218,9 @@ namespace HealthInstitution.Services.Implementation
 
         public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
-
             //doctor availabilty check
-            bool doctorAvailability = IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime);
-            bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime);
-            if (!doctorAvailability || !doctorRequestAvailability)
+            if (!IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) || 
+                !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
             }
@@ -242,9 +238,8 @@ namespace HealthInstitution.Services.Implementation
 
         public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
-            bool doctorAvailability = IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment);
-            bool doctorRequestAvailability = _appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime);
-            if (!doctorAvailability || !doctorRequestAvailability)
+            if (!IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) || 
+                !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
             }
@@ -278,15 +273,12 @@ namespace HealthInstitution.Services.Implementation
                 _appointmentUpdateRequestService.Create(appointmentRequest);
                 return false;
             }
-            else
-            {
-                selectedAppointment.StartDate = startDateTime;
-                selectedAppointment.EndDate = endDateTime;
-                selectedAppointment.Doctor = selectedDoctor;
-                selectedAppointment.Room = emptyRoom;
-                Update(selectedAppointment);
-                return true;
-            }
+            selectedAppointment.StartDate = startDateTime;
+            selectedAppointment.EndDate = endDateTime;
+            selectedAppointment.Doctor = selectedDoctor;
+            selectedAppointment.Room = emptyRoom;
+            Update(selectedAppointment);
+            return true;
         }
 
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor)
@@ -339,22 +331,20 @@ namespace HealthInstitution.Services.Implementation
             return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
         }
 
-        public Room FindFreeRoom(RoomType roomType, DateTime startDateTime, DateTime endDateTime) {
+        public Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end) {
             var examinationRooms = _roomService.ReadRoomsWithType(roomType);
-            Room emptyRoom = null;
             foreach (var room in examinationRooms)
             {
-                if (IsRoomAvailable(room, startDateTime, endDateTime) && _appointmentUpdateRequestService.IsRoomAvailable(room, startDateTime, endDateTime))
+                if (IsRoomAvailable(room, start, end) && _appointmentUpdateRequestService.IsRoomAvailable(room, start, end))
                 {
-                    emptyRoom = room;
-                    break;
+                    return room;
                 }
             }
-            return emptyRoom;
+            return null;
         }
 
-        public IEnumerable<Appointment> FilterFinishedAppointmentsByAnamnesisSearchText(string text, Patient pt) { 
-            return _entities.Where(apt => apt.Anamnesis.Contains(text) && apt.IsDone == true && apt.Patient == pt);
+        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string text) { 
+            return _entities.Where(apt => apt.Anamnesis.Contains(text) && apt.IsDone == true && apt.Patient == patient);
         }
 
         /// <summary>

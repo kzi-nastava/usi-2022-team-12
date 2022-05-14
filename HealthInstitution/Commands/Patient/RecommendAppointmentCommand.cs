@@ -36,8 +36,8 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            _viewModel.RecommendedAppointments = _viewModel.AppointmentService.RecommendAppointments(pt, _viewModel.SelectedDoctor,
+            Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
+            _viewModel.RecommendedAppointments = _viewModel.AppointmentService.RecommendAppointments(patient, _viewModel.SelectedDoctor,
                 _viewModel.StartTime, _viewModel.EndTime, _viewModel.DeadlineDate, _viewModel.SelectedPriority);
         }
     }
