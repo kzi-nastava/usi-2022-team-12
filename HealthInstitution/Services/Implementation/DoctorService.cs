@@ -1,6 +1,8 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,6 +23,13 @@ namespace HealthInstitution.Services.Implementation
         public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization)
         {
             return _entities.Where(doc => doc.Specialization == specialization);
+        }
+
+        public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText)
+        {
+            searchText = searchText.ToLower();
+            return _entities.Where(p => p.FirstName.ToLower().Contains(searchText)
+           || p.LastName.ToLower().Contains(searchText));
         }
     }
 }

@@ -12,6 +12,9 @@ namespace HealthInstitution.Model
         private string _description;
         public string Description { get => _description; set => OnPropertyChanged(ref _description, value); }
 
+        private string _name;
+        public string Name { get => _name; set => OnPropertyChanged(ref _name, value); }
+
         private Status _status;
         public Status Status { get => _status; set => OnPropertyChanged(ref _status, value); }
 
@@ -21,7 +24,7 @@ namespace HealthInstitution.Model
 
         public Medicine()
         {
-
+            _ingredients = new List<Ingredient>();
         }
 
         public Medicine(string description)

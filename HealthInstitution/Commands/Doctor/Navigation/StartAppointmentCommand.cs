@@ -37,6 +37,7 @@ namespace HealthInstitution.Commands
         public override void Execute(object? parameter)
         {
             GlobalStore.AddObject("SelectedAppointment", _viewModel.SelectedAppointment.Appointment);
+            GlobalStore.AddObject("SelectedPatient", _viewModel.SelectedAppointment.Appointment.Patient);
             EventBus.FireEvent("Examination");
         }
     }
