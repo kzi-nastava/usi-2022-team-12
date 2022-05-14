@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Commands.Secretary;
 using HealthInstitution.Dialogs.DialogPagination;
 using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model;
 using HealthInstitution.Pagination;
 using HealthInstitution.Pagination.Requests;
 using HealthInstitution.Services.Intefaces;
@@ -20,6 +21,8 @@ namespace HealthInstitution.Dialogs.Custom
         public Guid DoctorId { get; set; }
         public string DoctorEmailAddress { get; set; }
         public string DoctorFullName { get; set; }
+
+        public AppointmentType AppointmentType { get; set; }
 
         private DateTime? _dateOfAppointment = DateTime.Today;
         [ValidationField]
@@ -130,7 +133,8 @@ namespace HealthInstitution.Dialogs.Custom
                     ReferralId = entity.Id,
                     DoctorId = entity.Doctor.Id,
                     DoctorEmailAddress = entity.Doctor.EmailAddress,
-                    DoctorFullName = entity.Doctor.FullName
+                    DoctorFullName = entity.Doctor.FullName,
+                    AppointmentType = entity.AppointmentType,
                 };
                 referralModel.UseReferral = new UseReferralCommand(this, referralModel, _referralService, _appointmentService, _doctorService, _patientService);
                 ReferralViewModels.Add(referralModel);

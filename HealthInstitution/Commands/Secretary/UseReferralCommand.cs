@@ -51,7 +51,16 @@ namespace HealthInstitution.Commands.Secretary
 
             Doctor doctor = _doctorService.Read(_referralCardVM.DoctorId);
             Patient patient = _patientService.Read(_referralUsageVM.PatientID);
-            Room freeRoom = _appointmentService.FindFreeRoom(RoomType.ExaminationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
+
+            Room freeRoom;
+            if (_referralCardVM.AppointmentType == AppointmentType.Regular)
+            {
+                freeRoom = _appointmentService.FindFreeRoom(RoomType.ExaminationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
+            }
+            else
+            {
+                freeRoom = _appointmentService.FindFreeRoom(RoomType.OperationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
+            }
 
             if (!_appointmentService.IsDoctorAvailable(doctor, finalAppointmentTime, finalAppointmentTime.AddMinutes(15)))
             {
@@ -74,6 +83,7 @@ namespace HealthInstitution.Commands.Secretary
                     StartDate = finalAppointmentTime,
                     EndDate = finalAppointmentTime.AddMinutes(15),
                     Room = freeRoom,
+                    AppointmentType = _referralCardVM.AppointmentType,
                     IsDone = false,
                     Anamnesis = null
                 };

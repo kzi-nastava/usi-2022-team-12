@@ -10,6 +10,9 @@
         private DoctorSpecialization? _specialization;
         public DoctorSpecialization? DoctorSpecialization { get => _specialization; set => OnPropertyChanged(ref _specialization, value); }
 
+        private AppointmentType appointmentType;
+        public AppointmentType AppointmentType { get => appointmentType; set => OnPropertyChanged(ref appointmentType, value); }
+
         private Patient _patient;
         public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }
 
