@@ -15,5 +15,12 @@ namespace HealthInstitution.Services.Implementation
         {
 
         }
+
+        public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText)
+        {
+            searchText = searchText.ToLower();
+            return _entities.Where(p => p.FirstName.ToLower().Contains(searchText)
+           || p.LastName.ToLower().Contains(searchText) || (p.Role == Role.Doctor && p.Specialization.ToString().ToLower().Contains(searchText))).ToList();
+        }
     }
 }
