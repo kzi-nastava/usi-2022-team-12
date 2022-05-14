@@ -24,6 +24,7 @@ namespace HealthInstitution.Commands
         {
             UpdateMedicalRecord();
             UpdateAppointment();
+            CreateReferrals();
             EventBus.FireEvent("DoctorSchedule");
         }
         private void UpdateAppointment()
@@ -31,8 +32,20 @@ namespace HealthInstitution.Commands
             Appointment appointment = _viewModel.Appointment;
             appointment.Anamnesis = _viewModel.Anamnesis;
             appointment.IsDone = true;
+
+            List<PrescribedMedicine> prescriptions = GlobalStore.ReadObject<List<PrescribedMedicine>>("Prescription");
+            Prescription prescription = new Prescription();
+            foreach (PrescribedMedicine medicine in prescriptions)
+            {
+                PrescribedMedicine prescribedMedicine = _viewModel.PrescribedMedicineService.Create(medicine);
+                prescription.PrescribedMedicine.Add(prescribedMedicine);
+            }
+            _viewModel.PrescriptionService.Create(prescription);
+            appointment.Prescription = prescription;
+
             _viewModel.AppointmentService.Update(appointment);
-            
+
+
         }
         private void UpdateMedicalRecord()
         {
@@ -65,6 +78,16 @@ namespace HealthInstitution.Commands
             medicalRecord.Height = _viewModel.UpdatedMedicalRecord.Height;
             medicalRecord.Weight = _viewModel.UpdatedMedicalRecord.Weight;
             _viewModel.MedicalRecordService.Update(medicalRecord);
+        }
+
+        private void CreateReferrals()
+        {
+            List<Referral> referrals = GlobalStore.ReadObject<List<Referral>>("NewReferrals");
+            foreach (Referral referral in referrals)
+            {
+                _viewModel.ReferralService.Create(referral);
+            }
+
         }
     }
 }

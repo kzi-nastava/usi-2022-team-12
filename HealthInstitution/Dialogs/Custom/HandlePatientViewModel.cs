@@ -160,7 +160,7 @@ namespace HealthInstitution.Dialogs.Custom
         {
             bool valid = true;
 
-            // Email
+            // Check if email is valid
             if (string.IsNullOrEmpty(EmailAddress) && IsDirty(nameof(EmailAddress)))
             {
                 EmailAddressError.ErrorMessage = "Email cannot be empty.";

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HealthInstitution.Model
 {
@@ -12,7 +8,7 @@ namespace HealthInstitution.Model
         #region Attributes
 
         private IList<PrescribedMedicine> _prescribedMedicine;
-        public IList<PrescribedMedicine> PrescribedMedicine { get => _prescribedMedicine;  set => OnPropertyChanged(ref _prescribedMedicine, value);}
+        public virtual IList<PrescribedMedicine> PrescribedMedicine { get => _prescribedMedicine;  set => OnPropertyChanged(ref _prescribedMedicine, value);}
 
         #endregion
 
@@ -20,9 +16,10 @@ namespace HealthInstitution.Model
 
         public Prescription()
         {
-
+            _prescribedMedicine = new List<PrescribedMedicine>();
         }
 
         #endregion
+
     }
 }

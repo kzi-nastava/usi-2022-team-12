@@ -7,7 +7,7 @@
              xmlns:validation="clr-namespace:HealthInstitution.Validations.Doctor"
              Background="White"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="990">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="validatorStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -49,7 +49,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
                     <TextBlock Text="height(cm):" FontSize="16" VerticalAlignment="Center"/>
-                    <TextBox x:Name="textBoxHeight" FontSize="16" Width="200" Margin="10 0 0 0">
+                    <TextBox x:Name="textBoxHeight" FontSize="16" Width="140" Margin="10 0 0 0">
                         <TextBox.Text>
                             <Binding Path="Height">
                                 <Binding.ValidationRules>
@@ -61,7 +61,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
                     <TextBlock Text="weight(kg): " FontSize="16" VerticalAlignment="Center"/>
-                    <TextBox x:Name="textBoxWeight" FontSize="16" Width="200" Margin="10 0 0 0">
+                    <TextBox x:Name="textBoxWeight" FontSize="16" Width="140" Margin="10 0 0 0">
                         <TextBox.Text>
                             <Binding Path="Weight">
                                 <Binding.ValidationRules>
@@ -96,9 +96,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Vertical" Width="340" HorizontalAlignment="Left">
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
                 <TextBlock Text="Illness history:" FontSize="16" Margin="0 0 0 10"/>
-                <ListBox BorderThickness="2" Height="130" MaxHeight="130" BorderBrush="Black" ItemsSource="{Binding IllnessHistoryData}" DisplayMemberPath="Name" Width="340"/>
+                <ListBox BorderThickness="2" Height="130" MaxHeight="130" BorderBrush="Black" ItemsSource="{Binding IllnessHistoryData}" DisplayMemberPath="Name" Width="300"/>
                 <Grid Margin="0 10 0 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -109,9 +109,9 @@
                 </Grid>
                 <Button Content="Add illnes" Command="{Binding AddIllnessCommand}"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Vertical" Width="340" Margin="25 0 0 25" HorizontalAlignment="Left">
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="25 0 0 25" HorizontalAlignment="Left">
                 <TextBlock Text="Allergens:" FontSize="16" Margin="0 0 0 10"/>
-                <ListBox BorderThickness="2" Height="130" MaxHeight="130" BorderBrush="Black" ItemsSource="{Binding Allergens}" DisplayMemberPath="Name" Width="340"/>
+                <ListBox BorderThickness="2" Height="130" MaxHeight="130" BorderBrush="Black" ItemsSource="{Binding Allergens}" DisplayMemberPath="Name" Width="300"/>
                 <Grid Margin="0 10 0 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -124,9 +124,11 @@
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
-            <Button Content="Save changes and finish examination" Style="{StaticResource validatorStyle}" Padding="5" Command="{Binding FinishExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="300"/>
-            <Button Content="Undo changes" Padding="5" Command="{Binding UndoChangesCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Margin="20 0 0 0"/>
-            <Button Content="Cancel examination" Padding="5" Command="{Binding CancelExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Margin="20 0 0 0"/>
+            <Button Content="Save changes and finish examination" Style="{StaticResource validatorStyle}" Padding="5" Command="{Binding FinishExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="280"/>
+            <Button Content="Undo changes" Padding="5" Command="{Binding UndoChangesCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Margin="20 0 0 0"/>
+            <Button Content="Cancel examination" Padding="5" Command="{Binding CancelExaminationCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Margin="20 0 0 0"/>
+            <Button Content="Referrals" Padding="5" Command="{Binding CreateReferralCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Margin="20 0 0 0"/>
+            <Button Content="Prescription" Padding="5" Command="{Binding PrescriptionCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" Margin="20 0 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

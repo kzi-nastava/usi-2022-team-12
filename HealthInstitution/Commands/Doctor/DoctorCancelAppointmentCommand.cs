@@ -43,6 +43,7 @@ namespace HealthInstitution.Commands
                 _viewModel.AppointmentService.Delete(apt.Id);
             }
             GlobalStore.AddObject("SelectedAppointment", _viewModel.SelectedAppointment.Appointment);
+            _viewModel.UpdateData();
             EventBus.FireEvent("DoctorSchedule");
         }
     }

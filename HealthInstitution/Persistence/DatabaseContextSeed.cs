@@ -7,12 +7,14 @@ namespace HealthInstitution.Persistence
     {
         public static void Seed(DatabaseContext context)
         {
+
             //// Patients
             var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true };
             var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false };
             var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false };
             var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false };
             var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false };
+            var p6 = new Patient { FirstName = "Brusli", LastName = "Iljazovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "brusliiljazovic@example.com", Role = Role.Patient, IsBlocked = false };
 
             context.Patients.Add(p1);
             context.Patients.Add(p2);
@@ -27,7 +29,10 @@ namespace HealthInstitution.Persistence
             mr1.AddAllergen(alr1);
             mr1.AddIllness(il1);
 
+            var mr2 = new MedicalRecord(179, 65.6, p6);
+
             context.MedicalRecords.Add(mr1);
+            context.MedicalRecords.Add(mr2);
 
             // Secretaries
             var c1 = new Secretary { FirstName = "Nikola", LastName = "Petrovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "nikolapetrovic@example.com", Role = Role.Secretary };
@@ -42,7 +47,7 @@ namespace HealthInstitution.Persistence
             // Doctors
             var d1 = new Doctor { FirstName = "Igor", LastName = "Mirkovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-48), EmailAddress = "igormirkovic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
             var d2 = new Doctor { FirstName = "Veljko", LastName = "Vukovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "veljkovukovic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
-            var d3 = new Doctor { FirstName = "Gordana", LastName = "Milicic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "gordanamilicic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Pediatrician };
+            var d3 = new Doctor { FirstName = "Gordana", LastName = "Milicic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "gordanamilicic@example.com", Role = Role.Doctor, Specialization = DoctorSpecialization.Cardiologist };
 
             context.Doctors.Add(d1);
             context.Doctors.Add(d2);
@@ -89,7 +94,9 @@ namespace HealthInstitution.Persistence
             context.Ingredients.Add(i1);
 
             // Medicine 
-            var me1 = new Medicine("Probiotic");
+            var me1 = new Medicine();
+            me1.Name = "Probiotic";
+            me1.Description = "For stomach.";
             me1.AddIngredient(i1);
 
             context.Medicines.Add(me1);

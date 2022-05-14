@@ -23,7 +23,7 @@ namespace HealthInstitution.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.StartDateTime) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
+            if (e.PropertyName == nameof(_viewModel.StartDate) || e.PropertyName == nameof(_viewModel.StartTime) || e.PropertyName == nameof(_viewModel.SelectedDoctor))
             {
                 OnCanExecuteChange();
             }
@@ -31,12 +31,12 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.StartDateTime <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
+            return !(_viewModel.StartDate.Date.AddMinutes(_viewModel.StartTime.TimeOfDay.TotalMinutes) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            DateTime startDateTime = _viewModel.StartDateTime;
+            DateTime startDateTime = _viewModel.StartDate.Date.AddMinutes(_viewModel.StartTime.TimeOfDay.TotalMinutes);
             DateTime endDateTime = startDateTime.AddMinutes(15);
 
             try
