@@ -242,7 +242,7 @@ namespace HealthInstitution.Services.Implementation
         {
             if (!IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) || 
                 !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
-                _roomRenovationService.IsRoomNotRenovating(room, startDateTime, endDateTime))
+                _roomRenovationService.IsRoomNotRenovating(selectedAppointment.Room, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
             }
