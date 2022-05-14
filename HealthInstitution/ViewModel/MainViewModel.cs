@@ -86,7 +86,6 @@ namespace HealthInstitution.ViewModel
                     if (renRoom.AdvancedDivide == null)
                     {
                         _roomRenovationService.Delete(renRoom.Id);
-                        break;
                     }
                     else if (renRoom.AdvancedDivide == true)
                     {
@@ -99,7 +98,6 @@ namespace HealthInstitution.ViewModel
                         _roomService.Create(room1);
                         _roomService.Create(room2);
                         _roomService.Delete(renRoom.RenovatedRoom.Id);
-                        break;
                     }
                     else
                     {
@@ -134,7 +132,6 @@ namespace HealthInstitution.ViewModel
                         _roomService.Create(mergedRoom);
                         _roomService.Delete(room1.Id);
                         _roomService.Delete(room2.Id);
-                        break;
                     }
                 }
             }
