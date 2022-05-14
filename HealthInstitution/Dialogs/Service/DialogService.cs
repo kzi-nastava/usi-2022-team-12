@@ -12,5 +12,16 @@ namespace HealthInstitution.Dialogs.Service
             };
             window.ShowDialog();
         }
+
+        public Tuple<R, bool?> OpenDialogWithReturnType<T, R>(DialogReturnViewModelBase<T, R> viewModel)
+        {
+            IDialogWindow window = new DialogWindow
+            {
+                DataContext = viewModel
+            };
+            window.ShowDialog();
+
+            return Tuple.Create(viewModel.DialogResult, window.DialogResult);
+        }
     }
 }

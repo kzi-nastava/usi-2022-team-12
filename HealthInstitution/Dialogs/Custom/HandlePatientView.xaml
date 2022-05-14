@@ -119,7 +119,13 @@
                            Margin="10 0 10 0" 
                            FontSize="10" />
 
-                <Button FontSize="14" Content="{Binding ActionButtonName}" Margin="10 25 10 15" Foreground="White" Command="{Binding HandlePatient}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>
+                <Button FontSize="14" 
+                        Content="{Binding ActionButtonName}" 
+                        Margin="10 25 10 15" 
+                        Foreground="White" 
+                        Command="{Binding HandlePatient}" 
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" 
+                        FocusManager.FocusedElement="{Binding ElementName=FirstField}"/>
             </StackPanel>
         </materialDesign:Card>
     </Grid>

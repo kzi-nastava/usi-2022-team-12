@@ -74,6 +74,10 @@
         <v:SecretaryReferralView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:SecretaryUrgentScheduleViewModel}">
+        <v:SecretaryUrgentScheduleView/>
+    </DataTemplate>
+
     <!--Dialog data templates-->
 
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
@@ -90,6 +94,14 @@
 
     <DataTemplate DataType="{x:Type dc:ReferralUsageViewModel}">
         <dc:ReferralUsageView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:DoctorSpecializationSelectViewModel}">
+        <dc:DoctorSpecializationSelectView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:DelayAppointmentViewModel}">
+        <dc:DelayAppointmentView/>
     </DataTemplate>
 
     <!--Dialog data templates-->

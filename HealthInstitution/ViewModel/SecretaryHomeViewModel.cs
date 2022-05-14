@@ -21,6 +21,8 @@ namespace HealthInstitution.ViewModel
 
         public ICommand ShowReferrals { get; private set; }
 
+        public ICommand ShowUrgentScheduling { get; private set; }
+
         #endregion
 
         public SecretaryHomeViewModel()
@@ -48,6 +50,11 @@ namespace HealthInstitution.ViewModel
             ShowReferrals = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryReferralUsageViewModel>());
+            });
+
+            ShowUrgentScheduling = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryUrgentScheduleViewModel>());
             });
 
             RegisterHandler();
