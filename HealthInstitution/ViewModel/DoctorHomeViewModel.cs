@@ -28,6 +28,7 @@ namespace HealthInstitution.ViewModel
             NavigateScheduleCommand = new NavigateScheduleCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<DoctorScheduleViewModel>());
             RegisterHandler();
+            CheckNotifications();
         }
 
         private void RegisterHandler()

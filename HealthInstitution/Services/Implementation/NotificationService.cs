@@ -16,7 +16,7 @@ namespace HealthInstitution.Services.Implementation
         public IList<Notification> GetValidNotificationsForUser(Guid userId)
         {
             return _entities.Where(n => n.IsShown == false)
-                            .Where(n => n.Id == userId)
+                            .Where(n => n.UserId == userId)
                             .ToList();
         }
     }
