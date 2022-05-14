@@ -87,9 +87,7 @@ namespace HealthInstitution.ViewModel
             {
                 RoomRenovationViewModel Rrvm = ServiceLocator.Get<RoomRenovationViewModel>();
                 SwitchCurrentViewModel(Rrvm);
-            });
-
-
+            });    
         }
     }
 }

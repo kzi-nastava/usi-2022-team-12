@@ -112,12 +112,28 @@ namespace HealthInstitution.ViewModel
                         {
                             mergedRoom.AddEquipment(entry);
                         }
+
                         foreach (var entry in room2.Inventory)
                         {
-                            mergedRoom.AddEquipment(entry);
+                            bool itemExisted = false;
+                            foreach (var item in mergedRoom.Inventory)
+                            {
+                                if (entry.Item.Name.Equals(item.Item.Name))
+                                {
+                                    item.Quantity += 1;
+                                    itemExisted = true;
+                                    break;
+                                }
+                            }
+                            if (!itemExisted)
+                            {
+                                Entry<Equipment> newEntry = new Entry<Equipment> { Item = entry.Item, Quantity = 1 };
+                                mergedRoom.AddEquipment(newEntry);
+                            }
                         }
                         _roomService.Create(mergedRoom);
-                        _roomService.Delete(renRoom.RenovatedRoom.Id);
+                        _roomService.Delete(room1.Id);
+                        _roomService.Delete(room2.Id);
                         break;
                     }
                 }
