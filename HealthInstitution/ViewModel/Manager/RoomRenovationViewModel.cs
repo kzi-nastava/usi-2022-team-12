@@ -129,6 +129,30 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private Room _selectedRoomMerge1;
+        public Room SelectedRoomMerge1
+        {
+            get => _selectedRoomMerge1;
+            set
+            {
+                _selectedRoomMerge1 = value;
+                GlobalStore.AddObject("SelectedRoomMerge1", value);
+                OnPropertyChanged(nameof(SelectedRoomMerge1));
+            }
+        }
+
+        private Room _selectedRoomMerge2;
+        public Room SelectedRoomMerge2
+        {
+            get => _selectedRoomMerge2;
+            set
+            {
+                _selectedRoomMerge2 = value;
+                GlobalStore.AddObject("SelectedRoomMerge2", value);
+                OnPropertyChanged(nameof(SelectedRoomMerge2));
+            }
+        }
+
         public RoomRenovationViewModel(IRoomService roomService, IAppointmentService appointmentService, 
             IRoomRenovationService roomRenovationService)
         {
@@ -140,9 +164,12 @@ namespace HealthInstitution.ViewModel
             Rooms2 = roomService.ReadAll().ToList();
             
             SelectedRoom = null;
+            SelectedRoomMerge1 = null;
+            SelectedRoomMerge2 = null;
 
             StandardRenovationCommand = new StandardRenovationCommand(this, appointmentService, roomRenovationService);
             DivideRenovationCommand = new DivideRenovationCommand(this, appointmentService, roomRenovationService, roomService);
+            MergeRenovationCommand = new MergeRenovationCommand(this, appointmentService, roomRenovationService, roomService);
 
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;

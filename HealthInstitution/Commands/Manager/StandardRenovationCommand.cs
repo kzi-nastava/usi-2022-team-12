@@ -61,6 +61,14 @@ namespace HealthInstitution.Commands
                     MessageBox.Show("Chosen room is already scheduled for renovation!");
                     return;
                 }
+                if (renRoom.AdvancedDivide != null)
+                {
+                    if (renRoom.RenovatedSmallRoom1Name.Equals(_selectedRoom.Name) || renRoom.RenovatedSmallRoom2Name.Equals(_selectedRoom.Name))
+                    {
+                        MessageBox.Show("Chosen room is already scheduled for renovation!");
+                        return;
+                    }
+                }
             }
             
             

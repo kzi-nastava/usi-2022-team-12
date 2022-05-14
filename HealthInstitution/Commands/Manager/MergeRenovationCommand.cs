@@ -12,14 +12,14 @@ using System.Windows;
 
 namespace HealthInstitution.Commands
 {
-    public class DivideRenovationCommand : CommandBase
+    public class MergeRenovationCommand : CommandBase
     {
         private Room _selectedRoom;
         private IAppointmentService _appointmentService;
         private IRoomRenovationService _roomRenovationService;
         private IRoomService _roomService;
         private readonly RoomRenovationViewModel? _viewModel;
-        public DivideRenovationCommand(RoomRenovationViewModel viewModel, IAppointmentService appointmentService,
+        public MergeRenovationCommand(RoomRenovationViewModel viewModel, IAppointmentService appointmentService,
             IRoomRenovationService roomRenovationService, IRoomService roomService)
         {
             _appointmentService = appointmentService;
@@ -31,9 +31,8 @@ namespace HealthInstitution.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.RoomDivision1) || e.PropertyName == nameof(_viewModel.RoomDivision2) ||
-                e.PropertyName == nameof(_viewModel.StartDate) || e.PropertyName == nameof(_viewModel.EndDate) ||
-                e.PropertyName == nameof(_viewModel.SelectedRoom))
+            if (e.PropertyName == nameof(_viewModel.SelectedRoomMerge1) || e.PropertyName == nameof(_viewModel.SelectedRoomMerge2) ||
+                e.PropertyName == nameof(_viewModel.StartDate) || e.PropertyName == nameof(_viewModel.EndDate))
             {
                 OnCanExecuteChange();
             }
@@ -41,24 +40,23 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_viewModel.RoomDivision1) && !string.IsNullOrEmpty(_viewModel.RoomDivision2) &&
+            return !(_viewModel.SelectedRoomMerge1 == null) && !(_viewModel.SelectedRoomMerge2 == null) &&
+                !_viewModel.SelectedRoomMerge1.Equals(_viewModel.SelectedRoomMerge2) &&
                 !(_viewModel.StartDate < DateTime.Now || _viewModel.StartDate == DateTime.Now) &&
                 !(_viewModel.EndDate < _viewModel.StartDate || _viewModel.EndDate == _viewModel.StartDate) &&
-                !(_viewModel.SelectedRoom == null) && base.CanExecute(parameter);
+                base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            string smallRoomName1 = _viewModel.RoomDivision1;
-            var rooms1 = _roomService.ReadRoomsWithName(smallRoomName1);
-            string smallRoomName2 = _viewModel.RoomDivision2;
-            var rooms2 = _roomService.ReadRoomsWithName(smallRoomName2);
+            Room smallRoom1 = GlobalStore.ReadObject<Room>("SelectedRoomMerge1"); ;
+            Room smallRoom2 = GlobalStore.ReadObject<Room>("SelectedRoomMerge2"); ;
 
-            _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
-            var apts = _appointmentService.ReadRoomAppointments(_selectedRoom);
+            var apts1 = _appointmentService.ReadRoomAppointments(smallRoom1);
+            var apts2 = _appointmentService.ReadRoomAppointments(smallRoom2);
             var renRooms = _roomRenovationService.ReadAll();
 
-            if (apts.Count() != 0)
+            if (apts1.Count() != 0 || apts2.Count() != 0)
             {
                 MessageBox.Show("Chosen room has appointments!");
                 return;
@@ -66,14 +64,15 @@ namespace HealthInstitution.Commands
 
             foreach (var renRoom in renRooms)
             {
-                if (renRoom.RenovatedRoom.Name.Equals(_selectedRoom.Name))
+                if (renRoom.RenovatedRoom.Name.Equals(smallRoom1.Name) || renRoom.RenovatedRoom.Name.Equals(smallRoom2.Name))
                 {
                     MessageBox.Show("Chosen room is already scheduled for renovation!");
                     return;
                 }
                 if (renRoom.AdvancedDivide != null)
                 {
-                    if (renRoom.RenovatedSmallRoom1Name.Equals(_selectedRoom.Name) || renRoom.RenovatedSmallRoom2Name.Equals(_selectedRoom.Name))
+                    if (renRoom.RenovatedSmallRoom1Name.Equals(smallRoom1.Name) || renRoom.RenovatedSmallRoom1Name.Equals(smallRoom2.Name) || 
+                        renRoom.RenovatedSmallRoom2Name.Equals(smallRoom1.Name) || renRoom.RenovatedSmallRoom2Name.Equals(smallRoom2.Name))
                     {
                         MessageBox.Show("Chosen room is already scheduled for renovation!");
                         return;
@@ -81,15 +80,10 @@ namespace HealthInstitution.Commands
                 }
             }
 
-            if (rooms1.Count() != 0 || rooms2.Count() != 0)
-            {
-                MessageBox.Show("Room with that name already exists!");
-                return;
-            }
-            RoomRenovation roomRenovation = new RoomRenovation(_selectedRoom, _viewModel.StartDate, _viewModel.EndDate, true, smallRoomName1, smallRoomName2);
+            RoomRenovation roomRenovation = new RoomRenovation(smallRoom1, _viewModel.StartDate, _viewModel.EndDate, false, smallRoom1.Name, smallRoom2.Name);
             _roomRenovationService.Create(roomRenovation);
             MessageBox.Show("Room renovation has been successfully scheduled!");
-            
+
         }
     }
 }

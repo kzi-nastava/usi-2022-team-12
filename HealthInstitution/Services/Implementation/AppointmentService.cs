@@ -13,11 +13,13 @@ namespace HealthInstitution.Services.Implementation
         private readonly IDoctorService _doctorService;
         private readonly IAppointmentUpdateRequestService _appointmentUpdateRequestService;
         private readonly IRoomService _roomService;
-        public AppointmentService(DatabaseContext context, IDoctorService doctorService, IAppointmentUpdateRequestService appointmentUpdateRequestService, IRoomService roomService) : base(context)
+        private readonly IRoomRenovationService _roomRenovationService;
+        public AppointmentService(DatabaseContext context, IDoctorService doctorService, IAppointmentUpdateRequestService appointmentUpdateRequestService, IRoomService roomService, IRoomRenovationService roomRenovationService) : base(context)
         {
             _doctorService = doctorService;
             _appointmentUpdateRequestService = appointmentUpdateRequestService;
             _roomService = roomService;
+            _roomRenovationService = roomRenovationService;
         }
 
         public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
@@ -48,7 +50,7 @@ namespace HealthInstitution.Services.Implementation
             Room emptyRoom = null;
             foreach (var room in examinationRooms)
             {
-                bool roomAvailability = IsRoomAvailable(room, startDateTime, endDateTime);
+                bool roomAvailability = IsRoomAvailable(room, startDateTime, endDateTime) && _roomRenovationService.IsRoomNotRenovating(room, startDateTime, endDateTime);
                 bool roomRequestAvailability = _appointmentUpdateRequestService.IsRoomAvailable(room, startDateTime, endDateTime);
                 if (roomAvailability && roomRequestAvailability)
                 {

@@ -56,7 +56,7 @@
                 <Button Content="Divide" Padding="5" Margin="0 0 0 10" FontSize="14" Command="{Binding DivideRenovationCommand}"/>
                 <TextBlock HorizontalAlignment="Left"  Text="Room merge" FontSize="18" FontWeight="Bold" Margin="0 10 0 10"/>
                 <StackPanel Orientation="Horizontal">
-                    <ListView Margin="0 0 0 10" MaxHeight="340" Height="340" ItemsSource="{Binding Rooms1, Mode=TwoWay}"  SelectedItem="{Binding SelectedRoom1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                    <ListView Margin="0 0 0 10" MaxHeight="340" Height="340" ItemsSource="{Binding Rooms1, Mode=TwoWay}"  SelectedItem="{Binding SelectedRoomMerge1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
@@ -69,7 +69,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Margin="15 0 0 10" MaxHeight="340" Height="340" ItemsSource="{Binding Rooms2, Mode=TwoWay}"  SelectedItem="{Binding SelectedRoom2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                    <ListView Margin="15 0 0 10" MaxHeight="340" Height="340" ItemsSource="{Binding Rooms2, Mode=TwoWay}"  SelectedItem="{Binding SelectedRoomMerge2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
