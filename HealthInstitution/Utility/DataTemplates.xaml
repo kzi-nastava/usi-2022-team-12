@@ -74,14 +74,37 @@
         <v:SecretaryAppointmentView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:SecretaryReferralUsageViewModel}">
+        <v:SecretaryReferralView/>
+    </DataTemplate>
+
     <!--Dialog data templates-->
 
-    <DataTemplate DataType="{x:Type vm:ManagerHomeViewModel}">
-        <v:ManagerHomeView/>
+    <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
+        <dc:HandlePatientView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:AppointmentDeleteRequestViewModel}">
+        <dc:AppointmentDeleteRequestView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:AppointmentUpdateRequestViewModel}">
+        <dc:AppointmentUpdateRequestView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:ReferralUsageViewModel}">
+        <dc:ReferralUsageView/>
+    </DataTemplate>
+
+    <!--Dialog data templates-->
+
     <!-- Secretary -->
 
     <!-- Manager -->
+    <DataTemplate DataType="{x:Type vm:ManagerHomeViewModel}">
+        <v:ManagerHomeView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:RoomsCRUDViewModel}">
         <v:RoomsCRUDView/>
     </DataTemplate>
@@ -109,23 +132,7 @@
     <DataTemplate DataType="{x:Type vm:RoomChoiceViewModel}">
         <v:RoomChoiceView/>
     </DataTemplate>
-    <!-- Manager -->
 
-    <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
-        <dc:HandlePatientView/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type dc:AppointmentDeleteRequestViewModel}">
-        <dc:AppointmentDeleteRequestView/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type dc:AppointmentUpdateRequestViewModel}">
-        <dc:AppointmentUpdateRequestView/>
-    </DataTemplate>
-
-    <!-- Secretary -->
-
-    <!-- Manager -->
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
         <v:AppointmentUpdateView/>
     </DataTemplate>

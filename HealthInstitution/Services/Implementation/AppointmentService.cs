@@ -297,11 +297,12 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(apt => apt.Patient == pt);
         }
 
-        public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt) 
+        public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now);
         }
-        public IEnumerable<Appointment> ReadPastPatientAppointments(Patient pt) 
+
+        public IEnumerable<Appointment> ReadPastPatientAppointments(Patient pt)
         {
             return _entities.Where(apt => apt.Patient == pt && apt.StartDate < DateTime.Now);
         }
