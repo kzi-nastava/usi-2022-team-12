@@ -238,11 +238,10 @@ namespace HealthInstitution.Services.Implementation
             Create(app);
         }
 
-        public bool updateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
+        public bool UpdateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
             if (!IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) || 
-                !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
-                _roomRenovationService.IsRoomNotRenovating(selectedAppointment.Room, startDateTime, endDateTime))
+                !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
             }
@@ -339,7 +338,8 @@ namespace HealthInstitution.Services.Implementation
             var examinationRooms = _roomService.ReadRoomsWithType(roomType);
             foreach (var room in examinationRooms)
             {
-                if (IsRoomAvailable(room, start, end) && _appointmentUpdateRequestService.IsRoomAvailable(room, start, end))
+                if (IsRoomAvailable(room, start, end) && _appointmentUpdateRequestService.IsRoomAvailable(room, start, end) 
+                    && _roomRenovationService.IsRoomNotRenovating(room, start, end))
                 {
                     return room;
                 }

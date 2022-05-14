@@ -21,7 +21,7 @@ namespace HealthInstitution.Services.Intefaces
         public List<Appointment> FindFreeAppointments(Patient patient, DateTime deadline, DoctorSpecialization specialization, int freeAppointmentsCount);
         public List<Appointment> RecommendAppointments(Patient selectedPatient, Doctor selectedDoctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority);
         public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);
-        public bool updateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);
+        public bool UpdateAppointment(Appointment appointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime);
         public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
         public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate);
