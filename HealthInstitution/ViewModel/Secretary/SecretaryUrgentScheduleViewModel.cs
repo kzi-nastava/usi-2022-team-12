@@ -41,6 +41,7 @@ namespace HealthInstitution.ViewModel
         private readonly IAppointmentService _appointmentService;
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
+        private readonly INotificationService _notificationService;
 
         #endregion
 
@@ -55,7 +56,7 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         public SecretaryUrgentScheduleViewModel(IDialogService dialogService, IAppointmentService appointmentService,
-            IDoctorService doctorService, IPatientService patientService)
+            IDoctorService doctorService, IPatientService patientService, INotificationService notificationService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
 
@@ -63,6 +64,7 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
             _dialogService = dialogService;
+            _notificationService = notificationService;
 
             SearchCommand = new RelayCommand(() =>
             {
@@ -154,8 +156,6 @@ namespace HealthInstitution.ViewModel
 
                         _appointmentService.Create(newAppointment);
 
-                        MakeNotifications(newAppointment);
-
                         return true;
                     }
                 }
@@ -212,13 +212,9 @@ namespace HealthInstitution.ViewModel
         {
             IList<Tuple<Appointment, DateTime>> appointmentDelayPairs = GetCandidatesToDelay(availableDoctors);
 
-            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_patientService, _appointmentService, appointmentDelayPairs, _selectedPatient.Id);
+            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_patientService, _appointmentService,
+                _notificationService, appointmentDelayPairs, _selectedPatient.Id);
             _dialogService.OpenDialog(delayAppointmentVM);
-        }
-
-        public void MakeNotifications(Appointment newAppointment)
-        {
-
         }
 
         public void UpdatePage()

@@ -43,10 +43,13 @@ namespace HealthInstitution.Dialogs.Custom
 
         private readonly IAppointmentService _appointmentService;
 
+        private readonly INotificationService _notificationService;
+
         #endregion
 
         public DelayAppointmentViewModel(IPatientService patientService,
-            IAppointmentService appointmentService, IList<Tuple<Appointment, DateTime>> delayAppointments,
+            IAppointmentService appointmentService, INotificationService notificationService,
+            IList<Tuple<Appointment, DateTime>> delayAppointments,
             Guid patientId) :
             base("Delay appointment", 900, 550)
         {
@@ -54,6 +57,7 @@ namespace HealthInstitution.Dialogs.Custom
             _appointmentService = appointmentService;
             _delayAppointments = delayAppointments;
             _patientId = patientId;
+            _notificationService = notificationService;
 
             DelayAppointment = new RelayCommand<IDialogWindow>(w =>
             {
@@ -85,9 +89,32 @@ namespace HealthInstitution.Dialogs.Custom
                 appointmentToChange.Patient = urgentPatient;
                 _appointmentService.Update(appointmentToChange);
 
+                MakeNotifications(newAppointment, appointmentToChange.StartDate);
                 MessageBox.Show("Appointment scheduled successfully");
                 CloseDialogWithResult(w, null);
             });
+        }
+
+        public void MakeNotifications(Appointment newAppointment, DateTime oldTime)
+        {
+            string notificationMessage = "Your appointment has been delayed from " + oldTime.ToString() + " to " + newAppointment.StartDate.ToString();
+
+            Notification patientNotification = new Notification
+            {
+                UserId = newAppointment.Patient.Id,
+                Content = notificationMessage,
+                IsShown = false
+            };
+
+            Notification doctorNotification = new Notification
+            {
+                UserId = newAppointment.Doctor.Id,
+                Content = notificationMessage,
+                IsShown = false
+            };
+
+            _notificationService.Create(patientNotification);
+            _notificationService.Create(doctorNotification);
         }
     }
 }
