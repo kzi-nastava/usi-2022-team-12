@@ -139,11 +139,11 @@ namespace HealthInstitution.ViewModel
             return age;
         }
 
-        public void SearchByAnamnesis(string text)
+        public void SearchByAnamnesis()
         {
-            if (!string.IsNullOrEmpty(text))
+            if (!string.IsNullOrEmpty(AnamnesisSearchCriteria))
             {
-                PastAppointments = AppointmentService.FindFinishedAppointmentsWithAnamnesis(Patient, text).ToList<Appointment>();
+                PastAppointments = AppointmentService.FindFinishedAppointmentsWithAnamnesis(Patient, AnamnesisSearchCriteria).ToList<Appointment>();
             }
             else
             {

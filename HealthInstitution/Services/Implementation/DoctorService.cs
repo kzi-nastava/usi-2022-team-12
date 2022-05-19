@@ -31,5 +31,19 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(p => p.FirstName.ToLower().Contains(searchText)
            || p.LastName.ToLower().Contains(searchText));
         }
+
+        public IEnumerable<Doctor> SearchDoctorsWithFirstName(string searchText) {
+            searchText = searchText.ToLower();
+            return _entities.Where(doc => doc.FirstName.ToLower().Contains(searchText));
+        }
+        public IEnumerable<Doctor> SearchDoctorsWithLastName(string searchText) {
+            searchText = searchText.ToLower();
+            return _entities.Where(doc => doc.LastName.ToLower().Contains(searchText));
+        }     
+        public IEnumerable<Doctor> SearchDoctorsWithSpecializationName(string searchText) {
+            searchText = searchText.ToLower();
+            var specializations = Enum.GetValues(typeof(DoctorSpecialization)).Cast<DoctorSpecialization>().Where(text => Enum.GetName(typeof(DoctorSpecialization), text).ToLower().Contains(searchText));
+            return _entities.Where(doc => specializations.Contains(doc.Specialization));
+        }
     }
 }

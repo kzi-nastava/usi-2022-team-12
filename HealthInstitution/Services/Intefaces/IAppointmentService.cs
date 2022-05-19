@@ -13,7 +13,7 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
         public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt);
         public IEnumerable<Appointment> ReadRoomAppointments(Room r);
-        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string text);
+        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string searchText);
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor);
         public Appointment FindFirstFreeAppointmentForDoctor(Patient patient, Doctor doctor, DateTime deadline);
         public Appointment FindFirstFreeAppointmentForInterval(Patient patient, DoctorSpecialization specialization, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline);

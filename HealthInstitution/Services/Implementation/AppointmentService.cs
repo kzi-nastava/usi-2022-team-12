@@ -347,8 +347,9 @@ namespace HealthInstitution.Services.Implementation
             return null;
         }
 
-        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string text) { 
-            return _entities.Where(apt => apt.Anamnesis.Contains(text) && apt.IsDone == true && apt.Patient == patient);
+        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string searchText) {
+            searchText = searchText.ToLower();
+            return _entities.Where(apt => apt.Anamnesis.ToLower().Contains(searchText) && apt.IsDone == true && apt.Patient == patient);
         }
 
         /// <summary>

@@ -8,5 +8,8 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText);
         public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization);
         public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization);
+        public IEnumerable<Doctor> SearchDoctorsWithFirstName(string searchText);
+        public IEnumerable<Doctor> SearchDoctorsWithLastName(string searchText);
+        public IEnumerable<Doctor> SearchDoctorsWithSpecializationName(string searchText);
     }
 }

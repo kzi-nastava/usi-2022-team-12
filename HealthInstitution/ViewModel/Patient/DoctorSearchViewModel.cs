@@ -56,6 +56,7 @@ namespace HealthInstitution.ViewModel
             set
             {
                 _selectedSearch = value;
+                SelectedSort = "";
                 OnPropertyChanged(nameof(SelectedSearch));
             }
         }
@@ -67,6 +68,28 @@ namespace HealthInstitution.ViewModel
             set
             {
                 _selectedSort = value;
+
+                if (SelectedSort.Equals("SearchCriteria"))
+                {
+
+                    if (SelectedSearch.Equals("FirstName"))
+                    {
+                        DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.FirstName).ToList<DoctorInfo>();
+                    }
+                    else if (SelectedSearch.Equals("LastName"))
+                    {
+                        DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.LastName).ToList<DoctorInfo>();
+                    }
+                    else if (SelectedSearch.Equals("Specialization"))
+                    {
+                        DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.Specialization).ToList<DoctorInfo>();
+                    }
+                }
+                else if (SelectedSort.Equals("Marks"))
+                {
+                    DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.AvgMark).ToList<DoctorInfo>();
+                }
+
                 OnPropertyChanged(nameof(SelectedSort));
             }
         }
@@ -95,18 +118,59 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region commands
+        public ICommand SearchDoctorInfoCommand { get; }
         public ICommand PatientAppointmentsCommand { get; }
+        #endregion
+
+        #region methods
+        public void SearchDoctorInfo()
+        {
+            List<Doctor> doctors = new List<Doctor>();
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                if (SelectedSearch.Equals("FirstName"))
+                {
+                    doctors = DoctorService.SearchDoctorsWithFirstName(SearchText).ToList<Doctor>();
+                }
+                else if (SelectedSearch.Equals("LastName"))
+                {
+                    doctors = DoctorService.SearchDoctorsWithLastName(SearchText).ToList<Doctor>();
+                }
+                else if (SelectedSearch.Equals("Specialization"))
+                {
+                    doctors = DoctorService.SearchDoctorsWithSpecializationName(SearchText).ToList<Doctor>();
+                }
+            }
+            else
+            {
+                doctors = DoctorService.ReadAll().ToList<Doctor>();
+            }
+
+            List<DoctorInfo> doctorsInfo = new List<DoctorInfo>();
+            foreach (Doctor doctor in doctors)
+            {
+                double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
+                doctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
+            }
+
+            DoctorsInfo = doctorsInfo;
+            SelectedSort = "";
+        }
         #endregion
         public DoctorSearchViewModel(IDoctorService doctorService, IDoctorMarkService doctorMarkService) {
             _doctorService = doctorService;
             _doctorMarkService = doctorMarkService;
+
             DoctorsInfo = new List<DoctorInfo>();
-            var doctors = doctorService.ReadAll().ToList<Doctor>();
+            var doctors = DoctorService.ReadAll().ToList<Doctor>();
             foreach (Doctor doctor in doctors) {
                 double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
                 DoctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
+            SelectedSearch = "FirstName";
+            SelectedSort = "";
 
+            SearchDoctorInfoCommand = new SearchDoctorInfoCommand(this);
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }
