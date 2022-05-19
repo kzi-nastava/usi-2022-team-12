@@ -63,6 +63,10 @@
     <DataTemplate DataType="{x:Type vm:RecommendAppointmentCreationViewModel}">
         <v:RecommendAppointmentCreationView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorSearchViewModel}">
+        <v:DoctorSearchView/>
+    </DataTemplate>
     <!-- Patient -->
 
     <!-- Secretary -->

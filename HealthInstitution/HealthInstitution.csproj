@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\Doctor\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Persistence\Database\" />
   </ItemGroup>
 
