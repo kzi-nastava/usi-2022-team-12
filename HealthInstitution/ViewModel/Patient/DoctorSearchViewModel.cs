@@ -21,18 +21,20 @@ namespace HealthInstitution.ViewModel
                 set { _doctor = value; } 
             }
 
-            private double _avgRating;
-            public double AvgRating
+            private double _avgMark;
+            public double AvgMark
             {
-                get { return _avgRating; }
-                set { _avgRating = value; }
+                get { return _avgMark; }
+                set { _avgMark = value; }
             }
         }
 
         #region services
         private readonly IDoctorService _doctorService;
+        private readonly IDoctorMarkService _doctorMarkService;
 
         public IDoctorService DoctorService => _doctorService;
+        public IDoctorMarkService DoctorMarkService => _doctorMarkService;
         #endregion
 
         #region attributes
@@ -95,12 +97,14 @@ namespace HealthInstitution.ViewModel
         #region commands
         public ICommand PatientAppointmentsCommand { get; }
         #endregion
-        public DoctorSearchViewModel(IDoctorService doctorService) {
+        public DoctorSearchViewModel(IDoctorService doctorService, IDoctorMarkService doctorMarkService) {
             _doctorService = doctorService;
+            _doctorMarkService = doctorMarkService;
             DoctorsInfo = new List<DoctorInfo>();
             var doctors = doctorService.ReadAll().ToList<Doctor>();
             foreach (Doctor doctor in doctors) {
-                DoctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgRating = 2 });
+                double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
+                DoctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
 
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
