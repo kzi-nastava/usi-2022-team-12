@@ -301,12 +301,7 @@ namespace HealthInstitution.Services.Implementation
 
         public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt)
         {
-            return _entities.Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now);
-        }
-
-        public IEnumerable<Appointment> ReadPastPatientAppointments(Patient pt)
-        {
-            return _entities.Where(apt => apt.Patient == pt && apt.StartDate < DateTime.Now);
+            return _entities.Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now && apt.IsDone == false);
         }
 
         public IEnumerable<Appointment> ReadRoomAppointments(Room r)
