@@ -22,12 +22,13 @@ namespace HealthInstitution.Services.Implementation
             _roomRenovationService = roomRenovationService;
         }
 
-        public Appointment FindFirstFreeAppointmentForDoctorAndInterval(Patient patient, Doctor doctor, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline) 
+        public Appointment FindFirstFreeAppointmentForDoctorAndInterval(Patient patient, Doctor doctor, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline)
         {
             DateTime start = DateTime.Now.Date.AddMinutes(startIntervalBound.TimeOfDay.TotalMinutes);
             DateTime end = DateTime.Now.Date.AddMinutes(startIntervalBound.TimeOfDay.TotalMinutes).AddMinutes(15);
             DateTime upperIntervalBound = DateTime.Now.Date.AddMinutes(endIntervalBound.TimeOfDay.TotalMinutes);
-            if (start < DateTime.Now) {
+            if (start < DateTime.Now)
+            {
                 start = start.AddDays(1);
                 end = end.AddDays(1);
                 upperIntervalBound = upperIntervalBound.AddDays(1);
@@ -82,10 +83,12 @@ namespace HealthInstitution.Services.Implementation
                 start = start.AddMinutes(1);
                 end = end.AddMinutes(1);
             }
+
             return null;
         }
 
-        public Appointment FindFirstFreeAppointmentForInterval(Patient patient, DoctorSpecialization specialization, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline) {
+        public Appointment FindFirstFreeAppointmentForInterval(Patient patient, DoctorSpecialization specialization, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline)
+        {
             DateTime start = DateTime.Now.Date.AddMinutes(startIntervalBound.TimeOfDay.TotalMinutes);
             DateTime end = DateTime.Now.Date.AddMinutes(startIntervalBound.TimeOfDay.TotalMinutes).AddMinutes(15);
             DateTime upperIntervalBound = DateTime.Now.Date.AddMinutes(endIntervalBound.TimeOfDay.TotalMinutes);
@@ -165,7 +168,7 @@ namespace HealthInstitution.Services.Implementation
             return freeAppointments;
         }
 
-        public List<Appointment> RecommendAppointments(Patient patient, Doctor doctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority) 
+        public List<Appointment> RecommendAppointments(Patient patient, Doctor doctor, DateTime startTime, DateTime endTime, DateTime deadline, string priority)
         {
             try
             {
@@ -199,7 +202,7 @@ namespace HealthInstitution.Services.Implementation
                 }
                 throw new RecommendationNotFoundException();
             }
-            catch (RecommendationNotFoundException) 
+            catch (RecommendationNotFoundException)
             {
                 List<Appointment> suggestedAppointment = FindFreeAppointments(patient, deadline, doctor.Specialization, 3);
                 if (suggestedAppointment.Count != 0)
@@ -213,7 +216,7 @@ namespace HealthInstitution.Services.Implementation
         public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
             //doctor availabilty check
-            if (!IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) || 
+            if (!IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
                 !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
@@ -232,7 +235,7 @@ namespace HealthInstitution.Services.Implementation
 
         public bool UpdateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
-            if (!IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) || 
+            if (!IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) ||
                 !_appointmentUpdateRequestService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
@@ -267,11 +270,13 @@ namespace HealthInstitution.Services.Implementation
                 _appointmentUpdateRequestService.Create(appointmentRequest);
                 return false;
             }
+
             selectedAppointment.StartDate = startDateTime;
             selectedAppointment.EndDate = endDateTime;
             selectedAppointment.Doctor = selectedDoctor;
             selectedAppointment.Room = emptyRoom;
             Update(selectedAppointment);
+
             return true;
         }
 
@@ -321,11 +326,12 @@ namespace HealthInstitution.Services.Implementation
             return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
         }
 
-        public Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end) {
+        public Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end)
+        {
             var examinationRooms = _roomService.ReadRoomsWithType(roomType);
             foreach (var room in examinationRooms)
             {
-                if (IsRoomAvailable(room, start, end) && _appointmentUpdateRequestService.IsRoomAvailable(room, start, end) 
+                if (IsRoomAvailable(room, start, end) && _appointmentUpdateRequestService.IsRoomAvailable(room, start, end)
                     && _roomRenovationService.IsRoomNotRenovating(room, start, end))
                 {
                     return room;
