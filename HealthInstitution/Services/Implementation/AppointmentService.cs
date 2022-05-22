@@ -186,10 +186,6 @@ namespace HealthInstitution.Services.Implementation
                         tempList.Add(suggestedAppointment);
                         return tempList;
                     }
-                    else
-                    {
-                        throw new RecommendationNotFoundException();
-                    }
                 }
                 else if (priority == "TimeInterval")
                 {
@@ -200,12 +196,8 @@ namespace HealthInstitution.Services.Implementation
                         tempList.Add(suggestedAppointment);
                         return tempList;
                     }
-                    else 
-                    {
-                        throw new RecommendationNotFoundException();
-                    }
                 }
-                return null;
+                throw new RecommendationNotFoundException();
             }
             catch (RecommendationNotFoundException) 
             {

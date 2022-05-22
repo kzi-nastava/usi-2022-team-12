@@ -80,8 +80,9 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
 
-            StartDate = DateTime.Now;
-            StartTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
+            StartDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
@@ -95,8 +96,9 @@ namespace HealthInstitution.ViewModel
             _doctorService = ServiceLocator.Get<IDoctorService>();
             _patientService = ServiceLocator.Get<IPatientService>();
 
-            StartDate = DateTime.Now;
-            StartTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
+            StartDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
             Doctors = new List<Doctor>() {selectedDoctor};
             SelectedDoctor = selectedDoctor;
 

@@ -127,9 +127,10 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
 
-            DeadlineDate = DateTime.Now.Date;
-            StartTime = DateTime.Now;
-            EndTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
+            DeadlineDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
+            EndTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute + 15);
 
             _selectedPriority = "";
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
