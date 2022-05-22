@@ -34,7 +34,7 @@ namespace HealthInstitution.Commands
         }
         public override void Execute(object? parameter)
         {
-            var apt = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
+            var apt = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             if (DateTime.Now > apt.StartDate)
             {
                 MessageBox.Show("You can't remove expired appointment!");

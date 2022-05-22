@@ -42,7 +42,7 @@ namespace HealthInstitution.Commands
             try
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var updated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                var updated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.SelectedAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
 
                 if (updated)
                 {

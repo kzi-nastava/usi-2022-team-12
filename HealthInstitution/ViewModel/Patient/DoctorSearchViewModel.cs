@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,6 +120,7 @@ namespace HealthInstitution.ViewModel
 
         #region commands
         public ICommand SearchDoctorInfoCommand { get; }
+        public ICommand AppointmentCreationCommand { get; }
         public ICommand PatientAppointmentsCommand { get; }
         #endregion
 
@@ -171,6 +173,7 @@ namespace HealthInstitution.ViewModel
             SelectedSort = "";
 
             SearchDoctorInfoCommand = new SearchDoctorInfoCommand(this);
+            AppointmentCreationCommand = new AppointmentCreationWithSelectedDoctorCommand(this);
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }

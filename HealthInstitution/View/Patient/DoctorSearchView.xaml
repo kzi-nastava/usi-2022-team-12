@@ -89,7 +89,7 @@
         </ListView>
         <Separator Grid.Row="2" HorizontalAlignment="Stretch" Margin="0 25 0 15"/>
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,20,0,10">
-            <Button Content="Make appointment" HorizontalAlignment="Left" Height="50" Width="180" Command="{Binding MakeAppointmentCommand}"/>
+            <Button Content="Make appointment" HorizontalAlignment="Left" Height="50" Width="180" Command="{Binding AppointmentCreationCommand}"/>
             <Button Content="Cancel" Margin="30,0,0,0" HorizontalAlignment="Left" Height="50" Width="120" Command="{Binding PatientAppointmentsCommand}"/>
         </StackPanel>
     </Grid>

@@ -74,6 +74,12 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Racvm);
             });
 
+            EventBus.RegisterHandler("AppointmentCreationWithSelectedDoctor", () =>
+            {
+                AppointmentCreationViewModel Acvm = new AppointmentCreationViewModel(GlobalStore.ReadObject<Doctor>("SelectedDoctor"));
+                SwitchCurrentViewModel(Acvm);
+            });
+
             EventBus.RegisterHandler("AppointmentCreation", () =>
             {
                 AppointmentCreationViewModel Acvm = ServiceLocator.Get<AppointmentCreationViewModel>();

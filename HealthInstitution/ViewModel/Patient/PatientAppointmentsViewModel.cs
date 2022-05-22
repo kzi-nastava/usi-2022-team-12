@@ -43,7 +43,7 @@ namespace HealthInstitution.ViewModel
             set
             {
                 _selectedAppointment = value;
-                GlobalStore.AddObject("ChosenAppointment", value);
+                GlobalStore.AddObject("SelectedAppointment", value);
                 OnPropertyChanged(nameof(SelectedAppointment));
             }
         }

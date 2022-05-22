@@ -1,5 +1,6 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
+using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,22 @@ namespace HealthInstitution.ViewModel
             StartDate = DateTime.Now;
             StartTime = DateTime.Now;
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+
+            MakeAppointmentCommand = new MakeAppointmentCommand(this);
+            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+        }
+
+        public AppointmentCreationViewModel(Doctor selectedDoctor)
+        {
+            _activityService = ServiceLocator.Get<IActivityService>();
+            _appointmentService = ServiceLocator.Get<IAppointmentService>();
+            _doctorService = ServiceLocator.Get<IDoctorService>();
+            _patientService = ServiceLocator.Get<IPatientService>();
+
+            StartDate = DateTime.Now;
+            StartTime = DateTime.Now;
+            Doctors = new List<Doctor>() {selectedDoctor};
+            SelectedDoctor = selectedDoctor;
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
             PatientAppointmentsCommand = new PatientAppointmentsCommand();

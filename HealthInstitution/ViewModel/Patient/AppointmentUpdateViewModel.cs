@@ -70,14 +70,14 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private Appointment _chosenAppointment;
-        public Appointment ChosenAppointment
+        private Appointment _selectedAppointment;
+        public Appointment SelectedAppointment
         {
-            get => _chosenAppointment;
+            get => _selectedAppointment;
             set
             {
-                _chosenAppointment = value;
-                OnPropertyChanged(nameof(ChosenAppointment));
+                _selectedAppointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
             }
         }
         #endregion
@@ -89,16 +89,16 @@ namespace HealthInstitution.ViewModel
 
         public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IActivityService activityService, IPatientService patientService)
         {
-            ChosenAppointment = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
+            SelectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             _appointmentService = appointmentService;
             _activityService = activityService;
             _patientService = patientService;
             _doctorService = doctorService;
             Doctors = doctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
-            StartDate = ChosenAppointment.StartDate;
-            StartTime = ChosenAppointment.StartDate;
-            SelectedDoctor = ChosenAppointment.Doctor;
+            StartDate = SelectedAppointment.StartDate;
+            StartTime = SelectedAppointment.StartDate;
+            SelectedDoctor = SelectedAppointment.Doctor;
 
             UpdateAppointmentCommand = new UpdateAppointmentCommand(this);
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
