@@ -30,7 +30,7 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.DeadlineDate.AddSeconds(_viewModel.StartTime.TimeOfDay.TotalSeconds) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && 
+            return !(_viewModel.DeadlineDate.AddMinutes(_viewModel.StartTime.TimeOfDay.TotalMinutes) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && 
                 !(_viewModel.SelectedPriority == null) && base.CanExecute(parameter);
         }
 

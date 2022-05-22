@@ -84,7 +84,7 @@ namespace HealthInstitution.ViewModel
 
         #region commands
         public ICommand? UpdateAppointmentCommand { get; }
-        public ICommand? PatientAppointmentsCommand { get; }
+        public ICommand? BackCommand { get; }
         #endregion
 
         public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IActivityService activityService, IPatientService patientService)
@@ -101,7 +101,7 @@ namespace HealthInstitution.ViewModel
             SelectedDoctor = SelectedAppointment.Doctor;
 
             UpdateAppointmentCommand = new UpdateAppointmentCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new PatientAppointmentsCommand();
         }
     }
 }

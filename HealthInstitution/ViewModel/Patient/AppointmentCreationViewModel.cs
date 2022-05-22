@@ -70,7 +70,7 @@ namespace HealthInstitution.ViewModel
 
         #region commands
         public ICommand? MakeAppointmentCommand { get; }
-        public ICommand? PatientAppointmentsCommand { get; }
+        public ICommand? BackCommand { get; }
         #endregion
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
@@ -86,7 +86,7 @@ namespace HealthInstitution.ViewModel
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new PatientAppointmentsCommand();
         }
 
         public AppointmentCreationViewModel(Doctor selectedDoctor)
@@ -103,7 +103,7 @@ namespace HealthInstitution.ViewModel
             SelectedDoctor = selectedDoctor;
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new DoctorSearchCommand();
         }
     }
 }
