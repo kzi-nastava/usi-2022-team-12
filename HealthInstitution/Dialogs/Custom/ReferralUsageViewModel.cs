@@ -8,7 +8,6 @@ using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Validation;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.Dialogs.Custom
