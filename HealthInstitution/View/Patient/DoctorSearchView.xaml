@@ -48,7 +48,7 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <TextBlock Text="Sort by:" FontSize="14" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <RadioButton Content="Search criteria" Margin="20 0 0 0" IsChecked="{Binding SelectedSort, Converter={StaticResource ResourceKey=ParameterToStringConverter}, ConverterParameter=SearchCriteria}"/>
-                    <RadioButton Content="Marks" Margin="20 0 0 0" IsChecked="{Binding SelectedSort, Converter={StaticResource ResourceKey=ParameterToStringConverter}, ConverterParameter=Marks}"/>
+                    <RadioButton Content="Average mark" Margin="20 0 0 0" IsChecked="{Binding SelectedSort, Converter={StaticResource ResourceKey=ParameterToStringConverter}, ConverterParameter=Marks}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
