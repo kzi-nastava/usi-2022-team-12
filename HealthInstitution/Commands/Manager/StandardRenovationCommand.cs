@@ -50,10 +50,16 @@ namespace HealthInstitution.Commands
 
             if (apts.Count() != 0)
             {
-                MessageBox.Show("Chosen room has appointments!");
-                return;
+                foreach (var apt in apts)
+                {
+                    if (apt.StartDate >= _viewModel.StartDate)
+                    {
+                        MessageBox.Show("Chosen room has appointments!");
+                        return;
+                    }
+                }
+                
             }
-
             foreach (var renRoom in renRooms)
             {
                 if (renRoom.RenovatedRoom.Name.Equals(_selectedRoom.Name))

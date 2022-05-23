@@ -14,15 +14,30 @@ namespace HealthInstitution.Commands
 {
     public class DeleteRoomCommand : CommandBase
     {
-
+        private readonly RoomsCRUDViewModel? _viewModel;
         private Room _selectedRoom;
         private IAppointmentService _appointmentService;
         private IRoomService _roomService;
 
-        public DeleteRoomCommand(IAppointmentService appointmentService, IRoomService roomService)
+        public DeleteRoomCommand(RoomsCRUDViewModel viewModel, IAppointmentService appointmentService, IRoomService roomService)
         {
+            _viewModel = viewModel;
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
             _appointmentService = appointmentService;
             _roomService = roomService;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_viewModel.SelectedRoom))
+            {
+                OnCanExecuteChange();
+            }
+        }
+
+        public override bool CanExecute(object? parameter)
+        {
+            return _viewModel.SelectedRoom != null;
         }
 
         public override void Execute(object? parameter)

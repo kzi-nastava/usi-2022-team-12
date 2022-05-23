@@ -52,11 +52,12 @@ namespace HealthInstitution.ViewModel
         {
             roomService = roomService;
             appointmentService = appointmentService;
-            
-            ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand();
+
+            SelectedRoom = null;
+            ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand(this);
             CreateRoomCommand = new CreateRoomCommand();
-            OpenUpdateRoomCommand = new OpenUpdateRoomCommand();
-            DeleteRoomCommand = new DeleteRoomCommand(appointmentService, roomService);
+            OpenUpdateRoomCommand = new OpenUpdateRoomCommand(this);
+            DeleteRoomCommand = new DeleteRoomCommand(this, appointmentService, roomService);
             
             Rooms = roomService.ReadAll().ToList();
             

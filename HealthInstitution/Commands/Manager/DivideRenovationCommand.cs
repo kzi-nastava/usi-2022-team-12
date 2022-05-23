@@ -60,8 +60,14 @@ namespace HealthInstitution.Commands
 
             if (apts.Count() != 0)
             {
-                MessageBox.Show("Chosen room has appointments!");
-                return;
+                foreach (var apt in apts)
+                {
+                    if (apt.StartDate >= _viewModel.StartDate)
+                    {
+                        MessageBox.Show("Chosen room has appointments!");
+                        return;
+                    }
+                }
             }
 
             foreach (var renRoom in renRooms)
@@ -86,6 +92,7 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("Room with that name already exists!");
                 return;
             }
+
             RoomRenovation roomRenovation = new RoomRenovation(_selectedRoom, _viewModel.StartDate, _viewModel.EndDate, true, smallRoomName1, smallRoomName2);
             _roomRenovationService.Create(roomRenovation);
             MessageBox.Show("Room renovation has been successfully scheduled!");
