@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="HealthInstitution.View.MedicineOverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600"
+             Background="White">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Medicine overview" FontSize="20" FontWeight="Bold"/>
+        <ListView Grid.Row="1" Margin="0 10 0 20" MaxHeight="200" Height="200" ItemsSource="{Binding AllMedicine, Mode=TwoWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Description" Width="auto" DisplayMemberBinding="{Binding Description}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock Grid.Row="2" Text="Add new medicine" FontSize="20" FontWeight="Bold"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <StackPanel Margin="0, 0, 20, 0" Orientation="Vertical">
+                <TextBox HorizontalAlignment="Left" FontSize="16" Margin="0, 0, 0, 10" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Name" Text="{Binding NameBox}"/>
+                <StackPanel Orientation="Vertical" Width="250">
+                    <TextBlock Text="Description:" FontSize="16" Margin="0, 0, 0, 5"/>
+                    <TextBox Padding="10" Height="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <ListView  Margin="0, 0, 50, 0"  MaxHeight="200" Height="300" ItemsSource="{Binding NewIngredients, Mode=TwoWay}" SelectedItem="{Binding SelectedIngredientNew, Mode=TwoWay}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Ingredients" Width="auto" DisplayMemberBinding="{Binding NewName}" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="0 0 20 0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView  MaxHeight="200" Height="300" ItemsSource="{Binding AllIngredients, Mode=TwoWay}" SelectedItem="{Binding SelectedIngredient, Mode=TwoWay}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="All ingredients" Width="auto" DisplayMemberBinding="{Binding Name}" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="0 0 20 0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

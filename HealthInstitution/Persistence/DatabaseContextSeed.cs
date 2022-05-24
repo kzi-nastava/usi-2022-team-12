@@ -89,17 +89,87 @@ namespace HealthInstitution.Persistence
             context.Equipments.Add(e8);
 
             // Ingredient
-            var i1 = new Ingredient { Name = "Calcium" };
+            var i1 = new Ingredient { Name = "Amoxicillin trihydrate" };
+            var i2 = new Ingredient { Name = "Magnesium Stearate" };
+            var i3 = new Ingredient { Name = "Colloidal Anhydrous Silica" };
+            var i4 = new Ingredient { Name = "Lactose" };
+            var i5 = new Ingredient { Name = "Maize Starch" };
+            var i6 = new Ingredient { Name = "Hypromellose" };
+            var i7 = new Ingredient { Name = "Sodium Starch Glycollate" };
+            var i8 = new Ingredient { Name = "Dibasic Calcium Phosphate Dihydrate" };
+            var i9 = new Ingredient { Name = "Hydroxypropyl Cellulose" };
+            var i10 = new Ingredient { Name = "Microcrystalline Cellulose" };
+            var i11 = new Ingredient { Name = "Lorazepam" };
+            var i12 = new Ingredient { Name = "Corn Starch" };
+            var i13 = new Ingredient { Name = "Pregelatinized Starch" };
+            var i14 = new Ingredient { Name = "Calcium Stearate" };
 
             context.Ingredients.Add(i1);
+            context.Ingredients.Add(i2);
+            context.Ingredients.Add(i3);
+            context.Ingredients.Add(i4);
+            context.Ingredients.Add(i5);
+            context.Ingredients.Add(i6);
+            context.Ingredients.Add(i7);
+            context.Ingredients.Add(i8);
+            context.Ingredients.Add(i9);
+            context.Ingredients.Add(i10);
+            context.Ingredients.Add(i11);
+            context.Ingredients.Add(i12);
+            context.Ingredients.Add(i13);
+            context.Ingredients.Add(i14);
 
             // Medicine 
             var me1 = new Medicine();
-            me1.Name = "Probiotic";
-            me1.Description = "For stomach.";
+            me1.Name = "Amoxicillin";
+            me1.Description = "Used to treat many types of bacterial infections.";
             me1.AddIngredient(i1);
+            me1.AddIngredient(i2);
+            me1.AddIngredient(i3);
+
+            var me2 = new Medicine();
+            me2.Name = "Ibuprofen";
+            me2.Description = "Used to treat fever, swelling, pain, and redness by preventing the body from making a substance that causes inflammation.";
+            me2.AddIngredient(i3);
+            me2.AddIngredient(i4);
+            me2.AddIngredient(i5);
+            me2.AddIngredient(i6);
+            me2.AddIngredient(i7);
+
+            var me3 = new Medicine();
+            me3.Name = "Sertraline";
+            me3.Description = "Used to treat moderate to severe depression and other disorders.";
+            me3.AddIngredient(i2);
+            me3.AddIngredient(i8);
+            me3.AddIngredient(i9);
+            me3.AddIngredient(i10);
+            
+
+            var me4 = new Medicine();
+            me4.Name = "Lorazepam";
+            me4.Description = "Used to treat anxiety disorders and insomnia caused by anxiety or transient situational stress.";
+            me4.AddIngredient(i2);
+            me4.AddIngredient(i4);
+            me4.AddIngredient(i5);
+            me4.AddIngredient(i7);
+            me4.AddIngredient(i10);
+            me4.AddIngredient(i11);
+
+            var me5 = new Medicine();
+            me5.Name = "Diazepam";
+            me5.Description = "Used to treat anxiety disorders, alcohol withdrawal symptoms, or muscle spasms.";
+            me5.AddIngredient(i4);
+            me5.AddIngredient(i12);
+            me5.AddIngredient(i13);
+            me5.AddIngredient(i14);
+
+
 
             context.Medicines.Add(me1);
+            context.Medicines.Add(me2);
+            context.Medicines.Add(me3);
+            context.Medicines.Add(me4);
+            context.Medicines.Add(me5);
 
             // Room
             var r1 = new Room(RoomType.Storage, "S");

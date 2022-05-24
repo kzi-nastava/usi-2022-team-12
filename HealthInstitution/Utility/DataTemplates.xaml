@@ -160,6 +160,10 @@
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
         <v:AppointmentUpdateView/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type vm:MedicineOverviewViewModel}">
+        <v:MedicineOverviewView/>
+    </DataTemplate>
+
     <!-- Manager -->
 </ResourceDictionary>
