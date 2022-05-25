@@ -50,43 +50,28 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string _selectedSearch;
-        public string SelectedSearch
-        {
-            get => _selectedSearch;
-            set
-            {
-                _selectedSearch = value;
-                SelectedSort = "";
-                OnPropertyChanged(nameof(SelectedSearch));
-            }
-        }
-
-        private string _selectedSort;
-        public string SelectedSort
+        private int _selectedSort;
+        public int SelectedSort
         {
             get => _selectedSort;
             set
             {
                 _selectedSort = value;
 
-                if (SelectedSort.Equals("SearchCriteria"))
+                if (SelectedSort == 0)
+                {
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.FirstName).ToList<DoctorInfo>();
+                }
+                else if (SelectedSort == 1)
                 {
 
-                    if (SelectedSearch.Equals("FirstName"))
-                    {
-                        DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.FirstName).ToList<DoctorInfo>();
-                    }
-                    else if (SelectedSearch.Equals("LastName"))
-                    {
-                        DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.LastName).ToList<DoctorInfo>();
-                    }
-                    else if (SelectedSearch.Equals("Specialization"))
-                    {
-                        DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.Specialization).ToList<DoctorInfo>();
-                    }
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.LastName).ToList<DoctorInfo>();
                 }
-                else if (SelectedSort.Equals("Marks"))
+                else if (SelectedSort == 2)
+                {
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.Specialization).ToList<DoctorInfo>();
+                }
+                else if (SelectedSort == 3)
                 {
                     DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.AvgMark).ToList<DoctorInfo>();
                 }
@@ -121,7 +106,6 @@ namespace HealthInstitution.ViewModel
         #region commands
         public ICommand SearchDoctorInfoCommand { get; }
         public ICommand AppointmentCreationCommand { get; }
-        public ICommand PatientAppointmentsCommand { get; }
         #endregion
 
         #region methods
@@ -130,18 +114,7 @@ namespace HealthInstitution.ViewModel
             List<Doctor> doctors = new List<Doctor>();
             if (!string.IsNullOrEmpty(SearchText))
             {
-                if (SelectedSearch.Equals("FirstName"))
-                {
-                    doctors = DoctorService.SearchDoctorsWithFirstName(SearchText).ToList<Doctor>();
-                }
-                else if (SelectedSearch.Equals("LastName"))
-                {
-                    doctors = DoctorService.SearchDoctorsWithLastName(SearchText).ToList<Doctor>();
-                }
-                else if (SelectedSearch.Equals("Specialization"))
-                {
-                    doctors = DoctorService.SearchDoctorsWithSpecializationName(SearchText).ToList<Doctor>();
-                }
+                doctors = DoctorService.FilterDoctorsBySearchText(SearchText).ToList<Doctor>();
             }
             else
             {
@@ -154,9 +127,8 @@ namespace HealthInstitution.ViewModel
                 double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
                 doctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
-
             DoctorsInfo = doctorsInfo;
-            SelectedSort = "";
+            SelectedSort = 0;
         }
         #endregion
         public DoctorSearchViewModel(IDoctorService doctorService, IDoctorMarkService doctorMarkService) {
@@ -169,12 +141,10 @@ namespace HealthInstitution.ViewModel
                 double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
                 DoctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
-            SelectedSearch = "FirstName";
-            SelectedSort = "";
+            SelectedSort = 0;
 
             SearchDoctorInfoCommand = new SearchDoctorInfoCommand(this);
             AppointmentCreationCommand = new AppointmentCreationWithSelectedDoctorCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
         }
     }
 }
