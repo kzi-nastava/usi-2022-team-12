@@ -13,6 +13,7 @@ namespace HealthInstitution.ViewModel
 {
     public class DoctorSearchViewModel : ViewModelBase
     {
+        #region helper classes
         public class DoctorInfo
         {
             private Doctor _doctor;
@@ -29,6 +30,7 @@ namespace HealthInstitution.ViewModel
                 set { _avgMark = value; }
             }
         }
+        #endregion
 
         #region services
         private readonly IDoctorService _doctorService;
@@ -57,26 +59,20 @@ namespace HealthInstitution.ViewModel
             set
             {
                 _selectedSort = value;
-
-                if (SelectedSort == 0)
-                {
-                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.FirstName).ToList<DoctorInfo>();
-                }
-                else if (SelectedSort == 1)
-                {
-
-                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.LastName).ToList<DoctorInfo>();
-                }
-                else if (SelectedSort == 2)
-                {
-                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.Specialization).ToList<DoctorInfo>();
-                }
-                else if (SelectedSort == 3)
-                {
-                    DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.AvgMark).ToList<DoctorInfo>();
-                }
-
+                UpdateDoctorInfoListView();
                 OnPropertyChanged(nameof(SelectedSort));
+            }
+        }
+
+        private int _selectedOrder;
+        public int SelectedOrder
+        {
+            get => _selectedOrder;
+            set
+            {
+                _selectedOrder = value;
+                UpdateDoctorInfoListView();
+                OnPropertyChanged(nameof(SelectedOrder));
             }
         }
 
@@ -109,6 +105,53 @@ namespace HealthInstitution.ViewModel
         #endregion
 
         #region methods
+        public void UpdateDoctorInfoListView() {
+            if (SelectedSort == 0)
+            {
+                if (SelectedOrder == 0)
+                {
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.FirstName).ToList<DoctorInfo>();
+                }
+                else
+                {
+                    DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.Doctor.FirstName).ToList<DoctorInfo>();
+                }
+            }
+            else if (SelectedSort == 1)
+            {
+                if (SelectedOrder == 0)
+                {
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.LastName).ToList<DoctorInfo>();
+                }
+                else
+                {
+                    DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.Doctor.LastName).ToList<DoctorInfo>();
+                }
+            }
+            else if (SelectedSort == 2)
+            {
+                if (SelectedOrder == 0)
+                {
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.Doctor.Specialization).ToList<DoctorInfo>();
+                }
+                else
+                {
+                    DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.Doctor.Specialization).ToList<DoctorInfo>();
+                }
+            }
+            else if (SelectedSort == 3)
+            {
+                if (SelectedOrder == 0)
+                {
+                    DoctorsInfo = DoctorsInfo.OrderBy(doc => doc.AvgMark).ToList<DoctorInfo>();
+                }
+                else
+                {
+                    DoctorsInfo = DoctorsInfo.OrderByDescending(doc => doc.AvgMark).ToList<DoctorInfo>();
+                }
+            }
+        }
+
         public void SearchDoctorInfo()
         {
             List<Doctor> doctors = new List<Doctor>();
@@ -142,6 +185,7 @@ namespace HealthInstitution.ViewModel
                 DoctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
             SelectedSort = 0;
+            SelectedOrder = 0;
 
             SearchDoctorInfoCommand = new SearchDoctorInfoCommand(this);
             AppointmentCreationCommand = new AppointmentCreationWithSelectedDoctorCommand(this);

@@ -34,11 +34,16 @@
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="60 0 0 0" Grid.Row="2" Orientation="Horizontal">
                 <TextBlock Text="Sort by:" FontSize="14" Margin="0 0 0 0" VerticalAlignment="Center"/>
-                <ComboBox Margin="10,0,0,0" SelectedIndex="{Binding SelectedSort}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="180" MaxDropDownHeight="200">
+                <ComboBox Margin="10,0,0,0" SelectedIndex="{Binding SelectedSort}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="auto">
                     <ComboBoxItem Content="First name"/>
                     <ComboBoxItem Content="Last name"/>
                     <ComboBoxItem Content="Specialization"/>
                     <ComboBoxItem Content="Average Mark"/>
+                </ComboBox>
+                <TextBlock Text="Order by:" FontSize="14" Margin="50 0 0 0" VerticalAlignment="Center"/>
+                <ComboBox Margin="10,0,0,0" SelectedIndex="{Binding SelectedOrder}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="auto">
+                    <ComboBoxItem Content="Ascending"/>
+                    <ComboBoxItem Content="Descending"/>
                 </ComboBox>
             </StackPanel>
         </Grid>
