@@ -22,11 +22,115 @@ namespace HealthInstitution.Services.Implementation
             _roomRenovationService = roomRenovationService;
         }
 
+        #region To be changed
+
+        // FUNCTIONS WAITING FURTHER ANALYSIS
+        public IList<Appointment> FindPossibleAppointmentsForDoctorSpecialization(Patient currentPatient, DateTime deadline, DoctorSpecialization specialization, int expectedNumber)
+        {
+            var specializedDoctors = _doctorService.FindDoctorsWithSpecialization(specialization);
+            IList<Appointment> possibleAppointments = new List<Appointment>();
+
+            for (DateTime potentialTime = DateTime.Now.AddMinutes(15); potentialTime <= deadline; potentialTime = potentialTime.AddMinutes(1))
+            {
+                DateTime startTime = potentialTime;
+                DateTime endTime = potentialTime.AddMinutes(15);
+
+                foreach (var doctor in specializedDoctors)
+                {
+                    if (!IsDoctorAvailable(doctor, startTime, endTime) ||
+                        !_appointmentUpdateRequestService.IsDoctorAvailable(doctor, startTime, endTime))
+                        continue;
+
+                    Room freeRoom = FindFreeRoom(RoomType.ExaminationRoom, startTime, endTime);
+                    if (freeRoom == null)
+                        continue;
+
+                    possibleAppointments.Add(new Appointment
+                    {
+                        Doctor = doctor,
+                        Patient = currentPatient,
+                        StartDate = startTime,
+                        EndDate = endTime,
+                        Room = freeRoom,
+                        AppointmentType = AppointmentType.Regular,
+                        IsDone = false,
+                        Anamnesis = null
+                    });
+
+                    if (possibleAppointments.Count > expectedNumber)
+                        return possibleAppointments;
+                }
+            }
+
+            return possibleAppointments;
+        }
+
+        public Appointment FindAppointmentForDoctorUntilDeadline(Patient currentPatient, Doctor currentDoctor, DateTime deadline)
+        {
+            return FindAppointmentForDoctorInTimeSpan(currentPatient, currentDoctor, DateTime.Now.AddMinutes(15), deadline);
+        }
+
+        public Appointment FindAppointmentForDoctorInTimeInterval(Patient currentPatient, Doctor currentDoctor, DateTime intervalStart, DateTime intervalEnd, DateTime deadline)
+        {
+            DateTime today = DateTime.Now;
+            DateTime startDate = intervalStart.Hour < today.Hour ? today.Date : today.Date.AddDays(1);
+
+            for (DateTime currentDate = startDate; currentDate <= deadline; currentDate = currentDate.AddDays(1))
+            {
+                DateTime intervalDateStart = currentDate.AddHours(intervalStart.Hour)
+                                                        .AddMinutes(intervalStart.Minute);
+
+                DateTime intervalDateEnd = currentDate.AddHours(intervalEnd.Hour)
+                                                      .AddMinutes(intervalEnd.Minute);
+
+                Appointment foundAppointment = FindAppointmentForDoctorInTimeSpan(currentPatient, currentDoctor, intervalDateStart, intervalDateEnd);
+
+                if (foundAppointment != null)
+                    return foundAppointment;
+            }
+
+            return null;
+        }
+
+        public Appointment FindAppointmentForDoctorInTimeSpan(Patient currentPatient, Doctor currentDoctor, DateTime intervalStart, DateTime intervalEnd)
+        {
+            for (DateTime potentialTime = intervalStart; potentialTime <= intervalEnd; potentialTime = potentialTime.AddMinutes(1))
+            {
+                DateTime startTime = potentialTime;
+                DateTime endTime = potentialTime.AddMinutes(15);
+
+                if (!IsDoctorAvailable(currentDoctor, startTime, endTime) ||
+                    !_appointmentUpdateRequestService.IsDoctorAvailable(currentDoctor, startTime, endTime))
+                    continue;
+
+                Room freeRoom = FindFreeRoom(RoomType.ExaminationRoom, startTime, endTime);
+                if (freeRoom == null)
+                    continue;
+
+                return new Appointment
+                {
+                    Doctor = currentDoctor,
+                    Patient = currentPatient,
+                    StartDate = startTime,
+                    EndDate = endTime,
+                    Room = freeRoom,
+                    AppointmentType = AppointmentType.Regular,
+                    IsDone = false,
+                    Anamnesis = null
+                };
+            }
+
+            return null;
+        }
+
+        #endregion
+
         public Appointment FindFirstFreeAppointmentForDoctorAndInterval(Patient patient, Doctor doctor, DateTime startIntervalBound, DateTime endIntervalBound, DateTime deadline)
         {
             DateTime start = DateTime.Now.Date.AddMinutes(startIntervalBound.TimeOfDay.TotalMinutes);
             DateTime end = DateTime.Now.Date.AddMinutes(startIntervalBound.TimeOfDay.TotalMinutes).AddMinutes(15);
             DateTime upperIntervalBound = DateTime.Now.Date.AddMinutes(endIntervalBound.TimeOfDay.TotalMinutes);
+
             if (start < DateTime.Now)
             {
                 start = start.AddDays(1);
@@ -308,22 +412,22 @@ namespace HealthInstitution.Services.Implementation
 
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
-            return (_entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0);
+            return _entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0;
         }
 
         public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
-            return ((_entities.Where(apt => apt != aptToUpdate && apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+            return _entities.Where(apt => apt != aptToUpdate && apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0;
         }
 
         public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate)
         {
-            return ((_entities.Where(apt => apt.Room == room && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+            return _entities.Where(apt => apt.Room == room && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0;
         }
 
         public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
-            return ((_entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate)).Count() == 0);
+            return _entities.Where(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0;
         }
 
         public Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end)
