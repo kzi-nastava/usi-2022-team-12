@@ -38,14 +38,15 @@ namespace HealthInstitution.Commands
             foreach (PrescribedMedicine medicine in prescriptions)
             {
                 PrescribedMedicine prescribedMedicine = _viewModel.PrescribedMedicineService.Create(medicine);
-                prescription.PrescribedMedicine.Add(prescribedMedicine);
+                prescription.PrescribedMedicines.Add(prescribedMedicine);
             }
-            _viewModel.PrescriptionService.Create(prescription);
-            appointment.Prescription = prescription;
-
+            if (prescription.PrescribedMedicines.Count > 0)
+            {
+                _viewModel.PrescriptionService.Create(prescription);
+                appointment.Prescription = prescription;
+                _viewModel.MedicalRecord.Prescriptions.Add(prescription);
+            }
             _viewModel.AppointmentService.Update(appointment);
-
-
         }
         private void UpdateMedicalRecord()
         {
