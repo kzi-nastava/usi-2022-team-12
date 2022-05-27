@@ -36,7 +36,7 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            Appointment apt = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
+            Appointment apt = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             if (DateTime.Now > apt.StartDate)
             {
                 MessageBox.Show("You can't update expired appointment!");

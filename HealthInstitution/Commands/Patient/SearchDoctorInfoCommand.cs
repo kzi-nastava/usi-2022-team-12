@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Commands
 {
-    public class SearchByAnamnesisCommand : CommandBase
+    public class SearchDoctorInfoCommand : CommandBase
     {
-        PatientMedicalRecordViewModel _viewModel;
-        public SearchByAnamnesisCommand(PatientMedicalRecordViewModel viewModel) {
+        DoctorSearchViewModel _viewModel;
+        public SearchDoctorInfoCommand(DoctorSearchViewModel viewModel)
+        {
             _viewModel = viewModel;
 
         }
 
         public override void Execute(object? parameter)
         {
-            _viewModel.SearchByAnamnesis();
+            _viewModel.SearchDoctorInfo();
         }
     }
 }

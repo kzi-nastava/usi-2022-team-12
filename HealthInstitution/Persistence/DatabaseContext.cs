@@ -28,6 +28,9 @@ namespace HealthInstitution.Persistence
         public DbSet<EquipmentTransfer> EquipmentTransfers { get; set; }
         public DbSet<RoomRenovation> RoomRenovations { get; set; }
 
+        // Doctor related things
+        public DbSet<DoctorMark> DoctorsMarks { get; set; }
+
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
