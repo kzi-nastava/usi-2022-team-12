@@ -6,6 +6,7 @@
     <RootNamespace>HealthInstitution</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,7 @@
     <Content Include="Fonts\password.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
