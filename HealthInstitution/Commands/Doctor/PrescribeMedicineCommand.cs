@@ -39,7 +39,7 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("Patient is allergic to the prescribed medicine. Prescription canceled.");
                 return;
             }
-            PrescribedMedicine prescibedMedicine = new PrescribedMedicine { Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, Usage = _viewModel.Usage };
+            PrescribedMedicine prescibedMedicine = new PrescribedMedicine { Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, UsageStart = DateTime.Now, UsageEnd = DateTime.Now.AddDays(2), UsageHourSpan = 3 };
             _viewModel.addPrescribedMedicine(prescibedMedicine);
         }
 

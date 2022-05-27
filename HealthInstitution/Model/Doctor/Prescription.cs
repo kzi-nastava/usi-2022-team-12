@@ -7,8 +7,8 @@ namespace HealthInstitution.Model
 
         #region Attributes
 
-        private IList<PrescribedMedicine> _prescribedMedicine;
-        public virtual IList<PrescribedMedicine> PrescribedMedicine { get => _prescribedMedicine;  set => OnPropertyChanged(ref _prescribedMedicine, value);}
+        private IList<PrescribedMedicine> _prescribedMedicines;
+        public virtual IList<PrescribedMedicine> PrescribedMedicines { get => _prescribedMedicines;  set => OnPropertyChanged(ref _prescribedMedicines, value);}
 
         #endregion
 
@@ -16,7 +16,7 @@ namespace HealthInstitution.Model
 
         public Prescription()
         {
-            _prescribedMedicine = new List<PrescribedMedicine>();
+            _prescribedMedicines = new List<PrescribedMedicine>();
         }
 
         #endregion
