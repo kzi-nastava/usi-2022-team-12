@@ -132,7 +132,7 @@ namespace HealthInstitution.ViewModel
             StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
             EndTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute + 15);
 
-            _selectedPriority = "";
+            _selectedPriority = "TimeInterval";
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
             RecommendAppointmentCommand = new RecommendAppointmentCommand(this);
             ConfirmRecommendationCommand = new ConfirmRecommendationCommand(this);

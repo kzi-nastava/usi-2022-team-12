@@ -172,6 +172,7 @@ namespace HealthInstitution.ViewModel
             }
             DoctorsInfo = doctorsInfo;
             SelectedSort = 0;
+            SelectedOrder = 0;
         }
         #endregion
         public DoctorSearchViewModel(IDoctorService doctorService, IDoctorMarkService doctorMarkService) {

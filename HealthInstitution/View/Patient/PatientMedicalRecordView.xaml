@@ -13,7 +13,6 @@
     
     <UserControl.Resources>
         <converters:DateToStringConverter x:Key="DateToStringConverter"/>
-        <converters:ParameterToStringConverter x:Key="ParameterToStringConverter"/>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -55,9 +54,16 @@
             <TextBox Width="200" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding AnamnesisSearchCriteria}" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search by anamensis"/>
             <Button Content="Search" Command="{Binding SearchByAnamnesisCommand}" IsDefault="True" Margin="10 0 0 0"/>
             <TextBlock Text="Sort by:" FontSize="14" Margin="50 0 0 0" VerticalAlignment="Center"/>
-            <RadioButton Content="Date" Margin="20 0 0 0" IsChecked="{Binding SelectedSort, Converter={StaticResource ResourceKey=ParameterToStringConverter}, ConverterParameter=Date}"/>
-            <RadioButton Content="Doctor" Margin="20 0 0 0" IsChecked="{Binding SelectedSort, Converter={StaticResource ResourceKey=ParameterToStringConverter}, ConverterParameter=Doctor}"/>
-            <RadioButton Content="Specialization" Margin="20 0 0 0" IsChecked="{Binding SelectedSort, Converter={StaticResource ResourceKey=ParameterToStringConverter}, ConverterParameter=Specialization}"/>
+            <ComboBox Margin="10,0,0,0" SelectedIndex="{Binding SelectedSort}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100">
+                <ComboBoxItem Content="Date"/>
+                <ComboBoxItem Content="Doctor"/>
+                <ComboBoxItem Content="Specialization"/>
+            </ComboBox>
+            <TextBlock Text="Order by:" FontSize="14" Margin="50 0 0 0" VerticalAlignment="Center"/>
+            <ComboBox Margin="10,0,0,0" SelectedIndex="{Binding SelectedOrder}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100">
+                <ComboBoxItem Content="Ascending"/>
+                <ComboBoxItem Content="Descending"/>
+            </ComboBox>
         </StackPanel>
         
         <Grid Grid.Row="6">
