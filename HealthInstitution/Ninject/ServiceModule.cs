@@ -29,7 +29,6 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IReferralService)).To(typeof(ReferralService));
             Bind(typeof(IMedicineService)).To(typeof(MedicineService));
             Bind(typeof(IPrescribedMedicineService)).To(typeof(PrescribedMedicineService));
-            Bind(typeof(IPrescriptionService)).To(typeof(PrescriptionService));
             Bind(typeof(INotificationService)).To(typeof(NotificationService));
             Bind(typeof(IDoctorMarkService)).To(typeof(DoctorMarkService));
 
