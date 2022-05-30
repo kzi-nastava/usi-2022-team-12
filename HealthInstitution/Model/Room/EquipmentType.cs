@@ -5,6 +5,7 @@
         ExaminationEquipment,
         OperationEquipment,
         Furniture,
-        HallwayEquipment
+        HallwayEquipment,
+        DynamicEquipment
     }
 }

@@ -78,6 +78,12 @@ namespace HealthInstitution.Persistence
             var e6 = new Equipment { EquipmentType = EquipmentType.Furniture, Name = "TV" };
             var e7 = new Equipment { EquipmentType = EquipmentType.ExaminationEquipment, Name = "Bed" };
             var e8 = new Equipment { EquipmentType = EquipmentType.OperationEquipment, Name = "Oxygen Generator" };
+            var e9 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Gauze" };
+            var e10 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Medical buckle" };
+            var e11 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Hansaplast" };
+            var e12 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Injection" };
+            var e13 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Paper" };
+            var e14 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Pen" };
 
             context.Equipments.Add(e1);
             context.Equipments.Add(e2);
@@ -86,7 +92,12 @@ namespace HealthInstitution.Persistence
             context.Equipments.Add(e5);
             context.Equipments.Add(e6);
             context.Equipments.Add(e7);
-            context.Equipments.Add(e8);
+            context.Equipments.Add(e9);
+            context.Equipments.Add(e10);
+            context.Equipments.Add(e11);
+            context.Equipments.Add(e12);
+            context.Equipments.Add(e13);
+            context.Equipments.Add(e14);
 
             // Ingredient
             var i1 = new Ingredient { Name = "Calcium" };
