@@ -5,8 +5,10 @@ namespace HealthInstitution.Services.Intefaces
 {
     public interface IEquipmentService : ICrudService<Equipment>
     {
-        public IEnumerable<Equipment> GetEquipment(EquipmentType resuestedType);
+        public IEnumerable<Equipment> GetEquipment(EquipmentType requestedType);
 
-        public IEnumerable<Equipment> FilterEquipmentBySearchText(EquipmentType resuestedType, string searchText);
+        public IEnumerable<Equipment> FilterEquipmentNotInRoomBySearchText(Room room, EquipmentType requestedType, string searchText);
+
+        public IEnumerable<Equipment> GetEquipmentNotInRoom(Room room, EquipmentType requestType);
     }
 }

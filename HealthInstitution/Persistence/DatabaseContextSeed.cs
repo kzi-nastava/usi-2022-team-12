@@ -80,7 +80,7 @@ namespace HealthInstitution.Persistence
             var e8 = new Equipment { EquipmentType = EquipmentType.OperationEquipment, Name = "Oxygen Generator" };
             var e9 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Gauze" };
             var e10 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Medical buckle" };
-            var e11 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Hansaplast" };
+            var e11 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Elastoplast" };
             var e12 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Injection" };
             var e13 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Paper" };
             var e14 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Pen" };
@@ -134,6 +134,8 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entry6 = new Entry<Equipment> { Item = e6, Quantity = 10 };
             Entry<Equipment> entry7 = new Entry<Equipment> { Item = e7, Quantity = 20 };
             Entry<Equipment> entry8 = new Entry<Equipment> { Item = e8, Quantity = 3 };
+            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 0 };
+            Entry<Equipment> entry10 = new Entry<Equipment> { Item = e13, Quantity = 10 };
 
 
             r1.AddEquipment(entry1);
@@ -144,6 +146,8 @@ namespace HealthInstitution.Persistence
             r1.AddEquipment(entry6);
             r1.AddEquipment(entry7);
             r1.AddEquipment(entry8);
+            r1.AddEquipment(entry9);
+            r1.AddEquipment(entry10);
 
             // ExaminationRoom equipment
 

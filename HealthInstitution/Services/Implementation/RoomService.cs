@@ -10,7 +10,6 @@ namespace HealthInstitution.Services.Implementation
     {
         public RoomService(DatabaseContext context) : base(context)
         {
-
         }
 
         public IEnumerable<Room> ReadRoomsWithType(RoomType rt)

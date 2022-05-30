@@ -41,6 +41,8 @@ namespace HealthInstitution.ViewModel
 
         private readonly IEquipmentPurchaseRequestService _equipmentPurchaseRequestService;
 
+        private readonly IRoomService _roomService;
+
         #endregion
 
         #region Commands
@@ -50,13 +52,15 @@ namespace HealthInstitution.ViewModel
 
         #endregion
 
-        public SecretaryDynamicEquipmentPurchaseRequestViewModel(IDialogService dialogService, IEquipmentService equipmentService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService)
+        public SecretaryDynamicEquipmentPurchaseRequestViewModel(IDialogService dialogService, IEquipmentService equipmentService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService,
+            IRoomService roomService)
         {
             _dialogService = dialogService;
             _equipmentService = equipmentService;
             _equipmentPurchaseRequestService = equipmentPurchaseRequestService;
+            _roomService = roomService;
 
-            DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.GetEquipment(EquipmentType.DynamicEquipment));
+            DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.GetEquipmentNotInRoom(_roomService.GetStorage(), EquipmentType.DynamicEquipment));
 
             MakeRequest = new RelayCommand(() =>
             {
@@ -90,7 +94,7 @@ namespace HealthInstitution.ViewModel
 
         private void UpdatePage()
         {
-            DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.GetEquipment(EquipmentType.DynamicEquipment));
+            DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.GetEquipmentNotInRoom(_roomService.GetStorage(), EquipmentType.DynamicEquipment));
         }
 
         private void Search()
@@ -98,7 +102,7 @@ namespace HealthInstitution.ViewModel
             if (SearchText == "" || SearchText == null)
                 UpdatePage();
             else
-                DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.FilterEquipmentBySearchText(EquipmentType.DynamicEquipment, SearchText));
+                DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.FilterEquipmentNotInRoomBySearchText(_roomService.GetStorage(), EquipmentType.DynamicEquipment, SearchText));
         }
     }
 }
