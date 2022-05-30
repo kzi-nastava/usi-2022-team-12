@@ -9,5 +9,11 @@ namespace HealthInstitution.Services.Intefaces
 
         IEnumerable<Room> ReadRoomsWithName(string name);
 
+        public Room GetStorage();
+
+        public void AddItemQuantityToStorage(Entry<Equipment> deliveredEquipment);
+
+        public void AddItemQuantity(Room room, Entry<Equipment> deliveredEquipment);
+
     }
 }

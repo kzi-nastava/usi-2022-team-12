@@ -46,6 +46,7 @@ namespace HealthInstitution.Persistence
         // Secretary related things
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<EquipmentPurchaseRequest> EquipmentPurchaseRequests { get; set; }
 
         public DatabaseContext()
         {
