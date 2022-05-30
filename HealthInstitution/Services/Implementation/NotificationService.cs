@@ -33,7 +33,7 @@ namespace HealthInstitution.Services.Implementation
                 while (nextTaking < DateTime.Now) {
                     nextTaking = medication.UsageStart.AddHours(medication.UsageHourSpan);
                 }
-                if (DateTime.Now.AddMinutes(notifyMinutesBefore) < nextTaking) {
+                if (DateTime.Now.AddMinutes(-notifyMinutesBefore) < nextTaking) {
                     upcomingMedactions.Add(medication);
                 }
             }
