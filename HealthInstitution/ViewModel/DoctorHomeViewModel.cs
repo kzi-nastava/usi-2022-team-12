@@ -14,6 +14,7 @@ namespace HealthInstitution.ViewModel
     {
         public ICommand? LogOutCommand { get; }
         public ICommand? NavigateScheduleCommand { get; }
+        public ICommand? NavigateMedicineCommand { get; }
 
         private readonly INotificationService _notificationService;
 
@@ -25,6 +26,7 @@ namespace HealthInstitution.ViewModel
         {
             _notificationService = notificationService;
             LogOutCommand = new LogOutCommand();
+            NavigateMedicineCommand = new NavigateMedicineCommand();
             NavigateScheduleCommand = new NavigateScheduleCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<DoctorScheduleViewModel>());
             RegisterHandler();
@@ -33,6 +35,11 @@ namespace HealthInstitution.ViewModel
 
         private void RegisterHandler()
         {
+            DoctorMedicineManagmentViewModel doctorMedicineManagmentViewModel = ServiceLocator.Get<DoctorMedicineManagmentViewModel>();
+            EventBus.RegisterHandler("DoctorMedicineManagment", () =>
+            {
+                SwitchCurrentViewModel(doctorMedicineManagmentViewModel);
+            });
             DoctorScheduleViewModel doctorScheduleViewModel = ServiceLocator.Get<DoctorScheduleViewModel>();
             EventBus.RegisterHandler("DoctorSchedule", () =>
             {
