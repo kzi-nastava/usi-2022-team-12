@@ -31,6 +31,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IPrescribedMedicineService)).To(typeof(PrescribedMedicineService));
             Bind(typeof(INotificationService)).To(typeof(NotificationService));
             Bind(typeof(IDoctorMarkService)).To(typeof(DoctorMarkService));
+            Bind(typeof(IPrescribedMedicineNotificationService)).To(typeof(PrescribedMedicineNotificationService));
 
             Bind(typeof(IDialogService)).To(typeof(DialogService));
 

@@ -47,7 +47,7 @@ namespace HealthInstitution.ViewModel
             RegisterHandler();
             CheckNotifications();
 
-            NotificationsChecker nc = new NotificationsChecker();
+            NotificationsChecker.InitializeTimer("patient");
         }
 
 

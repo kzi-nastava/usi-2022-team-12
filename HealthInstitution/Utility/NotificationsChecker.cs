@@ -10,27 +10,61 @@ using System.Windows;
 
 namespace HealthInstitution.Utility
 {
-    public class NotificationsChecker
+    public static class NotificationsChecker
     {
-        private readonly Timer _timer;
-        private readonly INotificationService _notificationService;
-        public NotificationsChecker() {
-            _notificationService = ServiceLocator.Get<INotificationService>();
-            var autoEvent = new AutoResetEvent(false);
-            _timer = new Timer(CheckForPatientNotifications, autoEvent, 1000, 4000);
+        private static Timer _notificationsTriggerTimer;
+        private static Timer _notificationsUpdateTimer;
+        private static readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
+        static NotificationsChecker() {
+            _prescribedMedicineNotificationService = ServiceLocator.Get<IPrescribedMedicineNotificationService>();
         }
 
-        public void CheckForPatientNotifications(Object stateInfo) {
+        public static void InitializeTimer(string loggedEntity) {
+            StopTimer();
+
+            AutoResetEvent autoEvent = new AutoResetEvent(true);
+            if (loggedEntity == "patient")
+            {
+                _notificationsUpdateTimer = new Timer(UpdatePrescribedMedicationsNotifications, autoEvent, 1000, 10000);
+                _notificationsTriggerTimer = new Timer(CheckForUpcomingNotification, autoEvent, 1000, 5000);
+            }
+        }
+
+        public static void StopTimer() {
+            if (_notificationsTriggerTimer != null)
+            {
+                _notificationsTriggerTimer.Dispose();
+            }
+            if (_notificationsUpdateTimer != null)
+            {
+                _notificationsUpdateTimer.Dispose();
+            }
+        }
+
+        public static void UpdatePrescribedMedicationsNotifications(Object stateInfo) {
             AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+            autoEvent.WaitOne();
 
             Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-            List<PrescribedMedicine> upcomingMedicines = _notificationService.FilterNextMedications(patient, patient.NotificationPreference);
-            if (upcomingMedicines.Count > 0) {
-                foreach (var upcomingMedicine in upcomingMedicines)
-                {
-                    MessageBox.Show("It is time to drink " + upcomingMedicine.Medicine.Name + "\nInstructions: " + upcomingMedicine.Instruction, "Reminder");
-                }
+            _prescribedMedicineNotificationService.CreateUpcomingMedicationsNotifications(patient, patient.NotificationPreference);
+
+            autoEvent.Set();
+        }
+
+        public static void CheckForUpcomingNotification(Object stateInfo) {
+            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+            autoEvent.WaitOne();
+
+            Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
+            var nextMedicineNotification = _prescribedMedicineNotificationService.GetNextMedicineNotification(patient);
+            if (nextMedicineNotification != null && nextMedicineNotification.TriggerTime < DateTime.Now && nextMedicineNotification.Triggered == false) {
+                MessageBox.Show("You should drink " + nextMedicineNotification.PrescribedMedicine.Medicine.Name + " at " + nextMedicineNotification.TriggerTime.AddMinutes(patient.NotificationPreference) + 
+                    "\nInstructions: " + nextMedicineNotification.PrescribedMedicine.Instruction, "Reminder");
+                nextMedicineNotification.Triggered = true;
+                _prescribedMedicineNotificationService.Update(nextMedicineNotification);
             }
+
+            autoEvent.Set();
         }
     }
 }
