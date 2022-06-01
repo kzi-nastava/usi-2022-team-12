@@ -98,6 +98,10 @@
         <v:SecretaryUrgentScheduleView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:SecretaryDynamicEquipmentPurchaseRequestViewModel}">
+        <v:SecretaryDynamicEquipmentPurchaseRequestView/>
+    </DataTemplate>
+
     <!--Dialog data templates-->
 
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
@@ -122,6 +126,10 @@
 
     <DataTemplate DataType="{x:Type dc:DelayAppointmentViewModel}">
         <dc:DelayAppointmentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:QuantitySelectViewModel}">
+        <dc:QuantitySelectView/>
     </DataTemplate>
 
     <!--Dialog data templates-->
@@ -164,10 +172,10 @@
     <DataTemplate DataType="{x:Type vm:RoomRenovationViewModel}">
         <v:RoomRenovationView/>
     </DataTemplate>
-    
+
     <DataTemplate DataType="{x:Type vm:AppointmentUpdateViewModel}">
         <v:AppointmentUpdateView/>
     </DataTemplate>
-    
+
     <!-- Manager -->
 </ResourceDictionary>

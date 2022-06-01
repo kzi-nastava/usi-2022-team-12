@@ -6,8 +6,8 @@ namespace HealthInstitution.Model
     public class Room : BaseObservableEntity
     {
         #region Attributes
-        private String _name;
-        public String Name { get => _name; set => OnPropertyChanged(ref _name, value); }
+        private string _name;
+        public string Name { get => _name; set => OnPropertyChanged(ref _name, value); }
 
         private RoomType _roomType;
         public RoomType RoomType { get => _roomType; set => OnPropertyChanged(ref _roomType, value); }
@@ -35,12 +35,23 @@ namespace HealthInstitution.Model
             foreach (Entry<Equipment> includedEntry in _inventory)
             {
                 if (includedEntry.Item.Id == entry.Item.Id)
-                {                    
+                {
                     return;
                 }
             }
 
             _inventory.Add(entry);
+        }
+
+        public bool ContainsEquipment(Equipment equipment)
+        {
+            foreach (Entry<Equipment> equipmentEntry in _inventory)
+            {
+                if (equipmentEntry.Item.Name.Equals(equipment.Name))
+                    return true;
+            }
+
+            return false;
         }
 
         public override string ToString()
