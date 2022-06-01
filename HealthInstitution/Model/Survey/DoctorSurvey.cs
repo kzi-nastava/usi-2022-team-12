@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HealthInstitution.Model.Survey
+namespace HealthInstitution.Model
 {
     public class DoctorSurvey : BaseObservableEntity
     {
         #region Attributes
 
-        private Guid _doctorId;
-        public Guid DoctorId { get => _doctorId; set => OnPropertyChanged(ref _doctorId, value); }
+        private Doctor _doctor;
+        public virtual Doctor Doctor { get => _doctor; set => OnPropertyChanged(ref _doctor, value); }
 
-        private readonly List<SurveyItem<DoctorSurvey>> _surveyItems;
-        public virtual List<SurveyItem<DoctorSurvey>> SurveyItems { get => _surveyItems; }
+        private int _serviceQuality;
+        public int ServiceQuality { get => _serviceQuality; set => OnPropertyChanged(ref _serviceQuality, value); }
+
+        private int _wouldRecommend;
+        public int WouldRecommend { get => _wouldRecommend; set => OnPropertyChanged(ref _wouldRecommend, value); }
+
+        private string _comment;
+        public string Comment { get => _comment; set => OnPropertyChanged(ref _comment, value); }
 
         #endregion
 
-        #region Constructor 
+        #region Constructor
 
-        public DoctorSurvey(Guid doctorId)
+        public DoctorSurvey()
         {
-            _doctorId = doctorId;
-            _surveyItems = new List<SurveyItem<DoctorSurvey>>();
+
         }
 
         #endregion
 
-        #region Methods
-
-        public void CreateSurveyItem(string itemDescription)
-        {
-            var newItem = new SurveyItem<DoctorSurvey>(itemDescription, this);
-            _surveyItems.Add(newItem);
-        }
-
-        #endregion
     }
 }

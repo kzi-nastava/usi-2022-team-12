@@ -29,7 +29,7 @@ namespace HealthInstitution.Persistence
         public DbSet<RoomRenovation> RoomRenovations { get; set; }
 
         // Doctor related things
-        public DbSet<DoctorMark> DoctorsMarks { get; set; }
+        public DbSet<DoctorSurvey> DoctorSurveys { get; set; }
 
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
