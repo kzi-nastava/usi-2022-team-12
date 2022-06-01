@@ -78,6 +78,12 @@ namespace HealthInstitution.Persistence
             var e6 = new Equipment { EquipmentType = EquipmentType.Furniture, Name = "TV" };
             var e7 = new Equipment { EquipmentType = EquipmentType.ExaminationEquipment, Name = "Bed" };
             var e8 = new Equipment { EquipmentType = EquipmentType.OperationEquipment, Name = "Oxygen Generator" };
+            var e9 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Gauze" };
+            var e10 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Medical buckle" };
+            var e11 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Elastoplast" };
+            var e12 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Injection" };
+            var e13 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Paper" };
+            var e14 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Pen" };
 
             context.Equipments.Add(e1);
             context.Equipments.Add(e2);
@@ -86,7 +92,12 @@ namespace HealthInstitution.Persistence
             context.Equipments.Add(e5);
             context.Equipments.Add(e6);
             context.Equipments.Add(e7);
-            context.Equipments.Add(e8);
+            context.Equipments.Add(e9);
+            context.Equipments.Add(e10);
+            context.Equipments.Add(e11);
+            context.Equipments.Add(e12);
+            context.Equipments.Add(e13);
+            context.Equipments.Add(e14);
 
             // Ingredient
             var i1 = new Ingredient { Name = "Calcium" };
@@ -130,6 +141,8 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entry6 = new Entry<Equipment> { Item = e6, Quantity = 10 };
             Entry<Equipment> entry7 = new Entry<Equipment> { Item = e7, Quantity = 20 };
             Entry<Equipment> entry8 = new Entry<Equipment> { Item = e8, Quantity = 3 };
+            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 0 };
+            Entry<Equipment> entry10 = new Entry<Equipment> { Item = e13, Quantity = 10 };
 
 
             r1.AddEquipment(entry1);
@@ -140,6 +153,8 @@ namespace HealthInstitution.Persistence
             r1.AddEquipment(entry6);
             r1.AddEquipment(entry7);
             r1.AddEquipment(entry8);
+            r1.AddEquipment(entry9);
+            r1.AddEquipment(entry10);
 
             // ExaminationRoom equipment
 
