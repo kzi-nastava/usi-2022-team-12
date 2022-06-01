@@ -34,6 +34,7 @@ namespace HealthInstitution.Persistence
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
+        public DbSet<PrescribedMedicineNotification> PrescribedMedicinesNotifications { get; set; }
         public DbSet<AppointmentUpdateRequest> AppointmentUpdateRequests { get; set; }
         public DbSet<AppointmentDeleteRequest> AppointmentDeleteRequests { get; set; }
 

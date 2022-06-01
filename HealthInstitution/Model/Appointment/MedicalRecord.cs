@@ -22,8 +22,8 @@ namespace HealthInstitution.Model
         private IList<Allergen> _allergens;
         public virtual IList<Allergen> Allergens { get => _allergens; set => OnPropertyChanged(ref _allergens, value); }
 
-        private IList<Prescription> _prescriptions;
-        public virtual IList<Prescription> Prescriptions { get => _prescriptions; set => OnPropertyChanged(ref _prescriptions, value); }
+        private IList<PrescribedMedicine> _prescribedMedicines;
+        public virtual IList<PrescribedMedicine> PrescribedMedicines { get => _prescribedMedicines; set => OnPropertyChanged(ref _prescribedMedicines, value); }
 
         private Patient _patient;
         public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }

@@ -31,8 +31,6 @@ namespace HealthInstitution.ViewModel
 
         private readonly IPrescribedMedicineService _prescribedMedicineService;
 
-        private readonly IPrescriptionService _prescriptionService;
-
         private readonly Patient _patient;
 
         private readonly Appointment _appointment;
@@ -55,7 +53,6 @@ namespace HealthInstitution.ViewModel
         public IMedicalRecordService MedicalRecordService => _medicalRecordService;
         public IAppointmentService AppointmentService => _appointmentService;
         public IReferralService ReferralService => _referralService;
-        public IPrescriptionService PrescriptionService => _prescriptionService;
         public IPrescribedMedicineService PrescribedMedicineService => _prescribedMedicineService;
 
         public MedicalRecord MedicalRecord => _medicalRecord;
@@ -186,7 +183,7 @@ namespace HealthInstitution.ViewModel
         public ICommand CreateReferralCommand { get; }
         public ICommand PrescriptionCommand { get; }
         #endregion Commands
-        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, IPrescriptionService prescriptionService, Appointment appointment)
+        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, Appointment appointment)
         {
             _anamnesis = "";
             _newIllnessName = "";
@@ -199,7 +196,6 @@ namespace HealthInstitution.ViewModel
             _referralService = referralService;
             _allergenService = allergenService;
             _appointmentService = appointmentService;
-            _prescriptionService = prescriptionService;
             _prescribedMedicineService = prescribedMedicineService;
             _appointment = appointment;
             _patient = _appointment.Patient;

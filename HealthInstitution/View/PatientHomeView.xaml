@@ -24,7 +24,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding PatientName, StringFormat='Hello, {0}'}"
+                <TextBlock Grid.Row="0" Text="{Binding PatientName, StringFormat='Hello, {0}'}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
@@ -50,6 +50,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding DoctorSearchCommand}" IsChecked="False"/>
+                    <RadioButton Content="Settings"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding PatientSettingsCommand}" IsChecked="False"/>
                 </StackPanel>
 
                 <Button Content="Log out"

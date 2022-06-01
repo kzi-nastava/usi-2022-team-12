@@ -18,6 +18,7 @@ namespace HealthInstitution.ViewModel
         public ICommand? PatientAppointmentsCommand { get; }
         public ICommand? PatientMedicalRecordCommand { get; }
         public ICommand? DoctorSearchCommand { get; }
+        public ICommand? PatientSettingsCommand { get; }
         #endregion
 
         #region attributes
@@ -40,10 +41,13 @@ namespace HealthInstitution.ViewModel
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
             PatientMedicalRecordCommand = new PatientMedicalRecordCommand();
             DoctorSearchCommand = new DoctorSearchCommand();
+            PatientSettingsCommand = new PatientSettingsCommand();
             LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
             CheckNotifications();
+
+            NotificationsChecker.InitializeTimer("patient");
         }
 
 
@@ -72,6 +76,12 @@ namespace HealthInstitution.ViewModel
             {
                 RecommendAppointmentCreationViewModel Racvm = ServiceLocator.Get<RecommendAppointmentCreationViewModel>();
                 SwitchCurrentViewModel(Racvm);
+            });
+
+            EventBus.RegisterHandler("PatientSettings", () =>
+            {
+                PatientSettingsViewModel Pnvm = ServiceLocator.Get<PatientSettingsViewModel>();
+                SwitchCurrentViewModel(Pnvm);
             });
 
             EventBus.RegisterHandler("AppointmentCreationWithSelectedDoctor", () =>
