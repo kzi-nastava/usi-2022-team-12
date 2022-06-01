@@ -30,15 +30,17 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_viewModel.DeadlineDate.AddSeconds(_viewModel.StartTime.TimeOfDay.TotalSeconds) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && 
+            return !(_viewModel.DeadlineDate.AddMinutes(_viewModel.StartTime.TimeOfDay.TotalMinutes) <= DateTime.Now) && !(_viewModel.SelectedDoctor == null) && 
                 !(_viewModel.SelectedPriority == null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
             Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-            _viewModel.RecommendedAppointments = _viewModel.AppointmentService.RecommendAppointments(patient, _viewModel.SelectedDoctor,
-                _viewModel.StartTime, _viewModel.EndTime, _viewModel.DeadlineDate, _viewModel.SelectedPriority);
+            TimeOnly startTime = TimeOnly.FromDateTime(_viewModel.StartTime);
+            TimeOnly endTime = TimeOnly.FromDateTime(_viewModel.EndTime);
+            DateOnly deadline = DateOnly.FromDateTime(_viewModel.DeadlineDate);
+            _viewModel.RecommendedAppointments = _viewModel.AppointmentService.RecommendAppointments(patient, _viewModel.SelectedDoctor, startTime, endTime, deadline, _viewModel.SelectedPriority);
         }
     }
 }

@@ -171,6 +171,8 @@ namespace HealthInstitution.Persistence
             context.Medicines.Add(me4);
             context.Medicines.Add(me5);
 
+            context.Medicines.Add(me1);
+            context.Medicines.Add(me2);
             // Room
             var r1 = new Room(RoomType.Storage, "S");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");

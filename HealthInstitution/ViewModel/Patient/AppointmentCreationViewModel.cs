@@ -1,5 +1,6 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
+using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
@@ -69,7 +70,7 @@ namespace HealthInstitution.ViewModel
 
         #region commands
         public ICommand? MakeAppointmentCommand { get; }
-        public ICommand? PatientAppointmentsCommand { get; }
+        public ICommand? BackCommand { get; }
         #endregion
 
         public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
@@ -79,12 +80,30 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
 
-            StartDate = DateTime.Now;
-            StartTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
+            StartDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new PatientAppointmentsCommand();
+        }
+
+        public AppointmentCreationViewModel(Doctor selectedDoctor)
+        {
+            _activityService = ServiceLocator.Get<IActivityService>();
+            _appointmentService = ServiceLocator.Get<IAppointmentService>();
+            _doctorService = ServiceLocator.Get<IDoctorService>();
+            _patientService = ServiceLocator.Get<IPatientService>();
+
+            DateTime currentDateTime = DateTime.Now;
+            StartDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
+            Doctors = new List<Doctor>() {selectedDoctor};
+            SelectedDoctor = selectedDoctor;
+
+            MakeAppointmentCommand = new MakeAppointmentCommand(this);
+            BackCommand = new DoctorSearchCommand();
         }
     }
 }

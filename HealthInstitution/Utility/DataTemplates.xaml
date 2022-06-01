@@ -41,6 +41,11 @@
     <DataTemplate DataType="{x:Type vm:PrescriptionViewModel}">
         <v:PrescriptionView/>
     </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:DoctorMedicineManagmentViewModel}">
+        <v:DoctorMedicineManagmentView/>
+    </DataTemplate>
+    
     <!-- Doctor -->
 
     <!-- Patient -->
@@ -62,6 +67,10 @@
 
     <DataTemplate DataType="{x:Type vm:RecommendAppointmentCreationViewModel}">
         <v:RecommendAppointmentCreationView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorSearchViewModel}">
+        <v:DoctorSearchView/>
     </DataTemplate>
     <!-- Patient -->
 

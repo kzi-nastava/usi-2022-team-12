@@ -42,7 +42,7 @@ namespace HealthInstitution.Model
 
         }
 
-        public Appointment(Doctor doctor, Patient patient, DateTime startDate, DateTime endDate, Room room, string anamnesis, bool isDone)
+        public Appointment(Doctor doctor, Patient patient, DateTime startDate, DateTime endDate, Room room, AppointmentType appointmentType, string anamnesis, bool isDone)
         {
             _isDone = isDone;
             _doctor = doctor;
@@ -50,6 +50,7 @@ namespace HealthInstitution.Model
             _startDate = startDate;
             _endDate = endDate;
             _room = room;
+            _appointmentType = appointmentType;
             _anamnesis = anamnesis;
         }
 

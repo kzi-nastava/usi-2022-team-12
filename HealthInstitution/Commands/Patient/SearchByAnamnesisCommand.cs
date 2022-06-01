@@ -17,7 +17,7 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            _viewModel.SearchByAnamnesis(_viewModel.AnamnesisSearchCriteria);
+            _viewModel.SearchByAnamnesis();
         }
     }
 }

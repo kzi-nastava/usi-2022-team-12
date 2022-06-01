@@ -117,7 +117,7 @@ namespace HealthInstitution.ViewModel
         #region commands
         public ICommand RecommendAppointmentCommand { get; }
         public ICommand ConfirmRecommendationCommand { get; }
-        public ICommand PatientAppointmentsCommand { get; }
+        public ICommand BackCommand { get; }
         #endregion
 
         public RecommendAppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
@@ -127,15 +127,16 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
 
-            DeadlineDate = DateTime.Now.Date;
-            StartTime = DateTime.Now;
-            EndTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
+            DeadlineDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
+            EndTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute + 15);
 
-            _selectedPriority = "";
+            _selectedPriority = "TimeInterval";
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
             RecommendAppointmentCommand = new RecommendAppointmentCommand(this);
             ConfirmRecommendationCommand = new ConfirmRecommendationCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new PatientAppointmentsCommand();
         }
     }
 }

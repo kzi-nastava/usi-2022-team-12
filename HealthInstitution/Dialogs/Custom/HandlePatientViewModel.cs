@@ -95,7 +95,7 @@ namespace HealthInstitution.Dialogs.Custom
 
         #endregion
 
-        #region Rules
+        #region Services
 
         private readonly IDialogService _dialogService;
 

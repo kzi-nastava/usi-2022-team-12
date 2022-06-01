@@ -10,6 +10,8 @@ namespace HealthInstitution.Dialogs.Custom
 {
     public class DoctorSpecializationSelectViewModel : DialogReturnViewModelBase<DoctorSpecializationSelectViewModel, DoctorSpecialization>
     {
+        #region Properties
+
         private IEnumerable<DoctorSpecialization> _doctorSpecializations;
         public IEnumerable<DoctorSpecialization> DoctorSpecializations
         {
@@ -24,7 +26,13 @@ namespace HealthInstitution.Dialogs.Custom
             set { OnPropertyChanged(ref _selectedSpecialization, value); }
         }
 
+        #endregion
+
+        #region Services
+
         public ICommand Select { get; set; }
+
+        #endregion
 
         public DoctorSpecializationSelectViewModel() :
             base("Doctor specialization select", 500, 250)

@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace HealthInstitution.Converters
 {
-    public class RecommendAppointmentPriorityConverter : IValueConverter
+    public class ParameterToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

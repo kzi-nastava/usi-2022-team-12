@@ -16,8 +16,14 @@ namespace HealthInstitution.Model
         private string? _instruction;
         public string? Instruction { get => _instruction; set => OnPropertyChanged(ref _instruction, value); }
 
-        private string? _usage;
-        public string? Usage { get => _usage; set => OnPropertyChanged(ref _usage, value); }
+        private DateTime? _usageStart;
+        public DateTime? UsageStart { get => _usageStart; set => OnPropertyChanged(ref _usageStart, value); }
+
+        private DateTime? _usageEnd;
+        public DateTime? UsageEnd { get => _usageEnd; set => OnPropertyChanged(ref _usageEnd, value); }
+
+        private int? _usageSpan;
+        public int? UsageHourSpan { get => _usageSpan; set => OnPropertyChanged(ref _usageSpan, value); }
 
         #endregion
 

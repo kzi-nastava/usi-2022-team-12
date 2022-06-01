@@ -84,7 +84,7 @@ namespace HealthInstitution.ViewModel
             set
             {
                 _anamnesis = value;
-                OnPropertyChanged(Anamnesis);
+                OnPropertyChanged(nameof(Anamnesis));
             }
         }
         public MedicalRecord UpdatedMedicalRecord

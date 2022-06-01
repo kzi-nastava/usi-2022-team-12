@@ -44,6 +44,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding PatientMedicalRecordCommand}" IsChecked="False"/>
+                    <RadioButton Content="Doctor search"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding DoctorSearchCommand}" IsChecked="False"/>
                 </StackPanel>
 
                 <Button Content="Log out"
