@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Commands
 {
-    public class PatientNotificationsCommand : CommandBase
+    public class PatientSettingsCommand : CommandBase
     {
-        public PatientNotificationsCommand()
+        public PatientSettingsCommand()
         {
 
         }
 
         public override void Execute(object? parameter)
         {
-            EventBus.FireEvent("PatientNotifications");
+            EventBus.FireEvent("PatientSettings");
         }
     }
 }

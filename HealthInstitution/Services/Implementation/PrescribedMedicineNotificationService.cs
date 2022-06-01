@@ -21,9 +21,9 @@ namespace HealthInstitution.Services.Implementation
             return _context.Set<PrescribedMedicine>().Where(pm => pm.MedicalRecord.Patient == patient && pm.UsageStart.AddMinutes(-notifyMinutesBefore) < DateTime.Now && pm.UsageEnd > DateTime.Now);
         }
 
-        public List<PrescribedMedicineNotification> GetUpcomingMedicationsNotifications(Patient patient, int notifyMinutesBefore)
+        public List<PrescribedMedicineNotification> GenerateUpcomingMedicinesNotifications(Patient patient, int notifyMinutesBefore)
         {
-            List<PrescribedMedicineNotification> upcomingMedactionsNotifications = new List<PrescribedMedicineNotification>();
+            List<PrescribedMedicineNotification> upcomingMedicinesNotifications = new List<PrescribedMedicineNotification>();
             var currentConsumingMedications = GetConsumingMedications(patient, notifyMinutesBefore).ToList();
             foreach (var prescribedMedicine in currentConsumingMedications)
             {
@@ -34,20 +34,33 @@ namespace HealthInstitution.Services.Implementation
                 }
                 if (DateTime.Now < nextTaking)
                 {
-                    upcomingMedactionsNotifications.Add(new PrescribedMedicineNotification { PrescribedMedicine = prescribedMedicine, TriggerTime = nextTaking, Triggered = false });
+                    upcomingMedicinesNotifications.Add(new PrescribedMedicineNotification { PrescribedMedicine = prescribedMedicine, TriggerTime = nextTaking, Triggered = false });
                 }
             }
-            return upcomingMedactionsNotifications;
+            return upcomingMedicinesNotifications;
         }
-
         public void CreateUpcomingMedicationsNotifications(Patient patient, int notifyMinutesBefore)
         {
-            var upcomingMedicinesNotifications = GetUpcomingMedicationsNotifications(patient, notifyMinutesBefore);
+            var upcomingMedicinesNotifications = GenerateUpcomingMedicinesNotifications(patient, notifyMinutesBefore);
             foreach (var upcomingMedicineNotification in upcomingMedicinesNotifications)
             {
-                if (_entities.Where(pmn => pmn.PrescribedMedicine == upcomingMedicineNotification.PrescribedMedicine && pmn.TriggerTime == upcomingMedicineNotification.TriggerTime).ToList().Count == 0){
+                if (_entities.Where(pmn => pmn.PrescribedMedicine == upcomingMedicineNotification.PrescribedMedicine && pmn.TriggerTime == upcomingMedicineNotification.TriggerTime).ToList().Count == 0)
+                {
                     Create(upcomingMedicineNotification);
                 }
+            }
+        }
+        public IEnumerable<PrescribedMedicineNotification> GetUpcomingMedicinesNotifications(Patient patient)
+        {
+            return _entities.Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient == patient && pmn.Triggered == false);
+        }
+
+        public void DeleteUpcomingMedicationsNotifications(Patient patient)
+        {
+            var notificationsToRemove = GetUpcomingMedicinesNotifications(patient);
+            foreach (var notification in notificationsToRemove)
+            {
+                Delete(notification.Id);
             }
         }
 
@@ -55,5 +68,8 @@ namespace HealthInstitution.Services.Implementation
         {
             return _entities.Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient == patient && pmn.Triggered == false).OrderBy(pt => pt.TriggerTime).FirstOrDefault();
         }
+
+
+
     }
 }

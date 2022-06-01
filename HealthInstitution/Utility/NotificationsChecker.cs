@@ -1,5 +1,7 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Ninject;
+using HealthInstitution.Persistence;
+using HealthInstitution.Services.Implementation;
 using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace HealthInstitution.Utility
         private static readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
         static NotificationsChecker()
         {
-            _prescribedMedicineNotificationService = ServiceLocator.Get<IPrescribedMedicineNotificationService>();
+            _prescribedMedicineNotificationService = new PrescribedMedicineNotificationService(new DatabaseContext());
         }
 
         public static void InitializeTimer(string loggedEntity)

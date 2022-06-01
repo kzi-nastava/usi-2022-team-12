@@ -68,8 +68,8 @@
         <v:DoctorSearchView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:PatientNotificationsViewModel}">
-        <v:PatientNotificationsView/>
+    <DataTemplate DataType="{x:Type vm:PatientSettingsViewModel}">
+        <v:PatientSettingsView/>
     </DataTemplate>
     <!-- Patient -->
 

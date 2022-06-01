@@ -50,12 +50,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding DoctorSearchCommand}" IsChecked="False"/>
-                    <RadioButton Content="Notifications"
+                    <RadioButton Content="Settings"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding PatientNotificationsCommand}" IsChecked="False"/>
+                             Command="{Binding PatientSettingsCommand}" IsChecked="False"/>
                 </StackPanel>
 
                 <Button Content="Log out"

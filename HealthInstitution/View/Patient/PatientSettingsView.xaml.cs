@@ -19,9 +19,9 @@ namespace HealthInstitution.View
     /// <summary>
     /// Interaction logic for PatientNotificationsView.xaml
     /// </summary>
-    public partial class PatientNotificationsView : UserControl
+    public partial class PatientSettingsView : UserControl
     {
-        public PatientNotificationsView()
+        public PatientSettingsView()
         {
             InitializeComponent();
         }

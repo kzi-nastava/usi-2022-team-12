@@ -11,21 +11,31 @@ using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
-    public class PatientNotificationsViewModel : ViewModelBase
+    public class PatientSettingsViewModel : ViewModelBase
     {
         #region services
         private readonly IPatientService _patientService;
+
+        private readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
+
         public IPatientService PatientService => _patientService;
+        public IPrescribedMedicineNotificationService PrescribedMedicineNotificationService => _prescribedMedicineNotificationService;
         #endregion
 
         #region attributes
-        private int _notificationPreference;
-        public int NotificationPreference
+        private string _notificationPreference;
+        public string NotificationPreference
         {
             get => _notificationPreference;
             set
             {
-                _notificationPreference = value;
+                if (value != "")
+                {
+                    _notificationPreference = value;
+                }
+                else {
+                    _notificationPreference = "1";
+                }
                 OnPropertyChanged(nameof(NotificationPreference));
             }
         }
@@ -35,9 +45,10 @@ namespace HealthInstitution.ViewModel
         public ICommand? SaveNotificationPreferenceCommand { get; }
         #endregion
 
-        public PatientNotificationsViewModel(IPatientService patientService) { 
+        public PatientSettingsViewModel(IPatientService patientService, IPrescribedMedicineNotificationService prescribedMedicineNotificationService) { 
             _patientService = patientService;
-            NotificationPreference = GlobalStore.ReadObject<Patient>("LoggedUser").NotificationPreference;
+            _prescribedMedicineNotificationService = prescribedMedicineNotificationService;
+            NotificationPreference = GlobalStore.ReadObject<Patient>("LoggedUser").NotificationPreference.ToString();
             SaveNotificationPreferenceCommand = new SaveNotificationPreferenceCommand(this);
         }
     }
