@@ -10,7 +10,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <converters:DateToStringConverter x:Key="DateToStringConverter"/>
+        <ResourceDictionary>
+            <Style x:Key="endTimeValidationStyle" TargetType="materialDesign:TimePicker" BasedOn="{StaticResource {x:Type materialDesign:TimePicker}}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=checkBoxIsOperation, Path=IsChecked}" Value="False">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <converters:DateToStringConverter x:Key="DateToStringConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -20,10 +29,13 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <TextBlock Text="Date:" FontSize="16"/>
+            <TextBlock Text="date:" FontSize="16"/>
             <DatePicker SelectedDateFormat="Long" SelectedDate="{Binding Date}" Name="StartDatePicker"  Margin="10 0 0 0"/>
-            <TextBlock Text="Time:" FontSize="16" Margin="20 0 0 0"/>
+            <TextBlock Text="time:" FontSize="16" Margin="20 0 0 0"/>
             <materialDesign:TimePicker Margin="10 0 0 0" SelectedTime="{Binding Time}"/>
+            <CheckBox Content="operation" Margin="20 0 0 0" IsChecked="{Binding IsOperation, Mode=TwoWay}" x:Name="checkBoxIsOperation"/>
+            <TextBlock Text="end time:" FontSize="16" Margin="20 0 0 0"/>
+            <materialDesign:TimePicker Margin="10 0 0 0" SelectedTime="{Binding EndTime}" Style="{StaticResource endTimeValidationStyle}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 25 0 0">
             <TextBox Width="200" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding SearchText}"/>
