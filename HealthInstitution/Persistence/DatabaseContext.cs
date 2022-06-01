@@ -49,6 +49,9 @@ namespace HealthInstitution.Persistence
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<EquipmentPurchaseRequest> EquipmentPurchaseRequests { get; set; }
 
+        // Health Institution related things
+        public DbSet<HealthInstitutionSurvey> HealthInstitutionSurveys { get; set; }
+
         public DatabaseContext()
         {
             var folder = Environment.SpecialFolder.Desktop;
