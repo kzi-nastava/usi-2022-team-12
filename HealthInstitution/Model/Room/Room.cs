@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HealthInstitution.Model
 {
@@ -30,28 +31,67 @@ namespace HealthInstitution.Model
 
         #region Methods
 
-        public void AddEquipment(Entry<Equipment> entry)
+        public void AddEquipment(Equipment newEquipment)
         {
-            foreach (Entry<Equipment> includedEntry in _inventory)
+            if (HasEquipment(newEquipment))
             {
-                if (includedEntry.Item.Id == entry.Item.Id)
-                {
-                    return;
-                }
+                return;
             }
 
-            _inventory.Add(entry);
+            _inventory.Add(GetEntry(newEquipment, 0));
+        }
+
+        public void AddEquipment(IList<Equipment> newEquipment)
+        {
+            foreach (var equipment in newEquipment)
+                AddEquipment(equipment);
+        }
+
+        public void AddEntry(Entry<Equipment> newEntry)
+        {
+            if (HasEquipment(newEntry.Item))
+            {
+                return;
+            }
+
+            _inventory.Add(newEntry);
+        }
+
+        public void IncreaseEquipmentQuantity(Entry<Equipment> deliveredEquipment)
+        {
+            var entryToUpdate = Inventory.FirstOrDefault(e => e.Item.Id == deliveredEquipment.Item.Id);
+            if (entryToUpdate != null)
+                entryToUpdate.Quantity += deliveredEquipment.Quantity;
         }
 
         public bool ContainsEquipment(Equipment equipment)
         {
-            foreach (Entry<Equipment> equipmentEntry in _inventory)
-            {
-                if (equipmentEntry.Item.Name.Equals(equipment.Name))
-                    return true;
-            }
+            return _inventory.Any(equipmentEntry => equipmentEntry.Item.Id == equipment.Id);
+        }
 
-            return false;
+        public bool IsLowOnEquipment()
+        {
+            return _inventory.Any(equipmentEntry => equipmentEntry.Quantity < 5);
+        }
+
+        public IList<Equipment> GetMissingEquipment(IList<Equipment> requiredEquipment)
+        {
+            return requiredEquipment.Where(equipment => _inventory.All(equipmentEntry => equipmentEntry.Item.Id != equipment.Id))
+                                    .ToList();
+        }
+
+        public bool HasEquipment(Equipment newEquipment)
+        {
+            return _inventory.Any(includedEntry => includedEntry.Item.Id == newEquipment.Id);
+        }
+
+        private Entry<Equipment> GetEntry(Equipment newEquipment, int quantity)
+        {
+            return new Entry<Equipment>
+            {
+                Item = newEquipment,
+                Quantity = quantity
+            };
         }
 
         public override string ToString()
