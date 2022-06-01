@@ -35,7 +35,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IDoctorMarkService)).To(typeof(DoctorMarkService));
             Bind(typeof(IDialogService)).To(typeof(DialogService));
 
-            Bind<DatabaseContext>().To<DatabaseContext>().InTransientScope();
+            Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope();
 
             Bind<LoginViewModel>().To<LoginViewModel>();
         }
