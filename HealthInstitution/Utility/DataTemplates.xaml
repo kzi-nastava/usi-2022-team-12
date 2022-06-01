@@ -71,6 +71,10 @@
     <DataTemplate DataType="{x:Type vm:PatientSettingsViewModel}">
         <v:PatientSettingsView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorSurveyViewModel}">
+        <v:DoctorSurveyView/>
+    </DataTemplate>
     <!-- Patient -->
 
     <!-- Secretary -->

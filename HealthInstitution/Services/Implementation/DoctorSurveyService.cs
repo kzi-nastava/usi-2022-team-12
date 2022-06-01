@@ -18,7 +18,7 @@ namespace HealthInstitution.Services.Implementation
 
         public double CalculateAvgMark(Doctor doctor)
         {
-            var markSum = (_entities.Where(markObj => markObj.Doctor == doctor).Select(markObj=>markObj.WouldRecommend)).ToList().DefaultIfEmpty(0).Average()
+            var markSum = (_entities.Where(markObj => markObj.Doctor == doctor).Select(markObj=>markObj.Recommendation)).ToList().DefaultIfEmpty(0).Average()
                 + (_entities.Where(markObj => markObj.Doctor == doctor).Select(markObj => markObj.ServiceQuality)).ToList().DefaultIfEmpty(0).Average();
             if (markSum > 0) {
                 markSum = markSum / 2;

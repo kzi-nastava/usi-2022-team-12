@@ -64,6 +64,12 @@ namespace HealthInstitution.ViewModel
             {
                 PatientMedicalRecordViewModel Pmrvm = ServiceLocator.Get<PatientMedicalRecordViewModel>();
                 SwitchCurrentViewModel(Pmrvm);
+            });           
+            
+            EventBus.RegisterHandler("OpenDoctorSurvey", () =>
+            {
+                DoctorSurveyViewModel Dsvm = ServiceLocator.Get<DoctorSurveyViewModel>();
+                SwitchCurrentViewModel(Dsvm);
             });
 
             EventBus.RegisterHandler("DoctorSearch", () =>

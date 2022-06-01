@@ -16,11 +16,11 @@ namespace HealthInstitution.Model
         private int _serviceQuality;
         public int ServiceQuality { get => _serviceQuality; set => OnPropertyChanged(ref _serviceQuality, value); }
 
-        private int _wouldRecommend;
-        public int WouldRecommend { get => _wouldRecommend; set => OnPropertyChanged(ref _wouldRecommend, value); }
+        private int _recommendation;
+        public int Recommendation { get => _recommendation; set => OnPropertyChanged(ref _recommendation, value); }
 
-        private string _comment;
-        public string Comment { get => _comment; set => OnPropertyChanged(ref _comment, value); }
+        private string? _comment;
+        public string? Comment { get => _comment; set => OnPropertyChanged(ref _comment, value); }
 
         #endregion
 
