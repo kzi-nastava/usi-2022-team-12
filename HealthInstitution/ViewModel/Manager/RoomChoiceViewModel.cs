@@ -68,6 +68,7 @@ namespace HealthInstitution.ViewModel
             
             roomService = roomService;
             Rooms = roomService.ReadAll().ToList();
+            Rooms = Rooms.OrderBy(x => x.Name).ToList();
             SelectedRoom1 = Rooms[0];
             SelectedRoom2 = Rooms[1];
             ArrangeDateTime = DateTime.Now;

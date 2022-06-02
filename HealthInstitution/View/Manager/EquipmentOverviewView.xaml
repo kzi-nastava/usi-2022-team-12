@@ -17,27 +17,29 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Equipment overview" FontSize="20" FontWeight="Bold" Margin="0 0 0 15"/>
-        <StackPanel Grid.Row="1" Margin="0,10,0,0" Orientation="Horizontal">
-            <TextBlock FontSize="18" Text="🔍" VerticalAlignment="Center"/>
-            <TextBox FontSize="18" Margin="10, 0, 50, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search text" Text="{Binding SearchBox}"/>
-        </StackPanel>
-        <TextBlock Grid.Row="2" Text="Filters:" FontSize="20" Margin="0,10,0,0" VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <StackPanel Orientation="Vertical" Margin="0, 0, 20, 0">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock FontSize="18" Padding="0, 10, 0, 0" Text="🔍" VerticalAlignment="Center"/>
+            <TextBox FontSize="18" Margin="10, -10, 10, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search text" Text="{Binding SearchBox}"/>
+            <Button Margin="10, 5, 0, 0" FontSize="18" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100" Command="{Binding SearchEquipmentCommand}"/>
+            <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0">
+                <TextBlock Text="Filters:" FontSize="20" Margin="0,-24,0,0" VerticalAlignment="Center"/>
                 <CheckBox Padding="5, 5"  Width="120" Name="cbRT" Content="Room type" FontSize="18" IsChecked="{Binding IsRoomSelected}"></CheckBox>
                 <ComboBox Margin="0,0,0,0" SelectedItem="{Binding SelectedRoomType}" ItemsSource="{Binding RoomTypes}" HorizontalAlignment="Left" Width="120"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="0, 0, 20, 0">
+            <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0">
                 <CheckBox Padding="5, 5"  Width="120" Name="cbQ" Content="Quantity" FontSize="18" IsChecked="{Binding IsQuantitySelected}"></CheckBox>
                 <ComboBox Margin="0,0,0,0" SelectedItem="{Binding SelectedQuantity}" ItemsSource="{Binding QuantityTypes}" HorizontalAlignment="Left" Width="120"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="0, 0, 20, 0">
+            <StackPanel Orientation="Vertical" Margin="20, 0, 0, 0">
                 <CheckBox Padding="5, 5"   Name="cbET" Content="Equipment type" FontSize="18" IsChecked="{Binding IsEquipmentSelected}"></CheckBox>
                 <ComboBox Margin="0,0,0,0" SelectedItem="{Binding SelectedEquipmentType}" ItemsSource="{Binding EquipmentTypes}" HorizontalAlignment="Left" Width="150"/>
             </StackPanel>
-            <Button Margin="10, 0" FontSize="18" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100" Command="{Binding SearchEquipmentCommand}"/>
         </StackPanel>
-        <ListView Grid.Row="4" Margin="0 10 0 0" MaxHeight="290" Height="300" ItemsSource="{Binding TableModels}">
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            
+            
+        </StackPanel>
+        <ListView Grid.Row="4" Margin="0 10 0 0" MaxHeight="500" Height="500" ItemsSource="{Binding TableModels}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item" Width="auto">
