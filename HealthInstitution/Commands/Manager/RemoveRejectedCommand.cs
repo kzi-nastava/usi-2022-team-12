@@ -1,4 +1,6 @@
-﻿using HealthInstitution.Utility;
+﻿using HealthInstitution.Model;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -6,14 +8,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HealthInstitution.Commands
 {
-    public class ViewRoomEquipmentCommand : CommandBase
+    public class RemoveRejectedCommand : CommandBase
     {
-        private readonly RoomsCRUDViewModel? _viewModel;
+        private readonly MedicineOverviewViewModel? _viewModel;
 
-        public ViewRoomEquipmentCommand(RoomsCRUDViewModel viewModel)
+        public RemoveRejectedCommand(MedicineOverviewViewModel viewModel)
         {
             _viewModel = viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -21,7 +24,7 @@ namespace HealthInstitution.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.SelectedRoom))
+            if (e.PropertyName == nameof(_viewModel.SelectedRejectedMedicine))
             {
                 OnCanExecuteChange();
             }
@@ -29,12 +32,14 @@ namespace HealthInstitution.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _viewModel.SelectedRoom != null;
+            return _viewModel.SelectedRejectedMedicine != null;
         }
 
         public override void Execute(object? parameter)
         {
-            EventBus.FireEvent("RoomEquipment");
+            _viewModel.MedicineReviewService.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
+            EventBus.FireEvent("MedicineOverview");
+
         }
     }
 }

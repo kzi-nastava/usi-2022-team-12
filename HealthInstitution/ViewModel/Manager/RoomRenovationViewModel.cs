@@ -160,9 +160,12 @@ namespace HealthInstitution.ViewModel
             appointmentService = appointmentService;
             roomRenovationService = roomRenovationService;
             Rooms = roomService.ReadAll().ToList();
+            Rooms = Rooms.OrderBy(x => x.Name).ToList();
             Rooms1 = roomService.ReadAll().ToList();
+            Rooms1 = Rooms1.OrderBy(x => x.Name).ToList();
             Rooms2 = roomService.ReadAll().ToList();
-            
+            Rooms2 = Rooms2.OrderBy(x => x.Name).ToList();
+
             SelectedRoom = null;
             SelectedRoomMerge1 = null;
             SelectedRoomMerge2 = null;

@@ -12,20 +12,25 @@ namespace HealthInstitution.ViewModel
 {
     public class ManagerHomeViewModel : NavigableViewModel
     {
-        public ICommand LogOutCommand { get; set; }
-
-        public ICommand? RoomsOverviewCommand { get; set; }
-
-        public ICommand? EquipmentOverviewCommand { get; set; }
-
-        public ICommand? ArrangeEquipmentCommand { get; set; }
-
-        public ICommand? RoomRenovationCommand { get; set; }
-
+        #region Properties
         public string ManagerName
         {
             get => GlobalStore.ReadObject<Manager>("LoggedUser").FirstName;
         }
+        #endregion
+
+        #region Commands
+
+        public ICommand LogOutCommand { get; set; }
+        public ICommand? RoomsOverviewCommand { get; set; }
+        public ICommand? EquipmentOverviewCommand { get; set; }
+        public ICommand? ArrangeEquipmentCommand { get; set; }
+        public ICommand? RoomRenovationCommand { get; set; }
+        public ICommand? MedicineOverviewCommand { get; set; }
+        public ICommand? IngredientOverviewCommand { get; set; }
+        
+        #endregion
+        
 
         public ManagerHomeViewModel ()
         {
@@ -33,6 +38,8 @@ namespace HealthInstitution.ViewModel
             EquipmentOverviewCommand = new EquipmentOverviewCommand();
             ArrangeEquipmentCommand = new ArrangeEquipmentCommand();
             RoomRenovationCommand = new RoomRenovationCommand();
+            MedicineOverviewCommand = new MedicineOverviewCommand();
+            IngredientOverviewCommand = new IngredientOverviewCommand();
             LogOutCommand = new LogOutCommand ();
             SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
             RegisterHandler();
@@ -87,7 +94,20 @@ namespace HealthInstitution.ViewModel
             {
                 RoomRenovationViewModel Rrvm = ServiceLocator.Get<RoomRenovationViewModel>();
                 SwitchCurrentViewModel(Rrvm);
-            });    
+            });
+
+            EventBus.RegisterHandler("MedicineOverview", () =>
+            {
+                MedicineOverviewViewModel Movm = ServiceLocator.Get<MedicineOverviewViewModel>();
+                SwitchCurrentViewModel(Movm);
+            });
+
+            EventBus.RegisterHandler("IngredientOverview", () =>
+            {
+                IngredientOverviewViewModel Iovm = ServiceLocator.Get<IngredientOverviewViewModel>();
+                SwitchCurrentViewModel(Iovm);
+            });
+
         }
     }
 }

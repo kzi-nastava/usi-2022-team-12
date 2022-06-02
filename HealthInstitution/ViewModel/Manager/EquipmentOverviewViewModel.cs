@@ -245,10 +245,10 @@ namespace HealthInstitution.ViewModel
 
             SelectedRoomType = RoomType.ExaminationRoom;
             RoomTypes = new List<RoomType>();
-            RoomTypes.Add(RoomType.ExaminationRoom);
-            RoomTypes.Add(RoomType.OperationRoom);
-            RoomTypes.Add(RoomType.RestingRoom);
-            RoomTypes.Add(RoomType.Storage);
+            foreach (var type in Enum.GetValues(typeof(RoomType)))
+            {
+                RoomTypes.Add((RoomType)type);
+            }
 
             SelectedQuantity = "10+";
             QuantityTypes = new List<string>();
@@ -258,10 +258,10 @@ namespace HealthInstitution.ViewModel
 
             SelectedEquipmentType = EquipmentType.OperationEquipment;
             EquipmentTypes = new List<EquipmentType>();
-            EquipmentTypes.Add(EquipmentType.OperationEquipment);
-            EquipmentTypes.Add(EquipmentType.ExaminationEquipment);
-            EquipmentTypes.Add(EquipmentType.HallwayEquipment);
-            EquipmentTypes.Add(EquipmentType.Furniture);
+            foreach(var type in Enum.GetValues(typeof(EquipmentType)))
+            {
+                EquipmentTypes.Add((EquipmentType)type);
+            }
 
             _tableModels = new ObservableCollection<TableModel>();
             roomService = roomService;

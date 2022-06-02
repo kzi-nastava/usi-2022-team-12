@@ -44,6 +44,7 @@ namespace HealthInstitution.Commands
                 !_viewModel.SelectedRoomMerge1.Equals(_viewModel.SelectedRoomMerge2) &&
                 !(_viewModel.StartDate < DateTime.Now || _viewModel.StartDate == DateTime.Now) &&
                 !(_viewModel.EndDate < _viewModel.StartDate || _viewModel.EndDate == _viewModel.StartDate) &&
+                (_viewModel.SelectedRoomMerge1.RoomType == _viewModel.SelectedRoomMerge2.RoomType) &&
                 base.CanExecute(parameter);
         }
 
@@ -56,10 +57,28 @@ namespace HealthInstitution.Commands
             var apts2 = _appointmentService.ReadRoomAppointments(smallRoom2);
             var renRooms = _roomRenovationService.ReadAll();
 
-            if (apts1.Count() != 0 || apts2.Count() != 0)
+            if (apts1.Count() != 0)
             {
-                MessageBox.Show("Chosen room has appointments!");
-                return;
+                foreach (var apt in apts1)
+                {
+                    if (apt.StartDate >= _viewModel.StartDate)
+                    {
+                        MessageBox.Show("Chosen room has appointments!");
+                        return;
+                    }
+                }
+            }
+
+            if (apts2.Count() != 0)
+            {
+                foreach (var apt in apts2)
+                {
+                    if (apt.StartDate >= _viewModel.StartDate)
+                    {
+                        MessageBox.Show("Chosen room has appointments!");
+                        return;
+                    }
+                }
             }
 
             foreach (var renRoom in renRooms)

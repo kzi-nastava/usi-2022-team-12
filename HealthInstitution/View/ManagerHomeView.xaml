@@ -56,6 +56,18 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding RoomRenovationCommand}"/>
+                    <RadioButton Content="Medicine overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding MedicineOverviewCommand}"/>
+                    <RadioButton Content="Ingredient overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding IngredientOverviewCommand}"/>
 
                 </StackPanel>
 

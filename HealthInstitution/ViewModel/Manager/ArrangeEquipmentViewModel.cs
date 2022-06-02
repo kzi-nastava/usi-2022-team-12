@@ -43,7 +43,6 @@ namespace HealthInstitution.ViewModel
 
         public ICommand? FirstToSecondCommand { get; }
         public ICommand? SecondToFirstCommand { get; }
-
         public ICommand? ConfirmArrangementCommand { get; }
 
 
