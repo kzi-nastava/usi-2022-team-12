@@ -108,10 +108,17 @@ namespace HealthInstitution.Persistence
             var me1 = new Medicine();
             me1.Name = "Probiotic";
             me1.Description = "For stomach.";
+            me1.Status = Status.Approved;
             me1.AddIngredient(i1);
 
-            context.Medicines.Add(me1);
+            var me2 = new Medicine();
+            me2.Name = "Paracetamol";
+            me2.Description = "Yes";
+            me2.Status = Status.Pending;
+            me2.AddIngredient(i1);
 
+            context.Medicines.Add(me1);
+            context.Medicines.Add(me2);
             // Room
             var r1 = new Room(RoomType.Storage, "S");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");

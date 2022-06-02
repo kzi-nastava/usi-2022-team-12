@@ -21,7 +21,7 @@ namespace HealthInstitution.Persistence
         // Medicine
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
-
+        public DbSet<MedicineReview> MedicineReviews { get; set; }
         // Room related things
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Equipment> Equipments { get; set; }

@@ -13,15 +13,21 @@ namespace HealthInstitution.Services.Implementation
     {
         public MedicineService(DatabaseContext context) : base(context) { }
 
-        public IEnumerable<Medicine> FilterMedicineBySearchText(string searchText)
+        public IEnumerable<Medicine> FilterMedicineBySearchText(string searchText, Status medicineStatus)
         {
             searchText = searchText.ToLower();
-            return _entities.Where(p => p.Name.ToLower().Contains(searchText) || p.Description.ToLower().Contains(searchText));
+            return _entities.Where(p => p.Name.ToLower().Contains(searchText) || p.Description.ToLower().Contains(searchText))
+                .Where(p => p.Status == medicineStatus);
         }
 
         public IEnumerable<Medicine> GetApprovedMedicine()
         {
             return _entities.Where(m => m.Status == Status.Approved);
+        }
+
+        public IEnumerable<Medicine> GetPendingMedicine()
+        {
+            return _entities.Where(m => m.Status == Status.Pending);
         }
     }
 }
