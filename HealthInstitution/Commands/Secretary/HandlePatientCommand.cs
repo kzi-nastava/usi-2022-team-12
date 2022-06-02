@@ -1,12 +1,14 @@
-﻿using HealthInstitution.Dialogs.Custom;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.ViewModel.secretary;
 
-namespace HealthInstitution.Commands.Secretary
+namespace HealthInstitution.Commands.secretary
 {
     public class HandlePatientCommand : CommandBase
     {

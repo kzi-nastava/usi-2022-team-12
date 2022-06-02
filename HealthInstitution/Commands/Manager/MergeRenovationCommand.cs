@@ -1,16 +1,13 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Model.room;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class MergeRenovationCommand : CommandBase
     {

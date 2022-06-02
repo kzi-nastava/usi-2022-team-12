@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace HealthInstitution.Utility
+namespace HealthInstitution.Model
 {
     public class ObservableEntity : INotifyPropertyChanged
     {

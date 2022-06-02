@@ -8,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Commands.doctor.Navigation;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.ViewModel
 {

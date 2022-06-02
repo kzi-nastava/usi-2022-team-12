@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Utility;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class CreateRoomCommand : CommandBase
     {

@@ -1,6 +1,7 @@
 ﻿using System;
+using HealthInstitution.Model.user;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.patient
 {
     public class Activity : BaseObservableEntity
     {

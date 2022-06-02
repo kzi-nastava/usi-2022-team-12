@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System;
 using System.Collections.Generic;
+using HealthInstitution.Model.doctor;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.Dialogs.Custom

@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Utility;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor.Navigation
 {
     public class NavigateMedicineCommand : CommandBase
     {

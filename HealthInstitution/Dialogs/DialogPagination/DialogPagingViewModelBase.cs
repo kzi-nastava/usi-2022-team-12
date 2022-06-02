@@ -4,6 +4,7 @@ using HealthInstitution.Pagination;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System.Windows.Input;
+using HealthInstitution.Model;
 
 namespace HealthInstitution.Dialogs.DialogPagination
 {

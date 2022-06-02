@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.medicine;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.doctor
 {
     public class PrescribedMedicine : BaseObservableEntity
     {
         #region Attributes
 
         private Medicine _medicine;
-        public virtual Medicine Medicine { get => _medicine; set => OnPropertyChanged(ref _medicine, value);}
+        public virtual Medicine Medicine { get => _medicine; set => OnPropertyChanged(ref _medicine, value); }
 
         private MedicalRecord _medicalRecord;
         public virtual MedicalRecord MedicalRecord { get => _medicalRecord; set => OnPropertyChanged(ref _medicalRecord, value); }

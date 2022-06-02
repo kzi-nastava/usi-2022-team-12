@@ -1,14 +1,14 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.patient;
+using HealthInstitution.Commands.patient.Navigation;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.patient
 {
     public class RecommendAppointmentCreationViewModel : ViewModelBase
     {

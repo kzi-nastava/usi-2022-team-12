@@ -1,6 +1,8 @@
 ﻿using System;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.patient
 {
     public class AppointmentUpdateRequest : AppointmentRequest
     {

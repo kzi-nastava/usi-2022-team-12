@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
-using Castle.Core.Internal;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.room
 {
     public class Room : BaseObservableEntity
     {

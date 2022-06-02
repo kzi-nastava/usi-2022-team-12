@@ -1,4 +1,6 @@
-﻿namespace HealthInstitution.Dialogs.Service
+﻿using HealthInstitution.Validation;
+
+namespace HealthInstitution.Dialogs.Service
 {
     public class DialogReturnViewModelBase<T, R> : ValidationModel<T>
     {

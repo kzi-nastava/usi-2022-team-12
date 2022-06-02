@@ -5,6 +5,11 @@ using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Services.Implementation
 {

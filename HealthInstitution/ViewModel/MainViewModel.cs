@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
+using HealthInstitution.Model.room;
 
 namespace HealthInstitution.ViewModel
 {

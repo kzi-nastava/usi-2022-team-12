@@ -1,5 +1,7 @@
 ﻿using HealthInstitution.Model;
 using System.Collections.Generic;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Services.Intefaces
 {

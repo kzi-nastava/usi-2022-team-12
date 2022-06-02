@@ -1,7 +1,8 @@
-﻿using HealthInstitution.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.user;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.appointment
 {
     /// <summary>
     /// Proveri dal ide virtual kod IList<string>

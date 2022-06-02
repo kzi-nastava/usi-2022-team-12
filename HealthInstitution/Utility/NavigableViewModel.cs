@@ -1,4 +1,6 @@
-﻿namespace HealthInstitution.Utility
+﻿using HealthInstitution.Model;
+
+namespace HealthInstitution.Utility
 {
     public class NavigableViewModel : ObservableEntity
     {

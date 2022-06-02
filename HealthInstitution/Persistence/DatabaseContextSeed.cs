@@ -1,5 +1,10 @@
 ﻿using HealthInstitution.Model;
 using System;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Persistence
 {

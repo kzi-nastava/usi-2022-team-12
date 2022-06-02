@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Commands.Secretary;
-using HealthInstitution.Dialogs.DialogPagination;
+﻿using HealthInstitution.Dialogs.DialogPagination;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Pagination;
@@ -9,6 +8,8 @@ using HealthInstitution.Validation;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Commands.secretary;
+using HealthInstitution.Model.appointment;
 
 namespace HealthInstitution.Dialogs.Custom
 {

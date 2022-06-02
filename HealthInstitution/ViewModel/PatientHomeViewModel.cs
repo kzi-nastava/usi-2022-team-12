@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Commands.patient.Navigation;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.patient;
 
 namespace HealthInstitution.ViewModel
 {
@@ -66,7 +69,7 @@ namespace HealthInstitution.ViewModel
             {
                 PatientMedicalRecordViewModel Pmrvm = ServiceLocator.Get<PatientMedicalRecordViewModel>();
                 SwitchCurrentViewModel(Pmrvm);
-            });          
+            });
 
             EventBus.RegisterHandler("DoctorSearch", () =>
             {

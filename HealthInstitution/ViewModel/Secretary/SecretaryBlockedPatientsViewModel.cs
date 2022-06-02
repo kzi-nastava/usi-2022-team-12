@@ -1,11 +1,12 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Model;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.secretary
 {
     public class SecretaryBlockedPatientsViewModel : ObservableEntity
     {

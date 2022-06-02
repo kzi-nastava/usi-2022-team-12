@@ -1,5 +1,6 @@
 ﻿using HealthInstitution.Model;
 using System.Collections.Generic;
+using HealthInstitution.Model.patient;
 
 namespace HealthInstitution.Services.Intefaces
 {

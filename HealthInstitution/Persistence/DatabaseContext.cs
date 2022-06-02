@@ -2,6 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Windows;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.survey;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Persistence
 {
