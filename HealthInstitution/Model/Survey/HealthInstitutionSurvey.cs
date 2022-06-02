@@ -6,15 +6,21 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Model
 {
-    public class DoctorSurvey : BaseObservableEntity
+    public class HealthInstitutionSurvey : BaseObservableEntity
     {
         #region Attributes
 
-        private Doctor _doctor;
-        public virtual Doctor Doctor { get => _doctor; set => OnPropertyChanged(ref _doctor, value); }
+        private Patient _patient;
+        public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }
+
+        private int _cleanliness;
+        public int Cleanliness { get => _cleanliness; set => OnPropertyChanged(ref _cleanliness, value); }
 
         private int _serviceQuality;
         public int ServiceQuality { get => _serviceQuality; set => OnPropertyChanged(ref _serviceQuality, value); }
+
+        private int _serviceSatisfaction;
+        public int ServiceSatisfaction { get => _serviceSatisfaction; set => OnPropertyChanged(ref _serviceSatisfaction, value); }
 
         private int _recommendation;
         public int Recommendation { get => _recommendation; set => OnPropertyChanged(ref _recommendation, value); }
@@ -26,12 +32,11 @@ namespace HealthInstitution.Model
 
         #region Constructor
 
-        public DoctorSurvey()
+        public HealthInstitutionSurvey()
         {
 
         }
 
         #endregion
-
     }
 }

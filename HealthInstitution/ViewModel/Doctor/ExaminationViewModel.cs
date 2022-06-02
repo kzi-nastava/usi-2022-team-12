@@ -63,7 +63,6 @@ namespace HealthInstitution.ViewModel
         public IMedicalRecordService MedicalRecordService => _medicalRecordService;
         public IAppointmentService AppointmentService => _appointmentService;
         public IReferralService ReferralService => _referralService;
-        public IPrescriptionService PrescriptionService => _prescriptionService;
         public IPrescribedMedicineService PrescribedMedicineService => _prescribedMedicineService;
         public IDialogService DialogService => _dialogService;
         public MedicalRecord MedicalRecord => _medicalRecord;
@@ -209,7 +208,6 @@ namespace HealthInstitution.ViewModel
             _referralService = referralService;
             _allergenService = allergenService;
             _appointmentService = appointmentService;
-            _prescriptionService = prescriptionService;
             _prescribedMedicineService = prescribedMedicineService;
             _appointment = appointment;
             _patient = _appointment.Patient;

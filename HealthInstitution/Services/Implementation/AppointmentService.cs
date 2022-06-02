@@ -188,7 +188,19 @@ namespace HealthInstitution.Services.Implementation
                     if (freeRoom == null)
                         continue;
 
-                    return new Appointment(doctor, patient, appointmentStart, appointmentEnd, freeRoom, AppointmentType.Regular, null, false);
+                    return new Appointment
+                    {
+                        Doctor = doctor,
+                        Patient = patient,
+                        StartDate = appointmentStart,
+                        EndDate = appointmentEnd,
+                        Room = freeRoom,
+                        AppointmentType = AppointmentType.Regular,
+                        Anamnesis = "",
+                        IsDone = false,
+                        IsRated = false,
+                        PrescribedMedicines = new List<PrescribedMedicine>()
+                    };
                 }
             }
             return null;
@@ -253,7 +265,19 @@ namespace HealthInstitution.Services.Implementation
                     if (freeRoom == null)
                         continue;
 
-                    freeAppointments.Add(new Appointment(doctor, patient, appointmentStart, appointmentEnd, freeRoom, AppointmentType.Regular, null, false));
+                    freeAppointments.Add(new Appointment
+                    {
+                        Doctor = doctor,
+                        Patient = patient,
+                        StartDate = appointmentStart,
+                        EndDate = appointmentEnd,
+                        Room = freeRoom,
+                        AppointmentType = AppointmentType.Regular,
+                        Anamnesis = "",
+                        IsDone = false,
+                        IsRated = false,
+                        PrescribedMedicines = new List<PrescribedMedicine>()
+                    });
                     potentialTime = potentialTime.AddMinutes(15);
 
                     if (freeAppointments.Count >= expectedNumber)
@@ -316,7 +340,18 @@ namespace HealthInstitution.Services.Implementation
                 throw new RoomBusyException();
             }
 
-            Appointment app = new Appointment(selectedDoctor, selectedPatient, startDateTime, endDateTime, emptyRoom, appointmentType, null, false);
+            Appointment app = new Appointment {
+                Doctor = selectedDoctor,
+                Patient = selectedPatient,
+                StartDate = startDateTime,
+                EndDate = endDateTime,
+                Room = emptyRoom,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "",
+                IsDone = false,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
             Create(app);
         }
 
