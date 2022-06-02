@@ -8,11 +8,8 @@ namespace HealthInstitution.Services.Implementation
 {
     public class EquipmentService : CrudService<Equipment>, IEquipmentService
     {
-        private readonly IRoomService _roomService;
-
-        public EquipmentService(DatabaseContext context, IRoomService roomService) : base(context)
+        public EquipmentService(DatabaseContext context) : base(context)
         {
-            _roomService = roomService;
         }
 
         public IEnumerable<Equipment> GetEquipment(EquipmentType requestType)

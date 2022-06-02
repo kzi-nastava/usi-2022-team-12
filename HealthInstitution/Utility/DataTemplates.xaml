@@ -98,6 +98,10 @@
         <v:SecretaryDynamicEquipmentPurchaseRequestView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:SecretaryDynamicEquipmentArrangementViewModel}">
+        <v:SecretaryDynamicEquipmentArrangement/>
+    </DataTemplate>
+
     <!--Dialog data templates-->
 
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
@@ -126,6 +130,10 @@
 
     <DataTemplate DataType="{x:Type dc:QuantitySelectViewModel}">
         <dc:QuantitySelectView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:EquipmentTransferViewModel}">
+        <dc:EquipmentTransferView/>
     </DataTemplate>
 
     <!--Dialog data templates-->

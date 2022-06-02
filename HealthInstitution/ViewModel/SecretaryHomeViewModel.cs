@@ -24,6 +24,8 @@ namespace HealthInstitution.ViewModel
 
         public ICommand ShowDynamicEquipment { get; private set; }
 
+        public ICommand ShowDynamicEquipmentArrangement { get; private set; }
+
         #endregion
 
         public SecretaryHomeViewModel()
@@ -61,6 +63,11 @@ namespace HealthInstitution.ViewModel
             ShowDynamicEquipment = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDynamicEquipmentPurchaseRequestViewModel>());
+            });
+
+            ShowDynamicEquipmentArrangement = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDynamicEquipmentArrangementViewModel>());
             });
 
             RegisterHandler();

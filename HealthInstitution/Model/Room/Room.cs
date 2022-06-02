@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using Castle.Core.Internal;
 
 namespace HealthInstitution.Model
 {
@@ -13,8 +14,8 @@ namespace HealthInstitution.Model
         private RoomType _roomType;
         public RoomType RoomType { get => _roomType; set => OnPropertyChanged(ref _roomType, value); }
 
-        private readonly IList<Entry<Equipment>> _inventory;
-        public virtual IList<Entry<Equipment>> Inventory { get => _inventory; }
+        private IList<Entry<Equipment>> _inventory;
+        public virtual IList<Entry<Equipment>> Inventory { get => _inventory; set => OnPropertyChanged(ref _inventory, value); }
 
         #endregion
 
@@ -38,7 +39,7 @@ namespace HealthInstitution.Model
                 return;
             }
 
-            _inventory.Add(GetEntry(newEquipment, 0));
+            Inventory.Add(GetEntry(newEquipment, 0));
         }
 
         public void AddEquipment(IList<Equipment> newEquipment)
@@ -54,7 +55,12 @@ namespace HealthInstitution.Model
                 return;
             }
 
-            _inventory.Add(newEntry);
+            Inventory.Add(newEntry);
+        }
+
+        public void RefreshInventory()
+        {
+            Inventory = Inventory.Where(entry => entry.Quantity != 0).ToList();
         }
 
         public void IncreaseEquipmentQuantity(Entry<Equipment> deliveredEquipment)
@@ -66,12 +72,12 @@ namespace HealthInstitution.Model
 
         public bool ContainsEquipment(Equipment equipment)
         {
-            return _inventory.Any(equipmentEntry => equipmentEntry.Item.Id == equipment.Id);
+            return Inventory.Any(equipmentEntry => equipmentEntry.Item.Id == equipment.Id);
         }
 
         public bool IsLowOnEquipment()
         {
-            return _inventory.Any(equipmentEntry => equipmentEntry.Quantity < 5);
+            return Inventory.Any(equipmentEntry => equipmentEntry.Quantity < 5);
         }
 
         public IList<Equipment> GetMissingEquipment(IList<Equipment> requiredEquipment)
@@ -82,7 +88,7 @@ namespace HealthInstitution.Model
 
         public bool HasEquipment(Equipment newEquipment)
         {
-            return _inventory.Any(includedEntry => includedEntry.Item.Id == newEquipment.Id);
+            return Inventory.Any(includedEntry => includedEntry.Item.Id == newEquipment.Id);
         }
 
         private Entry<Equipment> GetEntry(Equipment newEquipment, int quantity)

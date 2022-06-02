@@ -134,7 +134,7 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entry6 = new Entry<Equipment> { Item = e6, Quantity = 10 };
             Entry<Equipment> entry7 = new Entry<Equipment> { Item = e7, Quantity = 20 };
             Entry<Equipment> entry8 = new Entry<Equipment> { Item = e8, Quantity = 3 };
-            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 0 };
+            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 5 };
             Entry<Equipment> entry10 = new Entry<Equipment> { Item = e13, Quantity = 10 };
 
 
