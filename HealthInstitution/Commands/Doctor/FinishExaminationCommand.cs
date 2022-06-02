@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
@@ -22,10 +23,19 @@ namespace HealthInstitution.Commands
         }
         public override void Execute(object? parameter)
         {
+            if((bool)!OpenDynamicEqupmentDialog())
+                return;
             UpdateMedicalRecord();
             UpdateAppointment();
             CreateReferrals();
             EventBus.FireEvent("DoctorSchedule");
+        }
+
+        private bool? OpenDynamicEqupmentDialog()
+        {
+            DynamicEquipmentUpdateViewModel dynamicEquipmentUpdateViewModel = new DynamicEquipmentUpdateViewModel(_viewModel.Appointment.Room, _viewModel.EntryService);
+            bool? result = _viewModel.DialogService.OpenDialog(dynamicEquipmentUpdateViewModel);
+            return result;
         }
         private void UpdateAppointment()
         {
@@ -34,19 +44,16 @@ namespace HealthInstitution.Commands
             appointment.IsDone = true;
 
             List<PrescribedMedicine> prescriptions = GlobalStore.ReadObject<List<PrescribedMedicine>>("Prescription");
-            Prescription prescription = new Prescription();
+            List<PrescribedMedicine> prescribedMedicines = new List<PrescribedMedicine>();
             foreach (PrescribedMedicine medicine in prescriptions)
             {
                 PrescribedMedicine prescribedMedicine = _viewModel.PrescribedMedicineService.Create(medicine);
-                prescription.PrescribedMedicines.Add(prescribedMedicine);
+                _viewModel.MedicalRecord.PrescribedMedicines.Add(prescribedMedicine);
+                prescribedMedicines.Add(prescribedMedicine);
             }
-            if (prescription.PrescribedMedicines.Count > 0)
-            {
-                _viewModel.PrescriptionService.Create(prescription);
-                appointment.Prescription = prescription;
-                _viewModel.MedicalRecord.Prescriptions.Add(prescription);
-            }
+            appointment.PrescribedMedicines = prescribedMedicines;
             _viewModel.AppointmentService.Update(appointment);
+            _viewModel.MedicalRecordService.Update(_viewModel.MedicalRecord);
         }
         private void UpdateMedicalRecord()
         {

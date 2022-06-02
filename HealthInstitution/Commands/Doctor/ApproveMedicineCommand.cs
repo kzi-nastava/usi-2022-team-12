@@ -36,6 +36,8 @@ namespace HealthInstitution.Commands
             Medicine medicine = _viewModel.SelectedMedicine;
             medicine.Status = Status.Approved;
             _viewModel.MedicineService.Update(medicine);
+            _viewModel.SelectedMedicine = null;
+            _viewModel.Ingredients = null;
             _viewModel.Medicines = _viewModel.MedicineService.GetPendingMedicine();
         }
 

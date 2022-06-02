@@ -69,7 +69,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Ingridients" FontSize="16" Margin="0 0 0 10" Height="32"/>
-                <ListBox Grid.Row="1" BorderThickness="2" Height="220" BorderBrush="Black"/>
+                <ListBox Grid.Row="1" BorderThickness="2" Height="220" BorderBrush="Black" ItemsSource="{Binding Ingredients}" DisplayMemberPath="Name"/>
             </Grid>
 
         </Grid>
@@ -91,8 +91,7 @@
         </Grid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 30 0 0">
             <Button Content="Approve medicine" Padding="5" Command="{Binding ApproveMedicineCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            <Button Content="Reject medicine" Padding="5" Margin="20 0 0 0" Command="{Binding RejectMedicineCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            <Button Content="Mark for revision" Style="{StaticResource validatorStyle}" Padding="5" Margin="20 0 0 0" Command="{Binding MarkForRevisionCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Button Content="Reject medicine" Style="{StaticResource validatorStyle}" Padding="5" Margin="20 0 0 0" Command="{Binding RejectMedicineCommand}" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
 </UserControl>

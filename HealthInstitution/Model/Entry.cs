@@ -15,5 +15,19 @@
         public float Quantity { get => _quantity; set => OnPropertyChanged(ref _quantity, value); }
 
         #endregion
+
+        public Entry(Entry<T> other)
+        {
+            this._item = other._item;
+            this._quantity = other._quantity;
+            this.Id = other.Id;
+            this.CreatedAt = other.CreatedAt;
+            this.IsActive = other.IsActive;
+        }
+
+        public Entry()
+        {
+
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace HealthInstitution.Commands
             Doctor doctor = GlobalStore.ReadObject<Doctor>("LoggedUser");
             try
             {
-                _viewModel.AppointmentService.MakeAppointment(_viewModel.SelectedPatient, doctor, startDate, endDate);
+                _viewModel.AppointmentService.MakeAppointment(_viewModel.SelectedPatient, doctor, startDate, endDate, AppointmentType.Regular);
             }
             catch (DoctorBusyException)
             {
