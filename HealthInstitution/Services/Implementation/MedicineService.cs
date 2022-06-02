@@ -38,7 +38,7 @@ namespace HealthInstitution.Services.Implementation
 
         public bool MedicineExists(string name)
         {
-            return _entities.Where(m => m.Name.ToLower() == name.ToLower()).Count() != 0;
+            return _entities.Where(m => m.Name.ToLower() == name.ToLower() && m.Status == Status.Approved).Count() != 0;
         }
 
         public IEnumerable<Medicine> GetMedicineByName(string name)

@@ -74,7 +74,7 @@
                         <ListView Margin="0, 5" MaxHeight="200" Height="300" Width="270" ItemsSource="{Binding NewIngredients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedIngredientNew}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Ingredients" Width="auto" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
+                                    <GridViewColumn Header="Ingredients" Width="250" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Padding="0 0 20 0"/>
@@ -97,7 +97,7 @@
                 <ListView Margin="0, 5" MaxHeight="250" Height="250" Width="500" ItemsSource="{Binding AllIngredients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedIngredient}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="All ingredients" Width="200" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
+                            <GridViewColumn Header="All ingredients" Width="460" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Padding="0 0 20 0"/>

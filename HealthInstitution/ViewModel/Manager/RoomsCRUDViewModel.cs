@@ -60,6 +60,7 @@ namespace HealthInstitution.ViewModel
             DeleteRoomCommand = new DeleteRoomCommand(this, appointmentService, roomService);
             
             Rooms = roomService.ReadAll().ToList();
+            Rooms = Rooms.OrderBy(x => x.Name).ToList();
             
         }
     }
