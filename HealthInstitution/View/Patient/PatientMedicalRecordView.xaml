@@ -119,11 +119,10 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <StackPanel Grid.Column="1" Height="auto" Margin="30 40 10 0">
+            <StackPanel Grid.Column="1" Height="auto" Margin="30 15 10 0">
                 <TextBlock Text="Anamnesis details:" FontSize="16"  Margin="0 0 0 10"/>
-                <TextBox Padding="10" Height="220" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding SelectedAppointment.Anamnesis}" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True">
-                    
-                </TextBox>
+                <TextBox Padding="10" Height="200" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding SelectedAppointment.Anamnesis}" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True"/>
+                <Button Content="Rate Doctor" Command="{Binding OpenDoctorSurveyCommand}" Margin="0 15 0 0"/>
             </StackPanel>
         </Grid>
     </Grid>

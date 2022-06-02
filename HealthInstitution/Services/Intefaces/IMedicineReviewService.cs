@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Intefaces
 {
-    public interface IPrescriptionService : ICrudService<Prescription>
+    public interface IMedicineReviewService : ICrudService<MedicineReview>
     {
-
     }
 }

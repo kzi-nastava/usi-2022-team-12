@@ -12,21 +12,21 @@ using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
 {
-    public class PrescriptionViewModel : ViewModelBase
+    public class PrescriptionViewModel : ViewModelBase, ISearchMedicineViewModel
     {
         #region Atributes
         private IMedicineService _medicineService;
-        private IMedicalRecordService _medicalRecordService;
         private string _searchText;
         private string _instruction;
-        private string _usage;
+        private int _usageHourSpan;
+        private DateTime _usageStart;
+        private DateTime _usageEnd;
         private Medicine _selectedMedicine;
         private MedicalRecord _medicalRecord;
         #endregion
 
         #region Properties
         public IMedicineService MedicineService => _medicineService;
-        public IMedicalRecordService MedicalRecordService => _medicalRecordService;
         public MedicalRecord MedicalRecord => _medicalRecord;
         public Medicine SelectedMedicine
         {
@@ -56,13 +56,33 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public string Usage
+        public int UsageHourSpan
         {
-            get => _usage;
+            get => _usageHourSpan;
             set
             {
-                _usage = value;
-                OnPropertyChanged(nameof(Usage));
+                _usageHourSpan = value;
+                OnPropertyChanged(nameof(UsageHourSpan));
+            }
+        }
+
+        public  DateTime UsageStart
+        {
+            get => _usageStart;
+            set
+            {
+                _usageStart = value;
+                OnPropertyChanged(nameof(UsageStart));
+            }
+        }
+
+        public DateTime UsageEnd
+        {
+            get => _usageEnd;
+            set
+            {
+                _usageEnd = value;
+                OnPropertyChanged(nameof(UsageEnd));
             }
         }
         #endregion
@@ -72,7 +92,19 @@ namespace HealthInstitution.ViewModel
         public IEnumerable<PrescribedMedicine> PrescribedMedicines => _prescribedMedicines;
 
         private ObservableCollection<Medicine> _medicines;
-        public IEnumerable<Medicine> Medicines => _medicines;
+        public IEnumerable<Medicine> Medicines
+        {
+            get => _medicines;
+            set
+            {
+                _medicines = new ObservableCollection<Medicine>();
+                foreach (Medicine medicine in value)
+                {
+                    _medicines.Add(medicine);
+                }
+                OnPropertyChanged(nameof(Medicines));
+            }
+        }
 
         #endregion
 
@@ -86,6 +118,8 @@ namespace HealthInstitution.ViewModel
             _medicalRecord = medicalRecord;
             _medicineService = medicineService;
             _medicines = new ObservableCollection<Medicine>();
+            UsageStart = DateTime.Now;
+            UsageEnd = DateTime.Now;
             IEnumerable<Medicine> medicines = _medicineService.GetApprovedMedicine();
             foreach(Medicine medicine in medicines)
             {
@@ -99,28 +133,28 @@ namespace HealthInstitution.ViewModel
             }
 
             BackToExaminationCommand = new BackToExaminationCommandFromPrescription(this);
-            SearchMedicineCommand = new SearchMedicineCommand(this);
+            SearchMedicineCommand = new SearchMedicineCommand(this, _medicineService, Status.Approved);
             PrescribeMedicineCommand = new PrescribeMedicineCommand(this);
         }
 
-        public void UpdateData(string prefix)
-        {
-            _medicines = new ObservableCollection<Medicine>();
-            IEnumerable<Medicine> medicines;
-            if (string.IsNullOrEmpty(prefix))
-            {
-                medicines = _medicineService.GetApprovedMedicine();
-            }
-            else
-            {
-                medicines = _medicineService.FilterMedicineBySearchText(prefix);
-            }
-            foreach (Medicine medicine in medicines)
-            {
-                _medicines.Add(medicine);
-            }
-            OnPropertyChanged(nameof(Medicines));
-        }
+        //public void UpdateData(string prefix)
+        //{
+        //    _medicines = new ObservableCollection<Medicine>();
+        //    IEnumerable<Medicine> medicines;
+        //    if (string.IsNullOrEmpty(prefix))
+        //    {
+        //        medicines = _medicineService.GetApprovedMedicine();
+        //    }
+        //    else
+        //    {
+        //        medicines = _medicineService.FilterMedicineBySearchText(prefix);
+        //    }
+        //    foreach (Medicine medicine in medicines)
+        //    {
+        //        _medicines.Add(medicine);
+        //    }
+        //    OnPropertyChanged(nameof(Medicines));
+        //}
         public void addPrescribedMedicine(PrescribedMedicine prescribedMedicine)
         {
             _prescribedMedicines.Add(prescribedMedicine);

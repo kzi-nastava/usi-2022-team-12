@@ -9,12 +9,12 @@ namespace HealthInstitution.Persistence
         {
 
             //// Patients
-            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true };
-            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false };
-            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false };
-            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false };
-            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false };
-            var p6 = new Patient { FirstName = "Brusli", LastName = "Iljazovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "brusliiljazovic@example.com", Role = Role.Patient, IsBlocked = false };
+            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true, NotificationPreference = 20 };
+            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p6 = new Patient { FirstName = "Brusli", LastName = "Iljazovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "brusliiljazovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
 
             context.Patients.Add(p1);
             context.Patients.Add(p2);
@@ -108,10 +108,17 @@ namespace HealthInstitution.Persistence
             var me1 = new Medicine();
             me1.Name = "Probiotic";
             me1.Description = "For stomach.";
+            me1.Status = Status.Approved;
             me1.AddIngredient(i1);
 
-            context.Medicines.Add(me1);
+            var me2 = new Medicine();
+            me2.Name = "Paracetamol";
+            me2.Description = "Yes";
+            me2.Status = Status.Pending;
+            me2.AddIngredient(i1);
 
+            context.Medicines.Add(me1);
+            context.Medicines.Add(me2);
             // Room
             var r1 = new Room(RoomType.Storage, "S");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");

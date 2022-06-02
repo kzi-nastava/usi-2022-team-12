@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HealthInstitution.Model
 {
@@ -27,8 +28,11 @@ namespace HealthInstitution.Model
         private string? _anamnesis;
         public string? Anamnesis { get => _anamnesis; set => OnPropertyChanged(ref _anamnesis, value); }
 
-        private Prescription? _prescription;
-        public virtual Prescription? Prescription { get => _prescription; set => OnPropertyChanged(ref _prescription, value); }
+        private IList<PrescribedMedicine> _prescribedMedicines;
+        public virtual IList<PrescribedMedicine> PrescribedMedicines { get => _prescribedMedicines; set => OnPropertyChanged(ref _prescribedMedicines, value); }
+
+        private bool _isRated;
+        public bool IsRated { get => _isRated; set => OnPropertyChanged(ref _isRated, value); }
 
         private AppointmentType _appointmentType;
         public AppointmentType AppointmentType { get => _appointmentType; set => OnPropertyChanged(ref _appointmentType, value); }
@@ -42,7 +46,7 @@ namespace HealthInstitution.Model
 
         }
 
-        public Appointment(Doctor doctor, Patient patient, DateTime startDate, DateTime endDate, Room room, AppointmentType appointmentType, string anamnesis, bool isDone)
+        public Appointment(Doctor doctor, Patient patient, DateTime startDate, DateTime endDate, Room room, AppointmentType appointmentType, string? anamnesis, bool isDone)
         {
             _isDone = isDone;
             _doctor = doctor;

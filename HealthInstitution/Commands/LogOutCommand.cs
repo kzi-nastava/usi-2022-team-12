@@ -21,6 +21,7 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
+            NotificationsChecker.StopTimer();
             EventBus.FireEvent("BackToLogin");
         }
     }

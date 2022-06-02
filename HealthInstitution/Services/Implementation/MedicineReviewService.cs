@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Implementation
 {
-    public class PrescriptionService : CrudService<Prescription>,  IPrescriptionService
+    public class MedicineReviewService : CrudService<MedicineReview>, IMedicineReviewService
     {
-        public PrescriptionService(DatabaseContext context) : base(context) { }
+        public MedicineReviewService(DatabaseContext context) : base(context) { }
     }
 }

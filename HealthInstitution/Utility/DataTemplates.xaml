@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:HealthInstitution.ViewModel"
                     xmlns:v="clr-namespace:HealthInstitution.View"
+                    xmlns:dd="clr-namespace:HealthInstitution.Dialogs.Custom.Doctor"
                     xmlns:dc="clr-namespace:HealthInstitution.Dialogs.Custom">
 
     <DataTemplate DataType="{x:Type vm:LoginViewModel}">
@@ -41,6 +42,15 @@
     <DataTemplate DataType="{x:Type vm:PrescriptionViewModel}">
         <v:PrescriptionView/>
     </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:DoctorMedicineManagmentViewModel}">
+        <v:DoctorMedicineManagmentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dd:DynamicEquipmentUpdateViewModel}">
+        <dd:DynamicEquipmentUpdateView/>
+    </DataTemplate>
+
     <!-- Doctor -->
 
     <!-- Patient -->
@@ -66,6 +76,18 @@
 
     <DataTemplate DataType="{x:Type vm:DoctorSearchViewModel}">
         <v:DoctorSearchView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PatientSettingsViewModel}">
+        <v:PatientSettingsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DoctorSurveyViewModel}">
+        <v:DoctorSurveyView/>
+    </DataTemplate>    
+    
+    <DataTemplate DataType="{x:Type vm:HealthInstitutionSurveyViewModel}">
+        <v:HealthInstitutionSurveyView/>
     </DataTemplate>
     <!-- Patient -->
 

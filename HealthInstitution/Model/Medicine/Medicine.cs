@@ -27,12 +27,12 @@ namespace HealthInstitution.Model
             _ingredients = new List<Ingredient>();
         }
 
-        public Medicine(string description)
+        /*public Medicine(string description)
         {
             _ingredients = new List<Ingredient>();
             _description = description;
-            _status = Status.Pending;
-        }
+            _status = Status.Approved;
+        }*/
 
         #endregion
 
