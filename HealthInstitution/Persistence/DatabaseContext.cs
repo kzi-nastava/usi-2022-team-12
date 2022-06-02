@@ -29,7 +29,7 @@ namespace HealthInstitution.Persistence
         public DbSet<RoomRenovation> RoomRenovations { get; set; }
 
         // Doctor related things
-        public DbSet<DoctorMark> DoctorsMarks { get; set; }
+        public DbSet<DoctorSurvey> DoctorSurveys { get; set; }
 
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
@@ -48,6 +48,9 @@ namespace HealthInstitution.Persistence
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<EquipmentPurchaseRequest> EquipmentPurchaseRequests { get; set; }
+
+        // Health Institution related things
+        public DbSet<HealthInstitutionSurvey> HealthInstitutionSurveys { get; set; }
 
         public DatabaseContext()
         {

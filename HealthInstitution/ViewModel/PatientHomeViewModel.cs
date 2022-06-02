@@ -19,6 +19,7 @@ namespace HealthInstitution.ViewModel
         public ICommand? PatientMedicalRecordCommand { get; }
         public ICommand? DoctorSearchCommand { get; }
         public ICommand? PatientSettingsCommand { get; }
+        public ICommand? HealthInstitutionSurveyCommand { get; }
         #endregion
 
         #region attributes
@@ -42,6 +43,7 @@ namespace HealthInstitution.ViewModel
             PatientMedicalRecordCommand = new PatientMedicalRecordCommand();
             DoctorSearchCommand = new DoctorSearchCommand();
             PatientSettingsCommand = new PatientSettingsCommand();
+            HealthInstitutionSurveyCommand = new HealthInstitutionSurveyCommand();
             LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
@@ -64,18 +66,12 @@ namespace HealthInstitution.ViewModel
             {
                 PatientMedicalRecordViewModel Pmrvm = ServiceLocator.Get<PatientMedicalRecordViewModel>();
                 SwitchCurrentViewModel(Pmrvm);
-            });
+            });          
 
             EventBus.RegisterHandler("DoctorSearch", () =>
             {
                 DoctorSearchViewModel Dsvm = ServiceLocator.Get<DoctorSearchViewModel>();
                 SwitchCurrentViewModel(Dsvm);
-            });
-
-            EventBus.RegisterHandler("RecommendAppointmentCreation", () =>
-            {
-                RecommendAppointmentCreationViewModel Racvm = ServiceLocator.Get<RecommendAppointmentCreationViewModel>();
-                SwitchCurrentViewModel(Racvm);
             });
 
             EventBus.RegisterHandler("PatientSettings", () =>
@@ -84,10 +80,10 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Pnvm);
             });
 
-            EventBus.RegisterHandler("AppointmentCreationWithSelectedDoctor", () =>
+            EventBus.RegisterHandler("HealthInstitutionSurvey", () =>
             {
-                AppointmentCreationViewModel Acvm = new AppointmentCreationViewModel(GlobalStore.ReadObject<Doctor>("SelectedDoctor"));
-                SwitchCurrentViewModel(Acvm);
+                HealthInstitutionSurveyViewModel Hisvm = ServiceLocator.Get<HealthInstitutionSurveyViewModel>();
+                SwitchCurrentViewModel(Hisvm);
             });
 
             EventBus.RegisterHandler("AppointmentCreation", () =>
@@ -100,6 +96,24 @@ namespace HealthInstitution.ViewModel
             {
                 AppointmentUpdateViewModel Auvm = ServiceLocator.Get<AppointmentUpdateViewModel>();
                 SwitchCurrentViewModel(Auvm);
+            });
+
+            EventBus.RegisterHandler("RecommendAppointmentCreation", () =>
+            {
+                RecommendAppointmentCreationViewModel Racvm = ServiceLocator.Get<RecommendAppointmentCreationViewModel>();
+                SwitchCurrentViewModel(Racvm);
+            });
+
+            EventBus.RegisterHandler("OpenDoctorSurvey", () =>
+            {
+                DoctorSurveyViewModel Dsvm = ServiceLocator.Get<DoctorSurveyViewModel>();
+                SwitchCurrentViewModel(Dsvm);
+            });
+
+            EventBus.RegisterHandler("AppointmentCreationWithSelectedDoctor", () =>
+            {
+                AppointmentCreationViewModel Acvm = new AppointmentCreationViewModel(GlobalStore.ReadObject<Doctor>("SelectedDoctor"));
+                SwitchCurrentViewModel(Acvm);
             });
         }
         #endregion

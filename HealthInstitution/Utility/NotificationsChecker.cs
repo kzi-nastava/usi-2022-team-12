@@ -55,7 +55,7 @@ namespace HealthInstitution.Utility
                 Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
                 _prescribedMedicineNotificationService.CreateUpcomingMedicationsNotifications(patient, patient.NotificationPreference);
                 _databaseBusy = false;
-                _notificationsUpdateTimer.Change(300000, Timeout.Infinite);
+                _notificationsUpdateTimer.Change(600000, Timeout.Infinite);
             }
             else {
                 _notificationsUpdateTimer.Change(1000, Timeout.Infinite);

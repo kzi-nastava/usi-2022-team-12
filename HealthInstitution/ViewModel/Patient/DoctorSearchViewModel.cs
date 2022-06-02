@@ -34,10 +34,10 @@ namespace HealthInstitution.ViewModel
 
         #region services
         private readonly IDoctorService _doctorService;
-        private readonly IDoctorMarkService _doctorMarkService;
+        private readonly IDoctorSurveyService _doctorSurveyService;
 
         public IDoctorService DoctorService => _doctorService;
-        public IDoctorMarkService DoctorMarkService => _doctorMarkService;
+        public IDoctorSurveyService DoctorSurveyService => _doctorSurveyService;
         #endregion
 
         #region attributes
@@ -167,7 +167,7 @@ namespace HealthInstitution.ViewModel
             List<DoctorInfo> doctorsInfo = new List<DoctorInfo>();
             foreach (Doctor doctor in doctors)
             {
-                double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
+                double avgMark = Math.Round(DoctorSurveyService.CalculateAvgMark(doctor), 2);
                 doctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
             DoctorsInfo = doctorsInfo;
@@ -175,14 +175,14 @@ namespace HealthInstitution.ViewModel
             SelectedOrder = 0;
         }
         #endregion
-        public DoctorSearchViewModel(IDoctorService doctorService, IDoctorMarkService doctorMarkService) {
+        public DoctorSearchViewModel(IDoctorService doctorService, IDoctorSurveyService doctorSurveyService) {
             _doctorService = doctorService;
-            _doctorMarkService = doctorMarkService;
+            _doctorSurveyService = doctorSurveyService;
 
             DoctorsInfo = new List<DoctorInfo>();
             var doctors = DoctorService.ReadAll().ToList<Doctor>();
             foreach (Doctor doctor in doctors) {
-                double avgMark = Math.Round(DoctorMarkService.CalculateAvgMark(doctor), 2);
+                double avgMark = Math.Round(DoctorSurveyService.CalculateAvgMark(doctor), 2);
                 DoctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
             }
             SelectedSort = 0;
