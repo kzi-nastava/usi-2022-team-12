@@ -44,7 +44,7 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("Usage start date cannot be after usage end date!");
                 return;
             }
-            PrescribedMedicine prescibedMedicine = new PrescribedMedicine { Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, UsageStart = _viewModel.UsageStart, UsageEnd = _viewModel.UsageEnd, UsageHourSpan = _viewModel.UsageHourSpan };
+            PrescribedMedicine prescibedMedicine = new PrescribedMedicine{ Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, UsageStart = _viewModel.UsageStart, UsageEnd = _viewModel.UsageEnd, UsageHourSpan = _viewModel.UsageHourSpan, MedicalRecord = _viewModel.MedicalRecord};
             _viewModel.addPrescribedMedicine(prescibedMedicine);
         }
 

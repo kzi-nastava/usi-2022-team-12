@@ -36,8 +36,6 @@ namespace HealthInstitution.ViewModel
 
         private readonly IPrescribedMedicineService _prescribedMedicineService;
 
-        private readonly IPrescriptionService _prescriptionService;
-
         private readonly IDialogService _dialogService;
 
         private readonly Patient _patient;
@@ -193,7 +191,7 @@ namespace HealthInstitution.ViewModel
         public ICommand CreateReferralCommand { get; }
         public ICommand PrescriptionCommand { get; }
         #endregion Commands
-        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, IPrescriptionService prescriptionService, IDialogService dialogService, IEntryService entryService, Appointment appointment)
+        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, IDialogService dialogService, IEntryService entryService, Appointment appointment)
         {
             _anamnesis = "";
             _newIllnessName = "";
