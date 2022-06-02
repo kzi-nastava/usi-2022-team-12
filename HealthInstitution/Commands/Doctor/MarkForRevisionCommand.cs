@@ -34,11 +34,13 @@ namespace HealthInstitution.Commands
         public override void Execute(object? parameter)
         {
             Medicine medicine = _viewModel.SelectedMedicine;
-            medicine.Status = Status.Revision;
+            medicine.Status = Status.Rejected;
             _viewModel.MedicineService.Update(medicine);
             MedicineReview medicineReview = new MedicineReview { Comment = _viewModel.RevisionComment, Medicine = medicine, Doctor = _viewModel.Doctor};
             _viewModel.MedicineReviewService.Create(medicineReview);
             _viewModel.RevisionComment = "";
+            _viewModel.SelectedMedicine = null;
+            _viewModel.Ingredients = null;
             _viewModel.Medicines = _viewModel.MedicineService.GetPendingMedicine();
         }
     }
