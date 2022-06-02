@@ -17,9 +17,9 @@ namespace HealthInstitution.ViewModel
     {
         #region Attributes
 
-        public IMedicineService _medicineService;
-        public IIngredientService _ingredientService;
-        public IMedicineReviewService _medicineReviewService;
+        private IMedicineService _medicineService;
+        private IIngredientService _ingredientService;
+        private IMedicineReviewService _medicineReviewService;
         private string _nameBox;
         private string _descriptionBox;
         private string _revisionMedicineName;

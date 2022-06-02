@@ -174,5 +174,9 @@
         <v:MedicineOverviewView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:IngredientOverviewViewModel}">
+        <v:IngredientOverviewView/>
+    </DataTemplate>
+
     <!-- Manager -->
 </ResourceDictionary>

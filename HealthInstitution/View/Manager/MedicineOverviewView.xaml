@@ -62,7 +62,7 @@
                 <TextBlock Text="Comment:" FontSize="16" Margin="0, 0, 0, 5"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Margin ="0, 0, 10, 0" Padding="10" Height="60" Width="330" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True" HorizontalAlignment="Left" Text="{Binding CommentBox, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
-                    <Button Content="X" Width="60" Height="60" HorizontalAlignment="Left" Margin="0, 10" Padding="5" FontSize="26" Command="{Binding RemoveRejectedCommand}"/>
+                    <Button Content="🗑️" Width="60" Height="60" HorizontalAlignment="Left" Margin="0, 10" Padding="5" FontSize="20" Command="{Binding RemoveRejectedCommand}"/>
                 </StackPanel>
 
             </StackPanel>

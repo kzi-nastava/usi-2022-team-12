@@ -14,5 +14,10 @@ namespace HealthInstitution.Services.Implementation
 
         }
 
+        public bool IngredientExists(string name)
+        {
+            return _entities.Where(i => i.Name.ToLower() == name.ToLower()).Count() != 0;
+        }
+
     }
 }
