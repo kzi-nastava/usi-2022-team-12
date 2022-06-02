@@ -33,7 +33,7 @@
             <DatePicker SelectedDateFormat="Long" SelectedDate="{Binding Date}" Name="StartDatePicker"  Margin="10 0 0 0"/>
             <TextBlock Text="time:" FontSize="16" Margin="20 0 0 0"/>
             <materialDesign:TimePicker Margin="10 0 0 0" SelectedTime="{Binding Time}"/>
-            <CheckBox Content="operation" Margin="20 0 0 0" IsChecked="{Binding IsOperation, Mode=TwoWay}" x:Name="checkBoxIsOperation"/>
+            <CheckBox Content="operation" Margin="20 0 0 0" IsChecked="{Binding IsOperation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="checkBoxIsOperation"/>
             <TextBlock Text="end time:" FontSize="16" Margin="20 0 0 0"/>
             <materialDesign:TimePicker Margin="10 0 0 0" SelectedTime="{Binding EndTime}" Style="{StaticResource endTimeValidationStyle}"/>
         </StackPanel>

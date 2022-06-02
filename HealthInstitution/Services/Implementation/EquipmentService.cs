@@ -20,6 +20,7 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(e => e.EquipmentType == requestType).ToList();
         }
 
+
         public IEnumerable<Equipment> FilterEquipmentNotInRoomBySearchText(Room room, EquipmentType requestType, string searchText)
         {
             searchText = searchText.ToLower();
