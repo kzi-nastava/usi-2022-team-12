@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HealthInstitution.Services.Implementation
 {
@@ -28,6 +29,21 @@ namespace HealthInstitution.Services.Implementation
         public IEnumerable<Medicine> GetPendingMedicine()
         {
             return _entities.Where(m => m.Status == Status.Pending);
+        }
+
+        public IEnumerable<Medicine> GetRejectedMedicine()
+        {
+            return _entities.Where(m => m.Status == Status.Rejected);
+        }
+
+        public bool MedicineExists(string name)
+        {
+            return _entities.Where(m => m.Name.ToLower() == name.ToLower()).Count() != 0;
+        }
+
+        public IEnumerable<Medicine> GetMedicineByName(string name)
+        {
+            return _entities.Where(m => m.Name == name);
         }
     }
 }

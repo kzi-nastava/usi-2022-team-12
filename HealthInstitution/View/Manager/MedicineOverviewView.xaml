@@ -16,61 +16,101 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Medicine overview" FontSize="20" FontWeight="Bold"/>
-        <ListView Grid.Row="1" Margin="0 10 0 20" MaxHeight="200" Height="200" ItemsSource="{Binding AllMedicine, Mode=TwoWay}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="0 0 20 0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Description" Width="auto" DisplayMemberBinding="{Binding Description}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="0 0 20 0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <TextBlock Grid.Row="2" Text="Add new medicine" FontSize="20" FontWeight="Bold"/>
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <StackPanel Margin="0, 0, 20, 0" Orientation="Vertical">
-                <TextBox HorizontalAlignment="Left" FontSize="16" Margin="0, 0, 0, 10" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Name" Text="{Binding NameBox}"/>
-                <StackPanel Orientation="Vertical" Width="250">
-                    <TextBlock Text="Description:" FontSize="16" Margin="0, 0, 0, 5"/>
-                    <TextBox Padding="10" Height="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True"></TextBox>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <ListView HorizontalAlignment="Left" Margin="0 10 0 20" Width="400" MaxHeight="250" Height="250" ItemsSource="{Binding AllMedicine, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Description" Width="auto" DisplayMemberBinding="{Binding Description}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock  Text="Rejected medicine" FontSize="18" FontWeight="Bold"/>
+                <ListView HorizontalAlignment="Left" Margin="0 10 0 20" Width="400" MaxHeight="150" Height="150" ItemsSource="{Binding RejectedMedicine, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRejectedMedicine}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Medicine.Name}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Description" Width="auto" DisplayMemberBinding="{Binding Medicine.Description}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock Text="Comment:" FontSize="16" Margin="0, 0, 0, 5"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin ="0, 0, 10, 0" Padding="10" Height="60" Width="330" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True" HorizontalAlignment="Left" Text="{Binding CommentBox, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                    <Button Content="X" Width="60" Height="60" HorizontalAlignment="Left" Margin="0, 10" Padding="5" FontSize="26" Command="{Binding RemoveRejectedCommand}"/>
                 </StackPanel>
+
             </StackPanel>
-            <ListView  Margin="0, 0, 50, 0"  MaxHeight="200" Height="300" ItemsSource="{Binding NewIngredients, Mode=TwoWay}" SelectedItem="{Binding SelectedIngredientNew, Mode=TwoWay}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Ingredients" Width="auto" DisplayMemberBinding="{Binding NewName}" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView  MaxHeight="200" Height="300" ItemsSource="{Binding AllIngredients, Mode=TwoWay}" SelectedItem="{Binding SelectedIngredient, Mode=TwoWay}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="All ingredients" Width="auto" DisplayMemberBinding="{Binding Name}" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Padding="0 0 20 0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <StackPanel Orientation="Vertical" Margin="20, 0">
+                <TextBlock  Text="Add new medicine" FontSize="18" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBox HorizontalAlignment="Left" FontSize="16"  TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Name" Text="{Binding NameBox, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ListView Margin="0, 5" MaxHeight="200" Height="300" Width="270" ItemsSource="{Binding NewIngredients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedIngredientNew}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Ingredients" Width="auto" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Padding="0 0 20 0"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel Margin="20, 0, 0, 0" Orientation="Vertical">
+                        <CheckBox Padding="5, 5" HorizontalAlignment="Left"  Width="120" Name="cbR" Content="Revision for" FontSize="18" IsChecked="{Binding IsRevision, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        <TextBox IsReadOnly="True" Margin="0, 0, 0, 10" FontSize="14" Text="{Binding RevisionMedicineName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBlock Text="Description:" FontSize="16" Margin="0, 0, 0, 5"/>
+                        <TextBox Padding="10" Height="150" Width="200" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" BorderThickness="2" IsEnabled="True" HorizontalAlignment="Left" Text="{Binding DescriptionBox, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Button Content="Send request" Width="200" HorizontalAlignment="Left" Margin="0, 10" Padding="5" FontSize="14" Command="{Binding SendMedicineRequestCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+                <Separator/>
+                <ListView Margin="0, 5" MaxHeight="250" Height="250" Width="500" ItemsSource="{Binding AllIngredients, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedIngredient}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="All ingredients" Width="200" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            
+
+
 
         </StackPanel>
     </Grid>
