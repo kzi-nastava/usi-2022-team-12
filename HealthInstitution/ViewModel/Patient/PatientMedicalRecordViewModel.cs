@@ -128,6 +128,8 @@ namespace HealthInstitution.ViewModel
 
         #region commands
         public ICommand SearchByAnamnesisCommand { get; }
+        public ICommand OpenDoctorSurveyCommand { get; }
+
         #endregion
 
         #region methods
@@ -206,6 +208,7 @@ namespace HealthInstitution.ViewModel
             _pastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
 
             SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
+            OpenDoctorSurveyCommand = new OpenDoctorSurveyCommand(this);
         }
     }
 }

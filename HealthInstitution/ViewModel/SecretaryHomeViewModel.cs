@@ -1,7 +1,6 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Ninject;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
 using System.Windows.Input;
 
 namespace HealthInstitution.ViewModel
@@ -22,6 +21,8 @@ namespace HealthInstitution.ViewModel
         public ICommand ShowReferrals { get; private set; }
 
         public ICommand ShowUrgentScheduling { get; private set; }
+
+        public ICommand ShowDynamicEquipment { get; private set; }
 
         #endregion
 
@@ -55,6 +56,11 @@ namespace HealthInstitution.ViewModel
             ShowUrgentScheduling = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryUrgentScheduleViewModel>());
+            });
+
+            ShowDynamicEquipment = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDynamicEquipmentPurchaseRequestViewModel>());
             });
 
             RegisterHandler();

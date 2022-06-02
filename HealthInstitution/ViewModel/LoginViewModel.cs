@@ -10,6 +10,7 @@ namespace HealthInstitution.ViewModel
     {
 
         public readonly IUserService<User> _userService;
+        public readonly IEquipmentPurchaseRequestService _equipmentPurchaseRequestService;
 
         private string? _email = "@example.com";
         public string? Email 
@@ -57,11 +58,12 @@ namespace HealthInstitution.ViewModel
 
         public ICommand? LoginCommand { get; }
 
-        public LoginViewModel(IUserService<User> userService)
+        public LoginViewModel(IUserService<User> userService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService)
         {
             _errMsgVisibility = Visibility.Hidden;
             _errMsgText = "";
             _userService = userService;
+            _equipmentPurchaseRequestService = equipmentPurchaseRequestService;
             LoginCommand = new LoginCommand(this);
         }
 

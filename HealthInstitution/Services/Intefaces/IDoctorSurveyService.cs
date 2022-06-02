@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace HealthInstitution.Services.Intefaces
 {
-    public interface IPrescriptionService : ICrudService<Prescription>
+    public interface IDoctorSurveyService : ICrudService<DoctorSurvey>
     {
-
+        public double CalculateAvgMark(Doctor doctor);
     }
 }

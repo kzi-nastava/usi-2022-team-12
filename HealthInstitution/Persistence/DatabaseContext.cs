@@ -29,11 +29,12 @@ namespace HealthInstitution.Persistence
         public DbSet<RoomRenovation> RoomRenovations { get; set; }
 
         // Doctor related things
-        public DbSet<DoctorMark> DoctorsMarks { get; set; }
+        public DbSet<DoctorSurvey> DoctorSurveys { get; set; }
 
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }
+        public DbSet<PrescribedMedicineNotification> PrescribedMedicinesNotifications { get; set; }
         public DbSet<AppointmentUpdateRequest> AppointmentUpdateRequests { get; set; }
         public DbSet<AppointmentDeleteRequest> AppointmentDeleteRequests { get; set; }
 
@@ -46,6 +47,10 @@ namespace HealthInstitution.Persistence
         // Secretary related things
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<EquipmentPurchaseRequest> EquipmentPurchaseRequests { get; set; }
+
+        // Health Institution related things
+        public DbSet<HealthInstitutionSurvey> HealthInstitutionSurveys { get; set; }
 
         public DatabaseContext()
         {

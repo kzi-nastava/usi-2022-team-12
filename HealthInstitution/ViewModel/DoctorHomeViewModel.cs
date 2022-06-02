@@ -73,7 +73,6 @@ namespace HealthInstitution.ViewModel
                                                     ServiceLocator.Get<IAppointmentService>(),
                                                     ServiceLocator.Get<IReferralService>(),
                                                     ServiceLocator.Get<IPrescribedMedicineService>(),
-                                                    ServiceLocator.Get<IPrescriptionService>(),
                                                     GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
