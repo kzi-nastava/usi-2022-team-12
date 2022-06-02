@@ -9,6 +9,7 @@
         xmlns:v="clr-namespace:HealthInstitution.View"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
+        Closing="WindowClosing"
         Title="{Binding ViewTitle}" Height="700" Width="1200">
 
     <Window.Resources>

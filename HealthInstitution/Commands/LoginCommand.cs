@@ -75,6 +75,8 @@ namespace HealthInstitution.Commands
                         TitleManager.Title = "Doctor";
                         break;
                     case Role.Secretary:
+                        Model.Secretary sec = (Model.Secretary)user;
+                        GlobalStore.AddObject("LoggedUser", sec);
                         EventBus.FireEvent("SecretaryLogin");
                         TitleManager.Title = "Secretary";
                         break;

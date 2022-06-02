@@ -19,9 +19,9 @@ namespace HealthInstitution.ViewModel
 
         private readonly INotificationService _notificationService;
 
-        public string FullName
+        public string LastName
         {
-            get => GlobalStore.ReadObject<Doctor>("LoggedUser").FullName;
+            get => GlobalStore.ReadObject<Doctor>("LoggedUser").LastName;
         }
         public DoctorHomeViewModel(INotificationService notificationService)
         {

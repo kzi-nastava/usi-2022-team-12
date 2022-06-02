@@ -25,13 +25,6 @@
                          Name="FirstField" materialDesign:HintAssist.Hint="Enter quantity" 
                          Margin="10 15 10 0" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" >
             </TextBox>
-
-            <TextBlock Style="{DynamicResource MaterialDesignHelperTextBlock}" 
-                           Foreground="Red" 
-                           DataContext="{Binding FirstNameError}" 
-                           Text="{Binding ErrorMessage}" 
-                           Visibility="{Binding HasError, Converter={StaticResource b2vc}}"
-                           FontSize="10" />
         </StackPanel>
 
         <Button FontSize="12" 

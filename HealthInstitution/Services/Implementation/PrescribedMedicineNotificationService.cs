@@ -39,7 +39,7 @@ namespace HealthInstitution.Services.Implementation
             }
             return upcomingMedicinesNotifications;
         }
-        public void CreateUpcomingMedicationsNotifications(Patient patient, int notifyMinutesBefore)
+        public void CreateUpcomingMedicinesNotifications(Patient patient, int notifyMinutesBefore)
         {
             var upcomingMedicinesNotifications = GenerateUpcomingMedicinesNotifications(patient, notifyMinutesBefore);
             foreach (var upcomingMedicineNotification in upcomingMedicinesNotifications)
@@ -55,9 +55,17 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient == patient && pmn.Triggered == false);
         }
 
-        public void DeleteUpcomingMedicationsNotifications(Patient patient)
+        public void DeleteUpcomingMedicinesNotifications(Patient patient)
         {
             var notificationsToRemove = GetUpcomingMedicinesNotifications(patient);
+            foreach (var notification in notificationsToRemove)
+            {
+                Delete(notification.Id);
+            }
+        }
+        public void DeleteAllUpcomingMedicinesNotifications()
+        {
+            var notificationsToRemove = _entities.Where(pmn => pmn.Triggered == false);
             foreach (var notification in notificationsToRemove)
             {
                 Delete(notification.Id);
@@ -68,7 +76,6 @@ namespace HealthInstitution.Services.Implementation
         {
             return _entities.Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient == patient && pmn.Triggered == false).OrderBy(pt => pt.TriggerTime).FirstOrDefault();
         }
-
 
 
     }

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using HealthInstitution.Ninject;
+using HealthInstitution.Services.Intefaces;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,11 @@ namespace HealthInstitution
         public MainWindow()
         {
             InitializeComponent();
+        }
+        void WindowClosing(object sender, CancelEventArgs e)
+        {
+            IPrescribedMedicineNotificationService prescribedMedicineNotificationService = ServiceLocator.Get<IPrescribedMedicineNotificationService>();
+            prescribedMedicineNotificationService.DeleteAllUpcomingMedicinesNotifications();
         }
     }
 }

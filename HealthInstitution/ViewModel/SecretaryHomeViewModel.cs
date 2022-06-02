@@ -1,4 +1,5 @@
 ﻿using HealthInstitution.Commands;
+using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Utility;
 using System.Windows.Input;
@@ -26,6 +27,13 @@ namespace HealthInstitution.ViewModel
 
         public ICommand ShowDynamicEquipmentArrangement { get; private set; }
 
+        #endregion
+        
+        #region attributes
+        public string SecretaryName
+        {
+            get => GlobalStore.ReadObject<Secretary>("LoggedUser").FirstName;
+        }
         #endregion
 
         public SecretaryHomeViewModel()

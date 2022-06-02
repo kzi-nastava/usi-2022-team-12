@@ -11,8 +11,9 @@ namespace HealthInstitution.Services.Intefaces
     {
         public IEnumerable<PrescribedMedicine> GetConsumingMedications(Patient patient, int notifyMinutesBefore);
         public List<PrescribedMedicineNotification> GenerateUpcomingMedicinesNotifications(Patient patient, int notifyMinutesBefore);
-        public void CreateUpcomingMedicationsNotifications(Patient patient, int notifyMinutesBefore);
-        public void DeleteUpcomingMedicationsNotifications(Patient patient);
+        public void CreateUpcomingMedicinesNotifications(Patient patient, int notifyMinutesBefore);
+        public void DeleteUpcomingMedicinesNotifications(Patient patient);
+        public void DeleteAllUpcomingMedicinesNotifications();
         public PrescribedMedicineNotification GetNextMedicineNotification(Patient patient);
 
     }

@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="#272537">
@@ -20,7 +22,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding FullName, StringFormat={}Dr. {0}}"
+                <TextBlock Text="{Binding LastName, StringFormat={}👤 Dr. {0}}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
@@ -28,15 +30,15 @@
                        Margin="20,0,0,0" />
 
                 <StackPanel Grid.Row="1">
-                    <RadioButton Content="Schedule"
+                    <RadioButton Content="📅  Schedule"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              IsChecked="True"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding NavigateScheduleCommand}"/>
-                    
-                    <RadioButton Content="Medicine"
+
+                    <RadioButton Content="💊  Medicine"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
@@ -49,7 +51,7 @@
                     Grid.Row="2"
                     VerticalAlignment="Bottom"
                     Command="{Binding LogOutCommand}"
-                    Margin="0,0,0,20"/>
+                    Margin="10,0,0,20"/>
             </Grid>
 
 

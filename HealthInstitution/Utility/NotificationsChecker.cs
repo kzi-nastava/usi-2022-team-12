@@ -53,7 +53,7 @@ namespace HealthInstitution.Utility
             {
                 _databaseBusy = true;
                 Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-                _prescribedMedicineNotificationService.CreateUpcomingMedicationsNotifications(patient, patient.NotificationPreference);
+                _prescribedMedicineNotificationService.CreateUpcomingMedicinesNotifications(patient, patient.NotificationPreference);
                 _databaseBusy = false;
                 _notificationsUpdateTimer.Change(600000, Timeout.Infinite);
             }

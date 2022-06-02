@@ -37,7 +37,7 @@ namespace HealthInstitution.Commands
             Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
             patient.NotificationPreference = Int32.Parse(_viewModel.NotificationPreference);
             _viewModel.PatientService.Update(patient);
-            _viewModel.PrescribedMedicineNotificationService.DeleteUpcomingMedicationsNotifications(patient);
+            _viewModel.PrescribedMedicineNotificationService.DeleteUpcomingMedicinesNotifications(patient);
             MessageBox.Show("Your preference has been saved!");
         }
     }
