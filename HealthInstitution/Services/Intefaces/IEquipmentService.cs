@@ -10,5 +10,6 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Equipment> FilterEquipmentNotInRoomBySearchText(Room room, EquipmentType requestedType, string searchText);
 
         public IEnumerable<Equipment> GetEquipmentNotInRoom(Room room, EquipmentType requestType);
+
     }
 }

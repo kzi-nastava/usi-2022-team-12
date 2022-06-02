@@ -323,7 +323,7 @@ namespace HealthInstitution.Services.Implementation
             }
         }
 
-        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
+        public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime, AppointmentType appointmentType)
         {
             //doctor availabilty check
             if (!IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
@@ -333,7 +333,8 @@ namespace HealthInstitution.Services.Implementation
             }
 
             //room availabilty check
-            Room emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, startDateTime, endDateTime);
+            RoomType roomType = appointmentType == AppointmentType.Regular ? RoomType.ExaminationRoom : RoomType.OperationRoom;
+            Room emptyRoom = FindFreeRoom(roomType, startDateTime, endDateTime);
             if (emptyRoom == null)
             {
                 throw new RoomBusyException();

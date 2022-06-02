@@ -28,7 +28,7 @@ namespace HealthInstitution.Commands
         }
         public override bool CanExecute(object? parameter)
         {
-            return _viewModel.SelectedAppointment is not null && base.CanExecute(parameter);
+            return _viewModel.SelectedAppointment is not null && !_viewModel.SelectedAppointment.IsDone && base.CanExecute(parameter);
         }
         public override void Execute(object? parameter)
         {

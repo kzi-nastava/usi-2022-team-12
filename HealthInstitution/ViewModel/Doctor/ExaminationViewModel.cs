@@ -1,4 +1,6 @@
 ﻿using HealthInstitution.Commands;
+using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Services.Implementation;
 using HealthInstitution.Services.Intefaces;
@@ -11,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -21,6 +24,8 @@ namespace HealthInstitution.ViewModel
         #region Atributes
         private readonly IMedicalRecordService _medicalRecordService;
 
+        private readonly IEntryService _entryService;
+
         private readonly IIllnessService _illnessService;
 
         private readonly IAllergenService _allergenService;
@@ -30,6 +35,8 @@ namespace HealthInstitution.ViewModel
         private readonly IReferralService _referralService;
 
         private readonly IPrescribedMedicineService _prescribedMedicineService;
+
+        private readonly IDialogService _dialogService;
 
         private readonly Patient _patient;
 
@@ -48,13 +55,14 @@ namespace HealthInstitution.ViewModel
         #endregion Atributes
 
         #region Properties
+        public IEntryService EntryService => _entryService;
         public IIllnessService IllnessService => _illnessService;
         public IAllergenService AllergenService => _allergenService;
         public IMedicalRecordService MedicalRecordService => _medicalRecordService;
         public IAppointmentService AppointmentService => _appointmentService;
         public IReferralService ReferralService => _referralService;
         public IPrescribedMedicineService PrescribedMedicineService => _prescribedMedicineService;
-
+        public IDialogService DialogService => _dialogService;
         public MedicalRecord MedicalRecord => _medicalRecord;
         public Appointment Appointment => _appointment;
         public string NewAllergenName
@@ -183,7 +191,7 @@ namespace HealthInstitution.ViewModel
         public ICommand CreateReferralCommand { get; }
         public ICommand PrescriptionCommand { get; }
         #endregion Commands
-        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, Appointment appointment)
+        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, IDialogService dialogService, IEntryService entryService, Appointment appointment)
         {
             _anamnesis = "";
             _newIllnessName = "";
@@ -192,6 +200,8 @@ namespace HealthInstitution.ViewModel
             _newAllergens = new List<Allergen>();
             _newIllnesses = new List<Illness>();
             _medicalRecordService = medicalRecordService;
+            _entryService = entryService;
+            _dialogService = dialogService;
             _illnessService = illnessService;
             _referralService = referralService;
             _allergenService = allergenService;

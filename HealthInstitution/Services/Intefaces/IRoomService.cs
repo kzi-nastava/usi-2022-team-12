@@ -14,6 +14,5 @@ namespace HealthInstitution.Services.Intefaces
         public void AddItemQuantityToStorage(Entry<Equipment> deliveredEquipment);
 
         public void AddItemQuantity(Room room, Entry<Equipment> deliveredEquipment);
-
     }
 }

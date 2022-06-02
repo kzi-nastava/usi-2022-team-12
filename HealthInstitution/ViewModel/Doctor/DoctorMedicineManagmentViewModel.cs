@@ -43,6 +43,10 @@ namespace HealthInstitution.ViewModel
             set
             {
                 _selectedMedicine = value;
+                if(value != null)
+                {                    
+                    Ingredients = value.Ingredients;
+                }
                 OnPropertyChanged(nameof(SelectedMedicine));
             }
         }
@@ -72,13 +76,34 @@ namespace HealthInstitution.ViewModel
                 OnPropertyChanged(nameof(Medicines));
             }
         }
+
+        private ObservableCollection<Ingredient>? _ingredients;
+        public IEnumerable<Ingredient>? Ingredients
+        {
+            get => _ingredients;
+            set
+            {
+                if(value == null)
+                {
+                    _ingredients = null;
+                }
+                else
+                {
+                    _ingredients = new ObservableCollection<Ingredient>();
+                    foreach (var ingredient in value)
+                    {
+                        _ingredients.Add(ingredient);
+                    }
+                }
+                OnPropertyChanged(nameof(Ingredients));
+            }
+        }
         #endregion
 
         #region Commands
         public ICommand SearchMedicineCommand { get; }
         public ICommand ApproveMedicineCommand { get; }
         public ICommand RejectMedicineCommand { get; }
-        public ICommand MarkForRevisionCommand { get; }
         #endregion
         public DoctorMedicineManagmentViewModel(IMedicineService medicineService, IMedicineReviewService medicineReviewService)
         {
@@ -91,8 +116,7 @@ namespace HealthInstitution.ViewModel
             Medicines = medicines;
             SearchMedicineCommand = new SearchMedicineCommand(this, _medicineService, Status.Pending);
             ApproveMedicineCommand = new ApproveMedicineCommand(this);
-            RejectMedicineCommand = new RejectMedicineCommand(this);
-            MarkForRevisionCommand = new MarkForRevisionCommand(this);
+            RejectMedicineCommand = new MarkForRevisionCommand(this);
         }
     }
 }

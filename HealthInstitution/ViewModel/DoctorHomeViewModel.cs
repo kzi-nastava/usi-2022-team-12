@@ -1,4 +1,5 @@
 ﻿using HealthInstitution.Commands;
+using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
@@ -68,12 +69,14 @@ namespace HealthInstitution.ViewModel
             EventBus.RegisterHandler("Examination", () =>
             {
                 viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
-                                                    ServiceLocator.Get<IIllnessService>(),
-                                                    ServiceLocator.Get<IAllergenService>(),
-                                                    ServiceLocator.Get<IAppointmentService>(),
-                                                    ServiceLocator.Get<IReferralService>(),
-                                                    ServiceLocator.Get<IPrescribedMedicineService>(),
-                                                    GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
+                                ServiceLocator.Get<IIllnessService>(),
+                                ServiceLocator.Get<IAllergenService>(),
+                                ServiceLocator.Get<IAppointmentService>(),
+                                ServiceLocator.Get<IReferralService>(),
+                                ServiceLocator.Get<IPrescribedMedicineService>(),
+                                ServiceLocator.Get<IDialogService>(),
+                                ServiceLocator.Get<IEntryService>(),
+                                GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
             EventBus.RegisterHandler("ReturnToExamination", () =>

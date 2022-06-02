@@ -40,6 +40,28 @@ namespace HealthInstitution.ViewModel
             }
         }
 
+        private DateTime _endTime;
+        public DateTime EndTime
+        {
+            get => _endTime;
+            set
+            {
+                _endTime = value;
+                OnPropertyChanged(nameof(EndTime));
+            }
+        }
+
+        private bool _isOperation;
+        public bool IsOperation
+        {
+            get => _isOperation;
+            set
+            {
+                _isOperation = value;
+                OnPropertyChanged(nameof(IsOperation));
+            }
+        }
+
         private DateTime _time;
         public DateTime Time
         {

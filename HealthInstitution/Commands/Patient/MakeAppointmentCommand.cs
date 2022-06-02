@@ -42,7 +42,7 @@ namespace HealthInstitution.Commands
 
             try
             {
-                _viewModel.AppointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                _viewModel.AppointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime, AppointmentType.Regular);
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
                 _viewModel.ActivityService.Create(act);
                 MessageBox.Show("Appointment created successfully!");

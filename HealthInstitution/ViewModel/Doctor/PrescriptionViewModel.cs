@@ -18,7 +18,9 @@ namespace HealthInstitution.ViewModel
         private IMedicineService _medicineService;
         private string _searchText;
         private string _instruction;
-        private string _usage;
+        private int _usageHourSpan;
+        private DateTime _usageStart;
+        private DateTime _usageEnd;
         private Medicine _selectedMedicine;
         private MedicalRecord _medicalRecord;
         #endregion
@@ -54,13 +56,33 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        public string Usage
+        public int UsageHourSpan
         {
-            get => _usage;
+            get => _usageHourSpan;
             set
             {
-                _usage = value;
-                OnPropertyChanged(nameof(Usage));
+                _usageHourSpan = value;
+                OnPropertyChanged(nameof(UsageHourSpan));
+            }
+        }
+
+        public  DateTime UsageStart
+        {
+            get => _usageStart;
+            set
+            {
+                _usageStart = value;
+                OnPropertyChanged(nameof(UsageStart));
+            }
+        }
+
+        public DateTime UsageEnd
+        {
+            get => _usageEnd;
+            set
+            {
+                _usageEnd = value;
+                OnPropertyChanged(nameof(UsageEnd));
             }
         }
         #endregion
@@ -96,6 +118,8 @@ namespace HealthInstitution.ViewModel
             _medicalRecord = medicalRecord;
             _medicineService = medicineService;
             _medicines = new ObservableCollection<Medicine>();
+            UsageStart = DateTime.Now;
+            UsageEnd = DateTime.Now;
             IEnumerable<Medicine> medicines = _medicineService.GetApprovedMedicine();
             foreach(Medicine medicine in medicines)
             {

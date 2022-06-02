@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
@@ -22,10 +23,19 @@ namespace HealthInstitution.Commands
         }
         public override void Execute(object? parameter)
         {
+            if((bool)!OpenDynamicEqupmentDialog())
+                return;
             UpdateMedicalRecord();
             UpdateAppointment();
             CreateReferrals();
             EventBus.FireEvent("DoctorSchedule");
+        }
+
+        private bool? OpenDynamicEqupmentDialog()
+        {
+            DynamicEquipmentUpdateViewModel dynamicEquipmentUpdateViewModel = new DynamicEquipmentUpdateViewModel(_viewModel.Appointment.Room, _viewModel.EntryService);
+            bool? result = _viewModel.DialogService.OpenDialog(dynamicEquipmentUpdateViewModel);
+            return result;
         }
         private void UpdateAppointment()
         {

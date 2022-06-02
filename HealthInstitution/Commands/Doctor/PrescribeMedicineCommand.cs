@@ -39,7 +39,12 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("Patient is allergic to the prescribed medicine. Prescription canceled.");
                 return;
             }
-            PrescribedMedicine prescibedMedicine = new PrescribedMedicine { Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, MedicalRecord = _viewModel.MedicalRecord, UsageStart = DateTime.Now.AddDays(1), UsageEnd = DateTime.Now.AddDays(3), UsageHourSpan = 3 };
+            if(_viewModel.UsageStart > _viewModel.UsageEnd)
+            {
+                MessageBox.Show("Usage start date cannot be after usage end date!");
+                return;
+            }
+            PrescribedMedicine prescibedMedicine = new PrescribedMedicine{ Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, UsageStart = _viewModel.UsageStart, UsageEnd = _viewModel.UsageEnd, UsageHourSpan = _viewModel.UsageHourSpan, MedicalRecord = _viewModel.MedicalRecord};
             _viewModel.addPrescribedMedicine(prescibedMedicine);
         }
 
