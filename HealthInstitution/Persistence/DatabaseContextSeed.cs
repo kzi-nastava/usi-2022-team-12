@@ -206,20 +206,20 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entry6 = new Entry<Equipment> { Item = e6, Quantity = 10 };
             Entry<Equipment> entry7 = new Entry<Equipment> { Item = e7, Quantity = 20 };
             Entry<Equipment> entry8 = new Entry<Equipment> { Item = e8, Quantity = 3 };
-            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 0 };
+            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 5 };
             Entry<Equipment> entry10 = new Entry<Equipment> { Item = e13, Quantity = 10 };
 
 
-            r1.AddEquipment(entry1);
-            r1.AddEquipment(entry2);
-            r1.AddEquipment(entry3);
-            r1.AddEquipment(entry4);
-            r1.AddEquipment(entry5);
-            r1.AddEquipment(entry6);
-            r1.AddEquipment(entry7);
-            r1.AddEquipment(entry8);
-            r1.AddEquipment(entry9);
-            r1.AddEquipment(entry10);
+            r1.AddEntry(entry1);
+            r1.AddEntry(entry2);
+            r1.AddEntry(entry3);
+            r1.AddEntry(entry4);
+            r1.AddEntry(entry5);
+            r1.AddEntry(entry6);
+            r1.AddEntry(entry7);
+            r1.AddEntry(entry8);
+            r1.AddEntry(entry9);
+            r1.AddEntry(entry10);
 
             // ExaminationRoom equipment
 
@@ -233,17 +233,17 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entryE8 = new Entry<Equipment> { Item = e4, Quantity = 5 };
             Entry<Equipment> entryE9 = new Entry<Equipment> { Item = e7, Quantity = 2 };
 
-            r2.AddEquipment(entryE1);
-            r2.AddEquipment(entryE2);
-            r2.AddEquipment(entryE3);
+            r2.AddEntry(entryE1);
+            r2.AddEntry(entryE2);
+            r2.AddEntry(entryE3);
 
-            r3.AddEquipment(entryE4);
-            r3.AddEquipment(entryE5);
-            r3.AddEquipment(entryE6);
+            r3.AddEntry(entryE4);
+            r3.AddEntry(entryE5);
+            r3.AddEntry(entryE6);
 
-            r4.AddEquipment(entryE7);
-            r4.AddEquipment(entryE8);
-            r4.AddEquipment(entryE9);
+            r4.AddEntry(entryE7);
+            r4.AddEntry(entryE8);
+            r4.AddEntry(entryE9);
 
             // OperationRoom equipment
 
@@ -253,13 +253,13 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entryO4 = new Entry<Equipment> { Item = e2, Quantity = 1 };
             Entry<Equipment> entryO5 = new Entry<Equipment> { Item = e8, Quantity = 1 };
 
-            r5.AddEquipment(entryO1);
-            r5.AddEquipment(entryO2);
+            r5.AddEntry(entryO1);
+            r5.AddEntry(entryO2);
 
-            r6.AddEquipment(entryO3);
+            r6.AddEntry(entryO3);
 
-            r7.AddEquipment(entryO4);
-            r7.AddEquipment(entryO5);
+            r7.AddEntry(entryO4);
+            r7.AddEntry(entryO5);
 
             // RestingRoom equipment
 
@@ -270,14 +270,14 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entryR5 = new Entry<Equipment> { Item = e3, Quantity = 4 };
             Entry<Equipment> entryR6 = new Entry<Equipment> { Item = e6, Quantity = 1 };
 
-            r8.AddEquipment(entryR1);
-            r8.AddEquipment(entryR2);
+            r8.AddEntry(entryR1);
+            r8.AddEntry(entryR2);
 
-            r9.AddEquipment(entryR3);
-            r9.AddEquipment(entryR4);
+            r9.AddEntry(entryR3);
+            r9.AddEntry(entryR4);
 
-            r10.AddEquipment(entryR5);
-            r10.AddEquipment(entryR6);
+            r10.AddEntry(entryR5);
+            r10.AddEntry(entryR6);
 
 
             context.Rooms.Add(r1);

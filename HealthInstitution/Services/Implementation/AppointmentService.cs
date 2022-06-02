@@ -450,7 +450,7 @@ namespace HealthInstitution.Services.Implementation
 
         public Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end)
         {
-            var examinationRooms = _roomService.ReadRoomsWithType(roomType);
+            var examinationRooms = _roomService.ReadRooms(roomType);
             foreach (var room in examinationRooms)
             {
                 if (IsRoomAvailable(room, start, end) && _appointmentUpdateRequestService.IsRoomAvailable(room, start, end)

@@ -15,11 +15,11 @@ namespace HealthInstitution.Dialogs.Service
         public double ContentWidth { get => WindowWidth - 60; }
         public double ContentHeight { get => WindowHeight - 60; }
 
-        public DialogViewModelBase(string title, string message, int windowWidht, int windowHeight) : base()
+        public DialogViewModelBase(string title, string message, int windowWidth, int windowHeight) : base()
         {
             Title = title;
             Message = message;
-            WindowWidth = windowWidht;
+            WindowWidth = windowWidth;
             WindowHeight = windowHeight;
         }
 
@@ -38,8 +38,8 @@ namespace HealthInstitution.Dialogs.Service
         {
         }
 
-        public DialogViewModelBase(string title, int windowWidht, int windowHeight) :
-            this(title, string.Empty, windowWidht, windowHeight)
+        public DialogViewModelBase(string title, int windowWidth, int windowHeight) :
+            this(title, string.Empty, windowWidth, windowHeight)
         {
         }
 
