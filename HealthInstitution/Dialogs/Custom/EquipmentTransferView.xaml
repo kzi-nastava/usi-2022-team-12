@@ -131,6 +131,16 @@
                                     Binding="{Binding Quantity}"/>
 
             </DataGrid.Columns>
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Important}" Value="true">
+                            <Setter Property="Foreground" Value="Green" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
 
         <Button FontSize="20" 
