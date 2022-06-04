@@ -52,7 +52,7 @@ namespace HealthInstitution.ViewModel
             RegisterHandler();
             CheckNotifications();
 
-            NotificationsChecker.InitializeTimer("patient");
+            NotificationsChecker.InitializeTimer(typeof(Patient));
         }
 
 
