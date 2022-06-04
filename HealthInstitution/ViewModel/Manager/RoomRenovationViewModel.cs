@@ -1,15 +1,13 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.manager;
+using HealthInstitution.Model.room;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.manager
 {
     public class RoomRenovationViewModel : ViewModelBase
     {
@@ -160,9 +158,12 @@ namespace HealthInstitution.ViewModel
             appointmentService = appointmentService;
             roomRenovationService = roomRenovationService;
             Rooms = roomService.ReadAll().ToList();
+            Rooms = Rooms.OrderBy(x => x.Name).ToList();
             Rooms1 = roomService.ReadAll().ToList();
+            Rooms1 = Rooms1.OrderBy(x => x.Name).ToList();
             Rooms2 = roomService.ReadAll().ToList();
-            
+            Rooms2 = Rooms2.OrderBy(x => x.Name).ToList();
+
             SelectedRoom = null;
             SelectedRoomMerge1 = null;
             SelectedRoomMerge2 = null;

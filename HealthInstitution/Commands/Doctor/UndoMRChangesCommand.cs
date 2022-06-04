@@ -1,13 +1,10 @@
-﻿using HealthInstitution.Model;
+﻿using System.Collections.Generic;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class UndoMRChangesCommand : CommandBase
     {
@@ -23,7 +20,7 @@ namespace HealthInstitution.Commands
             _viewModel.NewIllnesses.Clear();
             _viewModel.NewAllergens.Clear();
             GlobalStore.AddObject("NewReferrals", new List<Referral>());
-            GlobalStore.AddObject("Prescription", new List<Prescription>());
+            GlobalStore.AddObject("Prescription", new List<PrescribedMedicine>());
         }
 
         public UndoMRChangesCommand(ExaminationViewModel viewModel)

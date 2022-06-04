@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Services.Implementation
 {
@@ -28,8 +30,9 @@ namespace HealthInstitution.Services.Implementation
         public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText)
         {
             searchText = searchText.ToLower();
-            return _entities.Where(p => p.FirstName.ToLower().Contains(searchText)
-           || p.LastName.ToLower().Contains(searchText));
+            var specializations = Enum.GetValues(typeof(DoctorSpecialization)).Cast<DoctorSpecialization>().Where(text => Enum.GetName(typeof(DoctorSpecialization), text).ToLower().Contains(searchText));
+            return _entities.Where(doc => doc.FirstName.ToLower().Contains(searchText)
+           || doc.LastName.ToLower().Contains(searchText) || specializations.Contains(doc.Specialization));
         }
     }
 }

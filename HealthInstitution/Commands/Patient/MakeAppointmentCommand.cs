@@ -1,16 +1,15 @@
-using HealthInstitution.Exceptions;
-using HealthInstitution.Model;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Exceptions;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.user;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.patient
 {
     public class MakeAppointmentCommand : CommandBase
     {
@@ -42,7 +41,7 @@ namespace HealthInstitution.Commands
 
             try
             {
-                _viewModel.AppointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                _viewModel.AppointmentService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime, AppointmentType.Regular);
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
                 _viewModel.ActivityService.Create(act);
                 MessageBox.Show("Appointment created successfully!");

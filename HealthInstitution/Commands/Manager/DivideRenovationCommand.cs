@@ -1,16 +1,13 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Model.room;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class DivideRenovationCommand : CommandBase
     {
@@ -60,8 +57,14 @@ namespace HealthInstitution.Commands
 
             if (apts.Count() != 0)
             {
-                MessageBox.Show("Chosen room has appointments!");
-                return;
+                foreach (var apt in apts)
+                {
+                    if (apt.StartDate >= _viewModel.StartDate)
+                    {
+                        MessageBox.Show("Chosen room has appointments!");
+                        return;
+                    }
+                }
             }
 
             foreach (var renRoom in renRooms)
@@ -86,6 +89,7 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("Room with that name already exists!");
                 return;
             }
+
             RoomRenovation roomRenovation = new RoomRenovation(_selectedRoom, _viewModel.StartDate, _viewModel.EndDate, true, smallRoomName1, smallRoomName2);
             _roomRenovationService.Create(roomRenovation);
             MessageBox.Show("Room renovation has been successfully scheduled!");

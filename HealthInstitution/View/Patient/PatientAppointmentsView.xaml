@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="HealthInstitution.View.PatientAppointmentsView"
+﻿<UserControl x:Class="HealthInstitution.View.patient.PatientAppointmentsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HealthInstitution.View"
              xmlns:converters="clr-namespace:HealthInstitution.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              FontFamily="{DynamicResource MaterialDesignFont}"
@@ -15,11 +14,13 @@
     </UserControl.Resources>
     <Grid Background="White" Margin="15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" Margin="0 0 0 0" Height="auto" ItemsSource="{Binding FutureAppointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
+        <TextBlock Grid.Row="0" Text="Upcoming appointments" FontSize="18" FontWeight="Bold" Margin="0 0 0 10"/>
+        <ListView Grid.Row="1" Margin="0 0 0 0" Height="auto" ItemsSource="{Binding FutureAppointments, Mode=TwoWay}"  SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room" Width="auto" DisplayMemberBinding="{Binding Room.Name}">
@@ -74,8 +75,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Separator Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 25 0 15"/>
-        <Grid Grid.Row="2" Margin="0 10 0 10">
+        <Separator Grid.Row="2" HorizontalAlignment="Stretch" Margin="0 25 0 15"/>
+        <Grid Grid.Row="3" Margin="0 10 0 10">
             <Button Content="Recommend me appointment" HorizontalAlignment="Left" Height="40" Padding="5" FontSize="14" Command="{Binding RecommendAppointmentCreationCommand}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Make appointment" Height="40" Padding="5" Margin="0 0 0 0" FontSize="14" Command="{Binding AppointmentCreationCommand}"/>

@@ -1,15 +1,12 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+using HealthInstitution.Commands.manager;
+using HealthInstitution.Model.room;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.manager
 {
     public class RoomsCRUDViewModel : ViewModelBase
     {
@@ -52,13 +49,15 @@ namespace HealthInstitution.ViewModel
         {
             roomService = roomService;
             appointmentService = appointmentService;
-            
-            ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand();
+
+            SelectedRoom = null;
+            ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand(this);
             CreateRoomCommand = new CreateRoomCommand();
-            OpenUpdateRoomCommand = new OpenUpdateRoomCommand();
-            DeleteRoomCommand = new DeleteRoomCommand(appointmentService, roomService);
+            OpenUpdateRoomCommand = new OpenUpdateRoomCommand(this);
+            DeleteRoomCommand = new DeleteRoomCommand(this, appointmentService, roomService);
             
             Rooms = roomService.ReadAll().ToList();
+            Rooms = Rooms.OrderBy(x => x.Name).ToList();
             
         }
     }

@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Dialogs.Custom
 {
@@ -37,7 +40,7 @@ namespace HealthInstitution.Dialogs.Custom
 
         #endregion
 
-        #region Rules
+        #region Services
 
         private readonly IPatientService _patientService;
 

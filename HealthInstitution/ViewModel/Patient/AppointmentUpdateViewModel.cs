@@ -1,15 +1,15 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.patient;
+using HealthInstitution.Commands.patient.Navigation;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.patient
 {
     public class AppointmentUpdateViewModel : ViewModelBase
     {
@@ -70,38 +70,38 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private Appointment _chosenAppointment;
-        public Appointment ChosenAppointment
+        private Appointment _selectedAppointment;
+        public Appointment SelectedAppointment
         {
-            get => _chosenAppointment;
+            get => _selectedAppointment;
             set
             {
-                _chosenAppointment = value;
-                OnPropertyChanged(nameof(ChosenAppointment));
+                _selectedAppointment = value;
+                OnPropertyChanged(nameof(SelectedAppointment));
             }
         }
         #endregion
 
         #region commands
         public ICommand? UpdateAppointmentCommand { get; }
-        public ICommand? PatientAppointmentsCommand { get; }
+        public ICommand? BackCommand { get; }
         #endregion
 
         public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IActivityService activityService, IPatientService patientService)
         {
-            ChosenAppointment = GlobalStore.ReadObject<Appointment>("ChosenAppointment");
+            SelectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             _appointmentService = appointmentService;
             _activityService = activityService;
             _patientService = patientService;
             _doctorService = doctorService;
             Doctors = doctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
-            StartDate = ChosenAppointment.StartDate;
-            StartTime = ChosenAppointment.StartDate;
-            SelectedDoctor = ChosenAppointment.Doctor;
+            StartDate = SelectedAppointment.StartDate;
+            StartTime = SelectedAppointment.StartDate;
+            SelectedDoctor = SelectedAppointment.Doctor;
 
             UpdateAppointmentCommand = new UpdateAppointmentCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new PatientAppointmentsCommand();
         }
     }
 }

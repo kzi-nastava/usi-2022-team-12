@@ -1,7 +1,8 @@
-﻿using HealthInstitution.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.user;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.appointment
 {
     /// <summary>
     /// Proveri dal ide virtual kod IList<string>
@@ -21,6 +22,9 @@ namespace HealthInstitution.Model
 
         private IList<Allergen> _allergens;
         public virtual IList<Allergen> Allergens { get => _allergens; set => OnPropertyChanged(ref _allergens, value); }
+
+        private IList<PrescribedMedicine> _prescribedMedicines;
+        public virtual IList<PrescribedMedicine> PrescribedMedicines { get => _prescribedMedicines; set => OnPropertyChanged(ref _prescribedMedicines, value); }
 
         private Patient _patient;
         public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }

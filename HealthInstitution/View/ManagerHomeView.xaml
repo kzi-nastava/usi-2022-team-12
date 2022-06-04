@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HealthInstitution.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="920"
              Background="Transparent">
@@ -21,7 +23,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="{Binding ManagerName, StringFormat='Hello, {0}'}"
+                <TextBlock Grid.Row="0" Text="{Binding ManagerName, StringFormat='👤 Hello, {0}'}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
@@ -29,33 +31,45 @@
                        Margin="20,0,0,0" />
                 
                 <StackPanel Grid.Row="1">
-                    <RadioButton Content="Rooms overview"
+                    <RadioButton Content="🛏️  Rooms overview"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding RoomsOverviewCommand}"/>
 
-                    <RadioButton Content="Equipment overview"
+                    <RadioButton Content="📦  Equipment overview"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding EquipmentOverviewCommand}"/>
 
-                    <RadioButton Content="Arrange equipment"
+                    <RadioButton Content="↔️  Arrange equipment"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ArrangeEquipmentCommand}"/>
 
-                    <RadioButton Content="Room renovation"
+                    <RadioButton Content="⚒️  Room renovation"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding RoomRenovationCommand}"/>
+                    <RadioButton Content="💊  Medicine overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding MedicineOverviewCommand}"/>
+                    <RadioButton Content="🌿  Ingredient overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding IngredientOverviewCommand}"/>
 
                 </StackPanel>
 

@@ -1,4 +1,7 @@
-﻿namespace HealthInstitution.Model
+﻿using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+
+namespace HealthInstitution.Model.doctor
 {
     public class Referral : BaseObservableEntity
     {

@@ -1,14 +1,8 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class IssueRefferalCommand : CommandBase
     {

@@ -1,16 +1,20 @@
-﻿using HealthInstitution.Dialogs.Custom;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.secretary
 {
     public class SecretaryUrgentScheduleViewModel : ObservableEntity
     {
@@ -76,42 +80,39 @@ namespace HealthInstitution.ViewModel
             ScheduleOperation = new RelayCommand(() => { UrgentSchedule(AppointmentType.Operation); });
         }
 
+        #region Schedule logic
+
         public void UrgentSchedule(AppointmentType appointmentType)
         {
             if (_selectedPatient == null)
             {
                 MessageBox.Show("You did not select any patient");
+                return;
             }
-            else
+
+            DoctorSpecializationSelectViewModel doctorSpecializationSelectVM = new DoctorSpecializationSelectViewModel();
+            Tuple<DoctorSpecialization, bool?> chosenSpecialization = _dialogService.OpenDialogWithReturnType(doctorSpecializationSelectVM);
+
+            // Dialog was closed
+            if (chosenSpecialization.Item2 == false)
+                return;
+
+            DoctorSpecialization doctorSpecialization = chosenSpecialization.Item1;
+            IList<Doctor> availableDoctors = _doctorService.GetDoctorsForDoctorSpecialization(doctorSpecialization);
+
+            if (availableDoctors.Count == 0)
             {
-                DoctorSpecializationSelectViewModel doctorSpecializationSelectVM = new DoctorSpecializationSelectViewModel();
-                Tuple<DoctorSpecialization, bool?> returnValue = _dialogService.OpenDialogWithReturnType(doctorSpecializationSelectVM);
-
-                if (returnValue.Item2 != false)
-                {
-                    DoctorSpecialization doctorSpecialization = returnValue.Item1;
-                    IList<Doctor> availableDoctors = _doctorService.GetDoctorsForDoctorSpecialization(doctorSpecialization);
-
-                    if (availableDoctors.Count == 0)
-                    {
-                        MessageBox.Show("There aren't any available doctors for chosen specialization.");
-                        return;
-                    }
-                    else
-                    {
-                        if (TryToSchedule(availableDoctors, appointmentType))
-                        {
-                            MessageBox.Show("Appointment is successfully created.");
-                            return;
-                        }
-
-                        ShowAppointmentsToDelay(availableDoctors, appointmentType);
-                    }
-
-
-                }
+                MessageBox.Show("There aren't any available doctors for chosen specialization.");
+                return;
             }
 
+            if (TryToSchedule(availableDoctors, appointmentType))
+            {
+                MessageBox.Show("Appointment is successfully created.");
+                return;
+            }
+
+            ShowAppointmentsToDelay(availableDoctors);
         }
 
         public bool TryToSchedule(IList<Doctor> availableDoctors, AppointmentType appointmentType)
@@ -119,24 +120,14 @@ namespace HealthInstitution.ViewModel
             DateTime now = DateTime.Now;
             DateTime end = now.AddHours(2);
 
-            RoomType roomType;
-            if (appointmentType == AppointmentType.Regular)
-            {
-                roomType = RoomType.ExaminationRoom;
-            }
-            else
-            {
-                roomType = RoomType.OperationRoom;
-            }
+            RoomType roomType = appointmentType == AppointmentType.Regular ? RoomType.ExaminationRoom : RoomType.OperationRoom;
 
             for (DateTime potentialTime = now.AddMinutes(15); potentialTime <= end; potentialTime = potentialTime.AddMinutes(5))
             {
                 Room potentialRoom = _appointmentService.FindFreeRoom(roomType, potentialTime, potentialTime.AddMinutes(15));
 
                 if (potentialRoom == null)
-                {
                     continue;
-                }
 
                 foreach (var doctor in availableDoctors)
                 {
@@ -160,29 +151,17 @@ namespace HealthInstitution.ViewModel
                     }
                 }
             }
+
             return false;
         }
 
-        public DateTime FindTimeToDelayAppointment(Appointment appointment)
+        public void ShowAppointmentsToDelay(IList<Doctor> availableDoctors)
         {
-            DateTime potentialTime = appointment.StartDate.AddMinutes(10);
+            IList<Tuple<Appointment, DateTime>> appointmentDelayPairs = GetCandidatesToDelay(availableDoctors);
 
-            while (true)
-            {
-                potentialTime = potentialTime.AddMinutes(5);
-
-                Room freeRoom = _appointmentService.FindFreeRoom(appointment.Room.RoomType, potentialTime, potentialTime.AddMinutes(15));
-
-                if (freeRoom == null)
-                {
-                    continue;
-                }
-
-                if (_appointmentService.IsDoctorAvailable(appointment.Doctor, potentialTime, potentialTime.AddMinutes(15)))
-                {
-                    return potentialTime;
-                }
-            }
+            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_patientService, _appointmentService,
+                _notificationService, appointmentDelayPairs, _selectedPatient.Id);
+            _dialogService.OpenDialog(delayAppointmentVM);
         }
 
         public IList<Tuple<Appointment, DateTime>> GetCandidatesToDelay(IList<Doctor> availableDoctors)
@@ -201,21 +180,30 @@ namespace HealthInstitution.ViewModel
                 }
             }
 
-            appointmentDelayPairs = appointmentDelayPairs.OrderBy(pair => pair.Item2.Subtract(pair.Item1.StartDate))
-                                                         .Take(5)
-                                                         .ToList();
-
-            return appointmentDelayPairs;
+            return appointmentDelayPairs.OrderBy(pair => pair.Item2.Subtract(pair.Item1.StartDate))
+                                        .Take(5)
+                                        .ToList();
         }
 
-        public void ShowAppointmentsToDelay(IList<Doctor> availableDoctors, AppointmentType appointmentType)
+        public DateTime FindTimeToDelayAppointment(Appointment appointment)
         {
-            IList<Tuple<Appointment, DateTime>> appointmentDelayPairs = GetCandidatesToDelay(availableDoctors);
+            DateTime potentialTime = appointment.StartDate.AddMinutes(10);
 
-            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_patientService, _appointmentService,
-                _notificationService, appointmentDelayPairs, _selectedPatient.Id);
-            _dialogService.OpenDialog(delayAppointmentVM);
+            while (true)
+            {
+                potentialTime = potentialTime.AddMinutes(5);
+
+                Room freeRoom = _appointmentService.FindFreeRoom(appointment.Room.RoomType, potentialTime, potentialTime.AddMinutes(15));
+
+                if (freeRoom == null)
+                    continue;
+
+                if (_appointmentService.IsDoctorAvailable(appointment.Doctor, potentialTime, potentialTime.AddMinutes(15)))
+                    return potentialTime;
+            }
         }
+
+        #endregion
 
         public void UpdatePage()
         {

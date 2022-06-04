@@ -1,13 +1,8 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class AddAllergenCommand : CommandBase
     {
@@ -21,7 +16,7 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            Allergen allergen = new() { Name = _viewModel.NewAllergenName};
+            Allergen allergen = new() { Name = _viewModel.NewAllergenName };
             _viewModel.AddAllergens(allergen);
             _viewModel.NewAllergenName = "";
         }

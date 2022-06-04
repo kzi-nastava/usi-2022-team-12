@@ -1,4 +1,5 @@
 ﻿using HealthInstitution.Commands;
+using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Services.Intefaces;
@@ -7,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Commands.doctor.Navigation;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.ViewModel
 {
@@ -14,17 +19,19 @@ namespace HealthInstitution.ViewModel
     {
         public ICommand? LogOutCommand { get; }
         public ICommand? NavigateScheduleCommand { get; }
+        public ICommand? NavigateMedicineCommand { get; }
 
         private readonly INotificationService _notificationService;
 
-        public string FullName
+        public string LastName
         {
-            get => GlobalStore.ReadObject<Doctor>("LoggedUser").FullName;
+            get => GlobalStore.ReadObject<Doctor>("LoggedUser").LastName;
         }
         public DoctorHomeViewModel(INotificationService notificationService)
         {
             _notificationService = notificationService;
             LogOutCommand = new LogOutCommand();
+            NavigateMedicineCommand = new NavigateMedicineCommand();
             NavigateScheduleCommand = new NavigateScheduleCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<DoctorScheduleViewModel>());
             RegisterHandler();
@@ -33,6 +40,11 @@ namespace HealthInstitution.ViewModel
 
         private void RegisterHandler()
         {
+            DoctorMedicineManagmentViewModel doctorMedicineManagmentViewModel = ServiceLocator.Get<DoctorMedicineManagmentViewModel>();
+            EventBus.RegisterHandler("DoctorMedicineManagment", () =>
+            {
+                SwitchCurrentViewModel(doctorMedicineManagmentViewModel);
+            });
             DoctorScheduleViewModel doctorScheduleViewModel = ServiceLocator.Get<DoctorScheduleViewModel>();
             EventBus.RegisterHandler("DoctorSchedule", () =>
             {
@@ -61,13 +73,14 @@ namespace HealthInstitution.ViewModel
             EventBus.RegisterHandler("Examination", () =>
             {
                 viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
-                                                    ServiceLocator.Get<IIllnessService>(),
-                                                    ServiceLocator.Get<IAllergenService>(),
-                                                    ServiceLocator.Get<IAppointmentService>(),
-                                                    ServiceLocator.Get<IReferralService>(),
-                                                    ServiceLocator.Get<IPrescribedMedicineService>(),
-                                                    ServiceLocator.Get<IPrescriptionService>(),
-                                                    GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
+                                ServiceLocator.Get<IIllnessService>(),
+                                ServiceLocator.Get<IAllergenService>(),
+                                ServiceLocator.Get<IAppointmentService>(),
+                                ServiceLocator.Get<IReferralService>(),
+                                ServiceLocator.Get<IPrescribedMedicineService>(),
+                                ServiceLocator.Get<IDialogService>(),
+                                ServiceLocator.Get<IEntryService>(),
+                                GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
             EventBus.RegisterHandler("ReturnToExamination", () =>

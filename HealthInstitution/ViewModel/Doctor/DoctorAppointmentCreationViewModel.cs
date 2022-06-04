@@ -1,16 +1,13 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.doctor;
+using HealthInstitution.Commands.doctor.Navigation;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.doctor
 {
     public class DoctorAppointmentCreationViewModel : ViewModelBase, IDoctorAppointmentViewModel
     {
@@ -37,6 +34,28 @@ namespace HealthInstitution.ViewModel
             {
                 _date = value;
                 OnPropertyChanged(nameof(Date));
+            }
+        }
+
+        private DateTime _endTime;
+        public DateTime EndTime
+        {
+            get => _endTime;
+            set
+            {
+                _endTime = value;
+                OnPropertyChanged(nameof(EndTime));
+            }
+        }
+
+        private bool _isOperation;
+        public bool IsOperation
+        {
+            get => _isOperation;
+            set
+            {
+                _isOperation = value;
+                OnPropertyChanged(nameof(IsOperation));
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Model;
 using System;
 using System.Collections.Generic;
+using HealthInstitution.Model.room;
 
 namespace HealthInstitution.Services.Intefaces
 {

@@ -1,13 +1,15 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HealthInstitution.Commands.patient;
+using HealthInstitution.Commands.patient.Navigation;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.patient
 {
     public class PatientMedicalRecordViewModel : ViewModelBase
     {
@@ -101,33 +103,35 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string _selectedSort;
-        public string SelectedSort
+        private int _selectedSort;
+        public int SelectedSort
         {
             get => _selectedSort;
             set
             {
                 _selectedSort = value;
-
-                if (SelectedSort.Equals("Date"))
-                {
-                    PastAppointments = PastAppointments.OrderBy(apt => apt.StartDate).ToList<Appointment>();
-                }
-                else if (SelectedSort.Equals("Doctor"))
-                {
-                    PastAppointments = PastAppointments.OrderBy(apt => apt.Doctor.FullName).ToList<Appointment>();
-                }
-                else if (SelectedSort.Equals("Specialization"))
-                {
-                    PastAppointments = PastAppointments.OrderBy(apt => apt.Doctor.Specialization).ToList<Appointment>();
-                }
+                UpdatePastAppointmentsListView();
                 OnPropertyChanged(nameof(SelectedSort));
+            }
+        }
+
+        private int _selectedOrder;
+        public int SelectedOrder
+        {
+            get => _selectedOrder;
+            set
+            {
+                _selectedOrder = value;
+                UpdatePastAppointmentsListView();
+                OnPropertyChanged(nameof(SelectedOrder));
             }
         }
         #endregion
 
         #region commands
         public ICommand SearchByAnamnesisCommand { get; }
+        public ICommand OpenDoctorSurveyCommand { get; }
+
         #endregion
 
         #region methods
@@ -139,17 +143,56 @@ namespace HealthInstitution.ViewModel
             return age;
         }
 
-        public void SearchByAnamnesis(string text)
+        public void SearchByAnamnesis()
         {
-            if (!string.IsNullOrEmpty(text))
+            if (!string.IsNullOrEmpty(AnamnesisSearchCriteria))
             {
-                PastAppointments = AppointmentService.FindFinishedAppointmentsWithAnamnesis(Patient, text).ToList<Appointment>();
+                PastAppointments = AppointmentService.FindFinishedAppointmentsWithAnamnesis(Patient, AnamnesisSearchCriteria).ToList<Appointment>();
             }
             else
             {
                 PastAppointments = AppointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
             }
-            SelectedSort = "";
+            SelectedSort = 0;
+            SelectedOrder = 0;
+        }
+
+
+        public void UpdatePastAppointmentsListView()
+        {
+            if (SelectedSort == 0)
+            {
+                if (SelectedOrder == 0)
+                {
+                    PastAppointments = PastAppointments.OrderBy(apt => apt.StartDate).ToList<Appointment>();
+                }
+                else
+                {
+                    PastAppointments = PastAppointments.OrderByDescending(apt => apt.StartDate).ToList<Appointment>();
+                }
+            }
+            else if (SelectedSort == 1)
+            {
+                if (SelectedOrder == 0)
+                {
+                    PastAppointments = PastAppointments.OrderBy(apt => apt.Doctor.FullName).ToList<Appointment>();
+                }
+                else
+                {
+                    PastAppointments = PastAppointments.OrderByDescending(apt => apt.Doctor.FullName).ToList<Appointment>();
+                }
+            }
+            else if (SelectedSort == 2)
+            {
+                if (SelectedOrder == 0)
+                {
+                    PastAppointments = PastAppointments.OrderBy(apt => apt.Doctor.Specialization).ToList<Appointment>();
+                }
+                else
+                {
+                    PastAppointments = PastAppointments.OrderByDescending(apt => apt.Doctor.Specialization).ToList<Appointment>();
+                }
+            }
         }
         #endregion
 
@@ -158,7 +201,8 @@ namespace HealthInstitution.ViewModel
             _appointmentService = appointmentService;
             _medicalRecordService = medicalRecordService;
 
-            _selectedSort = "";
+            _selectedSort = 0;
+            _selectedOrder = 0;
             _patient = GlobalStore.ReadObject<Patient>("LoggedUser");
             _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
             _illnessHistory = _medicalRecord.IllnessHistory.ToList<Illness>();
@@ -166,6 +210,7 @@ namespace HealthInstitution.ViewModel
             _pastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
 
             SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
+            OpenDoctorSurveyCommand = new OpenDoctorSurveyCommand(this);
         }
     }
 }

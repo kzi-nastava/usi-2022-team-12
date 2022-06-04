@@ -1,12 +1,7 @@
-﻿using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HealthInstitution.Model.room;
+using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class SecondToFirstCommand : CommandBase
     {
@@ -20,8 +15,8 @@ namespace HealthInstitution.Commands
         public override void Execute(object? parameter)
         {
             _viewModel.MoveItemBetweenRooms(_viewModel.SelectedEntry2,
-                (System.Collections.ObjectModel.ObservableCollection<Model.Entry<Model.Equipment>>)_viewModel.Inventory2,
-                (System.Collections.ObjectModel.ObservableCollection<Model.Entry<Model.Equipment>>)_viewModel.Inventory1);
+                (System.Collections.ObjectModel.ObservableCollection<Model.Entry<Equipment>>)_viewModel.Inventory2,
+                (System.Collections.ObjectModel.ObservableCollection<Model.Entry<Equipment>>)_viewModel.Inventory1);
         }
     }
 }

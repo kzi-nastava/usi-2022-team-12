@@ -24,7 +24,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding PatientName, StringFormat='Hello, {0}'}"
+                <TextBlock Grid.Row="0" Text="{Binding PatientName, StringFormat='👤 Hello, {0}'}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
@@ -32,18 +32,36 @@
                        Margin="20,0,0,0" />
 
                 <StackPanel Grid.Row="1">
-                    <RadioButton Content="Appointments"
+                    <RadioButton Content="📅  Appointments"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding PatientAppointmentsCommand}" IsChecked="True"/>
-                    <RadioButton Content="Medical record"
+                    <RadioButton Content="📋  Medical record"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding PatientMedicalRecordCommand}" IsChecked="False"/>
+                    <RadioButton Content="🧑‍⚕️  Doctor search"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding DoctorSearchCommand}" IsChecked="False"/>
+                    <RadioButton Content="📝  Clinic Survey"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding HealthInstitutionSurveyCommand}" IsChecked="False"/>
+                    <RadioButton Content="⚙️  Settings"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding PatientSettingsCommand}" IsChecked="False"/>
                 </StackPanel>
 
                 <Button Content="Log out"

@@ -1,14 +1,11 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class PrescribeMedicineCommand : CommandBase
     {
@@ -39,7 +36,12 @@ namespace HealthInstitution.Commands
                 MessageBox.Show("Patient is allergic to the prescribed medicine. Prescription canceled.");
                 return;
             }
-            PrescribedMedicine prescibedMedicine = new PrescribedMedicine { Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, Usage = _viewModel.Usage };
+            if(_viewModel.UsageStart > _viewModel.UsageEnd)
+            {
+                MessageBox.Show("Usage start date cannot be after usage end date!");
+                return;
+            }
+            PrescribedMedicine prescibedMedicine = new PrescribedMedicine{ Instruction = _viewModel.Instruction, Medicine = _viewModel.SelectedMedicine, UsageStart = _viewModel.UsageStart, UsageEnd = _viewModel.UsageEnd, UsageHourSpan = _viewModel.UsageHourSpan, MedicalRecord = _viewModel.MedicalRecord};
             _viewModel.addPrescribedMedicine(prescibedMedicine);
         }
 

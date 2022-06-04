@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
+using HealthInstitution.Model.room;
 
 namespace HealthInstitution.ViewModel
 {
@@ -93,7 +94,7 @@ namespace HealthInstitution.ViewModel
                         Room room2 = new Room(renRoom.RenovatedRoom.RoomType, renRoom.RenovatedSmallRoom2Name);
                         foreach (var entry in renRoom.RenovatedRoom.Inventory)
                         {
-                            room1.AddEquipment(entry);
+                            room1.AddEntry(entry);
                         }
                         _roomService.Create(room1);
                         _roomService.Create(room2);
@@ -108,7 +109,7 @@ namespace HealthInstitution.ViewModel
                         Room mergedRoom = new Room(room1.RoomType, room1.Name + room2.Name + "Merged");
                         foreach (var entry in room1.Inventory)
                         {
-                            mergedRoom.AddEquipment(entry);
+                            mergedRoom.AddEntry(entry);
                         }
 
                         foreach (var entry in room2.Inventory)
@@ -126,7 +127,7 @@ namespace HealthInstitution.ViewModel
                             if (!itemExisted)
                             {
                                 Entry<Equipment> newEntry = new Entry<Equipment> { Item = entry.Item, Quantity = 1 };
-                                mergedRoom.AddEquipment(newEntry);
+                                mergedRoom.AddEntry(newEntry);
                             }
                         }
                         _roomService.Create(mergedRoom);

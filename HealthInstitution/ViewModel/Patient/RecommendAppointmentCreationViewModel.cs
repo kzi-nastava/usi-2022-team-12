@@ -1,14 +1,14 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.patient;
+using HealthInstitution.Commands.patient.Navigation;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.patient
 {
     public class RecommendAppointmentCreationViewModel : ViewModelBase
     {
@@ -117,7 +117,7 @@ namespace HealthInstitution.ViewModel
         #region commands
         public ICommand RecommendAppointmentCommand { get; }
         public ICommand ConfirmRecommendationCommand { get; }
-        public ICommand PatientAppointmentsCommand { get; }
+        public ICommand BackCommand { get; }
         #endregion
 
         public RecommendAppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
@@ -127,15 +127,16 @@ namespace HealthInstitution.ViewModel
             _doctorService = doctorService;
             _patientService = patientService;
 
-            DeadlineDate = DateTime.Now.Date;
-            StartTime = DateTime.Now;
-            EndTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
+            DeadlineDate = currentDateTime.Date;
+            StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
+            EndTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute + 15);
 
-            _selectedPriority = "";
+            _selectedPriority = "TimeInterval";
             Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
             RecommendAppointmentCommand = new RecommendAppointmentCommand(this);
             ConfirmRecommendationCommand = new ConfirmRecommendationCommand(this);
-            PatientAppointmentsCommand = new PatientAppointmentsCommand();
+            BackCommand = new PatientAppointmentsCommand();
         }
     }
 }

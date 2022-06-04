@@ -1,16 +1,13 @@
-﻿using HealthInstitution.Exceptions;
-using HealthInstitution.Model;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Exceptions;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class CreateAppointmentCommand : CommandBase
     {
@@ -46,7 +43,7 @@ namespace HealthInstitution.Commands
             Doctor doctor = GlobalStore.ReadObject<Doctor>("LoggedUser");
             try
             {
-                _viewModel.AppointmentService.MakeAppointment(_viewModel.SelectedPatient, doctor, startDate, endDate);
+                _viewModel.AppointmentService.MakeAppointment(_viewModel.SelectedPatient, doctor, startDate, endDate, AppointmentType.Regular);
             }
             catch (DoctorBusyException)
             {

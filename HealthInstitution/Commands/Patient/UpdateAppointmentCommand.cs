@@ -1,16 +1,14 @@
-﻿using HealthInstitution.Exceptions;
-using HealthInstitution.Model;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Exceptions;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.user;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.patient
 {
     public class UpdateAppointmentCommand : CommandBase
     {
@@ -42,7 +40,7 @@ namespace HealthInstitution.Commands
             try
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var updated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.ChosenAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                var updated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.SelectedAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
 
                 if (updated)
                 {

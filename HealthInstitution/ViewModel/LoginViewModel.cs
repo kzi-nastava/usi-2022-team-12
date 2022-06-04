@@ -3,6 +3,7 @@ using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.ViewModel
 {
@@ -10,9 +11,10 @@ namespace HealthInstitution.ViewModel
     {
 
         public readonly IUserService<User> _userService;
+        public readonly IEquipmentPurchaseRequestService _equipmentPurchaseRequestService;
 
-        private string? _email;
-        public string? Email
+        private string? _email = "@example.com";
+        public string? Email 
         {
             get => _email;
             set
@@ -22,7 +24,7 @@ namespace HealthInstitution.ViewModel
             }
         }
 
-        private string? _password;
+        private string? _password = "test123";
         public string? Password
         {
             get => _password;
@@ -57,11 +59,12 @@ namespace HealthInstitution.ViewModel
 
         public ICommand? LoginCommand { get; }
 
-        public LoginViewModel(IUserService<User> userService)
+        public LoginViewModel(IUserService<User> userService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService)
         {
             _errMsgVisibility = Visibility.Hidden;
             _errMsgText = "";
             _userService = userService;
+            _equipmentPurchaseRequestService = equipmentPurchaseRequestService;
             LoginCommand = new LoginCommand(this);
         }
 

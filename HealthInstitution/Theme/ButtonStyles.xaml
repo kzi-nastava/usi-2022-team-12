@@ -39,8 +39,8 @@
 
                             <TextBlock Text="{TemplateBinding Property=Content}"
                                        VerticalAlignment="Center"
-                                       Margin="50,0,0,0"/>
-                            
+                                       Margin="20,0,0,0"/>
+
 
                         </Grid>
                     </ControlTemplate>
@@ -61,7 +61,7 @@
     <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
            TargetType="{x:Type RadioButton}"
            x:Key="Pera">
-        
-        
+
+
     </Style>
 </ResourceDictionary>

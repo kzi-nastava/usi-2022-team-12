@@ -1,11 +1,6 @@
-﻿using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.patient
 {
     public class SearchByAnamnesisCommand : CommandBase
     {
@@ -17,7 +12,7 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            _viewModel.SearchByAnamnesis(_viewModel.AnamnesisSearchCriteria);
+            _viewModel.SearchByAnamnesis();
         }
     }
 }

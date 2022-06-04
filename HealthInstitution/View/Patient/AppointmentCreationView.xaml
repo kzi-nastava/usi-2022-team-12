@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="HealthInstitution.View.AppointmentCreationView"
+﻿<UserControl x:Class="HealthInstitution.View.patient.AppointmentCreationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HealthInstitution.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
@@ -45,7 +44,7 @@
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Content="Back" HorizontalAlignment="Left" Height="60" Width="80" Command="{Binding PatientAppointmentsCommand}"/>
+            <Button Content="Back" HorizontalAlignment="Left" Height="60" Width="80" Command="{Binding BackCommand}"/>
             <Button Content="Make Appointment" Margin="20,0,0,0" HorizontalAlignment="Left" Height="60" Width="180" Command="{Binding MakeAppointmentCommand}"/>
         </StackPanel>
     </Grid>

@@ -1,16 +1,11 @@
-﻿using HealthInstitution.Model;
+﻿using System.Collections.Generic;
+using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class FinishExaminationCommand : CommandBase
     {
@@ -22,10 +17,19 @@ namespace HealthInstitution.Commands
         }
         public override void Execute(object? parameter)
         {
+            if((bool)!OpenDynamicEqupmentDialog())
+                return;
             UpdateMedicalRecord();
             UpdateAppointment();
             CreateReferrals();
             EventBus.FireEvent("DoctorSchedule");
+        }
+
+        private bool? OpenDynamicEqupmentDialog()
+        {
+            DynamicEquipmentUpdateViewModel dynamicEquipmentUpdateViewModel = new DynamicEquipmentUpdateViewModel(_viewModel.Appointment.Room, _viewModel.EntryService);
+            bool? result = _viewModel.DialogService.OpenDialog(dynamicEquipmentUpdateViewModel);
+            return result;
         }
         private void UpdateAppointment()
         {
@@ -34,18 +38,16 @@ namespace HealthInstitution.Commands
             appointment.IsDone = true;
 
             List<PrescribedMedicine> prescriptions = GlobalStore.ReadObject<List<PrescribedMedicine>>("Prescription");
-            Prescription prescription = new Prescription();
+            List<PrescribedMedicine> prescribedMedicines = new List<PrescribedMedicine>();
             foreach (PrescribedMedicine medicine in prescriptions)
             {
                 PrescribedMedicine prescribedMedicine = _viewModel.PrescribedMedicineService.Create(medicine);
-                prescription.PrescribedMedicine.Add(prescribedMedicine);
+                _viewModel.MedicalRecord.PrescribedMedicines.Add(prescribedMedicine);
+                prescribedMedicines.Add(prescribedMedicine);
             }
-            _viewModel.PrescriptionService.Create(prescription);
-            appointment.Prescription = prescription;
-
+            appointment.PrescribedMedicines = prescribedMedicines;
             _viewModel.AppointmentService.Update(appointment);
-
-
+            _viewModel.MedicalRecordService.Update(_viewModel.MedicalRecord);
         }
         private void UpdateMedicalRecord()
         {

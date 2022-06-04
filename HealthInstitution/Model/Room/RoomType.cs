@@ -1,4 +1,4 @@
-﻿namespace HealthInstitution.Model
+﻿namespace HealthInstitution.Model.room
 {
     public enum RoomType
     {

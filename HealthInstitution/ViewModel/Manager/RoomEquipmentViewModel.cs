@@ -1,14 +1,10 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.Model;
+using HealthInstitution.Model.room;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.manager
 {
     public class RoomEquipmentViewModel : ViewModelBase
     {

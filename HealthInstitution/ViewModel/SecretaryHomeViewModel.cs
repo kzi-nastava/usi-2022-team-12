@@ -1,8 +1,10 @@
 ﻿using HealthInstitution.Commands;
+using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
 using System.Windows.Input;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.secretary;
 
 namespace HealthInstitution.ViewModel
 {
@@ -23,6 +25,17 @@ namespace HealthInstitution.ViewModel
 
         public ICommand ShowUrgentScheduling { get; private set; }
 
+        public ICommand ShowDynamicEquipment { get; private set; }
+
+        public ICommand ShowDynamicEquipmentArrangement { get; private set; }
+
+        #endregion
+
+        #region attributes
+        public string SecretaryName
+        {
+            get => GlobalStore.ReadObject<Secretary>("LoggedUser").FirstName;
+        }
         #endregion
 
         public SecretaryHomeViewModel()
@@ -55,6 +68,16 @@ namespace HealthInstitution.ViewModel
             ShowUrgentScheduling = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryUrgentScheduleViewModel>());
+            });
+
+            ShowDynamicEquipment = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDynamicEquipmentPurchaseRequestViewModel>());
+            });
+
+            ShowDynamicEquipmentArrangement = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDynamicEquipmentArrangementViewModel>());
             });
 
             RegisterHandler();

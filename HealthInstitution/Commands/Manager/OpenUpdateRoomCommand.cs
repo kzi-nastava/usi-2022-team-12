@@ -1,16 +1,31 @@
-﻿using HealthInstitution.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class OpenUpdateRoomCommand : CommandBase
     {
-        public OpenUpdateRoomCommand()
+        private readonly RoomsCRUDViewModel? _viewModel;
+
+        public OpenUpdateRoomCommand(RoomsCRUDViewModel viewModel)
         {
+            _viewModel = viewModel;
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_viewModel.SelectedRoom))
+            {
+                OnCanExecuteChange();
+            }
+        }
+
+        public override bool CanExecute(object? parameter)
+        {
+            return _viewModel.SelectedRoom != null;
         }
 
         public override void Execute(object? parameter)

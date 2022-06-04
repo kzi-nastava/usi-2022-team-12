@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using HealthInstitution.Model.patient;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.user
 {
     public class Patient : User
     {
@@ -11,6 +12,9 @@ namespace HealthInstitution.Model
 
         private IList<Activity> _activities;
         public virtual IList<Activity> Activities { get => _activities; set => OnPropertyChanged(ref _activities, value); }
+
+        private int notificationPreference;
+        public int NotificationPreference { get => notificationPreference; set => OnPropertyChanged(ref notificationPreference, value); }
 
         #endregion
 

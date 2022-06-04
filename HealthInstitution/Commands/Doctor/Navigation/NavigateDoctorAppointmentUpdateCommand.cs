@@ -1,15 +1,11 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Utility;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor.Navigation
 {
     public class NavigateDoctorAppointmentUpdateCommand : CommandBase
     {
@@ -28,7 +24,7 @@ namespace HealthInstitution.Commands
         }
         public override bool CanExecute(object? parameter)
         {
-            return _viewModel.SelectedAppointment is not null && base.CanExecute(parameter);
+            return _viewModel.SelectedAppointment is not null && !_viewModel.SelectedAppointment.IsDone && base.CanExecute(parameter);
         }
         public override void Execute(object? parameter)
         {

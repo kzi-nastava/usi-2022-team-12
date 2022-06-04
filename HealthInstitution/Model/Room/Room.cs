@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.room
 {
     public class Room : BaseObservableEntity
     {
         #region Attributes
-        private String _name;
-        public String Name { get => _name; set => OnPropertyChanged(ref _name, value); }
+        private string _name;
+        public string Name { get => _name; set => OnPropertyChanged(ref _name, value); }
 
         private RoomType _roomType;
         public RoomType RoomType { get => _roomType; set => OnPropertyChanged(ref _roomType, value); }
 
-        private readonly IList<Entry<Equipment>> _inventory;
-        public virtual IList<Entry<Equipment>> Inventory { get => _inventory; }
+        private IList<Entry<Equipment>> _inventory;
+        public virtual IList<Entry<Equipment>> Inventory { get => _inventory; set => OnPropertyChanged(ref _inventory, value); }
 
         #endregion
 
@@ -30,17 +30,72 @@ namespace HealthInstitution.Model
 
         #region Methods
 
-        public void AddEquipment(Entry<Equipment> entry)
+        public void AddEquipment(Equipment newEquipment)
         {
-            foreach (Entry<Equipment> includedEntry in _inventory)
+            if (HasEquipment(newEquipment))
             {
-                if (includedEntry.Item.Id == entry.Item.Id)
-                {                    
-                    return;
-                }
+                return;
             }
 
-            _inventory.Add(entry);
+            Inventory.Add(GetEntry(newEquipment, 0));
+        }
+
+        public void AddEquipment(IList<Equipment> newEquipment)
+        {
+            foreach (var equipment in newEquipment)
+                AddEquipment(equipment);
+        }
+
+        public void AddEntry(Entry<Equipment> newEntry)
+        {
+            if (HasEquipment(newEntry.Item))
+            {
+                return;
+            }
+
+            Inventory.Add(newEntry);
+        }
+
+        public void RefreshInventory()
+        {
+            Inventory = Inventory.Where(entry => entry.Quantity != 0).ToList();
+        }
+
+        public void IncreaseEquipmentQuantity(Entry<Equipment> deliveredEquipment)
+        {
+            var entryToUpdate = Inventory.FirstOrDefault(e => e.Item.Id == deliveredEquipment.Item.Id);
+            if (entryToUpdate != null)
+                entryToUpdate.Quantity += deliveredEquipment.Quantity;
+        }
+
+        public bool ContainsEquipment(Equipment equipment)
+        {
+            return Inventory.Any(equipmentEntry => equipmentEntry.Item.Id == equipment.Id);
+        }
+
+        public bool IsLowOnEquipment()
+        {
+            return Inventory.Any(equipmentEntry => equipmentEntry.Quantity < 5);
+        }
+
+        public IList<Equipment> GetMissingEquipment(IList<Equipment> requiredEquipment)
+        {
+            return requiredEquipment.Where(equipment => _inventory.All(equipmentEntry => equipmentEntry.Item.Id != equipment.Id))
+                                    .ToList();
+        }
+
+        public bool HasEquipment(Equipment newEquipment)
+        {
+            return Inventory.Any(includedEntry => includedEntry.Item.Id == newEquipment.Id);
+        }
+
+        private Entry<Equipment> GetEntry(Equipment newEquipment, int quantity)
+        {
+            return new Entry<Equipment>
+            {
+                Item = newEquipment,
+                Quantity = quantity
+            };
         }
 
         public override string ToString()

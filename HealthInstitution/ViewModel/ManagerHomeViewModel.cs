@@ -7,36 +7,46 @@ using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Commands.manager;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.manager;
 
 namespace HealthInstitution.ViewModel
 {
     public class ManagerHomeViewModel : NavigableViewModel
     {
-        public ICommand LogOutCommand { get; set; }
-
-        public ICommand? RoomsOverviewCommand { get; set; }
-
-        public ICommand? EquipmentOverviewCommand { get; set; }
-
-        public ICommand? ArrangeEquipmentCommand { get; set; }
-
-        public ICommand? RoomRenovationCommand { get; set; }
-
+        #region Properties
         public string ManagerName
         {
             get => GlobalStore.ReadObject<Manager>("LoggedUser").FirstName;
         }
+        #endregion
 
-        public ManagerHomeViewModel ()
+        #region Commands
+
+        public ICommand LogOutCommand { get; set; }
+        public ICommand? RoomsOverviewCommand { get; set; }
+        public ICommand? EquipmentOverviewCommand { get; set; }
+        public ICommand? ArrangeEquipmentCommand { get; set; }
+        public ICommand? RoomRenovationCommand { get; set; }
+        public ICommand? MedicineOverviewCommand { get; set; }
+        public ICommand? IngredientOverviewCommand { get; set; }
+
+        #endregion
+
+
+        public ManagerHomeViewModel()
         {
             RoomsOverviewCommand = new RoomsOverviewCommand();
             EquipmentOverviewCommand = new EquipmentOverviewCommand();
             ArrangeEquipmentCommand = new ArrangeEquipmentCommand();
             RoomRenovationCommand = new RoomRenovationCommand();
-            LogOutCommand = new LogOutCommand ();
+            MedicineOverviewCommand = new MedicineOverviewCommand();
+            IngredientOverviewCommand = new IngredientOverviewCommand();
+            LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
             RegisterHandler();
-            
+
         }
 
         private void RegisterHandler()
@@ -60,7 +70,7 @@ namespace HealthInstitution.ViewModel
             });
 
             EventBus.RegisterHandler("OpenUpdateRoom", () =>
-            {   
+            {
                 RoomUpdateViewModel Ruvm = ServiceLocator.Get<RoomUpdateViewModel>();
                 SwitchCurrentViewModel(Ruvm);
             });
@@ -87,7 +97,20 @@ namespace HealthInstitution.ViewModel
             {
                 RoomRenovationViewModel Rrvm = ServiceLocator.Get<RoomRenovationViewModel>();
                 SwitchCurrentViewModel(Rrvm);
-            });    
+            });
+
+            EventBus.RegisterHandler("MedicineOverview", () =>
+            {
+                MedicineOverviewViewModel Movm = ServiceLocator.Get<MedicineOverviewViewModel>();
+                SwitchCurrentViewModel(Movm);
+            });
+
+            EventBus.RegisterHandler("IngredientOverview", () =>
+            {
+                IngredientOverviewViewModel Iovm = ServiceLocator.Get<IngredientOverviewViewModel>();
+                SwitchCurrentViewModel(Iovm);
+            });
+
         }
     }
 }

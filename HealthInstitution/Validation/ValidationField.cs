@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HealthInstitution.Dialogs.Service
+namespace HealthInstitution.Validation
 {
     public class ValidationField : Attribute
     {

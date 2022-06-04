@@ -1,5 +1,10 @@
 ﻿using HealthInstitution.Model;
 using System;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Persistence
 {
@@ -9,12 +14,12 @@ namespace HealthInstitution.Persistence
         {
 
             //// Patients
-            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true };
-            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false };
-            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false };
-            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false };
-            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false };
-            var p6 = new Patient { FirstName = "Brusli", LastName = "Iljazovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "brusliiljazovic@example.com", Role = Role.Patient, IsBlocked = false };
+            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true, NotificationPreference = 20 };
+            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p6 = new Patient { FirstName = "Brusli", LastName = "Iljazovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "brusliiljazovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
 
             context.Patients.Add(p1);
             context.Patients.Add(p2);
@@ -78,6 +83,12 @@ namespace HealthInstitution.Persistence
             var e6 = new Equipment { EquipmentType = EquipmentType.Furniture, Name = "TV" };
             var e7 = new Equipment { EquipmentType = EquipmentType.ExaminationEquipment, Name = "Bed" };
             var e8 = new Equipment { EquipmentType = EquipmentType.OperationEquipment, Name = "Oxygen Generator" };
+            var e9 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Gauze" };
+            var e10 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Medical buckle" };
+            var e11 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Elastoplast" };
+            var e12 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Injection" };
+            var e13 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Paper" };
+            var e14 = new Equipment { EquipmentType = EquipmentType.DynamicEquipment, Name = "Pen" };
 
             context.Equipments.Add(e1);
             context.Equipments.Add(e2);
@@ -86,21 +97,98 @@ namespace HealthInstitution.Persistence
             context.Equipments.Add(e5);
             context.Equipments.Add(e6);
             context.Equipments.Add(e7);
-            context.Equipments.Add(e8);
+            context.Equipments.Add(e9);
+            context.Equipments.Add(e10);
+            context.Equipments.Add(e11);
+            context.Equipments.Add(e12);
+            context.Equipments.Add(e13);
+            context.Equipments.Add(e14);
 
             // Ingredient
-            var i1 = new Ingredient { Name = "Calcium" };
+            var i1 = new Ingredient { Name = "Amoxicillin trihydrate" };
+            var i2 = new Ingredient { Name = "Magnesium Stearate" };
+            var i3 = new Ingredient { Name = "Colloidal Anhydrous Silica" };
+            var i4 = new Ingredient { Name = "Lactose" };
+            var i5 = new Ingredient { Name = "Maize Starch" };
+            var i6 = new Ingredient { Name = "Hypromellose" };
+            var i7 = new Ingredient { Name = "Sodium Starch Glycollate" };
+            var i8 = new Ingredient { Name = "Dibasic Calcium Phosphate Dihydrate" };
+            var i9 = new Ingredient { Name = "Hydroxypropyl Cellulose" };
+            var i10 = new Ingredient { Name = "Microcrystalline Cellulose" };
+            var i11 = new Ingredient { Name = "Lorazepam" };
+            var i12 = new Ingredient { Name = "Corn Starch" };
+            var i13 = new Ingredient { Name = "Pregelatinized Starch" };
+            var i14 = new Ingredient { Name = "Calcium Stearate" };
 
             context.Ingredients.Add(i1);
+            context.Ingredients.Add(i2);
+            context.Ingredients.Add(i3);
+            context.Ingredients.Add(i4);
+            context.Ingredients.Add(i5);
+            context.Ingredients.Add(i6);
+            context.Ingredients.Add(i7);
+            context.Ingredients.Add(i8);
+            context.Ingredients.Add(i9);
+            context.Ingredients.Add(i10);
+            context.Ingredients.Add(i11);
+            context.Ingredients.Add(i12);
+            context.Ingredients.Add(i13);
+            context.Ingredients.Add(i14);
 
             // Medicine 
             var me1 = new Medicine();
-            me1.Name = "Probiotic";
-            me1.Description = "For stomach.";
+            me1.Name = "Amoxicillin";
+            me1.Description = "Used to treat many types of bacterial infections.";
             me1.AddIngredient(i1);
+            me1.AddIngredient(i2);
+            me1.AddIngredient(i3);
+
+            var me2 = new Medicine();
+            me2.Name = "Ibuprofen";
+            me2.Description = "Used to treat fever, swelling, pain, and redness by preventing the body from making a substance that causes inflammation.";
+            me2.AddIngredient(i3);
+            me2.AddIngredient(i4);
+            me2.AddIngredient(i5);
+            me2.AddIngredient(i6);
+            me2.AddIngredient(i7);
+
+            var me3 = new Medicine();
+            me3.Name = "Sertraline";
+            me3.Description = "Used to treat moderate to severe depression and other disorders.";
+            me3.AddIngredient(i2);
+            me3.AddIngredient(i8);
+            me3.AddIngredient(i9);
+            me3.AddIngredient(i10);
+            
+
+            var me4 = new Medicine();
+            me4.Name = "Lorazepam";
+            me4.Description = "Used to treat anxiety disorders and insomnia caused by anxiety or transient situational stress.";
+            me4.AddIngredient(i2);
+            me4.AddIngredient(i4);
+            me4.AddIngredient(i5);
+            me4.AddIngredient(i7);
+            me4.AddIngredient(i10);
+            me4.AddIngredient(i11);
+
+            var me5 = new Medicine();
+            me5.Name = "Diazepam";
+            me5.Description = "Used to treat anxiety disorders, alcohol withdrawal symptoms, or muscle spasms.";
+            me5.AddIngredient(i4);
+            me5.AddIngredient(i12);
+            me5.AddIngredient(i13);
+            me5.AddIngredient(i14);
+
+
 
             context.Medicines.Add(me1);
+            context.Medicines.Add(me2);
+            context.Medicines.Add(me3);
+            context.Medicines.Add(me4);
+            context.Medicines.Add(me5);
 
+            context.Medicines.Add(me1);
+            context.Medicines.Add(me2);
             // Room
             var r1 = new Room(RoomType.Storage, "S");
             var r2 = new Room(RoomType.ExaminationRoom, "E1");
@@ -123,16 +211,20 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entry6 = new Entry<Equipment> { Item = e6, Quantity = 10 };
             Entry<Equipment> entry7 = new Entry<Equipment> { Item = e7, Quantity = 20 };
             Entry<Equipment> entry8 = new Entry<Equipment> { Item = e8, Quantity = 3 };
+            Entry<Equipment> entry9 = new Entry<Equipment> { Item = e11, Quantity = 5 };
+            Entry<Equipment> entry10 = new Entry<Equipment> { Item = e13, Quantity = 10 };
 
 
-            r1.AddEquipment(entry1);
-            r1.AddEquipment(entry2);
-            r1.AddEquipment(entry3);
-            r1.AddEquipment(entry4);
-            r1.AddEquipment(entry5);
-            r1.AddEquipment(entry6);
-            r1.AddEquipment(entry7);
-            r1.AddEquipment(entry8);
+            r1.AddEntry(entry1);
+            r1.AddEntry(entry2);
+            r1.AddEntry(entry3);
+            r1.AddEntry(entry4);
+            r1.AddEntry(entry5);
+            r1.AddEntry(entry6);
+            r1.AddEntry(entry7);
+            r1.AddEntry(entry8);
+            r1.AddEntry(entry9);
+            r1.AddEntry(entry10);
 
             // ExaminationRoom equipment
 
@@ -146,17 +238,17 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entryE8 = new Entry<Equipment> { Item = e4, Quantity = 5 };
             Entry<Equipment> entryE9 = new Entry<Equipment> { Item = e7, Quantity = 2 };
 
-            r2.AddEquipment(entryE1);
-            r2.AddEquipment(entryE2);
-            r2.AddEquipment(entryE3);
+            r2.AddEntry(entryE1);
+            r2.AddEntry(entryE2);
+            r2.AddEntry(entryE3);
 
-            r3.AddEquipment(entryE4);
-            r3.AddEquipment(entryE5);
-            r3.AddEquipment(entryE6);
+            r3.AddEntry(entryE4);
+            r3.AddEntry(entryE5);
+            r3.AddEntry(entryE6);
 
-            r4.AddEquipment(entryE7);
-            r4.AddEquipment(entryE8);
-            r4.AddEquipment(entryE9);
+            r4.AddEntry(entryE7);
+            r4.AddEntry(entryE8);
+            r4.AddEntry(entryE9);
 
             // OperationRoom equipment
 
@@ -166,13 +258,13 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entryO4 = new Entry<Equipment> { Item = e2, Quantity = 1 };
             Entry<Equipment> entryO5 = new Entry<Equipment> { Item = e8, Quantity = 1 };
 
-            r5.AddEquipment(entryO1);
-            r5.AddEquipment(entryO2);
+            r5.AddEntry(entryO1);
+            r5.AddEntry(entryO2);
 
-            r6.AddEquipment(entryO3);
+            r6.AddEntry(entryO3);
 
-            r7.AddEquipment(entryO4);
-            r7.AddEquipment(entryO5);
+            r7.AddEntry(entryO4);
+            r7.AddEntry(entryO5);
 
             // RestingRoom equipment
 
@@ -183,14 +275,14 @@ namespace HealthInstitution.Persistence
             Entry<Equipment> entryR5 = new Entry<Equipment> { Item = e3, Quantity = 4 };
             Entry<Equipment> entryR6 = new Entry<Equipment> { Item = e6, Quantity = 1 };
 
-            r8.AddEquipment(entryR1);
-            r8.AddEquipment(entryR2);
+            r8.AddEntry(entryR1);
+            r8.AddEntry(entryR2);
 
-            r9.AddEquipment(entryR3);
-            r9.AddEquipment(entryR4);
+            r9.AddEntry(entryR3);
+            r9.AddEntry(entryR4);
 
-            r10.AddEquipment(entryR5);
-            r10.AddEquipment(entryR6);
+            r10.AddEntry(entryR5);
+            r10.AddEntry(entryR6);
 
 
             context.Rooms.Add(r1);

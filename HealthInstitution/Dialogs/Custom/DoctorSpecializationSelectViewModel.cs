@@ -4,12 +4,15 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System;
 using System.Collections.Generic;
+using HealthInstitution.Model.doctor;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.Dialogs.Custom
 {
     public class DoctorSpecializationSelectViewModel : DialogReturnViewModelBase<DoctorSpecializationSelectViewModel, DoctorSpecialization>
     {
+        #region Properties
+
         private IEnumerable<DoctorSpecialization> _doctorSpecializations;
         public IEnumerable<DoctorSpecialization> DoctorSpecializations
         {
@@ -24,7 +27,13 @@ namespace HealthInstitution.Dialogs.Custom
             set { OnPropertyChanged(ref _selectedSpecialization, value); }
         }
 
+        #endregion
+
+        #region Services
+
         public ICommand Select { get; set; }
+
+        #endregion
 
         public DoctorSpecializationSelectViewModel() :
             base("Doctor specialization select", 500, 250)

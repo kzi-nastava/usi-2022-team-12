@@ -4,6 +4,7 @@ using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System.ComponentModel;
 using System.Windows;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Commands
 {
@@ -11,12 +12,14 @@ namespace HealthInstitution.Commands
     {
         private readonly LoginViewModel? _viewModel;
 
-        public LoginCommand(LoginViewModel lwm) {
+        public LoginCommand(LoginViewModel lwm)
+        {
             _viewModel = lwm;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e) {
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
             if (e.PropertyName == nameof(_viewModel.Email) || e.PropertyName == nameof(_viewModel.Password))
             {
                 OnCanExecuteChange();
@@ -30,20 +33,23 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
+            _viewModel._equipmentPurchaseRequestService.UpdateEquipmentQuantity();
+
             var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)
             {
                 _viewModel.ErrMsgText = "Email or password is incorrect";
                 _viewModel.ErrMsgVisibility = Visibility.Visible;
             }
-            else {
+            else
+            {
                 ViewModelBase viewModel;
-                switch (user.Role) {
+                switch (user.Role)
+                {
                     case Role.Manager:
                         Manager mn = (Manager)user;
                         GlobalStore.AddObject("LoggedUser", mn);
                         EventBus.FireEvent("ManagerLogin");
-                        //todo
                         TitleManager.Title = "Manager";
                         break;
                     case Role.Administrator:
@@ -57,7 +63,7 @@ namespace HealthInstitution.Commands
                             EventBus.FireEvent("PatientLogin");
                             TitleManager.Title = "Patient";
                         }
-                        else 
+                        else
                         {
                             _viewModel.ErrMsgText = "Your profile is blocked!";
                             _viewModel.ErrMsgVisibility = Visibility.Visible;
@@ -70,6 +76,8 @@ namespace HealthInstitution.Commands
                         TitleManager.Title = "Doctor";
                         break;
                     case Role.Secretary:
+                        Secretary sec = (Secretary)user;
+                        GlobalStore.AddObject("LoggedUser", sec);
                         EventBus.FireEvent("SecretaryLogin");
                         TitleManager.Title = "Secretary";
                         break;
@@ -78,7 +86,7 @@ namespace HealthInstitution.Commands
                         return;
                 }
             }
-            
+
         }
     }
 }
