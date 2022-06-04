@@ -27,155 +27,6 @@ namespace HealthInstitution.Services.Implementation
             _roomRenovationService = roomRenovationService;
         }
 
-        //#region backup methods
-        //public Appointment FindFirstFreeAppointmentForDoctorAndInterval(Patient patient, Doctor doctor, TimeOnly startIntervalBound, TimeOnly endIntervalBound, DateOnly deadline)
-        //{
-        //    DateTime start = DateTime.Now.Date.AddTicks(startIntervalBound.Ticks);
-        //    DateTime end = DateTime.Now.Date.AddTicks(startIntervalBound.Ticks).AddMinutes(15);
-        //    DateTime upperIntervalBound = DateTime.Now.Date.AddTicks(endIntervalBound.Ticks);
-
-        //    if (start < DateTime.Now)
-        //    {
-        //        start = start.AddDays(1);
-        //        end = end.AddDays(1);
-        //        upperIntervalBound = upperIntervalBound.AddDays(1);
-        //    }
-        //    if (startIntervalBound > endIntervalBound)
-        //    {
-        //        upperIntervalBound = upperIntervalBound.AddDays(1);
-        //    }
-
-        //    while (DateOnly.FromDateTime(end) <= deadline)
-        //    {
-        //        while (end <= upperIntervalBound)
-        //        {
-        //            //doctor availabilty check
-        //            if (IsDoctorAvailable(doctor, start, end) && _appointmentUpdateRequestService.IsDoctorAvailable(doctor, start, end))
-        //            {
-        //                //room availabilty check
-        //                Room emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, start, end);
-        //                if (emptyRoom != null)
-        //                {
-        //                    return new Appointment(doctor, patient, start, end, emptyRoom, AppointmentType.Regular, null, false);
-        //                }
-        //            }
-        //            start = start.AddMinutes(1);
-        //            end = end.AddMinutes(1);
-        //        }
-        //        upperIntervalBound = upperIntervalBound.AddDays(1);
-        //        start = start.AddDays(1).Date.AddTicks(startIntervalBound.Ticks);
-        //        end = end.AddDays(1).Date.AddTicks(startIntervalBound.Ticks).AddMinutes(15);
-        //    }
-        //    return null;
-        //}
-
-        //public Appointment FindFirstFreeAppointmentForDoctor(Patient patient, Doctor doctor, DateOnly deadline)
-        //{
-        //    DateTime CurrentDateTime = DateTime.Now;
-        //    DateTime start = CurrentDateTime.Date.AddHours(CurrentDateTime.Hour).AddMinutes(CurrentDateTime.Minute + 60);
-        //    DateTime end = start.AddMinutes(15);
-
-        //    while (DateOnly.FromDateTime(end) <= deadline)
-        //    {
-        //        //doctor availabilty check
-        //        if (IsDoctorAvailable(doctor, start, end) && _appointmentUpdateRequestService.IsDoctorAvailable(doctor, start, end))
-        //        {
-        //            //room availabilty check
-        //            Room emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, start, end);
-        //            if (emptyRoom != null)
-        //            {
-        //                return new Appointment(doctor, patient, start, end, emptyRoom, AppointmentType.Regular, null, false);
-        //            }
-        //        }
-        //        start = start.AddMinutes(1);
-        //        end = end.AddMinutes(1);
-        //    }
-
-        //    return null;
-        //}
-
-        //public Appointment FindFirstFreeAppointmentForInterval(Patient patient, DoctorSpecialization specialization, TimeOnly startIntervalBound, TimeOnly endIntervalBound, DateOnly deadline)
-        //{
-        //    DateTime start = DateTime.Now.Date.AddTicks(startIntervalBound.Ticks);
-        //    DateTime end = DateTime.Now.Date.AddTicks(startIntervalBound.Ticks).AddMinutes(15);
-        //    DateTime upperIntervalBound = DateTime.Now.Date.AddTicks(endIntervalBound.Ticks);
-        //    if (start < DateTime.Now)
-        //    {
-        //        start = start.AddDays(1);
-        //        end = end.AddDays(1);
-        //        upperIntervalBound = upperIntervalBound.AddDays(1);
-        //    }
-        //    if (startIntervalBound > endIntervalBound)
-        //    {
-        //        upperIntervalBound = upperIntervalBound.AddDays(1);
-        //    }
-
-        //    var doctors = _doctorService.FindDoctorsWithSpecialization(specialization);
-        //    while (DateOnly.FromDateTime(end) <= deadline)
-        //    {
-        //        while (end <= upperIntervalBound)
-        //        {
-        //            foreach (var doctor in doctors)
-        //            {
-        //                //doctor availabilty check
-        //                if (IsDoctorAvailable(doctor, start, end) && _appointmentUpdateRequestService.IsDoctorAvailable(doctor, start, end))
-        //                {
-        //                    //room availabilty check
-        //                    Room emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, start, end);
-        //                    if (emptyRoom != null)
-        //                    {
-        //                        return new Appointment(doctor, patient, start, end, emptyRoom, AppointmentType.Regular, null, false);
-        //                    }
-        //                }
-        //            }
-        //            start = start.AddMinutes(1);
-        //            end = end.AddMinutes(1);
-        //        }
-        //        upperIntervalBound = upperIntervalBound.AddDays(1);
-        //        start = start.AddDays(1).Date.AddTicks(startIntervalBound.Ticks);
-        //        end = end.AddDays(1).Date.AddTicks(startIntervalBound.Ticks).AddMinutes(15);
-        //    }
-        //    return null;
-        //}
-
-        //public List<Appointment> FindFreeAppointments(Patient patient, DateOnly deadline, DoctorSpecialization specialization, int freeAppointmentsCount)
-        //{
-        //    DateTime CurrentDateTime = DateTime.Now;
-        //    DateTime start = CurrentDateTime.Date.AddHours(CurrentDateTime.Hour).AddMinutes(CurrentDateTime.Minute + 60);
-        //    DateTime end = start.AddMinutes(15);
-
-        //    var doctors = _doctorService.FindDoctorsWithSpecialization(specialization);
-        //    List<Appointment> freeAppointments = new List<Appointment>();
-
-        //    while (DateOnly.FromDateTime(end) <= deadline)
-        //    {
-        //        foreach (var doctor in doctors)
-        //        {
-        //            //doctor availabilty check
-        //            if (IsDoctorAvailable(doctor, start, end) && _appointmentUpdateRequestService.IsDoctorAvailable(doctor, start, end))
-        //            {
-        //                //room availabilty check
-        //                Room emptyRoom = FindFreeRoom(RoomType.ExaminationRoom, start, end);
-        //                if (emptyRoom != null)
-        //                {
-        //                    freeAppointments.Add(new Appointment(doctor, patient, start, end, emptyRoom, AppointmentType.Regular, null, false));
-        //                    start = start.AddMinutes(15);
-        //                    end = end.AddMinutes(15);
-        //                }
-        //            }
-
-        //            if (freeAppointments.Count >= freeAppointmentsCount)
-        //            {
-        //                return freeAppointments;
-        //            }
-        //        }
-        //        start = start.AddMinutes(1);
-        //        end = end.AddMinutes(1);
-        //    }
-        //    return freeAppointments;
-        //}
-        //#endregion
-
         public Appointment FindFreeAppointmentForDoctorInTimeSpan(Patient patient, List<Doctor> doctors, DateTime intervalStart, DateTime intervalEnd)
         {
             for (DateTime potentialStart = intervalStart; potentialStart.AddMinutes(15) <= intervalEnd; potentialStart = potentialStart.AddMinutes(1))
@@ -216,7 +67,8 @@ namespace HealthInstitution.Services.Implementation
             DateTime today = DateTime.Now;
             DateTime searchStartDate = today.Date.AddTicks(intervalStart.Ticks);
 
-            if (searchStartDate < today) {
+            if (searchStartDate < today)
+            {
                 searchStartDate = searchStartDate.AddDays(1);
             }
 
@@ -225,7 +77,8 @@ namespace HealthInstitution.Services.Implementation
                 DateTime dailyIntervalStart = potentialDate.Date.AddTicks(intervalStart.Ticks);
                 DateTime dailyIntervalEnd = potentialDate.Date.AddTicks(intervalEnd.Ticks);
 
-                if (intervalStart > intervalEnd) {
+                if (intervalStart > intervalEnd)
+                {
                     dailyIntervalEnd = dailyIntervalEnd.AddDays(1);
                 }
 
@@ -345,7 +198,8 @@ namespace HealthInstitution.Services.Implementation
                 throw new RoomBusyException();
             }
 
-            Appointment app = new Appointment {
+            Appointment app = new Appointment
+            {
                 Doctor = selectedDoctor,
                 Patient = selectedPatient,
                 StartDate = startDateTime,
@@ -467,7 +321,8 @@ namespace HealthInstitution.Services.Implementation
             return null;
         }
 
-        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string searchText) {
+        public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string searchText)
+        {
             searchText = searchText.ToLower();
             return _entities.Where(apt => apt.Anamnesis.ToLower().Contains(searchText) && apt.IsDone == true && apt.Patient == patient);
         }
