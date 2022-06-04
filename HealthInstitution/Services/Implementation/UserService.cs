@@ -2,6 +2,7 @@
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
 using System.Linq;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Services.Implementation
 {

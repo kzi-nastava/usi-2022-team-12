@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Utility
 {

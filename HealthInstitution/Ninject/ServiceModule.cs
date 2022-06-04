@@ -41,7 +41,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IDialogService)).To(typeof(DialogService));
             Bind(typeof(IPrescribedMedicineNotificationService)).To(typeof(PrescribedMedicineNotificationService));
 
-            Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope();
+            Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope().WithConstructorArgument(0);
 
             Bind<LoginViewModel>().To<LoginViewModel>();
         }

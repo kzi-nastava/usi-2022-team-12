@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.room
 {
     public class RoomRenovation : BaseObservableEntity
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View
+namespace HealthInstitution.View.secretary
 {
     /// <summary>
     /// Interaction logic for SecretaryBlockedPatientsView.xaml

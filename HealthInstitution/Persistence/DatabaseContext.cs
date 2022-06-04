@@ -1,7 +1,14 @@
 ﻿using HealthInstitution.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Windows;
+using System.IO;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.survey;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Persistence
 {
@@ -22,6 +29,7 @@ namespace HealthInstitution.Persistence
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<MedicineReview> MedicineReviews { get; set; }
+
         // Room related things
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
@@ -54,9 +62,16 @@ namespace HealthInstitution.Persistence
 
         public DatabaseContext()
         {
-            var folder = Environment.SpecialFolder.Desktop;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "health.db");
+            var folder = Directory.GetCurrentDirectory();
+            DbPath = Path.Join(folder, "Persistence");
+            DbPath = Path.Join(DbPath, "health.db");
+        }
+
+        public DatabaseContext(int dummyArg)
+        {
+            var folder = Directory.GetCurrentDirectory();
+            DbPath = Path.Join(folder, "..\\..\\..\\Persistence");
+            DbPath = Path.Join(DbPath, "health.db");
         }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options)

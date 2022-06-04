@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.doctor;
+using HealthInstitution.Model.room;
 
 namespace HealthInstitution.Dialogs.Custom.Doctor
 {

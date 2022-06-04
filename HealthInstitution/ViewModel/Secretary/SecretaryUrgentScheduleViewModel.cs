@@ -1,16 +1,20 @@
-﻿using HealthInstitution.Dialogs.Custom;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.secretary
 {
     public class SecretaryUrgentScheduleViewModel : ObservableEntity
     {

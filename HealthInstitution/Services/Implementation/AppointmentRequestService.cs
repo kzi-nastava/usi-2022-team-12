@@ -3,6 +3,7 @@ using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Model.patient;
 
 namespace HealthInstitution.Services.Implementation
 {

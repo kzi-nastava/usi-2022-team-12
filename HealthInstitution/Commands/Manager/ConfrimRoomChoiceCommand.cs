@@ -1,15 +1,8 @@
-﻿using HealthInstitution.Model;
+﻿using System.ComponentModel;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class ConfirmRoomChoiceCommand : CommandBase
     {

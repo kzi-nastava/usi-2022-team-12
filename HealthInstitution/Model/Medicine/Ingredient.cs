@@ -1,4 +1,4 @@
-﻿namespace HealthInstitution.Model
+﻿namespace HealthInstitution.Model.medicine
 {
     public class Ingredient : BaseObservableEntity
     {

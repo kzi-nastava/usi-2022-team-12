@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace HealthInstitution.Validations.Doctor
+namespace HealthInstitution.Validation.doctor
 {
     public class HeightValidation : ValidationRule
     {

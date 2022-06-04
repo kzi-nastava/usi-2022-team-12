@@ -1,13 +1,10 @@
-﻿using HealthInstitution.Dialogs.Custom.Doctor;
-using HealthInstitution.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Model;
+using HealthInstitution.Model.room;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class MoveToInventoryCommand : CommandBase
     {

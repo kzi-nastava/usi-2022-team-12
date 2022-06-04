@@ -1,14 +1,9 @@
-﻿using HealthInstitution.Model;
+﻿using System.Windows;
+using HealthInstitution.Model.survey;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.patient
 {
     public class FinishDoctorSurveyCommand : CommandBase
     {

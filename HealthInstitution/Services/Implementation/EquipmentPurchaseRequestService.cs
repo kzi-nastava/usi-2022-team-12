@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Model;
+using HealthInstitution.Model.room;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Intefaces;
 

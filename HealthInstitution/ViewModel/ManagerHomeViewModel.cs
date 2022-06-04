@@ -7,6 +7,9 @@ using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Commands.manager;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.manager;
 
 namespace HealthInstitution.ViewModel
 {
@@ -28,11 +31,11 @@ namespace HealthInstitution.ViewModel
         public ICommand? RoomRenovationCommand { get; set; }
         public ICommand? MedicineOverviewCommand { get; set; }
         public ICommand? IngredientOverviewCommand { get; set; }
-        
-        #endregion
-        
 
-        public ManagerHomeViewModel ()
+        #endregion
+
+
+        public ManagerHomeViewModel()
         {
             RoomsOverviewCommand = new RoomsOverviewCommand();
             EquipmentOverviewCommand = new EquipmentOverviewCommand();
@@ -40,10 +43,10 @@ namespace HealthInstitution.ViewModel
             RoomRenovationCommand = new RoomRenovationCommand();
             MedicineOverviewCommand = new MedicineOverviewCommand();
             IngredientOverviewCommand = new IngredientOverviewCommand();
-            LogOutCommand = new LogOutCommand ();
+            LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
             RegisterHandler();
-            
+
         }
 
         private void RegisterHandler()
@@ -67,7 +70,7 @@ namespace HealthInstitution.ViewModel
             });
 
             EventBus.RegisterHandler("OpenUpdateRoom", () =>
-            {   
+            {
                 RoomUpdateViewModel Ruvm = ServiceLocator.Get<RoomUpdateViewModel>();
                 SwitchCurrentViewModel(Ruvm);
             });

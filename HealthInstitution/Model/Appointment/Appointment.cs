@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.appointment
 {
     public class Appointment : BaseObservableEntity
     {

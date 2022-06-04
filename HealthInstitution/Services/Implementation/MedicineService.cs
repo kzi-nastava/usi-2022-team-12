@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Model.medicine;
 
 namespace HealthInstitution.Services.Implementation
 {

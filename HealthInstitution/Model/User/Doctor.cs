@@ -1,4 +1,6 @@
-﻿namespace HealthInstitution.Model
+﻿using HealthInstitution.Model.doctor;
+
+namespace HealthInstitution.Model.user
 {
     public class Doctor : User
     {

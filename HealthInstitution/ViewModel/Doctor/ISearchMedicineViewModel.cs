@@ -1,11 +1,7 @@
-﻿using HealthInstitution.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using HealthInstitution.Model.medicine;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.doctor
 {
     public interface ISearchMedicineViewModel
     {

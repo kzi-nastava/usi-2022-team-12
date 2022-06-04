@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.user
 {
     public abstract class User : BaseObservableEntity
     {

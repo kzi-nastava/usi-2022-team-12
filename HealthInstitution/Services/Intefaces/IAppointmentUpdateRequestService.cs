@@ -1,5 +1,8 @@
 ﻿using HealthInstitution.Model;
 using System;
+using HealthInstitution.Model.patient;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Services.Intefaces
 {

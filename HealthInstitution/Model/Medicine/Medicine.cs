@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.medicine
 {
     public class Medicine : BaseObservableEntity
     {

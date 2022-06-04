@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using HealthInstitution.Model.patient;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.user
 {
     public class Patient : User
     {

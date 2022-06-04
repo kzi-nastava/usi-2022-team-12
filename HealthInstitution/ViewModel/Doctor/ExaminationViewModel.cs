@@ -1,23 +1,18 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Dialogs.Custom.Doctor;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Implementation;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using HealthInstitution.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using HealthInstitution.Commands.doctor;
+using HealthInstitution.Commands.doctor.Navigation;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.doctor
 {
     public class ExaminationViewModel : ViewModelBase
     {

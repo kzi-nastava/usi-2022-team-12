@@ -1,17 +1,11 @@
-﻿using HealthInstitution.Dialogs.Custom.Doctor;
-using HealthInstitution.Model;
+﻿using System.Collections.Generic;
+using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
 using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class FinishExaminationCommand : CommandBase
     {

@@ -1,16 +1,14 @@
-﻿using HealthInstitution.Commands;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using HealthInstitution.Commands.doctor;
 using HealthInstitution.Model;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.Model.user;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.doctor
 {
 
     public class DoctorMedicineManagmentViewModel : ViewModelBase, ISearchMedicineViewModel

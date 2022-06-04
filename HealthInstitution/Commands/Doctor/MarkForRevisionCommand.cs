@@ -1,13 +1,9 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using HealthInstitution.Model;
+using HealthInstitution.Model.medicine;
+using HealthInstitution.ViewModel.doctor;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.doctor
 {
     public class MarkForRevisionCommand : CommandBase
     {

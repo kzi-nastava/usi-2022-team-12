@@ -4,6 +4,7 @@ using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System.ComponentModel;
 using System.Windows;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Commands
 {
@@ -75,7 +76,7 @@ namespace HealthInstitution.Commands
                         TitleManager.Title = "Doctor";
                         break;
                     case Role.Secretary:
-                        Model.Secretary sec = (Model.Secretary)user;
+                        Secretary sec = (Secretary)user;
                         GlobalStore.AddObject("LoggedUser", sec);
                         EventBus.FireEvent("SecretaryLogin");
                         TitleManager.Title = "Secretary";

@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Utility;
+﻿using HealthInstitution.Model;
+using HealthInstitution.Utility;
 
 namespace HealthInstitution.Validation
 {

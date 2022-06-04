@@ -1,16 +1,13 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Commands.doctor;
+using HealthInstitution.Commands.doctor.Navigation;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.doctor
 {
     public class DoctorAppointmentCreationViewModel : ViewModelBase, IDoctorAppointmentViewModel
     {
