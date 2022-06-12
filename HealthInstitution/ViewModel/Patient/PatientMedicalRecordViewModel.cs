@@ -23,6 +23,21 @@ namespace HealthInstitution.ViewModel.patient
 
         #region attributes
         private MedicalRecord _medicalRecord;
+        private Patient _patient;
+        private List<Illness> _illnessHistory;
+        private List<Allergen> _allergens;
+        private List<Appointment> _pastAppointments;
+        private Appointment _selectedAppointment;
+        private string _anamnesisSearchCriteria;
+        private int _selectedSort;
+        private int _selectedOrder;
+        #endregion
+
+        #region properties
+        public string Height => MedicalRecord.Height.ToString();
+        public string Age => CalculateAge(Patient.DateOfBirth).ToString();
+        public string Weight => MedicalRecord.Weight.ToString();
+
         public MedicalRecord MedicalRecord
         {
             get => _medicalRecord;
@@ -32,8 +47,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(MedicalRecord));
             }
         }
-
-        private Patient _patient;
         public Patient Patient
         {
             get => _patient;
@@ -43,12 +56,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(Patient));
             }
         }
-
-        public string Height => MedicalRecord.Height.ToString();
-        public string Age => CalculateAge(Patient.DateOfBirth).ToString();
-        public string Weight => MedicalRecord.Weight.ToString();
-
-        private List<Illness> _illnessHistory;
         public List<Illness> IllnessHistory
         {
             get => _illnessHistory;
@@ -58,8 +65,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(IllnessHistory));
             }
         }
-
-        private List<Allergen> _allergens;
         public List<Allergen> Allergens
         {
             get => _allergens;
@@ -69,8 +74,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(Allergens));
             }
         }
-
-        private List<Appointment> _pastAppointments;
         public List<Appointment> PastAppointments
         {
             get => _pastAppointments;
@@ -80,19 +83,15 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(PastAppointments));
             }
         }
-
-        private Appointment _selectedAppointment;
-        public Appointment SelectedAppointment 
+        public Appointment SelectedAppointment
         {
             get => _selectedAppointment;
-            set 
+            set
             {
                 _selectedAppointment = value;
                 OnPropertyChanged(nameof(SelectedAppointment));
             }
         }
-
-        private string _anamnesisSearchCriteria;
         public string AnamnesisSearchCriteria
         {
             get => _anamnesisSearchCriteria;
@@ -102,8 +101,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(AnamnesisSearchCriteria));
             }
         }
-
-        private int _selectedSort;
         public int SelectedSort
         {
             get => _selectedSort;
@@ -114,8 +111,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(SelectedSort));
             }
         }
-
-        private int _selectedOrder;
         public int SelectedOrder
         {
             get => _selectedOrder;

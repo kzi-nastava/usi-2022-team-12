@@ -25,6 +25,10 @@ namespace HealthInstitution.ViewModel.patient
 
         #region attributes
         private List<Appointment> _futureAppointments;
+        private Appointment _selectedAppointment;
+        #endregion
+
+        #region properties
         public List<Appointment> FutureAppointments
         {
             get => _futureAppointments;
@@ -35,7 +39,6 @@ namespace HealthInstitution.ViewModel.patient
             }
         }
 
-        private Appointment _selectedAppointment;
         public Appointment SelectedAppointment
         {
             get => _selectedAppointment;

@@ -40,6 +40,13 @@ namespace HealthInstitution.ViewModel.patient
 
         #region attributes
         private string _searchText;
+        private int _selectedSort;
+        private int _selectedOrder;
+        private DoctorInfo _selectedDoctorInfo;
+        private List<DoctorInfo> _doctorsInfo;
+        #endregion
+
+        #region properties
         public string SearchText
         {
             get => _searchText;
@@ -50,7 +57,6 @@ namespace HealthInstitution.ViewModel.patient
             }
         }
 
-        private int _selectedSort;
         public int SelectedSort
         {
             get => _selectedSort;
@@ -62,7 +68,6 @@ namespace HealthInstitution.ViewModel.patient
             }
         }
 
-        private int _selectedOrder;
         public int SelectedOrder
         {
             get => _selectedOrder;
@@ -74,7 +79,6 @@ namespace HealthInstitution.ViewModel.patient
             }
         }
 
-        private DoctorInfo _selectedDoctorInfo;
         public DoctorInfo SelectedDoctorInfo
         {
             get => _selectedDoctorInfo;
@@ -84,8 +88,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(SelectedDoctorInfo));
             }
         }
-
-        private List<DoctorInfo> _doctorsInfo;
         public List<DoctorInfo> DoctorsInfo
         {
             get => _doctorsInfo;

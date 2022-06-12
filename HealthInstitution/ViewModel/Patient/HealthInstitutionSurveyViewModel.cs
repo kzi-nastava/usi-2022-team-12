@@ -6,13 +6,20 @@ namespace HealthInstitution.ViewModel.patient
 {
     public class HealthInstitutionSurveyViewModel : ViewModelBase
     {
-         #region services
+        #region services
         private readonly IHealthInstitutionSurveyService _healthInstitutionSurveyService;
         public IHealthInstitutionSurveyService HealthInstitutionSurveyService => _healthInstitutionSurveyService;
         #endregion
 
         #region attributes
         private int _serviceQualityRating;
+        private int _cleanlinessRating;
+        private int _serviceSatisfactionRating;
+        private int _recommendationRating;
+        private string _comment;
+        #endregion
+
+        #region properties
         public int ServiceQualityRating
         {
             get => _serviceQualityRating;
@@ -23,7 +30,6 @@ namespace HealthInstitution.ViewModel.patient
             }
         }
 
-        private int _cleanlinessRating;
         public int CleanlinessRating
         {
             get => _cleanlinessRating;
@@ -33,8 +39,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(CleanlinessRating));
             }
         }
-        
-        private int _serviceSatisfactionRating;
         public int ServiceSatisfactionRating
         {
             get => _serviceSatisfactionRating;
@@ -44,8 +48,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(ServiceSatisfactionRating));
             }
         }
-
-        private int _recommendationRating;
         public int RecommendationRating
         {
             get => _recommendationRating;
@@ -55,8 +57,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(RecommendationRating));
             }
         }
-
-        private string _comment;
         public string Comment
         {
             get => _comment;
@@ -66,11 +66,12 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(Comment));
             }
         }
+
         #endregion
+
+        #region commands
         public ICommand FinishHealthInstitutionSurveyCommand { get; }
         public ICommand BackCommand { get; }
-        #region commands
-
         #endregion
 
         public HealthInstitutionSurveyViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService)

@@ -17,14 +17,17 @@ namespace HealthInstitution.ViewModel.patient
         #endregion
 
         #region attributes
-
         private Appointment _selectedAppointment;
+        private int _recommendationRating;
+        private int _serviceQualityRating;
+        private string _comment;
+        #endregion
+
+        #region properties
         public Appointment SelectedAppointment
         {
             get => _selectedAppointment;
         }
-
-        private int _recommendationRating;
         public int RecommendationRating
         {
             get => _recommendationRating;
@@ -34,8 +37,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(RecommendationRating));
             }
         }
-
-        private int _serviceQualityRating;
         public int ServiceQualityRating
         {
             get => _serviceQualityRating;
@@ -45,8 +46,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(ServiceQualityRating));
             }
         }
-
-        private string _comment;
         public string Comment
         {
             get => _comment;
@@ -57,10 +56,10 @@ namespace HealthInstitution.ViewModel.patient
             }
         }
         #endregion
+
+        #region commands
         public ICommand FinishDoctorSurveyCommand { get; }
         public ICommand BackCommand { get; }
-        #region commands
-
         #endregion
 
         public DoctorSurveyViewModel(IDoctorSurveyService doctorSurveyService, IAppointmentService appointmentService)
