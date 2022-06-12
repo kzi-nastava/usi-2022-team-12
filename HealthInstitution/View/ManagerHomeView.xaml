@@ -70,6 +70,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding IngredientOverviewCommand}"/>
+                    <RadioButton Content="📝  Survey overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SurveyOverviewCommand}"/>
 
                 </StackPanel>
 

@@ -223,5 +223,9 @@
         <manager2:IngredientOverviewView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type manager1:SurveyOverviewViewModel}">
+        <manager2:SurveyOverviewView/>
+    </DataTemplate>
+
     <!-- Manager -->
 </ResourceDictionary>

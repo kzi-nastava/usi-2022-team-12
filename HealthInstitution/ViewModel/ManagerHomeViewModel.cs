@@ -31,6 +31,7 @@ namespace HealthInstitution.ViewModel
         public ICommand? RoomRenovationCommand { get; set; }
         public ICommand? MedicineOverviewCommand { get; set; }
         public ICommand? IngredientOverviewCommand { get; set; }
+        public ICommand? SurveyOverviewCommand { get; set; }
 
         #endregion
 
@@ -43,6 +44,7 @@ namespace HealthInstitution.ViewModel
             RoomRenovationCommand = new RoomRenovationCommand();
             MedicineOverviewCommand = new MedicineOverviewCommand();
             IngredientOverviewCommand = new IngredientOverviewCommand();
+            SurveyOverviewCommand = new SurveyOverviewCommand();
             LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
             RegisterHandler();
@@ -109,6 +111,12 @@ namespace HealthInstitution.ViewModel
             {
                 IngredientOverviewViewModel Iovm = ServiceLocator.Get<IngredientOverviewViewModel>();
                 SwitchCurrentViewModel(Iovm);
+            });
+
+            EventBus.RegisterHandler("SurveyOverview", () =>
+            {
+                SurveyOverviewViewModel Sovm = ServiceLocator.Get<SurveyOverviewViewModel>();
+                SwitchCurrentViewModel(Sovm);
             });
 
         }
