@@ -15,9 +15,8 @@ namespace HealthInstitution.Utility
 {
     public static class NotificationsChecker
     {
-        private static Timer _notificationsTriggerTimer;
-        private static Timer _notificationsUpdateTimer;
-        private static bool _databaseBusy;
+        private static Timer _timer;
+        private static int _checksCounter;
         private static readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
         static NotificationsChecker()
         {
@@ -26,63 +25,39 @@ namespace HealthInstitution.Utility
 
         public static void InitializeTimer(Type type)
         {
-            _databaseBusy = false;
+            _checksCounter = 0;
             StopTimer();
 
             if (type == typeof(Patient))
             {
-                _notificationsUpdateTimer = new Timer(UpdatePrescribedMedicationsNotifications, null, 1000, Timeout.Infinite);
-                _notificationsTriggerTimer = new Timer(CheckForUpcomingNotification, null, 1000, Timeout.Infinite);
+                _timer = new Timer(CheckForUpcomingNotification, null, 1000, 60000);
             }
         }
 
         public static void StopTimer()
         {
-            if (_notificationsTriggerTimer != null)
+            if (_timer != null)
             {
-                _notificationsTriggerTimer.Dispose();
-            }
-            if (_notificationsUpdateTimer != null)
-            {
-                _notificationsUpdateTimer.Dispose();
-            }
-        }
-
-        public static void UpdatePrescribedMedicationsNotifications(Object stateInfo)
-        {
-            if (!_databaseBusy)
-            {
-                _databaseBusy = true;
-                Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-                _prescribedMedicineNotificationService.CreateUpcomingMedicinesNotifications(patient, patient.NotificationPreference);
-                _databaseBusy = false;
-                _notificationsUpdateTimer.Change(600000, Timeout.Infinite);
-            }
-            else {
-                _notificationsUpdateTimer.Change(1000, Timeout.Infinite);
+                _timer.Dispose();
             }
         }
 
         public static void CheckForUpcomingNotification(Object stateInfo)
         {
-            if (!_databaseBusy)
+            Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
+            var nextMedicineNotification = _prescribedMedicineNotificationService.GetNextMedicineNotification(patient);
+            if (nextMedicineNotification != null && nextMedicineNotification.TriggerTime < DateTime.Now)
             {
-                _databaseBusy = true;
-                Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var nextMedicineNotification = _prescribedMedicineNotificationService.GetNextMedicineNotification(patient);
-                if (nextMedicineNotification != null && nextMedicineNotification.TriggerTime < DateTime.Now)
-                {
-                    MessageBox.Show("You should drink " + nextMedicineNotification.PrescribedMedicine.Medicine.Name + " at " + nextMedicineNotification.TriggerTime.AddMinutes(patient.NotificationPreference) +
-                        "\nInstructions: " + nextMedicineNotification.PrescribedMedicine.Instruction, "Reminder");
-                    nextMedicineNotification.Triggered = true;
-                    _prescribedMedicineNotificationService.Update(nextMedicineNotification);
-                }
-                _databaseBusy = false;
-                _notificationsTriggerTimer.Change(60000, Timeout.Infinite);
+                nextMedicineNotification.Triggered = true;
+                _prescribedMedicineNotificationService.Update(nextMedicineNotification);
+                MessageBox.Show("You should drink " + nextMedicineNotification.PrescribedMedicine.Medicine.Name + " at " + nextMedicineNotification.TriggerTime.AddMinutes(patient.NotificationPreference) +
+                    "\nInstructions: " + nextMedicineNotification.PrescribedMedicine.Instruction, "Reminder");
             }
-            else {
-                _notificationsTriggerTimer.Change(1000, Timeout.Infinite);
+
+            if (_checksCounter % 10 == 0) {
+                _prescribedMedicineNotificationService.CreateUpcomingMedicinesNotifications(patient, patient.NotificationPreference);
             }
+            _checksCounter++;
         }
     }
 }

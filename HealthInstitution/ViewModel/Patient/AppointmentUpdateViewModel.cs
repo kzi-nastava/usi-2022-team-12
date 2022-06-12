@@ -27,6 +27,13 @@ namespace HealthInstitution.ViewModel.patient
 
         #region attributes
         private DateTime _startDate;
+        private DateTime _startTime;
+        private Doctor _selectedDoctor;
+        private List<Doctor> _doctors;
+        private Appointment _selectedAppointment;
+        #endregion
+
+        #region properties
         public DateTime StartDate
         {
             get => _startDate;
@@ -36,8 +43,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(StartDate));
             }
         }
-
-        private DateTime _startTime;
         public DateTime StartTime
         {
             get => _startTime;
@@ -47,8 +52,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(StartTime));
             }
         }
-
-        private Doctor _selectedDoctor;
         public Doctor SelectedDoctor
         {
             get => _selectedDoctor;
@@ -58,8 +61,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(SelectedDoctor));
             }
         }
-
-        private List<Doctor> _doctors;
         public List<Doctor> Doctors
         {
             get => _doctors;
@@ -69,8 +70,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(Doctors));
             }
         }
-
-        private Appointment _selectedAppointment;
         public Appointment SelectedAppointment
         {
             get => _selectedAppointment;

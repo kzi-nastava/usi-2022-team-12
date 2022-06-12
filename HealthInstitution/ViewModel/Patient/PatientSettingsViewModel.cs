@@ -19,6 +19,9 @@ namespace HealthInstitution.ViewModel.patient
 
         #region attributes
         private string _notificationPreference;
+        #endregion
+
+        #region properties
         public string NotificationPreference
         {
             get => _notificationPreference;
@@ -28,7 +31,8 @@ namespace HealthInstitution.ViewModel.patient
                 {
                     _notificationPreference = value;
                 }
-                else {
+                else
+                {
                     _notificationPreference = "1";
                 }
                 OnPropertyChanged(nameof(NotificationPreference));

@@ -26,6 +26,16 @@ namespace HealthInstitution.ViewModel.patient
 
         #region attributes
         private DateTime _deadlineDate;
+        private DateTime _startTime;
+        private DateTime _endTime;
+        private string _selectedPriority;
+        private Doctor _selectedDoctor;
+        private List<Doctor> _doctors;
+        private List<Appointment> _recommendedAppointments;
+        private Appointment _selectedAppointment;
+        #endregion
+
+        #region properties
         public DateTime DeadlineDate
         {
             get => _deadlineDate;
@@ -35,8 +45,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(DeadlineDate));
             }
         }
-
-        private DateTime _startTime;
         public DateTime StartTime
         {
             get => _startTime;
@@ -46,8 +54,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(StartTime));
             }
         }
-
-        private DateTime _endTime;
         public DateTime EndTime
         {
             get => _endTime;
@@ -57,8 +63,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(EndTime));
             }
         }
-
-        private string _selectedPriority;
         public string SelectedPriority
         {
             get => _selectedPriority;
@@ -68,8 +72,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(SelectedPriority));
             }
         }
-
-        private Doctor _selectedDoctor;
         public Doctor SelectedDoctor
         {
             get => _selectedDoctor;
@@ -79,8 +81,6 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(SelectedDoctor));
             }
         }
-
-        private List<Doctor> _doctors;
         public List<Doctor> Doctors
         {
             get => _doctors;
@@ -90,19 +90,15 @@ namespace HealthInstitution.ViewModel.patient
                 OnPropertyChanged(nameof(Doctors));
             }
         }
-
-        private List<Appointment> _recommendedAppointments;
-        public List<Appointment> RecommendedAppointments 
+        public List<Appointment> RecommendedAppointments
         {
             get => _recommendedAppointments;
-            set 
+            set
             {
                 _recommendedAppointments = value;
                 OnPropertyChanged(nameof(RecommendedAppointments));
             }
         }
-
-        private Appointment _selectedAppointment;
         public Appointment SelectedAppointment
         {
             get => _selectedAppointment;
