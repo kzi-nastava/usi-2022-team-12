@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HealthInstitution.Model.survey;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Services.Implementation
 {

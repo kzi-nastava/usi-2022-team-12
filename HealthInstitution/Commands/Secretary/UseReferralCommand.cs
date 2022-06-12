@@ -1,11 +1,13 @@
-﻿using HealthInstitution.Dialogs.Custom;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows;
+using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.doctor;
+using HealthInstitution.Model.room;
+using HealthInstitution.Model.user;
+using HealthInstitution.Services.Intefaces;
 
-namespace HealthInstitution.Commands.Secretary
+namespace HealthInstitution.Commands.secretary
 {
     public class UseReferralCommand : CommandBase
     {

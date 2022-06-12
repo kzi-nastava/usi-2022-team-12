@@ -1,14 +1,15 @@
-﻿using HealthInstitution.Dialogs.Custom;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Model;
+using HealthInstitution.Model.room;
+using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.secretary
 {
     public class SecretaryDynamicEquipmentPurchaseRequestViewModel : ObservableEntity
     {

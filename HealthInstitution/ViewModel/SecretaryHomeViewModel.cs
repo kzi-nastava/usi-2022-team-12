@@ -3,6 +3,8 @@ using HealthInstitution.Model;
 using HealthInstitution.Ninject;
 using HealthInstitution.Utility;
 using System.Windows.Input;
+using HealthInstitution.Model.user;
+using HealthInstitution.ViewModel.secretary;
 
 namespace HealthInstitution.ViewModel
 {
@@ -28,7 +30,7 @@ namespace HealthInstitution.ViewModel
         public ICommand ShowDynamicEquipmentArrangement { get; private set; }
 
         #endregion
-        
+
         #region attributes
         public string SecretaryName
         {

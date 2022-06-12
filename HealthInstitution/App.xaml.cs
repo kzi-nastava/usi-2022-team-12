@@ -11,7 +11,7 @@ namespace HealthInstitution
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            using (DatabaseContext db = new DatabaseContext())
+            using (DatabaseContext db = new DatabaseContext(0))
             {
                 //DatabaseContextSeed.Seed(db);
             }

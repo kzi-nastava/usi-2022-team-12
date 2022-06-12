@@ -1,5 +1,8 @@
 ﻿
-namespace HealthInstitution.Model
+using HealthInstitution.Model.appointment;
+using HealthInstitution.Model.user;
+
+namespace HealthInstitution.Model.patient
 {
     public abstract class AppointmentRequest : BaseObservableEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HealthInstitution.Model
+namespace HealthInstitution.Model.room
 {
     public class EquipmentTransfer : BaseObservableEntity
     {

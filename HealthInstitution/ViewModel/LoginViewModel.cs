@@ -3,6 +3,7 @@ using HealthInstitution.Model;
 using HealthInstitution.Services.Intefaces;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.ViewModel
 {

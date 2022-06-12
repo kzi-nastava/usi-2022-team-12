@@ -1,11 +1,6 @@
 ﻿using HealthInstitution.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Commands.manager
 {
     public class RoomsOverviewCommand : CommandBase
     {

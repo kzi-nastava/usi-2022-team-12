@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using HealthInstitution.Model.user;
 
 namespace HealthInstitution.Utility
 {
@@ -20,15 +21,15 @@ namespace HealthInstitution.Utility
         private static readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
         static NotificationsChecker()
         {
-            _prescribedMedicineNotificationService = new PrescribedMedicineNotificationService(new DatabaseContext());
+            _prescribedMedicineNotificationService = new PrescribedMedicineNotificationService(new DatabaseContext(0));
         }
 
-        public static void InitializeTimer(string loggedEntity)
+        public static void InitializeTimer(Type type)
         {
             _databaseBusy = false;
             StopTimer();
 
-            if (loggedEntity == "patient")
+            if (type == typeof(Patient))
             {
                 _notificationsUpdateTimer = new Timer(UpdatePrescribedMedicationsNotifications, null, 1000, Timeout.Infinite);
                 _notificationsTriggerTimer = new Timer(CheckForUpcomingNotification, null, 1000, Timeout.Infinite);

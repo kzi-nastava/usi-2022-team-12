@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
+using HealthInstitution.Model.room;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 
@@ -32,6 +33,13 @@ namespace HealthInstitution.Dialogs.Custom
         {
             get { return _quantity; }
             set { OnPropertyChanged(ref _quantity, value); }
+        }
+
+        private bool _important;
+        public bool Important
+        {
+            get { return _important; }
+            set { OnPropertyChanged(ref _important, value); }
         }
     }
 
@@ -301,13 +309,14 @@ namespace HealthInstitution.Dialogs.Custom
                 return;
             }
 
-            var filteredEquipment = FirstRoom.Inventory.Where(entry => entry.Item.EquipmentType == EquipmentType.DynamicEquipment).ToList();
-            foreach (var equipment in filteredEquipment)
+            var filteredEntries = FirstRoom.Inventory.Where(entry => entry.Item.EquipmentType == EquipmentType.DynamicEquipment).ToList();
+            foreach (var entry in filteredEntries)
                 FilteredFirstRoomEquipment.Add(new EntryView()
                 {
-                    EquipmentId = equipment.Item.Id,
-                    EquipmentName = equipment.Item.Name,
-                    Quantity = equipment.Quantity
+                    EquipmentId = entry.Item.Id,
+                    EquipmentName = entry.Item.Name,
+                    Quantity = entry.Quantity,
+                    Important = false
                 });
         }
 
@@ -319,14 +328,20 @@ namespace HealthInstitution.Dialogs.Custom
                 return;
             }
 
-            var filteredEquipment = SecondRoom.Inventory.Where(entry => entry.Item.EquipmentType == EquipmentType.DynamicEquipment).ToList();
-            foreach (var equipment in filteredEquipment)
+            var filteredEntries = SecondRoom.Inventory.Where(entry => entry.Item.EquipmentType == EquipmentType.DynamicEquipment).ToList();
+            bool isImportant;
+            foreach (var entry in filteredEntries)
+            {
+                isImportant = FilteredFirstRoomEquipment.All(entryView => entryView.EquipmentId != entry.Item.Id || entryView.Quantity == 0);
+
                 FilteredSecondRoomEquipment.Add(new EntryView()
                 {
-                    EquipmentId = equipment.Item.Id,
-                    EquipmentName = equipment.Item.Name,
-                    Quantity = equipment.Quantity
+                    EquipmentId = entry.Item.Id,
+                    EquipmentName = entry.Item.Name,
+                    Quantity = entry.Quantity,
+                    Important = isImportant
                 });
+            }
         }
 
         #endregion

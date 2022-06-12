@@ -1,15 +1,10 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
+﻿using System.Windows.Input;
+using HealthInstitution.Commands.patient;
+using HealthInstitution.Model.user;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.ViewModel.patient
 {
     public class PatientSettingsViewModel : ViewModelBase
     {

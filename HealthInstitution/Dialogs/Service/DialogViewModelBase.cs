@@ -1,5 +1,6 @@
 ﻿using HealthInstitution.Utility;
 using System.Windows;
+using HealthInstitution.Validation;
 
 namespace HealthInstitution.Dialogs.Service
 {
