@@ -31,7 +31,7 @@
                     <DataTemplate DataType="system:Int32">
                         <Grid>
                             <materialDesign:PackIcon
-                                    Kind="Heart"
+                                    Kind="Star"
                                     Height="50"
                                     Width="50"
                                     Margin="0 0 10 5"/>
@@ -52,7 +52,7 @@
                     <DataTemplate DataType="system:Int32">
                         <Grid>
                             <materialDesign:PackIcon
-                                    Kind="Heart"
+                                    Kind="Star"
                                     Height="50"
                                     Width="50"
                                     Margin="0 0 10 5"/>
@@ -73,7 +73,7 @@
                     <DataTemplate DataType="system:Int32">
                         <Grid>
                             <materialDesign:PackIcon
-                                    Kind="Heart"
+                                    Kind="Star"
                                     Height="50"
                                     Width="50"
                                     Margin="0 0 10 5"/>
@@ -94,7 +94,7 @@
                     <DataTemplate DataType="system:Int32">
                         <Grid>
                             <materialDesign:PackIcon
-                                    Kind="Heart"
+                                    Kind="Star"
                                     Height="50"
                                     Width="50"
                                     Margin="0 0 10 5"/>

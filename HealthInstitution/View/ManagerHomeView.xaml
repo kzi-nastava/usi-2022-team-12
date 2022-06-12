@@ -45,7 +45,7 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding EquipmentOverviewCommand}"/>
 
-                    <RadioButton Content="↔️  Arrange equipment"
+                    <RadioButton Content=" ↔️   Arrange equipment"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
@@ -70,6 +70,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding IngredientOverviewCommand}"/>
+                    <RadioButton Content="📝  Survey overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SurveyOverviewCommand}"/>
 
                 </StackPanel>
 
@@ -77,7 +83,7 @@
                     Grid.Row="2"
                     VerticalAlignment="Bottom"
                     Command="{Binding LogOutCommand}"
-                    Margin="0,0,0,20"/>
+                    Margin="10,0,0,20"/>
             </Grid>
 
 
