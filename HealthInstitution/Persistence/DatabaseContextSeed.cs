@@ -14,30 +14,67 @@ namespace HealthInstitution.Persistence
         {
 
             //// Patients
-            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = true, NotificationPreference = 20 };
+            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
             var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "example@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "milicamilic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
             var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p6 = new Patient { FirstName = "Brusli", LastName = "Iljazovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "brusliiljazovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p6 = new Patient { FirstName = "Stefan", LastName = "Jovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "stefanjovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
 
             context.Patients.Add(p1);
             context.Patients.Add(p2);
             context.Patients.Add(p3);
             context.Patients.Add(p4);
             context.Patients.Add(p5);
+            context.Patients.Add(p6);
+
+            // Allergens
+            var alr1 = new Allergen("Dust");
+            var alr2 = new Allergen("Pollen");
+            var alr3 = new Allergen("Animal protein");
+            var alr4 = new Allergen("Fungal spores");
+            var alr5 = new Allergen("Insect and mite feces");
+            var alr6 = new Allergen("Insect bites and stings (their venom)");
+            var alr7 = new Allergen("Peanut");
+            var alr8 = new Allergen("Milk");
+
+            // Illnesses
+            var il1 = new Illness("Asthma");
+            var il2 = new Illness("Heart disease");
+            var il3 = new Illness("Stroke");
+            var il4 = new Illness("Lung cancer");
+            var il5 = new Illness("Depression");
+            var il6 = new Illness("Arthritis");
+            var il7 = new Illness("Chronic kidney disease");
 
             //Medical records
-            var mr1 = new MedicalRecord(180.5, 70.4, p2);
-            var alr1 = new Allergen("these nuts");
-            var il1 = new Illness("paranoid");
+            var mr1 = new MedicalRecord(180.5, 70.4, p1);
             mr1.AddAllergen(alr1);
-            mr1.AddIllness(il1);
+            mr1.AddAllergen(alr2);
+            
+            var mr2 = new MedicalRecord(179, 65.6, p2);
+            mr2.AddAllergen(alr1);
+            mr2.AddIllness(il1);
 
-            var mr2 = new MedicalRecord(179, 65.6, p6);
+            var mr3 = new MedicalRecord(188.6, 90.4, p3);
+            mr3.AddIllness(il3);
+
+            var mr4 = new MedicalRecord(164.2, 55.4, p4);
+            mr4.AddAllergen(alr7);
+            mr4.AddAllergen(alr8);
+
+            var mr5 = new MedicalRecord(182.3, 91.4, p5);
+            mr5.AddIllness(il7);
+
+            var mr6 = new MedicalRecord(176.2, 77.3, p6);
+            mr6.AddIllness(il5);
 
             context.MedicalRecords.Add(mr1);
             context.MedicalRecords.Add(mr2);
+            context.MedicalRecords.Add(mr3);
+            context.MedicalRecords.Add(mr4);
+            context.MedicalRecords.Add(mr5);
+            context.MedicalRecords.Add(mr6);
 
             // Secretaries
             var c1 = new Secretary { FirstName = "Nikola", LastName = "Petrovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-55), EmailAddress = "nikolapetrovic@example.com", Role = Role.Secretary };
