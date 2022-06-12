@@ -24,22 +24,22 @@ namespace HealthInstitution.Services.Implementation
 
         public double AverageClearliness()
         {
-            return _entities.Average(his => his.Cleanliness);
+            return _entities.Select(his => his.Cleanliness).ToList().DefaultIfEmpty(0).Average();
         }
 
         public double AverageServiceQuality()
         {
-            return _entities.Average(his => his.ServiceQuality);
+            return _entities.Select(his => his.ServiceQuality).ToList().DefaultIfEmpty(0).Average();
         }
 
         public double AverageServiceSatisfaction()
         {
-            return _entities.Average(his => his.ServiceSatisfaction);
+            return _entities.Select(his => his.ServiceSatisfaction).ToList().DefaultIfEmpty(0).Average();
         }
 
         public double AverageRecommendation()
         {
-            return _entities.Average(his => his.Recommendation);
+            return _entities.Select(his => his.Recommendation).ToList().DefaultIfEmpty(0).Average();
         }
 
         public int RatesPerSurveyCategory(int rate, string cat)

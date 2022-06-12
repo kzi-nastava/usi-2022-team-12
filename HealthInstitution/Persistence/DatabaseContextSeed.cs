@@ -5,6 +5,7 @@ using HealthInstitution.Model.doctor;
 using HealthInstitution.Model.medicine;
 using HealthInstitution.Model.room;
 using HealthInstitution.Model.user;
+using System.Collections.Generic;
 
 namespace HealthInstitution.Persistence
 {
@@ -335,15 +336,53 @@ namespace HealthInstitution.Persistence
 
 
             // Appointments
-            //var ap1 = new Appointment(d1, p1, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
+            var currentTime = DateTime.Now;
 
-            //var ap2 = new Appointment(d2, p2, DateTime.Now, DateTime.Now.AddMinutes(15), r2, null, false);
+            var apt1 = new Appointment
+            {
+                Doctor = d1,
+                Patient = p1,
+                StartDate = currentTime.Date.AddDays(-2).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute),
+                EndDate = currentTime.Date.AddDays(-2).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute + 15),
+                Room = r2,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                IsDone = true,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
 
-            //var ap3 = new Appointment(d1, p3, DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddMinutes(15), r2, null, false);
+            var apt2 = new Appointment
+            {
+                Doctor = d1,
+                Patient = p2,
+                StartDate = currentTime.Date.AddDays(-3).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute),
+                EndDate = currentTime.Date.AddDays(-3).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute + 15),
+                Room = r2,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                IsDone = true,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
 
-            //context.Appointments.Add(ap1);
-            //context.Appointments.Add(ap2);
-            //context.Appointments.Add(ap3);
+            var apt3 = new Appointment
+            {
+                Doctor = d1,
+                Patient = p2,
+                StartDate = currentTime.Date.AddDays(-5).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute),
+                EndDate = currentTime.Date.AddDays(-5).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute + 15),
+                Room = r2,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                IsDone = true,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
+
+            context.Appointments.Add(apt1);
+            context.Appointments.Add(apt2);
+            context.Appointments.Add(apt3);
 
             // Appointment update requests
             //var aru1 = new AppointmentUpdateRequest()

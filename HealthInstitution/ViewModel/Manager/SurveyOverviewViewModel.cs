@@ -188,9 +188,11 @@ namespace HealthInstitution.ViewModel.manager
 
             _rateNumBox = _healthInstitutionSurveyService.RatesPerSurveyCategory(_selectedRate, _selectedCategory);
 
-            _selectedSurvey = _healthInstitutionSurveys[0];
-            _commentBox = _selectedSurvey.Comment;
-
+            if (_healthInstitutionSurveys.Count != 0)
+            {
+                _selectedSurvey = _healthInstitutionSurveys[0];
+                _commentBox = _selectedSurvey.Comment;
+            }
             
         }
     }
