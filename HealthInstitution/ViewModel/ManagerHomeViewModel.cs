@@ -119,6 +119,12 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(Sovm);
             });
 
+            EventBus.RegisterHandler("DoctorSurveyOverview", () =>
+            {
+                DoctorSurveyOverviewViewModel Dsovm = ServiceLocator.Get<DoctorSurveyOverviewViewModel>();
+                SwitchCurrentViewModel(Dsovm);
+            });
+
         }
     }
 }

@@ -27,5 +27,33 @@ namespace HealthInstitution.Services.Implementation
             }
             return markSum;
         }
+
+        public double AverageServiceQuality(Doctor doctor)
+        {
+            return _entities.Where(ds => ds.Doctor == doctor).Select(ds => ds.ServiceQuality).ToList().DefaultIfEmpty(0).Average();
+        }
+
+        public double AverageRecommendation(Doctor doctor)
+        {
+            return _entities.Where(ds => ds.Doctor == doctor).Select(his => his.Recommendation).ToList().DefaultIfEmpty(0).Average();
+        }
+
+        public int RatesPerSurveyCategory(int rate, string cat, Doctor doc)
+        {
+            int numOfRates;
+            switch (cat)
+            {
+                case "Service quality":
+                    numOfRates = _entities.Where(his => his.ServiceQuality == rate && his.Doctor == doc).Count();
+                    break;
+                case "Recommendation":
+                    numOfRates = _entities.Where(his => his.Recommendation == rate && his.Doctor == doc).Count();
+                    break;
+                default:
+                    numOfRates = _entities.Where(his => his.ServiceQuality == rate && his.Doctor == doc).Count();
+                    break;
+            }
+            return numOfRates;
+        }
     }
 }
