@@ -38,7 +38,7 @@ namespace HealthInstitution.Persistence
 
         // Doctor related things
         public DbSet<DoctorSurvey> DoctorSurveys { get; set; }
-
+        public DbSet<OffDaysRequest> OffDaysRequests { get; set; }
         // Patient related things
         public DbSet<Activity> Activities { get; set; }
         public DbSet<AppointmentRequest> AppointmentRequests { get; set; }

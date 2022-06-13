@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using HealthInstitution.Model.doctor;
 using HealthInstitution.Model.user;
+using System;
 
 namespace HealthInstitution.Services.Intefaces
 {
@@ -10,5 +11,6 @@ namespace HealthInstitution.Services.Intefaces
         public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText);
         public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization);
         public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization);
+        public bool IsInOffice(Doctor doctor, DateTime fromDate, DateTime toDate);
     }
 }

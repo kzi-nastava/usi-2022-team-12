@@ -136,25 +136,6 @@ namespace HealthInstitution.ViewModel.doctor
             SearchMedicineCommand = new SearchMedicineCommand(this, _medicineService, Status.Approved);
             PrescribeMedicineCommand = new PrescribeMedicineCommand(this);
         }
-
-        //public void UpdateData(string prefix)
-        //{
-        //    _medicines = new ObservableCollection<Medicine>();
-        //    IEnumerable<Medicine> medicines;
-        //    if (string.IsNullOrEmpty(prefix))
-        //    {
-        //        medicines = _medicineService.GetApprovedMedicine();
-        //    }
-        //    else
-        //    {
-        //        medicines = _medicineService.FilterMedicineBySearchText(prefix);
-        //    }
-        //    foreach (Medicine medicine in medicines)
-        //    {
-        //        _medicines.Add(medicine);
-        //    }
-        //    OnPropertyChanged(nameof(Medicines));
-        //}
         public void addPrescribedMedicine(PrescribedMedicine prescribedMedicine)
         {
             _prescribedMedicines.Add(prescribedMedicine);
