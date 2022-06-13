@@ -15,5 +15,6 @@ namespace HealthInstitution.Services.Intefaces
         public double AverageServiceQuality(Doctor doctor);
         public double AverageRecommendation(Doctor doctor);
         public int RatesPerSurveyCategory(int rate, string cat, Doctor doc);
+        public List<Doctor> RatedDoctors();
     }
 }

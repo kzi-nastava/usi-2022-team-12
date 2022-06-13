@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -8,6 +9,7 @@ using HealthInstitution.Model.survey;
 using HealthInstitution.Model.user;
 using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
+using static HealthInstitution.ViewModel.patient.DoctorSearchViewModel;
 
 namespace HealthInstitution.ViewModel.manager
 {
@@ -23,6 +25,11 @@ namespace HealthInstitution.ViewModel.manager
         private int _selectedRate;
         private string _selectedCategory;
         private int _rateNumBox;
+        private List<DoctorInfo> _doctorsInfo;
+        private List<DoctorInfo> _bestDoctorsInfo;
+        private List<DoctorInfo> _worstDoctorsInfo;
+        private List<DoctorInfo> _selectedDoctorsInfo;
+        private string _selectedCriteria;
 
         #endregion
 
@@ -99,6 +106,62 @@ namespace HealthInstitution.ViewModel.manager
                 OnPropertyChanged(nameof(RateNumBox));
             }
         }
+        public List<DoctorInfo> DoctorsInfo
+        {
+            get => _doctorsInfo;
+            set
+            {
+                _doctorsInfo = value;
+                OnPropertyChanged(nameof(DoctorsInfo));
+            }
+        }
+        public List<DoctorInfo> BestDoctorsInfo
+        {
+            get => _bestDoctorsInfo;
+            set
+            {
+                _bestDoctorsInfo = value;
+                OnPropertyChanged(nameof(BestDoctorsInfo));
+            }
+        }
+        public List<DoctorInfo> WorstDoctorsInfo
+        {
+            get => _worstDoctorsInfo;
+            set
+            {
+                _worstDoctorsInfo = value;
+                OnPropertyChanged(nameof(WorstDoctorsInfo));
+            }
+        }
+
+        public List<DoctorInfo> SelectedDoctorsInfo
+        {
+            get => _selectedDoctorsInfo;
+            set
+            {
+                _selectedDoctorsInfo = value;
+                OnPropertyChanged(nameof(SelectedDoctorsInfo));
+            }
+        }
+        public string SelectedCriteria
+        {
+            get => _selectedCriteria;
+            set
+            {
+                _selectedCriteria = value;
+                OnPropertyChanged(nameof(SelectedCriteria));
+                if (_selectedCriteria == "Best")
+                {
+                    _selectedDoctorsInfo = _bestDoctorsInfo;
+                    OnPropertyChanged(nameof(SelectedDoctorsInfo));
+                }
+                else
+                {
+                    _selectedDoctorsInfo = _worstDoctorsInfo;
+                    OnPropertyChanged(nameof(SelectedDoctorsInfo));
+                }
+            }
+        }
 
         #endregion
 
@@ -134,6 +197,16 @@ namespace HealthInstitution.ViewModel.manager
             {
                 _categories = value;
                 OnPropertyChanged(nameof(Categories));
+            }
+        }
+        private List<string> _criteria;
+        public List<string> Criteria
+        {
+            get => _criteria;
+            set
+            {
+                _categories = value;
+                OnPropertyChanged(nameof(Criteria));
             }
         }
 
@@ -191,6 +264,36 @@ namespace HealthInstitution.ViewModel.manager
             _selectedCategory = _categories[0];
         }
 
+        void LoadCriteria()
+        {
+            _criteria = new List<string>();
+            _criteria.Add("Best");
+            _criteria.Add("Worst");
+            _selectedCriteria = _criteria[0];
+        }
+
+        void LoadBestAndWorstDoctors()
+        {
+            List<Doctor> doctors = _doctorSurveyService.RatedDoctors();
+            //List<Doctor> doctors = _doctorService.ReadAll().ToList();
+            _doctorsInfo = new List<DoctorInfo>();
+            foreach (Doctor doctor in doctors)
+            {
+                double avgMark = Math.Round(_doctorSurveyService.CalculateAvgMark(doctor), 2);
+                _doctorsInfo.Add(new DoctorInfo() { Doctor = doctor, AvgMark = avgMark });
+            }
+            _doctorsInfo.Sort((x, y) => x.AvgMark.CompareTo(y.AvgMark));
+            _bestDoctorsInfo = new List<DoctorInfo>();
+            _worstDoctorsInfo = new List<DoctorInfo>();
+            for (int i = 0; i < _doctorsInfo.Count; i++)
+            {
+                if (i > 2) break;
+                _worstDoctorsInfo.Add(_doctorsInfo[i]);
+                _bestDoctorsInfo.Add(_doctorsInfo[_doctorsInfo.Count - 1 - i]);
+            }
+            _selectedDoctorsInfo = _bestDoctorsInfo;
+        }
+
         #endregion
 
         public DoctorSurveyOverviewViewModel(IDoctorSurveyService doctorSurveyService, IDoctorService doctorService)
@@ -203,6 +306,8 @@ namespace HealthInstitution.ViewModel.manager
             LoadRates();
             LoadCategories();
             LoadDoctors();
+            LoadBestAndWorstDoctors();
+            LoadCriteria();
             
 
             SurveyOverviewCommand = new SurveyOverviewCommand();

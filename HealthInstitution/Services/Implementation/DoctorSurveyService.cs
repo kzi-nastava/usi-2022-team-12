@@ -30,12 +30,14 @@ namespace HealthInstitution.Services.Implementation
 
         public double AverageServiceQuality(Doctor doctor)
         {
-            return _entities.Where(ds => ds.Doctor == doctor).Select(ds => ds.ServiceQuality).ToList().DefaultIfEmpty(0).Average();
+            double avg = _entities.Where(ds => ds.Doctor == doctor).Select(ds => ds.ServiceQuality).ToList().DefaultIfEmpty(0).Average();
+            return Math.Round(avg, 2);
         }
 
         public double AverageRecommendation(Doctor doctor)
         {
-            return _entities.Where(ds => ds.Doctor == doctor).Select(his => his.Recommendation).ToList().DefaultIfEmpty(0).Average();
+            double avg = _entities.Where(ds => ds.Doctor == doctor).Select(his => his.Recommendation).ToList().DefaultIfEmpty(0).Average();
+            return Math.Round(avg, 2);
         }
 
         public int RatesPerSurveyCategory(int rate, string cat, Doctor doc)
@@ -44,16 +46,21 @@ namespace HealthInstitution.Services.Implementation
             switch (cat)
             {
                 case "Service quality":
-                    numOfRates = _entities.Where(his => his.ServiceQuality == rate && his.Doctor == doc).Count();
+                    numOfRates = _entities.Where(ds => ds.ServiceQuality == rate && ds.Doctor == doc).Count();
                     break;
                 case "Recommendation":
-                    numOfRates = _entities.Where(his => his.Recommendation == rate && his.Doctor == doc).Count();
+                    numOfRates = _entities.Where(ds => ds.Recommendation == rate && ds.Doctor == doc).Count();
                     break;
                 default:
-                    numOfRates = _entities.Where(his => his.ServiceQuality == rate && his.Doctor == doc).Count();
+                    numOfRates = _entities.Where(ds => ds.ServiceQuality == rate && ds.Doctor == doc).Count();
                     break;
             }
             return numOfRates;
+        }
+
+        public List<Doctor> RatedDoctors()
+        {
+            return _entities.Select(ds => ds.Doctor).Distinct().ToList();
         }
     }
 }

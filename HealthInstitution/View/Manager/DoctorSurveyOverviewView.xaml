@@ -67,19 +67,55 @@
             <TextBlock Text="{Binding AvgRecommendation, UpdateSourceTrigger=PropertyChanged}" FontSize="14" Width="170"/>
         </StackPanel>
         <Separator Grid.Row="5"/>
-        <StackPanel Grid.Row="6" Orientation="Vertical" Margin="0, 10">
-            <TextBlock Text="Rates per survey category" FontSize="18" Margin="0, 0, 0, 20"/>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical" Margin="0, 0, 20, 0">
-                    <TextBlock Text="Rate:" FontSize="16" Margin="0, 0, 0, 5"/>
-                    <ComboBox FontSize="16" Margin="0, 0, 0, 20" SelectedItem="{Binding SelectedRate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Rates}" HorizontalAlignment="Left" Width="150"></ComboBox>
+        <StackPanel Grid.Row="6" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="0, 10">
+                <TextBlock Text="Rates per survey category" FontSize="18" Margin="0, 0, 0, 20"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="0, 0, 20, 0">
+                        <TextBlock Text="Rate:" FontSize="16" Margin="0, 0, 0, 5"/>
+                        <ComboBox FontSize="16" Margin="0, 0, 0, 20" SelectedItem="{Binding SelectedRate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Rates}" HorizontalAlignment="Left" Width="150"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Category:" FontSize="16" Margin="0, 0, 0, 5"/>
+                        <ComboBox FontSize="16" Margin="0, 0, 0, 20" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Categories}" HorizontalAlignment="Left" Width="150"></ComboBox>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Category:" FontSize="16" Margin="0, 0, 0, 5"/>
-                    <ComboBox FontSize="16" Margin="0, 0, 0, 20" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Categories}" HorizontalAlignment="Left" Width="150"></ComboBox>
-                </StackPanel>
+                <TextBox Margin="0, 10" FontSize="16" Width="320" IsReadOnly="True"  HorizontalAlignment="Left" Text="{Binding RateNumBox, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
-            <TextBox Margin="0, 10" FontSize="16" Width="320" IsReadOnly="True"  HorizontalAlignment="Left" Text="{Binding RateNumBox, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <StackPanel Orientation="Vertical" Margin="100, 10">
+                <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 5">
+                    <TextBlock Text="Rated doctors" FontSize="18" Margin="0, 0, 0, 0"/>
+                    <ComboBox FontSize="16" Margin="50, 0, 0, 0" SelectedItem="{Binding SelectedCriteria, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Criteria}" HorizontalAlignment="Left" Width="150"></ComboBox>
+                </StackPanel>
+                <ListView Margin="0 0 0 0" Height="auto" ItemsSource="{Binding SelectedDoctorsInfo, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="First Name" Width="150" DisplayMemberBinding="{Binding Doctor.FirstName}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Last Name" Width="150" DisplayMemberBinding="{Binding Doctor.LastName}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Average mark" Width="150" DisplayMemberBinding="{Binding AvgMark}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
         </StackPanel>
+        
     </Grid>
 </UserControl>
