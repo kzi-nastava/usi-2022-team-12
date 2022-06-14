@@ -1,5 +1,5 @@
 ﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel.doctor;
 

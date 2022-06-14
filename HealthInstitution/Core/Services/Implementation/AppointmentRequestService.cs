@@ -1,9 +1,9 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
+﻿using HealthInstitution.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Services.Implementation
 {

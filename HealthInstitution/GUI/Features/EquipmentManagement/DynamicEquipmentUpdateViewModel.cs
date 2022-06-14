@@ -1,5 +1,4 @@
 ﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;

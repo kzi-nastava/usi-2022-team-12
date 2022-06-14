@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
+﻿using HealthInstitution.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Services.Implementation
 {

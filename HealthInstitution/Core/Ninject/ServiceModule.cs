@@ -1,5 +1,14 @@
-﻿using HealthInstitution.Core.Repository.Implementation;
-using HealthInstitution.Core.Repository.Interfaces;
+﻿using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Features.OffDaysManagement.Repository;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.SurveyManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Utility;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Implementation;

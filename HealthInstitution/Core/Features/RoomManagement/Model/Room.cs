@@ -1,5 +1,5 @@
 ﻿using HealthInstitution.Core.Features.EquipmentManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.MedicineManagement.Model
 {

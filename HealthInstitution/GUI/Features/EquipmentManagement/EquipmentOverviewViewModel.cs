@@ -7,7 +7,6 @@ using HealthInstitution.Commands.manager;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Model;
 using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel.manager

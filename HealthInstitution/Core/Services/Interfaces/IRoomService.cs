@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Model;
 
 namespace HealthInstitution.Services.Interfaces
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.AppointmentScheduling.Model
 {

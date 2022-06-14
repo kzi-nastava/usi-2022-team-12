@@ -1,5 +1,5 @@
 ﻿using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using System;
 using System.Collections.Generic;
 

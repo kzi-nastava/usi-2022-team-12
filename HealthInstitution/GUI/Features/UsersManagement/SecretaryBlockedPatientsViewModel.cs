@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 

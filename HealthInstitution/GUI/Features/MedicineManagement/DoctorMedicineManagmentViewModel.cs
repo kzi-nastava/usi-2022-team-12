@@ -4,9 +4,9 @@ using System.Windows.Input;
 using HealthInstitution.Commands.doctor;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Model;
 using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel.doctor

@@ -10,11 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Core\Repository\Implementation\SurveyRepository.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Core\Repository\Implementation\NewFile1.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile1.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile2.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile3.txt" />
@@ -66,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Commands\secretary\" />
     <Folder Include="Core\Migrations\" />
     <Folder Include="Core\Persistence\Database\" />
     <Folder Include="GUI\Utility\Dialog\Service\" />

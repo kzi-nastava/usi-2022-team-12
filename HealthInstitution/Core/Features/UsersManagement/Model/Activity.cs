@@ -1,5 +1,5 @@
 ﻿using System;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.UsersManagement.Model
 {

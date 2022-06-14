@@ -1,4 +1,4 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Core.Utility.HelperClasses;
 using System.Collections.Generic;
 
 namespace HealthInstitution.Core.Features.MedicineManagement.Model

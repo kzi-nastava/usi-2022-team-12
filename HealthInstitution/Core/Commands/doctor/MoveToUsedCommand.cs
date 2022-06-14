@@ -3,7 +3,6 @@ using System.Linq;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Utility.BaseCommand;
 using HealthInstitution.Dialogs.Custom.Doctor;
-using HealthInstitution.Model;
 
 namespace HealthInstitution.Commands.doctor
 {

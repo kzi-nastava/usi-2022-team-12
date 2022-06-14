@@ -1,11 +1,11 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
+﻿using HealthInstitution.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Services.Implementation
 {

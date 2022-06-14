@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Ninject;
+﻿using HealthInstitution.Ninject;
 using System;
 using System.Collections.Generic;
 using System.Windows;

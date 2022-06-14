@@ -3,8 +3,8 @@ using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.Model;
 using HealthInstitution.ViewModel.manager;
 
 namespace HealthInstitution.Commands.manager

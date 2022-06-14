@@ -1,5 +1,5 @@
 ﻿using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.AppointmentScheduling.Model
 {

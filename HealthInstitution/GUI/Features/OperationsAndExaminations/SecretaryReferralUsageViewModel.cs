@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Dialogs.Custom;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
+using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 

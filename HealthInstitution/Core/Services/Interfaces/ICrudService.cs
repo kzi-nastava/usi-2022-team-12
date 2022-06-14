@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Services.Interfaces
 {

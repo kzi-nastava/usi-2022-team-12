@@ -1,4 +1,4 @@
-﻿using HealthInstitution.Model;
+﻿using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.EquipmentManagement.Model
 {

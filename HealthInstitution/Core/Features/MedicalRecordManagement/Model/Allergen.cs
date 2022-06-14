@@ -1,4 +1,6 @@
-﻿namespace HealthInstitution.Model.appointment
+﻿using HealthInstitution.Core.Utility.HelperClasses;
+
+namespace HealthInstitution.Model.appointment
 {
     public class Allergen : BaseObservableEntity
     {

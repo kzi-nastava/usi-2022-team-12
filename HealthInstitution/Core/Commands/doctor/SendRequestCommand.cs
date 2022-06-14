@@ -1,7 +1,7 @@
 ﻿using HealthInstitution.Core.Features.OffDaysManagement.Model;
 using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.Model;
 using HealthInstitution.ViewModel.doctor;
 using System;
 using System.Collections.Generic;

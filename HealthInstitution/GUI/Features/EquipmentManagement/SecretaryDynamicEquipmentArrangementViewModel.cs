@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.Dialogs.Custom;
 using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 

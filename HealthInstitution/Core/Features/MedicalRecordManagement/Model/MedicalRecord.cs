@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.Model.appointment;
 
 namespace HealthInstitution.Core.Features.MedicalRecordManagement.Model

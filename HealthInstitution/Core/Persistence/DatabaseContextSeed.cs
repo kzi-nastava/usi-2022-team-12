@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Model;
-using System;
+﻿using System;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.medicine;
 using HealthInstitution.Model.user;
