@@ -7,7 +7,7 @@ using HealthInstitution.Commands.manager;
 using HealthInstitution.Model.room;
 using HealthInstitution.Model.survey;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 using static HealthInstitution.ViewModel.patient.DoctorSearchViewModel;
 
