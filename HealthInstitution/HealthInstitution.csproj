@@ -10,13 +10,44 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\password.ttf" />
+    <Compile Remove="Core\Repository\Implementation\SurveyRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Core\Repository\Implementation\NewFile1.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile1.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile2.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile3.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile3.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\Validations\NewFile5.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\Validations\NewFile6.txt" />
+    <None Remove="GUI\Features\MedicineManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\MedicineManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\MedicineManagement\Validations\NewFile1.txt" />
+    <None Remove="GUI\Features\Navigation\NewFile1.txt" />
+    <None Remove="GUI\Features\Navigation\NewFile2.txt" />
+    <None Remove="GUI\Features\OffDaysManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\OffDaysManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\OperationsAndExaminations\NewFile1.txt" />
+    <None Remove="GUI\Features\OperationsAndExaminations\NewFile2.txt" />
+    <None Remove="GUI\Features\RoomManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\RoomManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\SurveyManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\SurveyManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\UsersManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\UsersManagement\NewFile2.txt" />
+    <None Remove="GUI\Fonts\password.ttf" />
+    <None Remove="GUI\NewFile1.txt" />
     <None Remove="Resources\main.jpg" />
     <None Remove="Resources\main3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Fonts\password.ttf">
+    <Content Include="GUI\Fonts\password.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icon.ico" />
@@ -35,20 +66,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="Persistence\Database\" />
+    <Folder Include="Core\Migrations\" />
+    <Folder Include="Core\Persistence\Database\" />
+    <Folder Include="GUI\Utility\Dialog\Service\" />
+    <Folder Include="GUI\Utility\Dialog\Pagination\" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\main.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="View\LoginView.xaml">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Page>
   </ItemGroup>
 
 </Project>
