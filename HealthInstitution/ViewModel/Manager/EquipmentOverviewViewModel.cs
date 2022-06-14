@@ -6,7 +6,7 @@ using System.Windows.Input;
 using HealthInstitution.Commands.manager;
 using HealthInstitution.Model;
 using HealthInstitution.Model.room;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel.manager
 {

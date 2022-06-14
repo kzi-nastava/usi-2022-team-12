@@ -1,6 +1,5 @@
 ﻿using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Windows.Input;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.room;
 using HealthInstitution.Model.user;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Dialogs.Custom
 {
@@ -23,8 +23,8 @@ namespace HealthInstitution.Dialogs.Custom
             set { OnPropertyChanged(ref _delayAppointments, value); }
         }
 
-        private Tuple<Appointment, DateTime> _selectedDelayAppointment;
-        public Tuple<Appointment, DateTime> SelectedDelayAppointment
+        private Tuple<Appointment, DateTime>? _selectedDelayAppointment;
+        public Tuple<Appointment, DateTime>? SelectedDelayAppointment
         {
             get { return _selectedDelayAppointment; }
             set { OnPropertyChanged(ref _selectedDelayAppointment, value); }
@@ -64,12 +64,6 @@ namespace HealthInstitution.Dialogs.Custom
 
             DelayAppointment = new RelayCommand<IDialogWindow>(w =>
             {
-                if (_selectedDelayAppointment == null)
-                {
-                    MessageBox.Show("You didn't select anything");
-                    return;
-                }
-
                 Patient urgentPatient = _patientService.Read(_patientId);
 
                 Appointment appointmentToChange = _appointmentService.Read(_selectedDelayAppointment.Item1.Id);
@@ -95,29 +89,16 @@ namespace HealthInstitution.Dialogs.Custom
                 MakeNotifications(newAppointment, appointmentToChange.StartDate);
                 MessageBox.Show("Appointment scheduled successfully");
                 CloseDialogWithResult(w, null);
-            });
+            },
+                (w) => SelectedDelayAppointment != null);
         }
 
         public void MakeNotifications(Appointment newAppointment, DateTime oldTime)
         {
             string notificationMessage = "Your appointment has been delayed from " + oldTime.ToString() + " to " + newAppointment.StartDate.ToString();
 
-            Notification patientNotification = new Notification
-            {
-                UserId = newAppointment.Patient.Id,
-                Content = notificationMessage,
-                IsShown = false
-            };
-
-            Notification doctorNotification = new Notification
-            {
-                UserId = newAppointment.Doctor.Id,
-                Content = notificationMessage,
-                IsShown = false
-            };
-
-            _notificationService.Create(patientNotification);
-            _notificationService.Create(doctorNotification);
+            _notificationService.CreateNotification(newAppointment.Patient.Id, notificationMessage);
+            _notificationService.CreateNotification(newAppointment.Doctor.Id, notificationMessage);
         }
     }
 }

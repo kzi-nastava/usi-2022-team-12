@@ -1,9 +1,9 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
-using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Services.Implementation
 {
@@ -18,6 +18,18 @@ namespace HealthInstitution.Services.Implementation
             return _entities.Where(n => n.IsShown == false)
                             .Where(n => n.UserId == userId)
                             .ToList();
+        }
+
+        public void CreateNotification(Guid userId, string description)
+        {
+            var newNotification = new Notification()
+            {
+                UserId = userId,
+                Content = description,
+                IsShown = false
+            };
+
+            Create(newNotification);
         }
     }
 }

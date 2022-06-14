@@ -2,7 +2,6 @@
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Ninject;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using System.Windows.Input;
 using HealthInstitution.Commands.doctor.Navigation;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.user;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.ViewModel

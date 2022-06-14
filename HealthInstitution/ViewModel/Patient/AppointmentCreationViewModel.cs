@@ -6,7 +6,7 @@ using HealthInstitution.Commands.patient;
 using HealthInstitution.Commands.patient.Navigation;
 using HealthInstitution.Model.user;
 using HealthInstitution.Ninject;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel.patient
 {

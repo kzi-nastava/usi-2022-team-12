@@ -2,7 +2,6 @@
 using HealthInstitution.Ninject;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Implementation;
-using HealthInstitution.Services.Intefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using HealthInstitution.Model.user;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Utility
 {

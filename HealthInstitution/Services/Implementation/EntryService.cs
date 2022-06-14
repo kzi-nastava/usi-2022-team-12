@@ -1,9 +1,9 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
-using HealthInstitution.Services.Intefaces;
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Model.room;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Services.Implementation
 {

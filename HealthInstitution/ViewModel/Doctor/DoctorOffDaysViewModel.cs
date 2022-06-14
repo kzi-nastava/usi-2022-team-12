@@ -1,7 +1,6 @@
 ﻿using HealthInstitution.Commands.doctor.Navigation;
 using HealthInstitution.Model.doctor;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel.doctor
 {

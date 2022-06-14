@@ -3,13 +3,13 @@ using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Pagination;
 using HealthInstitution.Pagination.Requests;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Validation;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HealthInstitution.Commands.secretary;
 using HealthInstitution.Model.appointment;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Dialogs.Custom
 {

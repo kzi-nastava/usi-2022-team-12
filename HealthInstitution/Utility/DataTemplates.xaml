@@ -50,7 +50,7 @@
     <DataTemplate DataType="{x:Type vm1:PrescriptionViewModel}">
         <doctor1:PrescriptionView/>
     </DataTemplate>
-    
+
     <DataTemplate DataType="{x:Type vm1:DoctorMedicineManagmentViewModel}">
         <doctor1:DoctorMedicineManagmentView/>
     </DataTemplate>
@@ -99,8 +99,8 @@
 
     <DataTemplate DataType="{x:Type patient1:DoctorSurveyViewModel}">
         <patient2:DoctorSurveyView/>
-    </DataTemplate>    
-    
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type patient1:HealthInstitutionSurveyViewModel}">
         <patient2:HealthInstitutionSurveyView/>
     </DataTemplate>
@@ -139,6 +139,10 @@
         <secretary2:SecretaryDynamicEquipmentArrangement/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type secretary1:SecretaryDayOffViewModel}">
+        <secretary2:SecretaryDayOffView/>
+    </DataTemplate>
+
     <!--Dialog data templates-->
 
     <DataTemplate DataType="{x:Type dc:HandlePatientViewModel}">
@@ -171,6 +175,10 @@
 
     <DataTemplate DataType="{x:Type dc:EquipmentTransferViewModel}">
         <dc:EquipmentTransferView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dc:OffDaysDeclineReasonViewModel}">
+        <dc:OffDaysDeclineReasonView/>
     </DataTemplate>
 
     <!--Dialog data templates-->

@@ -5,7 +5,7 @@ using HealthInstitution.Dialogs.Custom;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.secretary
@@ -61,10 +61,7 @@ namespace HealthInstitution.ViewModel.secretary
             _patientService = patientService;
             _dialogService = dialogService;
 
-            SearchCommand = new RelayCommand(() =>
-            {
-                Search();
-            });
+            SearchCommand = new RelayCommand(Search);
 
             ShowReferrals = new RelayCommand(() =>
             {
@@ -92,10 +89,12 @@ namespace HealthInstitution.ViewModel.secretary
 
         private void Search()
         {
-            if (SearchText == "" || SearchText == null)
+            if (SearchText is "" or null)
                 UpdatePage();
             else
-                Patients = new ObservableCollection<Patient>(_patientService.FilterValidPatientsBySearchText(SearchText));
+                Patients = new ObservableCollection<Patient>(
+                    _patientService.FilterValidPatientsBySearchText(SearchText));
+
         }
     }
 }

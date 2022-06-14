@@ -1,5 +1,5 @@
 ﻿using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.Commands.doctor

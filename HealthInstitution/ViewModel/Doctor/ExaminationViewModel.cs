@@ -9,7 +9,7 @@ using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.doctor;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.doctor

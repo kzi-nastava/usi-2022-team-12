@@ -1,9 +1,9 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Model.user;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel
 {

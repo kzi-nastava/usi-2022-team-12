@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Model;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.secretary

@@ -1,7 +1,6 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthInstitution.Commands.doctor;
 using HealthInstitution.Model.room;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Dialogs.Custom.Doctor
 {

@@ -18,7 +18,7 @@ namespace HealthInstitution.Dialogs.Custom
 
         #endregion
 
-        #region Services
+        #region Commands
 
         public ICommand Confirm { get; set; }
 

@@ -1,12 +1,12 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Ninject;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
 using HealthInstitution.Model.room;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel
 {

@@ -7,7 +7,7 @@ using System.Windows.Input;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Model.room;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.Dialogs.Custom

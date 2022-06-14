@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using HealthInstitution.Commands.patient;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.patient

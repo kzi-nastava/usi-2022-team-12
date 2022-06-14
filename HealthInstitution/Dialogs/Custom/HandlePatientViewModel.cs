@@ -1,11 +1,11 @@
 ﻿using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Validation;
 using HealthInstitution.ViewModel;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using HealthInstitution.Commands.secretary;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel.secretary;
 
 namespace HealthInstitution.Dialogs.Custom

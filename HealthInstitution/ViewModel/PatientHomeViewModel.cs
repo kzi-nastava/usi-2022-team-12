@@ -1,7 +1,6 @@
 ﻿using HealthInstitution.Commands;
 using HealthInstitution.Model;
 using HealthInstitution.Ninject;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using HealthInstitution.ViewModel;
 using System;
@@ -10,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Commands.patient.Navigation;
 using HealthInstitution.Model.user;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel.patient;
 
 namespace HealthInstitution.ViewModel
