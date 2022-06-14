@@ -20,6 +20,7 @@ namespace HealthInstitution.ViewModel
         public ICommand? LogOutCommand { get; }
         public ICommand? NavigateScheduleCommand { get; }
         public ICommand? NavigateMedicineCommand { get; }
+        public ICommand? NavigateOffDaysCommand { get; }
 
         private readonly INotificationService _notificationService;
 
@@ -33,6 +34,7 @@ namespace HealthInstitution.ViewModel
             LogOutCommand = new LogOutCommand();
             NavigateMedicineCommand = new NavigateMedicineCommand();
             NavigateScheduleCommand = new NavigateScheduleCommand();
+            NavigateOffDaysCommand = new NavigateOffDaysCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<DoctorScheduleViewModel>());
             RegisterHandler();
             CheckNotifications();
@@ -49,6 +51,16 @@ namespace HealthInstitution.ViewModel
             EventBus.RegisterHandler("DoctorSchedule", () =>
             {
                 SwitchCurrentViewModel(doctorScheduleViewModel);
+            });
+            EventBus.RegisterHandler("DoctorOffDays", () =>
+            {
+                DoctorOffDaysViewModel doctorOffDaysViewModel = ServiceLocator.Get<DoctorOffDaysViewModel>();
+                SwitchCurrentViewModel(doctorOffDaysViewModel);
+            });
+            EventBus.RegisterHandler("CreateOffDayRequest", () =>
+            {
+                CreateOffDayRequestViewModel createOffDayRequestViewModel = ServiceLocator.Get<CreateOffDayRequestViewModel>();
+                SwitchCurrentViewModel(createOffDayRequestViewModel);
             });
             EventBus.RegisterHandler("MedicalRecord", () =>
             {

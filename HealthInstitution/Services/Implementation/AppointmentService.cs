@@ -289,7 +289,8 @@ namespace HealthInstitution.Services.Implementation
 
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
-            return _entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0;
+            return _entities.Where(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate).Count() == 0 &&
+                _doctorService.IsInOffice(doctor, fromDate, toDate);
         }
 
         public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)

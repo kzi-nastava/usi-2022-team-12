@@ -12,8 +12,10 @@ namespace HealthInstitution.Services.Implementation
 {
     public class DoctorService : UserService<Doctor>, IDoctorService
     {
-        public DoctorService(DatabaseContext context) : base(context)
+        private readonly IOffDaysRequestService _offDaysRequestService;
+        public DoctorService(DatabaseContext context, IOffDaysRequestService offDaysRequestService) : base(context)
         {
+            _offDaysRequestService = offDaysRequestService;
         }
 
         public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization)
@@ -33,6 +35,14 @@ namespace HealthInstitution.Services.Implementation
             var specializations = Enum.GetValues(typeof(DoctorSpecialization)).Cast<DoctorSpecialization>().Where(text => Enum.GetName(typeof(DoctorSpecialization), text).ToLower().Contains(searchText));
             return _entities.Where(doc => doc.FirstName.ToLower().Contains(searchText)
            || doc.LastName.ToLower().Contains(searchText) || specializations.Contains(doc.Specialization));
+        }
+
+        public bool IsInOffice(Doctor doctor, DateTime fromDate, DateTime toDate)
+        {
+            return _offDaysRequestService.ReadAll()
+                .Where(e => e.Doctor == doctor)
+                .Where(e => e.Status == Status.Approved)
+                .Count(e => e.StartDate <= toDate && fromDate <= e.EndDate) == 0;
         }
     }
 }

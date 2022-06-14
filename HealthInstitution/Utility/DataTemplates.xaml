@@ -4,10 +4,6 @@
                     xmlns:v="clr-namespace:HealthInstitution.View"
                     xmlns:dd="clr-namespace:HealthInstitution.Dialogs.Custom.Doctor"
                     xmlns:dc="clr-namespace:HealthInstitution.Dialogs.Custom"
-                    xmlns:doctor="clr-namespace:HealthInstitution.View.Doctor"
-                    xmlns:patient="clr-namespace:HealthInstitution.View.Patient"
-                    xmlns:secretary="clr-namespace:HealthInstitution.View.Secretary"
-                    xmlns:manager="clr-namespace:HealthInstitution.View.Manager"
                     xmlns:vm1="clr-namespace:HealthInstitution.ViewModel.doctor"
                     xmlns:doctor1="clr-namespace:HealthInstitution.View.doctor"
                     xmlns:patient1="clr-namespace:HealthInstitution.ViewModel.patient"
@@ -63,6 +59,13 @@
         <dd:DynamicEquipmentUpdateView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm1:DoctorOffDaysViewModel}">
+        <doctor1:DoctorOffDaysView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm1:CreateOffDayRequestViewModel}">
+        <doctor1:CreateOffDayRequestView/>
+    </DataTemplate>
     <!-- Doctor -->
 
     <!-- Patient -->

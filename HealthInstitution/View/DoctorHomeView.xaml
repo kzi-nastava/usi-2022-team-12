@@ -45,6 +45,15 @@
                              IsChecked="False"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding NavigateMedicineCommand}"/>
+
+
+                    <RadioButton Content="♿ Off Days"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             IsChecked="False"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding NavigateOffDaysCommand}"/>
                 </StackPanel>
 
                 <Button Content="Log out"
