@@ -1,8 +1,8 @@
 ﻿using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Services.Intefaces;
 using HealthInstitution.Utility;
 using System;
 using System.Windows.Input;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Dialogs.Custom
 {

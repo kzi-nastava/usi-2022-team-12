@@ -1,7 +1,7 @@
 ﻿using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Persistence;
 using HealthInstitution.Services.Implementation;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel;
 using Ninject.Modules;
 

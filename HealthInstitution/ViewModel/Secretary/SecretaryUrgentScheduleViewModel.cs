@@ -11,7 +11,7 @@ using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.doctor;
 using HealthInstitution.Model.room;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.secretary

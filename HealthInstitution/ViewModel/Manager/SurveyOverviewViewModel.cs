@@ -4,7 +4,8 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Commands.manager;
 using HealthInstitution.Model.survey;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
+using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.manager
 {

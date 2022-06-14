@@ -5,7 +5,7 @@ using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.patient;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.ViewModel.secretary;
 
 namespace HealthInstitution.Commands.secretary

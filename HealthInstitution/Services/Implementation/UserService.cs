@@ -1,8 +1,8 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Persistence;
-using HealthInstitution.Services.Intefaces;
 using System.Linq;
 using HealthInstitution.Model.user;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Services.Implementation
 {

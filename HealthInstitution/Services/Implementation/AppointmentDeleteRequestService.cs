@@ -1,7 +1,7 @@
 ﻿using HealthInstitution.Model;
 using HealthInstitution.Model.patient;
 using HealthInstitution.Persistence;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.Services.Implementation
 {

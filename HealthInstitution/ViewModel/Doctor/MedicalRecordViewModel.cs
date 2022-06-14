@@ -5,7 +5,7 @@ using System.Windows.Input;
 using HealthInstitution.Commands.doctor.Navigation;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 
 namespace HealthInstitution.ViewModel.doctor
 {

@@ -5,7 +5,7 @@ using HealthInstitution.Dialogs.Custom;
 using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
 using HealthInstitution.Model.patient;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.secretary
@@ -50,8 +50,11 @@ namespace HealthInstitution.ViewModel.secretary
         #region Commands
 
         public ICommand SearchCommand { get; private set; }
+
         public ICommand MoreInfo { get; private set; }
+
         public ICommand Accept { get; private set; }
+
         public ICommand Reject { get; private set; }
 
         #endregion
@@ -147,7 +150,7 @@ namespace HealthInstitution.ViewModel.secretary
 
         private void Search()
         {
-            if (SearchText == "" || SearchText == null)
+            if (SearchText is "" or null)
                 UpdatePage();
             else
                 AppointmentRequests = new ObservableCollection<AppointmentRequest>(_appointmentRequestService.FilterPendingRequestsBySearchText(SearchText));

@@ -1,15 +1,12 @@
 ﻿using HealthInstitution.Model.user;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthInstitution.Model.doctor
 {
     public class OffDaysRequest : BaseObservableEntity
     {
         #region Atributes
+
         private DateTime _startDate;
         public DateTime StartDate { get => _startDate; set => OnPropertyChanged(ref _startDate, value); }
 
@@ -30,9 +27,13 @@ namespace HealthInstitution.Model.doctor
 
         private string? _refuseComment;
         public string? RefuseComment { get => _refuseComment; set => OnPropertyChanged(ref _refuseComment, value); }
+
         #endregion
+
         #region Constructor
+
         public OffDaysRequest() { }
+
         #endregion
     }
 }

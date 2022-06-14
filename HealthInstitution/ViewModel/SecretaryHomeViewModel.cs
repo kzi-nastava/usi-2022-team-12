@@ -29,6 +29,8 @@ namespace HealthInstitution.ViewModel
 
         public ICommand ShowDynamicEquipmentArrangement { get; private set; }
 
+        public ICommand ShowOffDays { get; private set; }
+
         #endregion
 
         #region attributes
@@ -48,12 +50,10 @@ namespace HealthInstitution.ViewModel
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryPatientCRUDViewModel>());
             });
 
-
             ShowBlockedPatients = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryBlockedPatientsViewModel>());
             });
-
 
             ShowAppointmentRequests = new RelayCommand(() =>
             {
@@ -78,6 +78,11 @@ namespace HealthInstitution.ViewModel
             ShowDynamicEquipmentArrangement = new RelayCommand(() =>
             {
                 SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDynamicEquipmentArrangementViewModel>());
+            });
+
+            ShowOffDays = new RelayCommand(() =>
+            {
+                SwitchCurrentViewModel(ServiceLocator.Get<SecretaryDayOffViewModel>());
             });
 
             RegisterHandler();

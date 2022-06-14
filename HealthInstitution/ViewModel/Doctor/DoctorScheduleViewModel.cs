@@ -6,7 +6,7 @@ using HealthInstitution.Commands.doctor;
 using HealthInstitution.Commands.doctor.Navigation;
 using HealthInstitution.Model.appointment;
 using HealthInstitution.Model.user;
-using HealthInstitution.Services.Intefaces;
+using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
 
 namespace HealthInstitution.ViewModel.doctor
