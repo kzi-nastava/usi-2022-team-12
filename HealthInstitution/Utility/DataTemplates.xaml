@@ -230,5 +230,9 @@
         <manager2:SurveyOverviewView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type manager1:DoctorSurveyOverviewViewModel}">
+        <manager2:DoctorSurveyOverviewView/>
+    </DataTemplate>
+
     <!-- Manager -->
 </ResourceDictionary>

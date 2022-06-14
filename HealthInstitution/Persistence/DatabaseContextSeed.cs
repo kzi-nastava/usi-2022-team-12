@@ -380,9 +380,54 @@ namespace HealthInstitution.Persistence
                 PrescribedMedicines = new List<PrescribedMedicine>()
             };
 
+            var apt4 = new Appointment
+            {
+                Doctor = d2,
+                Patient = p3,
+                StartDate = currentTime.Date.AddDays(-7).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute),
+                EndDate = currentTime.Date.AddDays(-7).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute + 15),
+                Room = r3,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                IsDone = true,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
+
+            var apt5 = new Appointment
+            {
+                Doctor = d2,
+                Patient = p4,
+                StartDate = currentTime.Date.AddDays(-10).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute),
+                EndDate = currentTime.Date.AddDays(-10).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute + 15),
+                Room = r3,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                IsDone = true,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
+
+            var apt6 = new Appointment
+            {
+                Doctor = d3,
+                Patient = p5,
+                StartDate = currentTime.Date.AddDays(-1).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute),
+                EndDate = currentTime.Date.AddDays(-1).AddHours(currentTime.Hour).AddMinutes(currentTime.Minute + 15),
+                Room = r2,
+                AppointmentType = AppointmentType.Regular,
+                Anamnesis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                IsDone = true,
+                IsRated = false,
+                PrescribedMedicines = new List<PrescribedMedicine>()
+            };
+
             context.Appointments.Add(apt1);
             context.Appointments.Add(apt2);
             context.Appointments.Add(apt3);
+            context.Appointments.Add(apt4);
+            context.Appointments.Add(apt5);
+            context.Appointments.Add(apt6);
 
             // Appointment update requests
             //var aru1 = new AppointmentUpdateRequest()

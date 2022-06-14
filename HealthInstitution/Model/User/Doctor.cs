@@ -10,5 +10,10 @@ namespace HealthInstitution.Model.user
         public DoctorSpecialization Specialization { get => _specialization; set => OnPropertyChanged(ref _specialization, value); }
 
         #endregion
+
+        public override string ToString()
+        {
+            return FirstName + " " + LastName;
+        }
     }
 }
