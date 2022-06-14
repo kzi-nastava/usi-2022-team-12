@@ -2,11 +2,12 @@
 using System.Linq;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Utility;
 using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.AppointmentScheduling.Repository
 {
-    public class AppointmentDeleteRequestRepository : AppointmentRequestRepository<AppointmentDeleteRequest>, IAppointmentDeleteRequestRepository
+    public class AppointmentDeleteRequestRepository : CrudRepository<AppointmentDeleteRequest>, IAppointmentDeleteRequestRepository
     {
         public AppointmentDeleteRequestRepository(DatabaseContext context) : base(context)
         {

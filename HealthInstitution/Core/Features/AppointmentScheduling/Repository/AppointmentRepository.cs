@@ -15,26 +15,5 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Repository
         {
 
         }
-
-        public IEnumerable<Appointment> ReadFinishedAppointmentsForPatient(Patient pt)
-        {
-            return _entities.Where(ap => ap.IsDone == true)
-                            .Where(apt => apt.Patient == pt);
-        }
-
-        public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
-        {
-            return _entities.Where(apt => apt.Patient == pt);
-        }
-
-        public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt)
-        {
-            return _entities.Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now && apt.IsDone == false);
-        }
-
-        public IEnumerable<Appointment> ReadRoomAppointments(Room r)
-        {
-            return _entities.Where(apt => apt.Room == r).ToList();
-        }
     }
 }

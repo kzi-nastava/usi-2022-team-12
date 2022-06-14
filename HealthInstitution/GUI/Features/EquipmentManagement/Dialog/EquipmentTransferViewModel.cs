@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Services;
 using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Dialog.Service;

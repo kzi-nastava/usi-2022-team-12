@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Services;
 using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
 

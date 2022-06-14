@@ -1,12 +1,14 @@
 ﻿using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Services;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.EquipmentManagement.Services;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Repository;
 using HealthInstitution.Core.Features.NotificationManagement.Repository;
 using HealthInstitution.Core.Features.OffDaysManagement.Repository;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Services;
 using HealthInstitution.Core.Features.SurveyManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Persistence;

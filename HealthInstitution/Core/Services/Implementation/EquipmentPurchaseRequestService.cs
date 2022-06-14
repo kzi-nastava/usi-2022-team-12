@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Services;
 using HealthInstitution.Core.Persistence;
 using HealthInstitution.Core.Services.Interfaces;
 

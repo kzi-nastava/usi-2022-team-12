@@ -1,37 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.EquipmentManagement.Services;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Persistence;
-using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Core.Services.Implementation
+namespace HealthInstitution.Core.Features.RoomManagement.Services
 {
-    public class RoomService : CrudService<Room>, IRoomService
+    public class RoomService : IRoomService
     {
+        private readonly IRoomRepository _roomRepository;
         private readonly IEquipmentService _equipmentService;
 
-        public RoomService(DatabaseContext context, IEquipmentService equipmentService) : base(context)
+        public RoomService(IRoomRepository roomRepository, IEquipmentService equipmentService)
         {
+            _roomRepository = roomRepository;
             _equipmentService = equipmentService;
         }
 
         public IEnumerable<Room> ReadRooms(RoomType rt)
         {
-            return _entities.Where(room => room.RoomType == rt)
+            return _roomRepository.ReadAll().Where(room => room.RoomType == rt)
                             .ToList();
         }
 
         public IEnumerable<Room> ReadRooms(List<RoomType> types)
         {
-            return _entities.Where(room => types.Contains(room.RoomType))
+            return _roomRepository.ReadAll().Where(room => types.Contains(room.RoomType))
                             .ToList();
         }
 
         public IEnumerable<Room> ReadRoomsWithName(string name)
         {
-            return _entities.Where(room => room.Name == name).ToList();
+            return _roomRepository.ReadAll().Where(room => room.Name == name).ToList();
         }
 
 
@@ -43,7 +45,7 @@ namespace HealthInstitution.Core.Services.Implementation
 
         public IEnumerable<Room> GetRoomsLowOnEquipment()
         {
-            var allRooms = ReadAll();
+            var allRooms = _roomRepository.ReadAll();
             var priorityRooms = new List<Room>();
             var requiredEquipment = _equipmentService.GetEquipment(EquipmentType.DynamicEquipment);
 
@@ -66,7 +68,7 @@ namespace HealthInstitution.Core.Services.Implementation
 
         public Room GetStorage()
         {
-            return _entities.FirstOrDefault(rm => rm.Name == "S");
+            return _roomRepository.ReadAll().FirstOrDefault(rm => rm.Name == "S");
         }
 
         public void AddItemQuantityToStorage(Entry<Equipment> deliveredEquipment)
@@ -78,7 +80,7 @@ namespace HealthInstitution.Core.Services.Implementation
         public void AddItemQuantity(Room room, Entry<Equipment> deliveredEquipment)
         {
             IncreaseItemQuantity(room, deliveredEquipment);
-            Update(room);
+            _roomRepository.Update(room);
         }
 
         public void IncreaseItemQuantity(Room room, Entry<Equipment> deliveredEquipment)

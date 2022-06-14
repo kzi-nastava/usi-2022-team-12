@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Services;
 using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.RoomManagement;
