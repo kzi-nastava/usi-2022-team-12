@@ -33,7 +33,7 @@ namespace HealthInstitution.Commands
 
         public override void Execute(object? parameter)
         {
-            _viewModel._equipmentPurchaseRequestService.UpdateEquipmentQuantity();
+            StorageQuantityChecker.InitializeTimer();
 
             var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)

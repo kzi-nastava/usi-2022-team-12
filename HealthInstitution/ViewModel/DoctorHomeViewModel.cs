@@ -37,6 +37,7 @@ namespace HealthInstitution.ViewModel
             NavigateOffDaysCommand = new NavigateOffDaysCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<DoctorScheduleViewModel>());
             RegisterHandler();
+            NotificationsChecker.InitializeTimer(typeof(Doctor));
             CheckNotifications();
         }
 
