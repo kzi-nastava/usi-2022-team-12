@@ -2,7 +2,7 @@
 using HealthInstitution.GUI.Utility.Dialog.Pagination;
 using System;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Core.Utility.Command
 {
     public class UpdatePageCommand : CommandBase
     {

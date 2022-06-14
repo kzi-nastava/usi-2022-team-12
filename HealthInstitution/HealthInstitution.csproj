@@ -10,13 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Core\Commands\secretary\**" />
-    <EmbeddedResource Remove="Core\Commands\secretary\**" />
-    <None Remove="Core\Commands\secretary\**" />
-    <Page Remove="Core\Commands\secretary\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="GUI\Features\AppointmentScheduling\NewFile1.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile2.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile3.txt" />

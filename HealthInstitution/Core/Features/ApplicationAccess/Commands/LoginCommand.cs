@@ -10,7 +10,7 @@ using HealthInstitution.GUI.Utility.Title;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Core.Features.ApplicationAccess.Commands
 {
     public class LoginCommand : CommandBase
     {

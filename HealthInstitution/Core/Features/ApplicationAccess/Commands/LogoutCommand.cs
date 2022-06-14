@@ -3,7 +3,7 @@ using HealthInstitution.Core.Utility.Checker;
 using HealthInstitution.GUI.Utility.Navigation;
 using System.ComponentModel;
 
-namespace HealthInstitution.Commands
+namespace HealthInstitution.Core.Features.ApplicationAccess.Commands
 {
     public class LogOutCommand : CommandBase
     {
