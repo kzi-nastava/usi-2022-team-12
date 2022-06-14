@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
-using HealthInstitution.Commands.doctor;
-using HealthInstitution.Commands.doctor.Navigation;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Dialogs.Service;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.doctor
+namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 {
     public class ExaminationViewModel : ViewModelBase
     {

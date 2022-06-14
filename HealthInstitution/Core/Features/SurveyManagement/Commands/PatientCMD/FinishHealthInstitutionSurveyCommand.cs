@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using HealthInstitution.Core.Features.SurveyManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.SurveyManagement;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands.patient
+namespace HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD
 {
     public class FinishHealthInstitutionSurveyCommand : CommandBase
     {

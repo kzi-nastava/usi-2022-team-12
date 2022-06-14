@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace HealthInstitution.View.patient
+namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     /// <summary>
     /// Interaction logic for UpdateAppointmentView.xaml

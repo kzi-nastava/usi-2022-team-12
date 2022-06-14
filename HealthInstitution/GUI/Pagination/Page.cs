@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using HealthInstitution.Model;
 
-namespace HealthInstitution.Pagination
+namespace HealthInstitution.GUI.Pagination
 {
     public class Page<BaseObservableEntity> where BaseObservableEntity : class
     {

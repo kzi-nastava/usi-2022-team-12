@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.Dialogs.Custom
+namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {
     /// <summary>
     /// Interaction logic for AppointmentView.xaml

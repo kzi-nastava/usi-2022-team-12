@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.UsersManagement;
 using HealthInstitution.GUI.Features.UsersManagement.Dialog;
 using HealthInstitution.GUI.Utility.Dialog.Service;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.ViewModel.secretary;
 
-namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCmd
+namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
 {
     public class HandlePatientCommand : CommandBase
     {

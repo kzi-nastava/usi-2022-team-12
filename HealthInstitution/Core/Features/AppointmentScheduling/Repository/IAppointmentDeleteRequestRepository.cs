@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Utility;
 
 namespace HealthInstitution.Core.Features.AppointmentScheduling.Repository
 {
-    public interface IAppointmentDeleteRequestRepository : IAppointmentRequestRepository<AppointmentDeleteRequest>
+    public interface IAppointmentDeleteRequestRepository : ICrudRepository<AppointmentDeleteRequest>
     {
+        public IEnumerable<AppointmentDeleteRequest> ReadAllPendingRequests();
     }
 }

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using HealthInstitution.Commands.doctor;
-using HealthInstitution.Commands.doctor.Navigation;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.doctor
+namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     public class DoctorAppointmentUpdateViewModel : ViewModelBase, IDoctorAppointmentViewModel
     {

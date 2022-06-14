@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading;
-using HealthInstitution.Persistence;
-using HealthInstitution.Services.Implementation;
-using HealthInstitution.Services.Interfaces;
+﻿using System.Threading;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Implementation;
+using HealthInstitution.Core.Services.Interfaces;
 
 namespace HealthInstitution.Core.Utility.Checker
 {

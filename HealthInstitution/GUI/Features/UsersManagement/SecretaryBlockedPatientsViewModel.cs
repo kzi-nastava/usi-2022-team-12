@@ -2,11 +2,10 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel.secretary
+namespace HealthInstitution.GUI.Features.UsersManagement
 {
     public class SecretaryBlockedPatientsViewModel : ObservableEntity
     {

@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.ViewModel.manager;
+﻿using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.EquipmentManagement;
 
-namespace HealthInstitution.Commands.manager
+namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD
 {
     public class SearchEquipmentCommand : CommandBase
     {

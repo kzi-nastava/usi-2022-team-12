@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using HealthInstitution.Commands.patient;
-using HealthInstitution.Commands.patient.Navigation;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
+using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Ninject;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.patient
+namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     public class AppointmentCreationViewModel : ViewModelBase
     {

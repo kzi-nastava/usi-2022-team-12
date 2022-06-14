@@ -1,15 +1,11 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.SurveyManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class HealthInstitutionSurveyService : CrudService<HealthInstitutionSurvey>, IHealthInstitutionSurveyService
     {

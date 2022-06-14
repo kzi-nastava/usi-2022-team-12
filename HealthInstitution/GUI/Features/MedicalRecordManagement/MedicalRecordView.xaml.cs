@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View.doctor
+namespace HealthInstitution.GUI.Features.MedicalRecordManagement
 {
     /// <summary>
     /// Interaction logic for MedicalHistoryView.xaml

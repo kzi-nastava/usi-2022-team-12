@@ -2,7 +2,7 @@
 using HealthInstitution.Core.Features.SurveyManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IDoctorSurveyService : ICrudService<DoctorSurvey>
     {

@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
+﻿using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.ViewModel.doctor;
+using HealthInstitution.GUI.Features.MedicineManagement;
 
 namespace HealthInstitution.Core.Features.MedicineManagement.Commands.DoctorCMD
 {

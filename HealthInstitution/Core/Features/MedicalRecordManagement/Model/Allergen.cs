@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Core.Utility.HelperClasses;
 
-namespace HealthInstitution.Model.appointment
+namespace HealthInstitution.Core.Features.MedicalRecordManagement.Model
 {
     public class Allergen : BaseObservableEntity
     {

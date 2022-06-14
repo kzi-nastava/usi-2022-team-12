@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="HealthInstitution.View.doctor.ExaminationView"
+﻿<UserControl x:Class="HealthInstitution.GUI.Features.OperationsAndExaminations.ExaminationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:doctor="clr-namespace:HealthInstitution.Validation.doctor"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:validations="clr-namespace:HealthInstitution.GUI.Features.MedicalRecordManagement.Validations"
              Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="990">
@@ -52,7 +52,7 @@
                         <TextBox.Text>
                             <Binding Path="Height">
                                 <Binding.ValidationRules>
-                                    <doctor:HeightValidation/>
+                                    <validations:HeightValidation/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -64,7 +64,7 @@
                         <TextBox.Text>
                             <Binding Path="Weight">
                                 <Binding.ValidationRules>
-                                    <doctor:WeightValidation/>
+                                    <validations:WeightValidation/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -81,7 +81,7 @@
                     <TextBox.Text>
                         <Binding Path="Anamnesis" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <doctor:AnamnesisValidation ValidatesOnTargetUpdated="True"/>
+                                <validations:AnamnesisValidation ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

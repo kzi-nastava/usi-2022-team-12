@@ -1,6 +1,6 @@
-﻿using HealthInstitution.Model.appointment;
+﻿using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IAllergenService : ICrudService<Allergen>
     {

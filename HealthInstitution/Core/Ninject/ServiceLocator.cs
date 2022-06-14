@@ -1,7 +1,7 @@
 ﻿using HealthInstitution.GUI.Utility.ViewModel;
 using Ninject;
 
-namespace HealthInstitution.Ninject
+namespace HealthInstitution.Core.Ninject
 {
     public class ServiceLocator
     {

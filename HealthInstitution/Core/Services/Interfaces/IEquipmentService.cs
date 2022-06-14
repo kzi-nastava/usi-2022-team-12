@@ -2,7 +2,7 @@
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IEquipmentService : ICrudService<Equipment>
     {

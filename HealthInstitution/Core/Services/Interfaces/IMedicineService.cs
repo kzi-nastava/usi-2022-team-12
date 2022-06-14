@@ -2,7 +2,7 @@
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Utility.HelperClasses;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IMedicineService : ICrudService<Medicine>
     {

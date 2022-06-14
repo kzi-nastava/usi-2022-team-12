@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.Core.Utility.Checker;
+﻿using HealthInstitution.Core.Utility.Checker;
 using HealthInstitution.GUI.Utility.Navigation;
 using System.ComponentModel;
+using HealthInstitution.Core.Utility.Command;
 
 namespace HealthInstitution.Core.Features.ApplicationAccess.Commands
 {

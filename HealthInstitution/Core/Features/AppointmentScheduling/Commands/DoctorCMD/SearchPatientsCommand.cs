@@ -1,5 +1,5 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.ViewModel.doctor;
+﻿using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
 
 namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD
 {

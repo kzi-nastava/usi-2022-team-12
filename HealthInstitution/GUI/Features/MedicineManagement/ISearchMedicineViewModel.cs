@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 
-namespace HealthInstitution.ViewModel.doctor
+namespace HealthInstitution.GUI.Features.MedicineManagement
 {
     public interface ISearchMedicineViewModel
     {

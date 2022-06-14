@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View.manager
+namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
     /// <summary>
     /// Interaction logic for ArrangeEquipmentView.xaml

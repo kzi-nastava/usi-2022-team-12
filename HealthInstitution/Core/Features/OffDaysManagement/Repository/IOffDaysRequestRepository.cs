@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HealthInstitution.Core.Features.OffDaysManagement.Model;
+using HealthInstitution.Core.Utility;
 
 namespace HealthInstitution.Core.Features.OffDaysManagement.Repository
 {
-    public interface IOffDaysRequestRepository ICrudRepository<PrescribedMedicineNotification>
+    public interface IOffDaysRequestRepository : ICrudRepository<OffDaysRequest>
     {
     }
 }

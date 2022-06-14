@@ -1,13 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.Dialogs.Custom;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
+using HealthInstitution.GUI.Features.EquipmentManagement.Dialog;
 
-namespace HealthInstitution.ViewModel.secretary
+namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
     public class SecretaryDynamicEquipmentArrangementViewModel : ObservableEntity
     {

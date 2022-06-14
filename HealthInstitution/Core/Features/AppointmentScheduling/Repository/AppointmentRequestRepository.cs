@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Utility;
+using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.Core.Features.AppointmentScheduling.Repository
 {
-    public class AppointmentRequestRepository<T> : CrudRepository<T>, IAppointmentRequestRepository<T> where T : AppointmentRequest
+    public class AppointmentRequestRepository : CrudRepository<AppointmentRequest>, IAppointmentRequestRepository
     {
         public AppointmentRequestRepository(DatabaseContext context) : base(context)
         {
 
+        }
+
+        public IEnumerable<AppointmentRequest> ReadAllPendingRequests()
+        {
+            return ReadAll().Where(r => r.Status == Status.Pending);
         }
     }
 }

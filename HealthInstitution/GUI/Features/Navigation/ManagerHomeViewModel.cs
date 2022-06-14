@@ -1,17 +1,18 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Ninject;
-using System.Threading;
-using System.Timers;
-using System.Windows;
-using System.Windows.Input;
-using HealthInstitution.Commands.manager;
-using HealthInstitution.ViewModel.manager;
+﻿using System.Windows.Input;
+using HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD;
+using HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD;
+using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
+using HealthInstitution.Core.Features.SurveyManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.GUI.Features.EquipmentManagement;
+using HealthInstitution.GUI.Features.MedicineManagement;
+using HealthInstitution.GUI.Features.RoomManagement;
+using HealthInstitution.GUI.Features.SurveyManagement;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.GUI.Features.Navigation
 {
     public class ManagerHomeViewModel : NavigableViewModel
     {

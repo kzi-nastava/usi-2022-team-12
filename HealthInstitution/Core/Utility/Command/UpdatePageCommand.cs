@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.GUI.Utility.Dialog.Pagination;
+﻿using HealthInstitution.GUI.Utility.Dialog.Pagination;
 using System;
 
 namespace HealthInstitution.Core.Utility.Command

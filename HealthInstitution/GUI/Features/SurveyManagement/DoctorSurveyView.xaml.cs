@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View.patient
+namespace HealthInstitution.GUI.Features.SurveyManagement
 {
     /// <summary>
     /// Interaction logic for DoctorSurveyView.xaml

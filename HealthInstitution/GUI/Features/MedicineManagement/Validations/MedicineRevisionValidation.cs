@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
 
-namespace HealthInstitution.Validation.doctor
+namespace HealthInstitution.GUI.Features.MedicineManagement.Validations
 {
     public class MedicineRevisionValidation : ValidationRule
     {

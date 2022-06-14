@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using System.Windows;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.UsersManagement;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands.patient
+namespace HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD
 {
     public class SaveNotificationPreferenceCommand : CommandBase
     {

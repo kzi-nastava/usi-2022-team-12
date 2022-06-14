@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.MedicalRecordManagement;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands.patient.Navigation
+namespace HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD
 {
     public class OpenDoctorSurveyCommand : CommandBase
     {

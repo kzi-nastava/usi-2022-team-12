@@ -4,11 +4,11 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.Core.Features.AppointmentScheduling.Command.SecretaryCMD
+namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.SecretaryCMD
 {
     public class UseReferralCommand : CommandBase
     {

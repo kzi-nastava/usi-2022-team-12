@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IDoctorService : IUserService<Doctor>
     {

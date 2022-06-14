@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.ViewModel.patient;
+﻿using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.UsersManagement;
 
-namespace HealthInstitution.Commands.patient
+namespace HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD
 {
     public class SearchDoctorInfoCommand : CommandBase
     {

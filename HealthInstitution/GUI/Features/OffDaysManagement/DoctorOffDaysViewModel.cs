@@ -1,18 +1,13 @@
-﻿using HealthInstitution.Commands.doctor.Navigation;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.OffDaysManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel.doctor
+namespace HealthInstitution.GUI.Features.OffDaysManagement
 {
     public class DoctorOffDaysViewModel : ViewModelBase
     {

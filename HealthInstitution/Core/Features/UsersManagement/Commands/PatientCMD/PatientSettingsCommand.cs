@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
+﻿using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Utility.Navigation;
 
-namespace HealthInstitution.Commands.patient.Navigation
+namespace HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD
 {
     public class PatientSettingsCommand : CommandBase
     {

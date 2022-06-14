@@ -1,15 +1,10 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HealthInstitution.Services.Interfaces;
+﻿using System.Linq;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class MedicalRecordService : CrudService<MedicalRecord>, IMedicalRecordService
     {

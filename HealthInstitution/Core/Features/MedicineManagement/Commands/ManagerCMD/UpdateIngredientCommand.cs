@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.MedicineManagement;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands.manager
+namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
 {
     public class UpdateIngredientCommand : CommandBase
     {

@@ -1,16 +1,16 @@
-﻿using HealthInstitution.Exceptions;
-using HealthInstitution.Persistence;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HealthInstitution.Services.Interfaces;
+using HealthInstitution.Core.Exceptions;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
-using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class AppointmentService : CrudService<Appointment>, IAppointmentService
     {

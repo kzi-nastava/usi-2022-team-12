@@ -1,10 +1,10 @@
-﻿using HealthInstitution.Persistence;
-using System;
+﻿using System;
 using System.Linq;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class RoomRenovationService : CrudService<RoomRenovation>, IRoomRenovationService
     {

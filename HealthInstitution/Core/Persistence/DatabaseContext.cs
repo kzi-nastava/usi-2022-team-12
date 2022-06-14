@@ -1,20 +1,18 @@
-﻿using HealthInstitution.Model;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.IO;
-using HealthInstitution.Model.appointment;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
-using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Features.MedicineManagement.Model;
+using HealthInstitution.Core.Features.NotificationManagement.Model;
 using HealthInstitution.Core.Features.OffDaysManagement.Model;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
-using HealthInstitution.Core.Features.NotificationManagement.Model;
-using HealthInstitution.Core.Features.SurveyManagement.Model;
-using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.SurveyManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Model;
+using Microsoft.EntityFrameworkCore;
 
-namespace HealthInstitution.Persistence
+namespace HealthInstitution.Core.Persistence
 {
     public class DatabaseContext : DbContext
     {
@@ -58,7 +56,7 @@ namespace HealthInstitution.Persistence
 
         // Secretary related things
         public DbSet<Referral> Referrals { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
         public DbSet<EquipmentPurchaseRequest> EquipmentPurchaseRequests { get; set; }
 
         // Health Institution related things

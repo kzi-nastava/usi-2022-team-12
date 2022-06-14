@@ -1,7 +1,7 @@
 ﻿using HealthInstitution.Utility;
 using System;
 using System.Windows.Input;
-using HealthInstitution.Services.Interfaces;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog

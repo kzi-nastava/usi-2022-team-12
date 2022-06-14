@@ -1,15 +1,13 @@
 ﻿using System;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.Model.medicine;
-using HealthInstitution.Model.user;
 using System.Collections.Generic;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
-using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Model;
 
-namespace HealthInstitution.Persistence
+namespace HealthInstitution.Core.Persistence
 {
     class DatabaseContextSeed
     {

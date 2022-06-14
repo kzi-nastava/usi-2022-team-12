@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace HealthInstitution.Core.Utility.BaseCommand
+namespace HealthInstitution.Core.Utility.Command
 {
     public class RelayCommand<T> : ICommand
     {

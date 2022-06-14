@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Core.Features.UsersManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IUserService<T> : ICrudService<T> where T : User
     {

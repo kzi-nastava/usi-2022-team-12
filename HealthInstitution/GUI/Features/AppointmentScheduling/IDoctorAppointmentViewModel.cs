@@ -1,4 +1,4 @@
-﻿namespace HealthInstitution.ViewModel.doctor
+﻿namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     public interface IDoctorAppointmentViewModel
     {

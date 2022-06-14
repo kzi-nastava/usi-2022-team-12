@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Core.Features.EquipmentManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IEquipmentPurchaseRequestService : ICrudService<EquipmentPurchaseRequest>
     {

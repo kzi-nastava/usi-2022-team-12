@@ -1,21 +1,12 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Utility;
-using HealthInstitution.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HealthInstitution.Commands.doctor;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
-namespace HealthInstitution.Dialogs.Custom.Doctor
+namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
     public class DynamicEquipmentUpdateViewModel : DialogViewModelBase<DynamicEquipmentUpdateViewModel>
     {

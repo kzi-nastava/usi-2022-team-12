@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.OperationsAndExaminations;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.Core.Features.MedicalRecordManagement.Commands.DoctorCMD
 {

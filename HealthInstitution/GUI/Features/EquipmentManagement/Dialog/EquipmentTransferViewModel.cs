@@ -6,13 +6,11 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Dialog.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
 
-namespace HealthInstitution.Dialogs.Custom
+namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
 {
     public class EntryView : BaseObservableEntity
     {

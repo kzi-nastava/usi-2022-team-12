@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.Dialogs.Custom
+namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
 {
     /// <summary>
     /// Interaction logic for AddPatientView.xaml

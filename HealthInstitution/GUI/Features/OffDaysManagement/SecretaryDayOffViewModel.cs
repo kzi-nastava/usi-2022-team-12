@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.OffDaysManagement.Model;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.Dialogs.Service;
 using HealthInstitution.GUI.Features.OffDaysManagement.Dialog;
-using HealthInstitution.Model.patient;
-using HealthInstitution.Ninject;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel.secretary
+namespace HealthInstitution.GUI.Features.OffDaysManagement
 {
     public class SecretaryDayOffViewModel : ObservableEntity
     {

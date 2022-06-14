@@ -4,7 +4,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IAppointmentService : ICrudService<Appointment>
     {

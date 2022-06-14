@@ -2,14 +2,14 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using HealthInstitution.Core.Exceptions;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.Exceptions;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands.patient
+namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD
 {
     public class MakeAppointmentCommand : CommandBase
     {

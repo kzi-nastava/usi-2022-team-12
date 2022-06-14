@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View.secretary
+namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 {
     /// <summary>
     /// Interaction logic for SecretaryReferralView.xaml

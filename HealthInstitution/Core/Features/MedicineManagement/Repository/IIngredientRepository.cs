@@ -1,9 +1,5 @@
 ﻿using HealthInstitution.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.Core.Features.MedicineManagement.Model;
 
 namespace HealthInstitution.Core.Features.MedicineManagement.Repository
 {

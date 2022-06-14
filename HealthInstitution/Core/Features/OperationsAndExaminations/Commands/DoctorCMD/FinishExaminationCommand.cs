@@ -3,11 +3,10 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.EquipmentManagement;
+using HealthInstitution.GUI.Features.OperationsAndExaminations;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD
 {

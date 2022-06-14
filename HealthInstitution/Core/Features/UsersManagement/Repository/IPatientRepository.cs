@@ -1,13 +1,9 @@
 ﻿using HealthInstitution.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthInstitution.Core.Features.UsersManagement.Model;
 
 namespace HealthInstitution.Core.Features.UsersManagement.Repository
 {
-    public interface IPatientRepository : ICrudRepository<PrescribedMedicineNotification>
+    public interface IPatientRepository : ICrudRepository<Patient>
     {
     }
 }

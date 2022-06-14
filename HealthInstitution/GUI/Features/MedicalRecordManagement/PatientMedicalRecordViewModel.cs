@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using HealthInstitution.Commands.patient;
-using HealthInstitution.Commands.patient.Navigation;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.patient
+namespace HealthInstitution.GUI.Features.MedicalRecordManagement
 {
     public class PatientMedicalRecordViewModel : ViewModelBase
     {

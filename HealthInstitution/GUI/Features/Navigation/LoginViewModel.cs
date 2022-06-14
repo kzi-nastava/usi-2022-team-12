@@ -1,12 +1,10 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.GUI.Features.Navigation
 {
     public class LoginViewModel : ViewModelBase
     {

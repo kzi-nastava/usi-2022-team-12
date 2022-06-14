@@ -1,11 +1,10 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class PatientService : UserService<Patient>, IPatientService
     {

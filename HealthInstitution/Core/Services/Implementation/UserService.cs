@@ -1,10 +1,9 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Persistence;
-using System.Linq;
-using HealthInstitution.Services.Interfaces;
+﻿using System.Linq;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class UserService<T> : CrudService<T>, IUserService<T> where T : User
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View.doctor
+namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     /// <summary>
     /// Interaction logic for DoctorScheduleListingView.xaml

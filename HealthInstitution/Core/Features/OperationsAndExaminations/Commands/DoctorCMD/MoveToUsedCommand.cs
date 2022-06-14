@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.Dialogs.Custom.Doctor;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.EquipmentManagement;
 
 namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD
 {

@@ -1,7 +1,6 @@
-﻿using HealthInstitution.GUI.Utility.Dialog.Service;
-using System.Windows;
+﻿using System.Windows;
 
-namespace HealthInstitution.Dialogs.Service
+namespace HealthInstitution.GUI.Utility.Dialog.Service
 {
     /// <summary>
     /// Interaction logic for DialogWindow.xaml

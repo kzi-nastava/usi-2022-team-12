@@ -1,9 +1,9 @@
-﻿using HealthInstitution.Pagination.Requests;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.GUI.Pagination.Requests;
 
-namespace HealthInstitution.Pagination
+namespace HealthInstitution.GUI.Pagination
 {
     public static class PageExtensions
     {

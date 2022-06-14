@@ -1,4 +1,4 @@
-﻿namespace HealthInstitution.Pagination.Requests
+﻿namespace HealthInstitution.GUI.Pagination.Requests
 {
     public class ReferralPage : PageRequest
     {

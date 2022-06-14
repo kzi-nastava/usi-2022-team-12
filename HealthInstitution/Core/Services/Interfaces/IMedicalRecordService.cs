@@ -1,7 +1,7 @@
 ﻿using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IMedicalRecordService : ICrudService<MedicalRecord>
     {

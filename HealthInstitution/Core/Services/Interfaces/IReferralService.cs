@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IReferralService : ICrudService<Referral>
     {

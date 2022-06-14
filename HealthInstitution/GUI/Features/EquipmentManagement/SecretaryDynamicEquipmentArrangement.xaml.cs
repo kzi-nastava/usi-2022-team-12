@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthInstitution.View.secretary
+namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
     /// <summary>
     /// Interaction logic for SecretaryDynamicEquipmentArrangement.xaml

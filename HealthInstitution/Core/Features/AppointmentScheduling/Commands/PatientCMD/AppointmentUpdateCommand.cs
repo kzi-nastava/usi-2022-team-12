@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using System.Windows;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.patient;
 
-namespace HealthInstitution.Commands.patient.Navigation
+namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD
 {
     public class AppointmentUpdateCommand : CommandBase
     {

@@ -1,20 +1,23 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Ninject;
-using HealthInstitution.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using HealthInstitution.Commands.patient.Navigation;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.ViewModel.patient;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD;
+using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
+using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.Checker;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
+using HealthInstitution.GUI.Features.MedicalRecordManagement;
+using HealthInstitution.GUI.Features.SurveyManagement;
+using HealthInstitution.GUI.Features.UsersManagement;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.GUI.Features.Navigation
 {
     public class PatientHomeViewModel : NavigableViewModel
     {

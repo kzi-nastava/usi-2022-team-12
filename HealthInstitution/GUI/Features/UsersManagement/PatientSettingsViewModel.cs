@@ -1,11 +1,11 @@
 ﻿using System.Windows.Input;
-using HealthInstitution.Commands.patient;
+using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.patient
+namespace HealthInstitution.GUI.Features.UsersManagement
 {
     public class PatientSettingsViewModel : ViewModelBase
     {

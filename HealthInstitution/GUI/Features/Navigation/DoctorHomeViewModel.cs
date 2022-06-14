@@ -1,22 +1,22 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
-using HealthInstitution.Ninject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using HealthInstitution.Commands.doctor.Navigation;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.ViewModel.doctor;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.Checker;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
+using HealthInstitution.GUI.Features.MedicalRecordManagement;
+using HealthInstitution.GUI.Features.MedicineManagement;
+using HealthInstitution.GUI.Features.OffDaysManagement;
+using HealthInstitution.GUI.Features.OperationsAndExaminations;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.GUI.Features.Navigation
 {
     public class DoctorHomeViewModel : NavigableViewModel
     {

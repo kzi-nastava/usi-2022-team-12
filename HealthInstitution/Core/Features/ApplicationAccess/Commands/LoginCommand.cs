@@ -1,14 +1,12 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Ninject;
-using HealthInstitution.ViewModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Utility.Checker;
-using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.GUI.Utility.Title;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.Navigation;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
+using HealthInstitution.GUI.Utility.WindowTitle;
 
 namespace HealthInstitution.Core.Features.ApplicationAccess.Commands
 {

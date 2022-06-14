@@ -1,14 +1,14 @@
-﻿using HealthInstitution.Ninject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.GUI.Utility.Title;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.GUI.Features.Navigation;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel;
+using HealthInstitution.GUI.Utility.WindowTitle;
 
 namespace HealthInstitution.GUI.Utility.ViewModel
 {

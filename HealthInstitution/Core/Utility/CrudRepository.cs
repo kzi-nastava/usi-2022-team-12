@@ -1,9 +1,9 @@
 ﻿using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Core.Persistence;
 
 namespace HealthInstitution.Core.Utility
 {

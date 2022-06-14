@@ -1,4 +1,5 @@
 ﻿using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Services;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Repository;
@@ -8,15 +9,15 @@ using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Features.SurveyManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Implementation;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility;
-using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Persistence;
-using HealthInstitution.Services.Implementation;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.ViewModel;
+using HealthInstitution.GUI.Features.Navigation;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 using Ninject.Modules;
 
-namespace HealthInstitution.Ninject
+namespace HealthInstitution.Core.Ninject
 {
     public class ServiceModule : NinjectModule
     {
@@ -71,7 +72,7 @@ namespace HealthInstitution.Ninject
             Bind(typeof(IReferralRepository)).To(typeof(ReferralRepository));
             Bind(typeof(IMedicineRepository)).To(typeof(MedicineRepository));
             Bind(typeof(IPrescribedMedicineRepository)).To(typeof(PrescribedMedicineRepository));
-            Bind(typeof(INotificationRepository)).To(typeof(NotificationRepository));
+            Bind(typeof(IUserNotificationRepository)).To(typeof(UserNotificationRepository));
             Bind(typeof(IIngredientRepository)).To(typeof(IngredientRepository));
             Bind(typeof(IOffDaysRequestRepository)).To(typeof(OffDaysRequestRepository));
             Bind(typeof(IMedicineReviewRepository)).To(typeof(MedicineReviewRepository));

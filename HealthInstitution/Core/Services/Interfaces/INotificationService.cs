@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using HealthInstitution.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface INotificationService : ICrudService<Notification>
     {

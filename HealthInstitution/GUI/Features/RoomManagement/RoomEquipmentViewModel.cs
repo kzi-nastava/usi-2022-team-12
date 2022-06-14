@@ -5,7 +5,7 @@ using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel.manager
+namespace HealthInstitution.GUI.Features.RoomManagement
 {
     public class RoomEquipmentViewModel : ViewModelBase
     {

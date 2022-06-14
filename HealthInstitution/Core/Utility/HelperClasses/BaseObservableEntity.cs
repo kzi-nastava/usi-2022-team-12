@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Utility;
-using System;
+﻿using System;
 
 namespace HealthInstitution.Core.Utility.HelperClasses
 {

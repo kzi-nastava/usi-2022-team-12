@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HealthInstitution.Persistence;
+﻿using System.Linq;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
 using HealthInstitution.Core.Utility;
 
 namespace HealthInstitution.Core.Features.UsersManagement.Repository

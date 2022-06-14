@@ -1,14 +1,13 @@
-﻿using HealthInstitution.Dialogs.Service;
-using HealthInstitution.Model;
+﻿using HealthInstitution.Model;
 using HealthInstitution.Utility;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Features.UsersManagement.Dialog;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog

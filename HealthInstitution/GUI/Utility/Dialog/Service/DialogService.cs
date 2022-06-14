@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Dialogs.Service;
-using System;
+﻿using System;
 
 namespace HealthInstitution.GUI.Utility.Dialog.Service
 {

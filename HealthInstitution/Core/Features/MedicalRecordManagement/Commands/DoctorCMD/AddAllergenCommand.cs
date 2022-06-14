@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.Model.appointment;
-using HealthInstitution.ViewModel.doctor;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.OperationsAndExaminations;
 
 namespace HealthInstitution.Core.Features.MedicalRecordManagement.Commands.DoctorCMD
 {

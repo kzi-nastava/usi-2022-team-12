@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IIllnessService : ICrudService<Illness>
     {

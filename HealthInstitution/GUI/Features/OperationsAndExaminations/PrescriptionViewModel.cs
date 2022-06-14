@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using HealthInstitution.Commands.doctor;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
+using HealthInstitution.GUI.Features.MedicineManagement;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.doctor
+namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 {
     public class PrescriptionViewModel : ViewModelBase, ISearchMedicineViewModel
     {

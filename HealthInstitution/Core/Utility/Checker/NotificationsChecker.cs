@@ -1,12 +1,12 @@
-﻿using HealthInstitution.Persistence;
-using HealthInstitution.Services.Implementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
-using HealthInstitution.Model;
-using HealthInstitution.Services.Interfaces;
+using HealthInstitution.Core.Features.NotificationManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Implementation;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 
 namespace HealthInstitution.Core.Utility.Checker
@@ -71,7 +71,7 @@ namespace HealthInstitution.Core.Utility.Checker
         {
             Guid userId = GlobalStore.ReadObject<User>("LoggedUser").Id;
 
-            IList<Notification> notifications = _notificationService.GetValidNotificationsForUser(userId);
+            IList<UserNotification> notifications = _notificationService.GetValidNotificationsForUser(userId);
             if (notifications.Count == 0) return;
 
             foreach (var notification in notifications)

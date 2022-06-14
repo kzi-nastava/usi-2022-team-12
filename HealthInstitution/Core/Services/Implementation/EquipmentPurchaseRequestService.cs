@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
-using HealthInstitution.Model;
-using HealthInstitution.Persistence;
-using HealthInstitution.Services.Interfaces;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Services.Interfaces;
 
-namespace HealthInstitution.Services.Implementation
+namespace HealthInstitution.Core.Services.Implementation
 {
     public class EquipmentPurchaseRequestService : CrudService<EquipmentPurchaseRequest>, IEquipmentPurchaseRequestService
     {

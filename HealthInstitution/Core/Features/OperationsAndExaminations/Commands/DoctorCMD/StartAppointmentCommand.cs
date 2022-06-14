@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.ViewModel.doctor;
 
 namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD
 {

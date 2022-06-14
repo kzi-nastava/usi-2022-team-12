@@ -1,5 +1,5 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.ViewModel.doctor;
+﻿using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.OperationsAndExaminations;
 
 namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD
 {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace HealthInstitution.View.patient
+namespace HealthInstitution.GUI.Features.UsersManagement
 {
     /// <summary>
     /// Interaction logic for PatientNotificationsView.xaml

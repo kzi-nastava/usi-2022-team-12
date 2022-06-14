@@ -2,13 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using HealthInstitution.Commands.manager;
+using HealthInstitution.Core.Features.SurveyManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.SurveyManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel.manager
+namespace HealthInstitution.GUI.Features.SurveyManagement
 {
     public class SurveyOverviewViewModel : ViewModelBase
     {

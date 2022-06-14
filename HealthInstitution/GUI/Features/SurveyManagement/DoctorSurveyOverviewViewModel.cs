@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using HealthInstitution.Commands.manager;
+using HealthInstitution.Core.Features.SurveyManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.SurveyManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Model.room;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
-using static HealthInstitution.ViewModel.patient.DoctorSearchViewModel;
+using static HealthInstitution.GUI.Features.UsersManagement.DoctorSearchViewModel;
 
-namespace HealthInstitution.ViewModel.manager
+namespace HealthInstitution.GUI.Features.SurveyManagement
 {
     public class DoctorSurveyOverviewViewModel : ViewModelBase
     {

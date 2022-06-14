@@ -3,12 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands.manager
+namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
 {
     public class StandardRenovationCommand : CommandBase
     {

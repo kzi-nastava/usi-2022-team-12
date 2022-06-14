@@ -1,9 +1,9 @@
 ﻿using System.Windows.Input;
-using HealthInstitution.Commands.patient;
+using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
-using HealthInstitution.Services.Interfaces;
 
-namespace HealthInstitution.ViewModel.patient
+namespace HealthInstitution.GUI.Features.SurveyManagement
 {
     public class HealthInstitutionSurveyViewModel : ViewModelBase
     {

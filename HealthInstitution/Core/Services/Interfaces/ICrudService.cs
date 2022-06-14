@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HealthInstitution.Core.Utility.HelperClasses;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface ICrudService<T> where T : IBaseEntity
     {

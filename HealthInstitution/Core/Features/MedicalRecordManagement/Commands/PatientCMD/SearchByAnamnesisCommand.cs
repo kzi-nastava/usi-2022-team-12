@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
-using HealthInstitution.ViewModel.patient;
+﻿using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.MedicalRecordManagement;
 
-namespace HealthInstitution.Commands.patient
+namespace HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD
 {
     public class SearchByAnamnesisCommand : CommandBase
     {

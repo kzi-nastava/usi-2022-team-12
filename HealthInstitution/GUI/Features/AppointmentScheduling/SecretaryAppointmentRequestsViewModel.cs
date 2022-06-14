@@ -2,14 +2,13 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Services;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.Dialogs.Service;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
-using HealthInstitution.Services.Interfaces;
-using HealthInstitution.Utility;
 
-namespace HealthInstitution.ViewModel.secretary
+namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     public class SecretaryAppointmentRequestsViewModel : ObservableEntity
     {

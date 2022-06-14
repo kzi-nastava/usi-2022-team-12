@@ -1,14 +1,13 @@
 ﻿using HealthInstitution.Dialogs.DialogPagination;
-using HealthInstitution.Dialogs.Service;
 using HealthInstitution.Model;
-using HealthInstitution.Pagination;
-using HealthInstitution.Pagination.Requests;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HealthInstitution.Commands.secretary;
-using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.GUI.Pagination;
+using HealthInstitution.GUI.Pagination.Requests;
 using HealthInstitution.GUI.Utility.Validation;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog

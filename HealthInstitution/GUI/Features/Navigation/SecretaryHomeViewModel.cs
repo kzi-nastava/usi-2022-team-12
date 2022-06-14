@@ -1,13 +1,15 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Model;
-using HealthInstitution.Ninject;
-using System.Windows.Input;
-using HealthInstitution.ViewModel.secretary;
+﻿using System.Windows.Input;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.GUI.Features.AppointmentScheduling;
+using HealthInstitution.GUI.Features.EquipmentManagement;
+using HealthInstitution.GUI.Features.OffDaysManagement;
+using HealthInstitution.GUI.Features.OperationsAndExaminations;
+using HealthInstitution.GUI.Features.UsersManagement;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
-namespace HealthInstitution.ViewModel
+namespace HealthInstitution.GUI.Features.Navigation
 {
     public class SecretaryHomeViewModel : NavigableViewModel
     {

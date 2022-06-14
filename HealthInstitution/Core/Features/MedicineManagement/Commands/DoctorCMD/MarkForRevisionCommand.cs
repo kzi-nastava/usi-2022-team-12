@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
-using HealthInstitution.ViewModel.doctor;
+using HealthInstitution.GUI.Features.MedicineManagement;
 
 namespace HealthInstitution.Core.Features.MedicineManagement.Commands.DoctorCMD
 {

@@ -1,7 +1,7 @@
-﻿using HealthInstitution.Core.Utility.BaseCommand;
+﻿using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Utility.Navigation;
 
-namespace HealthInstitution.Commands.manager
+namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
 {
     public class IngredientOverviewCommand : CommandBase
     {

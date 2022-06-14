@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.manager;
 
-namespace HealthInstitution.Commands.manager
+namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
 {
     public class ConfirmRoomChoiceCommand : CommandBase
     {

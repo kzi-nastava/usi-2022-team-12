@@ -1,6 +1,6 @@
 ﻿using HealthInstitution.Core.Features.MedicineManagement.Model;
 
-namespace HealthInstitution.Services.Interfaces
+namespace HealthInstitution.Core.Services.Interfaces
 {
     public interface IPrescribedMedicineService : ICrudService<PrescribedMedicine>
     {

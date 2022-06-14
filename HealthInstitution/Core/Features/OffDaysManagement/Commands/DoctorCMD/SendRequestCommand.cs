@@ -1,14 +1,14 @@
 ﻿using HealthInstitution.Core.Features.OffDaysManagement.Model;
-using HealthInstitution.Core.Utility.BaseCommand;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Navigation;
-using HealthInstitution.ViewModel.doctor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.OffDaysManagement;
 
 namespace HealthInstitution.Core.Features.OffDaysManagement.Commands.DoctorCMD
 {
