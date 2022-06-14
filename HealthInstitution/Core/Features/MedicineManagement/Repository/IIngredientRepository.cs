@@ -5,5 +5,6 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Repository
 {
     public interface IIngredientRepository : ICrudRepository<Ingredient>
     {
+        bool IngredientExists(string name);
     }
 }

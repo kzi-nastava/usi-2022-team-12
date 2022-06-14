@@ -1,16 +1,23 @@
 ﻿using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.AppointmentScheduling.Services;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.EquipmentManagement.Services;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Service;
 using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Features.NotificationManagement.Service;
 using HealthInstitution.Core.Features.OffDaysManagement.Repository;
+using HealthInstitution.Core.Features.OffDaysManagement.Service;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Services;
 using HealthInstitution.Core.Features.SurveyManagement.Repository;
+using HealthInstitution.Core.Features.SurveyManagement.Services;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Persistence;
 using HealthInstitution.Core.Services.Implementation;
 using HealthInstitution.Core.Services.Interfaces;
@@ -25,34 +32,7 @@ namespace HealthInstitution.Core.Ninject
     {
         public override void Load()
         {
-            Bind(typeof(ICrudService<>)).To(typeof(CrudService<>));
-            Bind(typeof(IUserService<>)).To(typeof(UserService<>));
-            Bind(typeof(IPatientService)).To(typeof(PatientService));
-            Bind(typeof(IDoctorService)).To(typeof(DoctorService));
-            Bind(typeof(IRoomService)).To(typeof(RoomService));
-            Bind(typeof(IEquipmentService)).To(typeof(EquipmentService));
-            Bind(typeof(IEquipmentPurchaseRequestService)).To(typeof(EquipmentPurchaseRequestService));
-            Bind(typeof(IAppointmentService)).To(typeof(AppointmentService));
-            Bind(typeof(IAppointmentRequestService<>)).To(typeof(AppointmentRequestService<>));
-            Bind(typeof(IAppointmentUpdateRequestService)).To(typeof(AppointmentUpdateRequestService));
-            Bind(typeof(IAppointmentDeleteRequestService)).To(typeof(AppointmentDeleteRequestService));
-            Bind(typeof(IActivityService)).To(typeof(ActivityService));
-            Bind(typeof(IEntryService)).To(typeof(EntryService));
-            Bind(typeof(IIllnessService)).To(typeof(IllnessService));
-            Bind(typeof(IAllergenService)).To(typeof(AllergenService));
-            Bind(typeof(IMedicalRecordService)).To(typeof(MedicalRecordService));
-            Bind(typeof(IRoomRenovationService)).To(typeof(RoomRenovationService));
-            Bind(typeof(IReferralService)).To(typeof(ReferralService));
-            Bind(typeof(IMedicineService)).To(typeof(MedicineService));
-            Bind(typeof(IPrescribedMedicineService)).To(typeof(PrescribedMedicineService));
-            Bind(typeof(INotificationService)).To(typeof(NotificationService));
-            Bind(typeof(IIngredientService)).To(typeof(IngredientService));
-            Bind(typeof(IOffDaysRequestService)).To(typeof(OffDaysRequestService));
-            Bind(typeof(IMedicineReviewService)).To(typeof(MedicineReviewService));
-            Bind(typeof(IDoctorSurveyService)).To(typeof(DoctorSurveyService));
-            Bind(typeof(IHealthInstitutionSurveyService)).To(typeof(HealthInstitutionSurveyService));
             Bind(typeof(IDialogService)).To(typeof(DialogService));
-            Bind(typeof(IPrescribedMedicineNotificationService)).To(typeof(PrescribedMedicineNotificationService));
 
             Bind(typeof(ICrudRepository<>)).To(typeof(CrudRepository<>));
             Bind(typeof(IUserRepository<>)).To(typeof(UserRepository<>));
@@ -62,7 +42,7 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IEquipmentRepository)).To(typeof(EquipmentRepository));
             Bind(typeof(IEquipmentPurchaseRequestRepository)).To(typeof(EquipmentPurchaseRequestRepository));
             Bind(typeof(IAppointmentRepository)).To(typeof(AppointmentRepository));
-            Bind(typeof(IAppointmentRequestRepository<>)).To(typeof(AppointmentRequestRepository<>));
+            Bind(typeof(IAppointmentRequestRepository)).To(typeof(AppointmentRequestRepository));
             Bind(typeof(IAppointmentUpdateRequestRepository)).To(typeof(AppointmentUpdateRequestRepository));
             Bind(typeof(IAppointmentDeleteRequestRepository)).To(typeof(AppointmentDeleteRequestRepository));
             Bind(typeof(IActivityRepository)).To(typeof(ActivityRepository));
@@ -81,6 +61,18 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IDoctorSurveyRepository)).To(typeof(DoctorSurveyRepository));
             Bind(typeof(IHealthInstitutionSurveyRepository)).To(typeof(HealthInstitutionSurveyRepository));
             Bind(typeof(IPrescribedMedicineNotificationRepository)).To(typeof(PrescribedMedicineNotificationRepository));
+
+            Bind(typeof(IAppointmentRequestService)).To(typeof(AppointmentRequestService));
+            Bind(typeof(IRecommendationService)).To(typeof(RecommendationService));
+            Bind(typeof(ISchedulingService)).To(typeof(SchedulingService));
+            Bind(typeof(IMedicineService)).To(typeof(MedicineService));
+            Bind(typeof(IPrescribedMedicineNotificationService)).To(typeof(PrescribedMedicineNotificationService));
+            Bind(typeof(IOffDaysService)).To(typeof(OffDaysService));
+            Bind(typeof(IRoomService)).To(typeof(RoomService));
+            Bind(typeof(IDoctorSurveyService)).To(typeof(DoctorSurveyService));
+            Bind(typeof(IHealthInstitutionSurveyService)).To(typeof(HealthInstitutionSurveyService));
+            Bind(typeof(IDoctorService)).To(typeof(DoctorService));
+            Bind(typeof(IPatientService)).To(typeof(PatientService));
 
             Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope().WithConstructorArgument(0);
             Bind<LoginViewModel>().To<LoginViewModel>();

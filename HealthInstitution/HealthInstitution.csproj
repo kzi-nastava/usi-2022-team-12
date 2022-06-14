@@ -61,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Features\OffDaysManagement\Services\" />
+    <Folder Include="Core\Features\OffDaysManagement\Service\" />
     <Folder Include="Core\Migrations\" />
     <Folder Include="Core\Persistence\Database\" />
     <Folder Include="GUI\Utility\Dialog\Service\" />

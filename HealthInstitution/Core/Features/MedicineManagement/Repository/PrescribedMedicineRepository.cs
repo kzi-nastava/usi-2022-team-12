@@ -14,4 +14,3 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Repository
         public PrescribedMedicineRepository(DatabaseContext context) : base(context) { }
     }
 }
-}

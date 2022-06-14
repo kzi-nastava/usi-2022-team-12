@@ -12,4 +12,3 @@ namespace HealthInstitution.Core.Features.MedicalRecordManagement.Repository
         }
     }
 }
-}
