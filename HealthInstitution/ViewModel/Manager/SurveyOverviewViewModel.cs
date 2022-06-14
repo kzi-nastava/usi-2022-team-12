@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Commands.manager;
-using HealthInstitution.Model.room;
 using HealthInstitution.Model.survey;
 using HealthInstitution.Services.Interfaces;
 using HealthInstitution.Utility;
@@ -13,8 +12,8 @@ namespace HealthInstitution.ViewModel.manager
     public class SurveyOverviewViewModel : ViewModelBase
     {
         #region Attributes
+
         private IHealthInstitutionSurveyService _healthInstitutionSurveyService;
-        private IDoctorSurveyService _doctorSurveyService;
         private string _avgClearliness;
         private string _avgServiceQuality;
         private string _avgServiceSatisfaction;
@@ -24,6 +23,7 @@ namespace HealthInstitution.ViewModel.manager
         private int _rateNumBox;
         private HealthInstitutionSurvey _selectedSurvey;
         private string _commentBox;
+
         #endregion
 
         #region Properties
@@ -31,10 +31,6 @@ namespace HealthInstitution.ViewModel.manager
         public IHealthInstitutionSurveyService HealthInstitutionSurveyService
         {
             get => _healthInstitutionSurveyService;
-        }
-        public IDoctorSurveyService DoctorSurveyService
-        {
-            get => _doctorSurveyService;
         }
         public string AvgClearliness
         {
@@ -114,7 +110,6 @@ namespace HealthInstitution.ViewModel.manager
                 OnPropertyChanged(nameof(CommentBox));
             }
         }
-
         public string CommentBox
         {
             get => _commentBox;
@@ -124,13 +119,13 @@ namespace HealthInstitution.ViewModel.manager
                 OnPropertyChanged(nameof(CommentBox));
             }
         }
+        
         #endregion
 
         #region Collections
 
         private readonly ObservableCollection<HealthInstitutionSurvey> _healthInstitutionSurveys;
         public IEnumerable<HealthInstitutionSurvey> HealthInstitutionSurveys => _healthInstitutionSurveys;
-
         private List<int> _rates;
         public List<int> Rates
         {
@@ -141,7 +136,6 @@ namespace HealthInstitution.ViewModel.manager
                 OnPropertyChanged(nameof(Rates));
             }
         }
-
         private List<string> _categories;
         public List<string> Categories
         {
@@ -155,36 +149,60 @@ namespace HealthInstitution.ViewModel.manager
 
         #endregion
 
-        public SurveyOverviewViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService, IDoctorSurveyService doctorSurveyService)
-        {
-            _healthInstitutionSurveyService = healthInstitutionSurveyService;
-            _doctorSurveyService = doctorSurveyService;
+        #region Commands
 
-            _healthInstitutionSurveys = new ObservableCollection<HealthInstitutionSurvey>();
+        public ICommand? DoctorSurveyOverviewCommand { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        void LoadSurveys()
+        {
             List<HealthInstitutionSurvey> HISurveys = _healthInstitutionSurveyService.ReadAll().ToList();
             foreach (var survey in HISurveys)
             {
                 _healthInstitutionSurveys.Add(survey);
             }
+        }
 
+        void LoadAverageRates()
+        {
             _avgClearliness = _healthInstitutionSurveyService.AverageClearliness().ToString();
             _avgServiceQuality = _healthInstitutionSurveyService.AverageServiceQuality().ToString();
             _avgServiceSatisfaction = _healthInstitutionSurveyService.AverageServiceSatisfaction().ToString();
             _avgRecommendation = _healthInstitutionSurveyService.AverageRecommendation().ToString();
-
+        }
+        void LoadRates()
+        {
             _rates = new List<int>();
             for (int i = 1; i <= 5; i++)
             {
                 _rates.Add(i);
             }
             _selectedRate = _rates[0];
-
+        }
+        void LoadCategories()
+        {
             _categories = new List<string>();
             _categories.Add("Clearliness");
             _categories.Add("Service quality");
             _categories.Add("Service satisfaction");
             _categories.Add("Recommendation");
             _selectedCategory = _categories[0];
+        }
+
+        #endregion
+
+        public SurveyOverviewViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService)
+        {
+            _healthInstitutionSurveyService = healthInstitutionSurveyService;
+            _healthInstitutionSurveys = new ObservableCollection<HealthInstitutionSurvey>();
+            
+            LoadSurveys();
+            LoadAverageRates();
+            LoadRates();
+            LoadCategories();
 
             _rateNumBox = _healthInstitutionSurveyService.RatesPerSurveyCategory(_selectedRate, _selectedCategory);
 
@@ -193,7 +211,9 @@ namespace HealthInstitution.ViewModel.manager
                 _selectedSurvey = _healthInstitutionSurveys[0];
                 _commentBox = _selectedSurvey.Comment;
             }
-            
+
+            DoctorSurveyOverviewCommand = new DoctorSurveyOverviewCommand();
+
         }
     }
 }

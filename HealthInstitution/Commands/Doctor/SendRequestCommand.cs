@@ -45,6 +45,11 @@ namespace HealthInstitution.Commands.doctor
             if (_viewModel.IsUrgent)
             {
                 odr.Status = Status.Approved;
+                if((_viewModel.EndDate - _viewModel.StartDate).Days > 5)
+                {
+                    MessageBox.Show("Urgent request cannot be longer than 5 days");
+                    return;
+                }
             }
             _viewModel.OffDaysRequestService.Create(odr);
             if (_viewModel.IsUrgent)
