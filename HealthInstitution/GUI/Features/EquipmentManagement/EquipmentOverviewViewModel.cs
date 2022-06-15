@@ -5,9 +5,10 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.EquipmentManagement
@@ -34,9 +35,9 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
     {
         public ICommand? SearchEquipmentCommand { get; }
 
-        public readonly IEntryService entryService;
+        public readonly IEntryRepository entryRepository;
 
-        public readonly IRoomService roomService;
+        public readonly IRoomRepository roomRepository;
 
         private readonly ObservableCollection<Room> _roomInventory;
 
@@ -238,7 +239,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             }
         }
 
-        public EquipmentOverviewViewModel(IRoomService roomService)
+        public EquipmentOverviewViewModel(IRoomRepository roomRepository)
         {
             _searchBox = "";
 
@@ -263,10 +264,10 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             }
 
             _tableModels = new ObservableCollection<TableModel>();
-            roomService = roomService;
+            this.roomRepository = roomRepository;
             _inventory = new ObservableCollection<Entry<Equipment>>();
             _roomInventory = new ObservableCollection<Room>();
-            Rooms = roomService.ReadAll().ToList();
+            Rooms = roomRepository.ReadAll().ToList();
             loadTable();
             SearchEquipmentCommand = new SearchEquipmentCommand(this);
 

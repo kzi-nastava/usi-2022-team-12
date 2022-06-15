@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -18,7 +18,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
         private readonly ObservableCollection<Entry<Equipment>> _inventory1;
         private readonly ObservableCollection<Entry<Equipment>> _inventory2;
 
-        public readonly IEntryService _entryService;
+        public readonly IEntryRepository _entryRepository;
         public readonly IRoomService _roomService;
 
 
@@ -154,7 +154,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         }
 
-        public ArrangeEquipmentViewModel(IEntryService entryService, IRoomService roomService)
+        public ArrangeEquipmentViewModel(IEntryRepository entryRepositroy, IRoomService roomService)
         {
             _room1 = GlobalStore.ReadObject<Room>("ArrangeRoom1");
             _room2 = GlobalStore.ReadObject<Room>("ArrangeRoom2");
@@ -183,7 +183,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             _selectedEntry2 = _inventory2.FirstOrDefault();
             FirstToSecondCommand = new FirstToSecondCommand(this);
             SecondToFirstCommand = new SecondToFirstCommand(this);
-            _entryService = entryService;
+            _entryRepository = entryRepositroy;
             _roomService = roomService;
             ConfirmArrangementCommand = new ConfirmArrangementCommand(this);
 

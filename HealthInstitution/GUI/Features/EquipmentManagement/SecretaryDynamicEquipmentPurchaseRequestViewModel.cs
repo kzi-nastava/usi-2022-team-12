@@ -3,10 +3,13 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
+using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.EquipmentManagement.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
@@ -39,7 +42,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         private readonly IEquipmentService _equipmentService;
 
-        private readonly IEquipmentPurchaseRequestService _equipmentPurchaseRequestService;
+        private readonly IEquipmentPurchaseRequestRepository _equipmentPurchaseRequestRepository;
 
         private readonly IRoomService _roomService;
 
@@ -52,12 +55,12 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         #endregion
 
-        public SecretaryDynamicEquipmentPurchaseRequestViewModel(IDialogService dialogService, IEquipmentService equipmentService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService,
+        public SecretaryDynamicEquipmentPurchaseRequestViewModel(IDialogService dialogService, IEquipmentService equipmentService, IEquipmentPurchaseRequestRepository equipmentPurchaseRequestRepository,
             IRoomService roomService)
         {
             _dialogService = dialogService;
             _equipmentService = equipmentService;
-            _equipmentPurchaseRequestService = equipmentPurchaseRequestService;
+            _equipmentPurchaseRequestRepository = equipmentPurchaseRequestRepository;
             _roomService = roomService;
 
             DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.GetEquipmentNotInRoom(_roomService.GetStorage(), EquipmentType.DynamicEquipment));
@@ -78,7 +81,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                     IsDone = false
                 };
 
-                equipmentPurchaseRequestService.Create(purchaseRequest);
+                equipmentPurchaseRequestRepository.Create(purchaseRequest);
 
                 MessageBox.Show("Purchase request made successfully.");
 

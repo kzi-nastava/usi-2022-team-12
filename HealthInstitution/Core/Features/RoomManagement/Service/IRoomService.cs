@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 
 namespace HealthInstitution.Core.Features.RoomManagement.Service
 {

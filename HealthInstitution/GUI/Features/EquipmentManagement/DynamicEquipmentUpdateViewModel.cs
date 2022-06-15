@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.EquipmentManagement
@@ -14,11 +15,11 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
         private Entry<Equipment> _selectedItemInventory;
         private Entry<Equipment> _selectedItemUsed;
         private readonly Room _room;
-        private readonly IEntryService _entryService;
+        private readonly IEntryRepository _entryRepository;
         #endregion
 
         #region Properties
-        public IEntryService EntryService => _entryService;
+        public IEntryRepository EntryRepository => _entryRepository;
         public Entry<Equipment> SelectedItemInventory
         {
             get => _selectedItemInventory;
@@ -53,10 +54,10 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
         public ICommand MoveToInventoryCommand { get; }
         #endregion
 
-        public DynamicEquipmentUpdateViewModel(Room room, IEntryService entryService) : base("Update dynamic equpment", 800, 650)
+        public DynamicEquipmentUpdateViewModel(Room room, IEntryRepository entryRepository) : base("Update dynamic equpment", 800, 650)
         {
             _room = room;
-            _entryService = entryService;
+            _entryRepository = entryRepository;
             _inventory = new BindingList<Entry<Equipment>>(room.Inventory.Where(e => e.Item.EquipmentType == EquipmentType.DynamicEquipment).ToList());
             _usedEquipment = new BindingList<Entry<Equipment>>();
 
