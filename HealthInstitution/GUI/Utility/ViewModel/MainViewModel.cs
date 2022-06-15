@@ -5,11 +5,9 @@ using System.Linq;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Ninject;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Features.Navigation;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.WindowTitle;
-using HealthInstitution.Core.Features.RoomManagement.Services;
 
 namespace HealthInstitution.GUI.Utility.ViewModel
 {

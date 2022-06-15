@@ -1,7 +1,7 @@
 ﻿using System.Threading;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Persistence;
-using HealthInstitution.Core.Services.Implementation;
-using HealthInstitution.Core.Services.Interfaces;
 
 namespace HealthInstitution.Core.Utility.Checker
 {
