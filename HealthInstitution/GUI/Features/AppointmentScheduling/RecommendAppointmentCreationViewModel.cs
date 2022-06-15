@@ -4,8 +4,10 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling
@@ -13,15 +15,17 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     public class RecommendAppointmentCreationViewModel : ViewModelBase
     {
         #region services
-        private readonly IAppointmentService _appointmentService;
-        private readonly IActivityService _activityService;
-        private readonly IDoctorService _doctorService;
-        private readonly IPatientService _patientService;
+        private readonly IAppointmentRepository _appintmentRepository;
+        private readonly ISchedulingService _schedulingService;
+        private readonly IActivityRepository _activityRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IPatientRepository _patientRepository;
 
-        public IAppointmentService AppointmentService => _appointmentService;
-        public IActivityService ActivityService => _activityService;
-        public IDoctorService DoctorService => _doctorService;
-        public IPatientService PatientService => _patientService;
+        public IAppointmentRepository AppintmentRepository => _appintmentRepository;
+        public ISchedulingService SchedulingService => _schedulingService;
+        public IActivityRepository ActivityRepository => _activityRepository;
+        public IDoctorRepository DoctorRepository => _doctorRepository;
+        public IPatientRepository PatientRepository => _patientRepository;
         #endregion
 
         #region attributes
@@ -116,12 +120,13 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand BackCommand { get; }
         #endregion
 
-        public RecommendAppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
+        public RecommendAppointmentCreationViewModel(IAppointmentRepository appintmentRepository, ISchedulingService schedulingService, IActivityRepository activityRepository, IDoctorRepository doctorRepository, IPatientRepository patientRepository)
         {
-            _activityService = activityService;
-            _appointmentService = appointmentService;
-            _doctorService = doctorService;
-            _patientService = patientService;
+            _appintmentRepository = appintmentRepository;
+            _schedulingService = schedulingService;
+            _activityRepository = activityRepository;
+            _doctorRepository = doctorRepository;
+            _patientRepository = patientRepository;
 
             DateTime currentDateTime = DateTime.Now;
             DeadlineDate = currentDateTime.Date;
@@ -129,7 +134,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
             EndTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute + 15);
 
             _selectedPriority = "TimeInterval";
-            Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            Doctors = doctorRepository.ReadAll().OrderBy(doc => doc.Specialization).ToList();
             RecommendAppointmentCommand = new RecommendAppointmentCommand(this);
             ConfirmRecommendationCommand = new ConfirmRecommendationCommand(this);
             BackCommand = new PatientAppointmentsCommand();

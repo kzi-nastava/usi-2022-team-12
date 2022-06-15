@@ -1,14 +1,18 @@
-﻿using HealthInstitution.Dialogs.DialogPagination;
-using HealthInstitution.Model;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using HealthInstitution.Commands.secretary;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Pagination;
 using HealthInstitution.GUI.Pagination.Requests;
 using HealthInstitution.GUI.Utility.Validation;
+using HealthInstitution.GUI.Utility.Dialog.Pagination;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.SecretaryCMD;
+using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {
@@ -95,28 +99,28 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
     {
         public Guid PatientID;
 
-        private readonly IReferralService _referralService;
-        private readonly IAppointmentService _appointmentService;
-        private readonly IDoctorService _doctorService;
-        private readonly IPatientService _patientService;
+        private readonly IReferralRepository _referralRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IPatientRepository _patientRepository;
 
         public ObservableCollection<ReferralCardViewModel> ReferralViewModels { get; private set; } = new ObservableCollection<ReferralCardViewModel>();
 
-        public ReferralUsageViewModel(Guid patientId, IReferralService referralService, IAppointmentService appointmentService,
-            IDoctorService doctorService, IPatientService patientService) : base("Referral overview", "", 1000, 750)
+        public ReferralUsageViewModel(Guid patientId, IReferralRepository referralRepository, IAppointmentRepository appointmentRepository,
+            IDoctorRepository doctorRepository, IPatientRepository patientRepository) : base("Referral overview", "", 1000, 750)
         {
             PatientID = patientId;
-            _referralService = referralService;
-            _appointmentService = appointmentService;
-            _doctorService = doctorService;
-            _patientService = patientService;
+            _referralRepository = referralRepository;
+            _appointmentRepository = appointmentRepository;
+            _doctorRepository = doctorRepository;
+            _patientRepository = patientRepository;
             UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
             ReferralViewModels.Clear();
-            var page = _referralService.GetValidReferralsForPatient(PatientID).ToPage(                new ReferralPage
+            var page = _referralRepository.GetValidReferralsForPatient(PatientID).ToPage(                new ReferralPage
                 {
                     Page = pageNumber,
                     Size = Size,
@@ -134,7 +138,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
                     DoctorFullName = entity.Doctor.FullName,
                     AppointmentType = entity.AppointmentType,
                 };
-                referralModel.UseReferral = new UseReferralCommand(this, referralModel, _referralService, _appointmentService, _doctorService, _patientService);
+                referralModel.UseReferral = new UseReferralCommand(this, referralModel, _referralRepository, _appointmentRepository, _doctorRepository, _patientRepository, ServiceLocator.Get<RoomService>(), ServiceLocator.Get<DoctorService>());
                 ReferralViewModels.Add(referralModel);
             }
             OnPageFetched(page);

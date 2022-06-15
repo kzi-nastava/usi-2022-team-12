@@ -2,11 +2,15 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.AppointmentScheduling.Services;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
@@ -37,13 +41,15 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         private readonly IDialogService _dialogService;
 
-        private readonly IAppointmentRequestService<AppointmentRequest> _appointmentRequestService;
+        private readonly IAppointmentRequestService _appointmentRequestService;
 
-        private readonly IAppointmentDeleteRequestService _appointmentDeleteRequestService;
+        private readonly IAppointmentRequestRepository _appointmentRequestRepository;
 
-        private readonly IAppointmentUpdateRequestService _appointmentUpdateRequestService;
+        private readonly IAppointmentDeleteRequestRepository _appointmentDeleteRequestService;
 
-        private readonly IAppointmentService _appointmentService;
+        private readonly IAppointmentUpdateRequestRepository _appointmentUpdateRequestService;
+
+        private readonly IAppointmentRepository _appointmentRepository;
 
         #endregion
 
@@ -59,14 +65,15 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         #endregion
 
-        public SecretaryAppointmentRequestsViewModel(IDialogService dialogService, IAppointmentRequestService<AppointmentRequest> appointmentRequestService, IAppointmentDeleteRequestService appointmentDeleteRequestService,
-            IAppointmentUpdateRequestService appointmentUpdateRequestService, IAppointmentService appointmentService)
+        public SecretaryAppointmentRequestsViewModel(IDialogService dialogService, IAppointmentRequestService appointmentRequestService, IAppointmentDeleteRequestRepository appointmentDeleteRequestRepository,
+            IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository, IAppointmentRepository appointmentRepository, IAppointmentRequestRepository appointmentRequestRepository)
         {
             _dialogService = dialogService;
             _appointmentRequestService = appointmentRequestService;
-            _appointmentDeleteRequestService = appointmentDeleteRequestService;
-            _appointmentUpdateRequestService = appointmentUpdateRequestService;
-            _appointmentService = appointmentService;
+            _appointmentDeleteRequestService = appointmentDeleteRequestRepository;
+            _appointmentUpdateRequestService = appointmentUpdateRequestRepository;
+            _appointmentRepository = appointmentRepository;
+            _appointmentRequestRepository = appointmentRequestRepository;
 
             AppointmentRequests = new ObservableCollection<AppointmentRequest>(_appointmentRequestService.ReadAllPendingRequests());
 
@@ -85,12 +92,12 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                 {
                     if (_selectedAppointmentRequest.ActivityType == ActivityType.Delete)
                     {
-                        AppointmentDeleteRequestViewModel appointmentDeleteRequestViewModel = new AppointmentDeleteRequestViewModel(_appointmentDeleteRequestService, _selectedAppointmentRequest.Id);
+                        AppointmentDeleteRequestViewModel appointmentDeleteRequestViewModel = new AppointmentDeleteRequestViewModel(appointmentDeleteRequestRepository, _selectedAppointmentRequest.Id);
                         _dialogService.OpenDialog(appointmentDeleteRequestViewModel);
                     }
                     else
                     {
-                        AppointmentUpdateRequestViewModel appointmentUpdateRequestViewModel = new AppointmentUpdateRequestViewModel(_appointmentUpdateRequestService, _selectedAppointmentRequest.Id);
+                        AppointmentUpdateRequestViewModel appointmentUpdateRequestViewModel = new AppointmentUpdateRequestViewModel(appointmentUpdateRequestRepository, _selectedAppointmentRequest.Id);
                         _dialogService.OpenDialog(appointmentUpdateRequestViewModel);
                     }
                 }
@@ -107,7 +114,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                     if (_selectedAppointmentRequest.ActivityType == ActivityType.Delete)
                     {
                         var appointmentToDelete = _selectedAppointmentRequest.Appointment;
-                        _appointmentService.Delete(appointmentToDelete.Id);
+                        _appointmentRepository.Delete(appointmentToDelete.Id);
                     }
                     else
                     {
@@ -117,10 +124,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                         appointmentToUpdate.EndDate = appointmentUpdateRequest.EndDate;
                         appointmentToUpdate.Doctor = appointmentUpdateRequest.Doctor;
                         appointmentToUpdate.Room = appointmentUpdateRequest.Room;
-                        _appointmentService.Update(appointmentToUpdate);
+                        _appointmentRepository.Update(appointmentToUpdate);
                     }
                     _selectedAppointmentRequest.Status = Status.Approved;
-                    _appointmentRequestService.Update(_selectedAppointmentRequest);
+                    _appointmentRequestRepository.Update(_selectedAppointmentRequest);
                     MessageBox.Show("Request accepted succesfully.");
                     UpdatePage();
                 }
@@ -135,7 +142,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                 else
                 {
                     _selectedAppointmentRequest.Status = Status.Rejected;
-                    _appointmentRequestService.Update(_selectedAppointmentRequest);
+                    _appointmentRequestRepository.Update(_selectedAppointmentRequest);
                     UpdatePage();
                     MessageBox.Show("Request rejected succesfully.");
                 }

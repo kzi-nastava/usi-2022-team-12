@@ -72,7 +72,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 MessageBox.Show("Appointment deleted successfully!");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel.AppointmentRepository.Create(act);
+                _viewModel.ActivityRepository.Create(act);
 
                 var activityCount = _viewModel.ActivityRepository.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)

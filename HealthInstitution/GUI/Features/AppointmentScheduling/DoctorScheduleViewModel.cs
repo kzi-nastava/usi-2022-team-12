@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.DoctorCMD;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
@@ -75,9 +79,9 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                 }
             }
         }
-        private readonly IAppointmentService _appointmentService;
+        private readonly ISchedulingService _schedulingService;
 
-        public IAppointmentService AppointmentService => _appointmentService;
+        public ISchedulingService SchedulingService => _schedulingService;
 
         private readonly ObservableCollection<AppointmentViewModel> _appointments;
 
@@ -88,10 +92,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand CreateAppointmentCommand { get; }
         public ICommand UpdateAppointmentCommand { get; }
         public ICommand CancelAppointmentCommand { get; }
-        public DoctorScheduleViewModel(IAppointmentService appointemntService)
+        public DoctorScheduleViewModel(ISchedulingService schedulingService)
         {
             _userDate = DateTime.Now;
-            _appointmentService = appointemntService;
+            _schedulingService = schedulingService;
             _appointments = new ObservableCollection<AppointmentViewModel>();
             OpenMedicalRecordCommand = new NavigateMedicalRecordCommand(this);
             StartAppointmentCommand = new StartAppointmentCommand(this);
@@ -109,7 +113,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
             DateTime startDate = UserDate;
             DateTime endDate = EndDate;
             Doctor doctor = GlobalStore.ReadObject<Doctor>("LoggedUser");
-            IEnumerable<Appointment> appointments = _appointmentService.GetAppointmentsForDateRangeAndDoctor(startDate, endDate, doctor);
+            IEnumerable<Appointment> appointments = _schedulingService.GetAppointmentsForDateRangeAndDoctor(startDate, endDate, doctor);
 
             _appointments.Clear();
             foreach (Appointment appointment in appointments)
