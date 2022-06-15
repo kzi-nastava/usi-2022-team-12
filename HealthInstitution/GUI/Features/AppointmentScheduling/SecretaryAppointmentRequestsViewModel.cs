@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
-using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Utility.Command;
@@ -41,7 +40,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         private readonly IAppointmentRequestService _appointmentRequestService;
 
-        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IAppointmentService _appointmentService;
 
         #endregion
 
@@ -58,11 +57,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         #endregion
 
         public SecretaryAppointmentRequestsViewModel(IDialogService dialogService, IAppointmentRequestService appointmentRequestService,
-            IAppointmentRepository appointmentRepository)
+            IAppointmentService appointmentService)
         {
             _dialogService = dialogService;
             _appointmentRequestService = appointmentRequestService;
-            _appointmentRepository = appointmentRepository;
+            _appointmentService = appointmentService;
 
             AppointmentRequests = new ObservableCollection<AppointmentRequest>(_appointmentRequestService.ReadAllPendingRequests());
 
@@ -87,7 +86,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                 if (_selectedAppointmentRequest.ActivityType == ActivityType.Delete)
                 {
                     var appointmentToDelete = _selectedAppointmentRequest.Appointment;
-                    _appointmentRepository.Delete(appointmentToDelete.Id);
+                    _appointmentService.Delete(appointmentToDelete.Id);
                 }
                 else
                 {
@@ -97,7 +96,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                     appointmentToUpdate.EndDate = appointmentUpdateRequest.EndDate;
                     appointmentToUpdate.Doctor = appointmentUpdateRequest.Doctor;
                     appointmentToUpdate.Room = appointmentUpdateRequest.Room;
-                    _appointmentRepository.Update(appointmentToUpdate);
+                    _appointmentService.Update(appointmentToUpdate);
                 }
                 _selectedAppointmentRequest.Status = Status.Approved;
                 _appointmentRequestService.Update(_selectedAppointmentRequest);

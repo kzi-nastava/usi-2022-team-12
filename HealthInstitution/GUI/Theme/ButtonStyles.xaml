@@ -7,7 +7,8 @@
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="1">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
-                        </ContentPresenter>
+                        </ContentPresenter>c:\users\jovanserbedzija\desktop\healthinstitution\course-project-12\healthinstitution\gui\theme\buttonstyles.xaml
+
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
