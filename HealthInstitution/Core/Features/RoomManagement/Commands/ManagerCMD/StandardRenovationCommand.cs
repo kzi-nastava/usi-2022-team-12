@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -13,13 +14,13 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
     public class StandardRenovationCommand : CommandBase
     {
         private Room _selectedRoom;
-        private IAppointmentService _appointmentService;
-        private IRoomRenovationService _roomRenovationService;
+        private ISchedulingService _schedulingService;
+        private IRoomRenovationRepository _roomRenovationRepository;
         private readonly RoomRenovationViewModel? _viewModel;
-        public StandardRenovationCommand(RoomRenovationViewModel viewModel, IAppointmentService appointmentService, IRoomRenovationService roomRenovationService)
+        public StandardRenovationCommand(RoomRenovationViewModel viewModel, ISchedulingService schedulingService, IRoomRenovationRepository roomRenovationRepository)
         {
-            _appointmentService = appointmentService;
-            _roomRenovationService = roomRenovationService;
+            _schedulingService = schedulingService;
+            _roomRenovationRepository = roomRenovationRepository;
             _viewModel = viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -43,8 +44,8 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
         public override void Execute(object? parameter)
         {
             _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
-            var apts = _appointmentService.ReadRoomAppointments(_selectedRoom);
-            var renRooms = _roomRenovationService.ReadAll();
+            var apts = _schedulingService.ReadRoomAppointments(_selectedRoom);
+            var renRooms = _roomRenovationRepository.ReadAll();
 
             if (apts.Count() != 0)
             {
@@ -77,7 +78,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             
             
             RoomRenovation roomRenovation = new RoomRenovation(_selectedRoom, _viewModel.StartDate, _viewModel.EndDate);
-            _roomRenovationService.Create(roomRenovation);
+            _roomRenovationRepository.Create(roomRenovation);
             MessageBox.Show("Room renovation has been successfully scheduled!");
 
             

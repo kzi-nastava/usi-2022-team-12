@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.MedicalRecordManagement
 {
     public class MedicalRecordViewModel : ViewModelBase
     {
-        private readonly IMedicalRecordService _medicalRecordService;
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
 
-        private readonly IAppointmentService _appointmentService;
+        private readonly ISchedulingService _schedulingService;
 
         private readonly Patient _patient;
 
@@ -43,13 +45,13 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
         public IEnumerable<Appointment> Appointments => _appointments;
         public string Weight => _medicalRecord.Weight.ToString();
         public ICommand? BackCommand { get; }
-        public MedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService, Patient patient)
+        public MedicalRecordViewModel(IMedicalRecordRepository medicalRecordRepository, ISchedulingService schedulingService, Patient patient)
         {
             BackCommand = new NavigateScheduleCommand();
-            _appointmentService = appointmentService;
-            _medicalRecordService = medicalRecordService;
+            _schedulingService = schedulingService;
+            _medicalRecordRepository = medicalRecordRepository;
             _patient = patient;
-            _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(patient);
+            _medicalRecord = _medicalRecordRepository.GetMedicalRecordForPatient(patient);
             _illnessHistoryData = new ObservableCollection<Illness>();
             foreach (var illnes in _medicalRecord.IllnessHistory)
             {
@@ -61,7 +63,7 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
                 _allergens.Add(allergen);
             }
             _appointments = new ObservableCollection<Appointment>();
-            IEnumerable<Appointment> apps = appointmentService.ReadFinishedAppointmentsForPatient(patient);
+            IEnumerable<Appointment> apps = _schedulingService.ReadFinishedAppointmentsForPatient(patient);
             foreach (var appointment in apps)
             {
                 _appointments.Add(appointment);

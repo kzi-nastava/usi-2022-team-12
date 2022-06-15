@@ -16,5 +16,6 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
         IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt);
         IEnumerable<Appointment> ReadPatientAppointments(Patient pt);
         IEnumerable<Appointment> ReadRoomAppointments(Room r);
+        IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string searchText);
     }
 }

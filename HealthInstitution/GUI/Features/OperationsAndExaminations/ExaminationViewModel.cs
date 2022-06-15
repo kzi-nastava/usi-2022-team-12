@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -17,19 +25,19 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
     public class ExaminationViewModel : ViewModelBase
     {
         #region Atributes
-        private readonly IMedicalRecordService _medicalRecordService;
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
 
-        private readonly IEntryService _entryService;
+        private readonly IEntryRepository _entryRepository;
 
-        private readonly IIllnessService _illnessService;
+        private readonly IIllnessRepository _illnessRepository;
 
-        private readonly IAllergenService _allergenService;
+        private readonly IAllergenRepository _allergenRepository;
 
-        private readonly IAppointmentService _appointmentService;
+        private readonly ISchedulingService _schedulingService;
 
-        private readonly IReferralService _referralService;
+        private readonly IReferralRepository _referralRepository;
 
-        private readonly IPrescribedMedicineService _prescribedMedicineService;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
 
         private readonly IDialogService _dialogService;
 
@@ -50,13 +58,13 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
         #endregion Atributes
 
         #region Properties
-        public IEntryService EntryService => _entryService;
-        public IIllnessService IllnessService => _illnessService;
-        public IAllergenService AllergenService => _allergenService;
-        public IMedicalRecordService MedicalRecordService => _medicalRecordService;
-        public IAppointmentService AppointmentService => _appointmentService;
-        public IReferralService ReferralService => _referralService;
-        public IPrescribedMedicineService PrescribedMedicineService => _prescribedMedicineService;
+        public IEntryRepository EntryRepository => _entryRepository;
+        public IIllnessRepository IllnessRepository => _illnessRepository;
+        public IAllergenRepository AllergenRepository => _allergenRepository;
+        public IMedicalRecordRepository MedicalRecordRepository => _medicalRecordRepository;
+        public ISchedulingService SchedulingService => _schedulingService;
+        public IReferralRepository ReferralRepository => _referralRepository;
+        public IPrescribedMedicineRepository PrescribedMedicineRepository => _prescribedMedicineRepository;
         public IDialogService DialogService => _dialogService;
         public MedicalRecord MedicalRecord => _medicalRecord;
         public Appointment Appointment => _appointment;
@@ -186,7 +194,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
         public ICommand CreateReferralCommand { get; }
         public ICommand PrescriptionCommand { get; }
         #endregion Commands
-        public ExaminationViewModel(IMedicalRecordService medicalRecordService, IIllnessService illnessService, IAllergenService allergenService, IAppointmentService appointmentService, IReferralService referralService, IPrescribedMedicineService prescribedMedicineService, IDialogService dialogService, IEntryService entryService, Appointment appointment)
+        public ExaminationViewModel(IMedicalRecordRepository medicalRecordRepository, IIllnessRepository illnessRepository, IAllergenRepository allergenRepository, ISchedulingService schedulingService, IReferralRepository referralRepository, IPrescribedMedicineRepository prescribedMedicineRepository, IDialogService dialogService, IEntryRepository entryRepository, Appointment appointment)
         {
             _anamnesis = "";
             _newIllnessName = "";
@@ -194,17 +202,17 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
             _newIllnessName = "";
             _newAllergens = new List<Allergen>();
             _newIllnesses = new List<Illness>();
-            _medicalRecordService = medicalRecordService;
-            _entryService = entryService;
+            _medicalRecordRepository = medicalRecordRepository;
+            _entryRepository = entryRepository;
             _dialogService = dialogService;
-            _illnessService = illnessService;
-            _referralService = referralService;
-            _allergenService = allergenService;
-            _appointmentService = appointmentService;
-            _prescribedMedicineService = prescribedMedicineService;
+            _illnessRepository = illnessRepository;
+            _referralRepository = referralRepository;
+            _allergenRepository = allergenRepository;
+            _schedulingService = schedulingService;
+            _prescribedMedicineRepository = prescribedMedicineRepository;
             _appointment = appointment;
             _patient = _appointment.Patient;
-            _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(_patient);
+            _medicalRecord = _medicalRecordRepository.GetMedicalRecordForPatient(_patient);
             _updatedMedicalRecord = new MedicalRecord(_medicalRecord);
             IllnessHistoryData = _updatedMedicalRecord.IllnessHistory;
             Allergens = _updatedMedicalRecord.Allergens;

@@ -1,10 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.Core.Utility.BaseCommand;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 {
@@ -34,8 +38,8 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
         #region Services
 
         private readonly IDialogService _dialogService;
-        private readonly IReferralService _referralService;
-        private readonly IAppointmentService _appointmentService;
+        private readonly IReferralRepository _referralRepository;
+        private readonly ISchedulingService _schedulingService;
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
 
@@ -49,12 +53,12 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 
         #endregion
 
-        public SecretaryReferralUsageViewModel(IDialogService dialogService, IReferralService referralService,
-            IAppointmentService appointmentService, IDoctorService doctorService, IPatientService patientService)
+        public SecretaryReferralUsageViewModel(IDialogService dialogService, IReferralRepository referralRepository,
+            ISchedulingService schedulingService, IDoctorService doctorService, IPatientService patientService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
-            _referralService = referralService;
-            _appointmentService = appointmentService;
+            _referralRepository = referralRepository;
+            _schedulingService = schedulingService;
             _doctorService = doctorService;
             _patientService = patientService;
             _dialogService = dialogService;
@@ -67,14 +71,14 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
                 {
                     MessageBox.Show("You did not select any patient");
                 }
-                else if (!_referralService.PatientHasValidReferral(_selectedPatient.Id))
+                else if (!_referralRepository.PatientHasValidReferral(_selectedPatient.Id))
                 {
                     MessageBox.Show("Patient does not have any referral.");
                 }
                 else
                 {
-                    ReferralUsageViewModel refferalUsageViewModel = new ReferralUsageViewModel(SelectedPatient.Id, _referralService,
-                        _appointmentService, _doctorService, _patientService);
+                    ReferralUsageViewModel refferalUsageViewModel = new ReferralUsageViewModel(SelectedPatient.Id, _referralRepository,
+                        _schedulingService, _doctorService, _patientService);
                     _dialogService.OpenDialog(refferalUsageViewModel);
                 }
             });
