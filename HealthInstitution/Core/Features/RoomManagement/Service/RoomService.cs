@@ -4,7 +4,7 @@ using System.Linq;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
-using HealthInstitution.Core.Features.EquipmentManagement.Services;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Persistence;
