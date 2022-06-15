@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.SurveyManagement.Services;
 using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.UsersManagement
@@ -31,10 +33,10 @@ namespace HealthInstitution.GUI.Features.UsersManagement
         #endregion
 
         #region services
-        private readonly IDoctorService _doctorService;
+        private readonly IDoctorRepository _doctorRepository;
         private readonly IDoctorSurveyService _doctorSurveyService;
 
-        public IDoctorService DoctorService => _doctorService;
+        public IDoctorRepository DoctorRepository => _doctorRepository;
         public IDoctorSurveyService DoctorSurveyService => _doctorSurveyService;
         #endregion
 
@@ -158,11 +160,11 @@ namespace HealthInstitution.GUI.Features.UsersManagement
             List<Doctor> doctors = new List<Doctor>();
             if (!string.IsNullOrEmpty(SearchText))
             {
-                doctors = DoctorService.FilterDoctorsBySearchText(SearchText).ToList<Doctor>();
+                doctors = DoctorRepository.FilterDoctorsBySearchText(SearchText).ToList<Doctor>();
             }
             else
             {
-                doctors = DoctorService.ReadAll().ToList<Doctor>();
+                doctors = DoctorRepository.ReadAll().ToList<Doctor>();
             }
 
             List<DoctorInfo> doctorsInfo = new List<DoctorInfo>();
@@ -176,13 +178,13 @@ namespace HealthInstitution.GUI.Features.UsersManagement
             SelectedOrder = 0;
         }
         #endregion
-        public DoctorSearchViewModel(IDoctorService doctorService, IDoctorSurveyService doctorSurveyService)
+        public DoctorSearchViewModel(IDoctorRepository doctorRepository, IDoctorSurveyService doctorSurveyService)
         {
-            _doctorService = doctorService;
+            _doctorRepository = doctorRepository;
             _doctorSurveyService = doctorSurveyService;
 
             DoctorsInfo = new List<DoctorInfo>();
-            var doctors = DoctorService.ReadAll().ToList<Doctor>();
+            var doctors = DoctorRepository.ReadAll().ToList<Doctor>();
             foreach (Doctor doctor in doctors)
             {
                 double avgMark = Math.Round(DoctorSurveyService.CalculateAvgMark(doctor), 2);
