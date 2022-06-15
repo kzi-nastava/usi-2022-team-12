@@ -2,10 +2,15 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.Core.Utility.BaseCommand;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.UsersManagement.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.UsersManagement
 {
@@ -33,14 +38,15 @@ namespace HealthInstitution.GUI.Features.UsersManagement
         #endregion
 
         #region Services
-
         private readonly IPatientService _patientService;
 
-        private readonly IMedicalRecordService _medicalRecordService;
+        private readonly IPatientRepository _patientRepository;
+
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
 
         private readonly IDialogService _dialogService;
 
-        private readonly IAppointmentService _appointmentService;
+        private readonly ISchedulingService _schedulingService;
 
         #endregion
 
@@ -58,13 +64,14 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
         #endregion
 
-        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientService patientService, IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
+        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientRepository patientRepository, IMedicalRecordRepository medicalRecordRepository, IPatientService patientService, ISchedulingService schedulingService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
+            _patientRepository = patientRepository;
             _patientService = patientService;
-            _medicalRecordService = medicalRecordService;
+            _medicalRecordRepository = medicalRecordRepository;
             _dialogService = dialogService;
-            _appointmentService = appointmentService;
+            _schedulingService = schedulingService;
 
             SearchCommand = new RelayCommand(() =>
             {
@@ -97,13 +104,13 @@ namespace HealthInstitution.GUI.Features.UsersManagement
                 {
                     MessageBox.Show("You did not select any patient to update.");
                 }
-                else if (_appointmentService.PatientHasAnAppointment(_selectedPatient.Id))
+                else if (_schedulingService.PatientHasAnAppointment(_selectedPatient.Id))
                 {
                     MessageBox.Show("Patient can not be deleted.");
                 }
                 else
                 {
-                    _patientService.Delete(_selectedPatient.Id);
+                    _patientRepository.Delete(_selectedPatient.Id);
                     MessageBox.Show("Patient deleted succesfully.");
                     UpdatePage();
                 }
