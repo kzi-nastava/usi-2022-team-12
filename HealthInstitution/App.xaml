@@ -23,7 +23,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--Fonts-->
-            <FontFamily x:Key="Password">pack://application:,,,/Fonts/#password</FontFamily>
+            <FontFamily x:Key="Password">pack://application:,,,/GUI/Fonts/#password</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -16,7 +16,7 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
         public PrescribedMedicineNotificationService(IPrescribedMedicineNotificationRepository prescribedMedicineNotificationRepository, IPrescribedMedicineRepository prescribedMedicineRepository)
         {
             _prescribedMedicineNotificationRepository = prescribedMedicineNotificationRepository;
-            _prescribedMedicineRepository = _prescribedMedicineRepository;
+            _prescribedMedicineRepository = prescribedMedicineRepository;
         }
 
         public IEnumerable<PrescribedMedicine> GetConsumingMedications(Patient patient, int notifyMinutesBefore)

@@ -6,7 +6,7 @@ using HealthInstitution.Core.Features.UsersManagement.Model;
 
 namespace HealthInstitution.Core.Features.SurveyManagement.Services
 {
-    public class DoctorSurveyService
+    public class DoctorSurveyService : IDoctorSurveyService
     {
         private readonly IDoctorSurveyRepository _doctorSurveyRepository;
 
