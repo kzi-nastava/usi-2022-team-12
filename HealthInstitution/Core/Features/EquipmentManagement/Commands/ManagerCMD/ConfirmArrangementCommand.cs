@@ -5,6 +5,7 @@ using System.Windows;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.EquipmentManagement;
 using HealthInstitution.GUI.Utility.Navigation;
+using HealthInstitution.ViewModel.manager;
 
 namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD
 {

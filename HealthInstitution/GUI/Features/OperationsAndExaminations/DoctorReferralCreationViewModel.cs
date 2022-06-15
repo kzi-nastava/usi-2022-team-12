@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -13,6 +15,8 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
     {
         #region Atributes
         private readonly IDoctorService _doctorService;
+
+        private readonly IDoctorRepository _doctorRepository;
 
         private readonly Patient _patient;
 
@@ -57,9 +61,10 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
         public ICommand BackToExaminationCommand { get; }
         public ICommand SearchDoctorCommand { get; }
         #endregion
-        public DoctorReferralCreationViewModel(IDoctorService doctorService, Patient patient)
+        public DoctorReferralCreationViewModel(IDoctorService doctorService, IDoctorRepository doctorRepository, Patient patient)
         {
             _doctorService = doctorService;
+            _doctorRepository = doctorRepository;
             _patient = patient;
             UpdateData(null);
             _referrals = new ObservableCollection<Referral>();
@@ -80,7 +85,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
             IEnumerable<Doctor> doctors;
             if (string.IsNullOrEmpty(prefix))
             {
-                doctors = _doctorService.ReadAll();
+                doctors = _doctorRepository.ReadAll();
             }
             else
             {

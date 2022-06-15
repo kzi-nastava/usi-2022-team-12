@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -14,15 +14,15 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
     {
         private readonly RoomsCRUDViewModel? _viewModel;
         private Room _selectedRoom;
-        private IAppointmentService _appointmentService;
-        private IRoomService _roomService;
+        private ISchedulingService _schedulingService;
+        private IRoomRepository _roomRepository;
 
-        public DeleteRoomCommand(RoomsCRUDViewModel viewModel, IAppointmentService appointmentService, IRoomService roomService)
+        public DeleteRoomCommand(RoomsCRUDViewModel viewModel, ISchedulingService schedulingService, IRoomRepository roomRepository)
         {
             _viewModel = viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
-            _appointmentService = appointmentService;
-            _roomService = roomService;
+            _schedulingService = schedulingService;
+            _roomRepository = roomRepository;
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -41,7 +41,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
         public override void Execute(object? parameter)
         {
             _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
-            var apts = _appointmentService.ReadRoomAppointments(_selectedRoom);
+            var apts = _schedulingService.ReadRoomAppointments(_selectedRoom);
             
 
             if (_selectedRoom.Inventory.Count() != 0)
@@ -54,7 +54,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             }
             else 
             {
-                _roomService.Delete(_selectedRoom.Id);
+                _roomRepository.Delete(_selectedRoom.Id);
                 MessageBox.Show("Room deleted successfully!");
                 EventBus.FireEvent("RoomsOverview");
             }

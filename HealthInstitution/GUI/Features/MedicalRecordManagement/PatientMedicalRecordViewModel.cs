@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -16,11 +17,12 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
     public class PatientMedicalRecordViewModel : ViewModelBase
     {
         #region services
-        private readonly IMedicalRecordService _medicalRecordService;
-        private readonly IAppointmentService _appointmentService;
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
 
-        public IMedicalRecordService MedicalRecordService => _medicalRecordService;
-        public IAppointmentService AppointmentService => _appointmentService;
+        private readonly ISchedulingService _schedulingService;
+
+        public IMedicalRecordRepository MedicalRecordRepository => _medicalRecordRepository;
+        public ISchedulingService SchedulingService => _schedulingService;
         #endregion
 
         #region attributes
@@ -144,11 +146,11 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
         {
             if (!string.IsNullOrEmpty(AnamnesisSearchCriteria))
             {
-                PastAppointments = AppointmentService.FindFinishedAppointmentsWithAnamnesis(Patient, AnamnesisSearchCriteria).ToList<Appointment>();
+                PastAppointments = SchedulingService.FindFinishedAppointmentsWithAnamnesis(Patient, AnamnesisSearchCriteria).ToList<Appointment>();
             }
             else
             {
-                PastAppointments = AppointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
+                PastAppointments = SchedulingService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
             }
             SelectedSort = 0;
             SelectedOrder = 0;
@@ -193,18 +195,18 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
         }
         #endregion
 
-        public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, IAppointmentService appointmentService)
+        public PatientMedicalRecordViewModel(IMedicalRecordRepository medicalRecordRepository, ISchedulingService schedulingService)
         {
-            _appointmentService = appointmentService;
-            _medicalRecordService = medicalRecordService;
+            _schedulingService = schedulingService;
+            _medicalRecordRepository = medicalRecordRepository;
 
             _selectedSort = 0;
             _selectedOrder = 0;
             _patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-            _medicalRecord = medicalRecordService.GetMedicalRecordForPatient(Patient);
+            _medicalRecord = _medicalRecordRepository.GetMedicalRecordForPatient(Patient);
             _illnessHistory = _medicalRecord.IllnessHistory.ToList<Illness>();
             _allergens = _medicalRecord.Allergens.ToList<Allergen>();
-            _pastAppointments = appointmentService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
+            _pastAppointments = _schedulingService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();
 
             SearchByAnamnesisCommand = new SearchByAnamnesisCommand(this);
             OpenDoctorSurveyCommand = new OpenDoctorSurveyCommand(this);

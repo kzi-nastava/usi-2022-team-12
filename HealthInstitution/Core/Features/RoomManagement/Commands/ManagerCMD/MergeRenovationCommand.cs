@@ -2,9 +2,10 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -14,15 +15,15 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
     public class MergeRenovationCommand : CommandBase
     {
         private Room _selectedRoom;
-        private IAppointmentService _appointmentService;
-        private IRoomRenovationService _roomRenovationService;
+        private ISchedulingService _schedulingService;
+        private IRoomRenovationRepository _roomRenovationRepository;
         private IRoomService _roomService;
         private readonly RoomRenovationViewModel? _viewModel;
-        public MergeRenovationCommand(RoomRenovationViewModel viewModel, IAppointmentService appointmentService,
-            IRoomRenovationService roomRenovationService, IRoomService roomService)
+        public MergeRenovationCommand(RoomRenovationViewModel viewModel, ISchedulingService schedulingService,
+            IRoomRenovationRepository roomRenovationRepository, IRoomService roomService)
         {
-            _appointmentService = appointmentService;
-            _roomRenovationService = roomRenovationService;
+            _schedulingService = schedulingService;
+            _roomRenovationRepository = roomRenovationRepository;
             _roomService = roomService;
             _viewModel = viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -52,9 +53,9 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             Room smallRoom1 = GlobalStore.ReadObject<Room>("SelectedRoomMerge1"); ;
             Room smallRoom2 = GlobalStore.ReadObject<Room>("SelectedRoomMerge2"); ;
 
-            var apts1 = _appointmentService.ReadRoomAppointments(smallRoom1);
-            var apts2 = _appointmentService.ReadRoomAppointments(smallRoom2);
-            var renRooms = _roomRenovationService.ReadAll();
+            var apts1 = _schedulingService.ReadRoomAppointments(smallRoom1);
+            var apts2 = _schedulingService.ReadRoomAppointments(smallRoom2);
+            var renRooms = _roomRenovationRepository.ReadAll();
 
             if (apts1.Count() != 0)
             {
@@ -99,7 +100,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             }
 
             RoomRenovation roomRenovation = new RoomRenovation(smallRoom1, _viewModel.StartDate, _viewModel.EndDate, false, smallRoom1.Name, smallRoom2.Name);
-            _roomRenovationService.Create(roomRenovation);
+            _roomRenovationRepository.Create(roomRenovation);
             MessageBox.Show("Room renovation has been successfully scheduled!");
 
         }

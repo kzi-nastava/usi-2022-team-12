@@ -30,7 +30,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
 
         private bool? OpenDynamicEqupmentDialog()
         {
-            DynamicEquipmentUpdateViewModel dynamicEquipmentUpdateViewModel = new DynamicEquipmentUpdateViewModel(_viewModel.Appointment.Room, _viewModel.EntryService);
+            DynamicEquipmentUpdateViewModel dynamicEquipmentUpdateViewModel = new DynamicEquipmentUpdateViewModel(_viewModel.Appointment.Room, _viewModel.EntryRepository);
             bool? result = _viewModel.DialogService.OpenDialog(dynamicEquipmentUpdateViewModel);
             return result;
         }
@@ -44,19 +44,19 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
             List<PrescribedMedicine> prescribedMedicines = new List<PrescribedMedicine>();
             foreach (PrescribedMedicine medicine in prescriptions)
             {
-                PrescribedMedicine prescribedMedicine = _viewModel.PrescribedMedicineService.Create(medicine);
+                PrescribedMedicine prescribedMedicine = _viewModel.PrescribedMedicineRepository.Create(medicine);
                 _viewModel.MedicalRecord.PrescribedMedicines.Add(prescribedMedicine);
                 prescribedMedicines.Add(prescribedMedicine);
             }
             appointment.PrescribedMedicines = prescribedMedicines;
-            _viewModel.AppointmentService.Update(appointment);
-            _viewModel.MedicalRecordService.Update(_viewModel.MedicalRecord);
+            _viewModel.SchedulingService.Update(appointment);
+            _viewModel.MedicalRecordRepository.Update(_viewModel.MedicalRecord);
         }
         private void UpdateMedicalRecord()
         {
             _viewModel.UpdatedMedicalRecord.Allergens = (IList<Allergen>)_viewModel.Allergens;
             _viewModel.UpdatedMedicalRecord.IllnessHistory = (IList<Illness>)_viewModel.IllnessHistoryData;
-            _viewModel.MedicalRecordService.Update(_viewModel.UpdatedMedicalRecord);
+            _viewModel.MedicalRecordRepository.Update(_viewModel.UpdatedMedicalRecord);
             List<Allergen> updatedAllergenList = new List<Allergen>();
             foreach (var allergen in _viewModel.MedicalRecord.Allergens)
             {
@@ -64,7 +64,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
             }
             foreach (var allergen in _viewModel.NewAllergens)
             {
-                Allergen newAllergen = _viewModel.AllergenService.Create(allergen);
+                Allergen newAllergen = _viewModel.AllergenRepository.Create(allergen);
                 updatedAllergenList.Add(newAllergen);
             }
             List<Illness> updatedIllnessList = new List<Illness>();
@@ -74,7 +74,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
             }
             foreach (var illness in _viewModel.NewIllnesses)
             {
-                Illness newIllness = _viewModel.IllnessService.Create(illness);
+                Illness newIllness = _viewModel.IllnessRepository.Create(illness);
                 updatedIllnessList.Add(newIllness);
             }
             MedicalRecord medicalRecord = _viewModel.MedicalRecord;
@@ -82,7 +82,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
             medicalRecord.IllnessHistory = updatedIllnessList;
             medicalRecord.Height = _viewModel.UpdatedMedicalRecord.Height;
             medicalRecord.Weight = _viewModel.UpdatedMedicalRecord.Weight;
-            _viewModel.MedicalRecordService.Update(medicalRecord);
+            _viewModel.MedicalRecordRepository.Update(medicalRecord);
         }
 
         private void CreateReferrals()
@@ -90,7 +90,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
             List<Referral> referrals = GlobalStore.ReadObject<List<Referral>>("NewReferrals");
             foreach (Referral referral in referrals)
             {
-                _viewModel.ReferralService.Create(referral);
+                _viewModel.ReferralRepository.Create(referral);
             }
 
         }
