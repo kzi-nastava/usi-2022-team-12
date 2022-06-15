@@ -32,7 +32,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.DoctorCMD
         {
             Medicine medicine = _viewModel.SelectedMedicine;
             medicine.Status = Status.Rejected;
-            _viewModel.MedicineService.Update(medicine);
+            _viewModel.MedicineRepository.Update(medicine);
             MedicineReview medicineReview = new MedicineReview { Comment = _viewModel.RevisionComment, Medicine = medicine, Doctor = _viewModel.Doctor };
             _viewModel.MedicineReviewRepository.Create(medicineReview);
             _viewModel.RevisionComment = "";

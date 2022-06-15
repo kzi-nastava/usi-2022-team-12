@@ -18,6 +18,7 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         #region Atributes
         private readonly IMedicineService _medicineService;
         private readonly IMedicineReviewRepository _medicineReviewRepository;
+        private readonly IMedicineRepository _medicineRepository;
         private readonly Doctor _doctor;
         private string _searchText;
         private Medicine? _selectedMedicine;
@@ -28,6 +29,7 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         public Doctor Doctor => _doctor;
         public IMedicineService MedicineService => _medicineService;
         public IMedicineReviewRepository MedicineReviewRepository => _medicineReviewRepository;
+        public IMedicineRepository MedicineRepository => _medicineRepository;
         public string SearchText
         {
             get => _searchText;
@@ -105,10 +107,11 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         public ICommand ApproveMedicineCommand { get; }
         public ICommand RejectMedicineCommand { get; }
         #endregion
-        public DoctorMedicineManagmentViewModel(IMedicineService medicineService, IMedicineReviewRepository medicineReviewRepository)
+        public DoctorMedicineManagmentViewModel(IMedicineService medicineService, IMedicineRepository medicineRepository, IMedicineReviewRepository medicineReviewRepository)
         {
             _medicineService = medicineService;
             _medicineReviewRepository = medicineReviewRepository;
+            _medicineRepository = medicineRepository;
             _doctor = (Doctor)GlobalStore.ReadObject<Doctor>("LoggedUser");
             _searchText = "";
             _revisionComment = "";

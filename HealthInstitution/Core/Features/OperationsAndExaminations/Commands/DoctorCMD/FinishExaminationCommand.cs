@@ -49,7 +49,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
                 prescribedMedicines.Add(prescribedMedicine);
             }
             appointment.PrescribedMedicines = prescribedMedicines;
-            _viewModel.SchedulingService.Update(appointment);
+            _viewModel.AppointmentRepository.Update(appointment);
             _viewModel.MedicalRecordRepository.Update(_viewModel.MedicalRecord);
         }
         private void UpdateMedicalRecord()

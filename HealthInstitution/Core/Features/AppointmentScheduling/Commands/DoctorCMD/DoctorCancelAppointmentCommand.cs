@@ -37,7 +37,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorC
             }
             else
             {
-                _viewModel.AppointmentService.Delete(apt.Id);
+                _viewModel.AppointmentRepository.Delete(apt.Id);
             }
             GlobalStore.AddObject("SelectedAppointment", _viewModel.SelectedAppointment.Appointment);
             _viewModel.UpdateData();
