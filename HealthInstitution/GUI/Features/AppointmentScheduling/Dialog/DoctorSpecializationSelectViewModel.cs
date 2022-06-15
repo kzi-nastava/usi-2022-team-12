@@ -1,9 +1,6 @@
-﻿using HealthInstitution.Model;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using System;
 using System.Collections.Generic;
-using HealthInstitution.Utility;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Utility.Command;

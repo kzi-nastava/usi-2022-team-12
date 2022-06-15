@@ -8,7 +8,6 @@ using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Ninject;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.Checker;
 using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Features.MedicalRecordManagement;

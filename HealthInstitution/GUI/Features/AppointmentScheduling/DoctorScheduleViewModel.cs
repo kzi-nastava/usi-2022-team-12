@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Commands.DoctorCMD;
@@ -83,6 +84,9 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         public ISchedulingService SchedulingService => _schedulingService;
 
+        private readonly IAppointmentRepository _appointmentRepository;
+        public IAppointmentRepository AppointmentRepository => _appointmentRepository;
+
         private readonly ObservableCollection<AppointmentViewModel> _appointments;
 
         public IEnumerable<AppointmentViewModel> Appointments => _appointments;
@@ -92,7 +96,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand CreateAppointmentCommand { get; }
         public ICommand UpdateAppointmentCommand { get; }
         public ICommand CancelAppointmentCommand { get; }
-        public DoctorScheduleViewModel(ISchedulingService schedulingService)
+        public DoctorScheduleViewModel(ISchedulingService schedulingService, IAppointmentRepository appointmentRepository)
         {
             _userDate = DateTime.Now;
             _schedulingService = schedulingService;

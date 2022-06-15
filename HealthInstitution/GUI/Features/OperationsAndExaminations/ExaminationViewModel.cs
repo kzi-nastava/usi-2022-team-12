@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.DoctorCMD;
@@ -41,6 +42,8 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 
         private readonly IDialogService _dialogService;
 
+        private readonly IAppointmentRepository _appointmentRepository;
+
         private readonly Patient _patient;
 
         private readonly Appointment _appointment;
@@ -66,6 +69,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
         public IReferralRepository ReferralRepository => _referralRepository;
         public IPrescribedMedicineRepository PrescribedMedicineRepository => _prescribedMedicineRepository;
         public IDialogService DialogService => _dialogService;
+        public IAppointmentRepository AppointmentRepository => _appointmentRepository;
         public MedicalRecord MedicalRecord => _medicalRecord;
         public Appointment Appointment => _appointment;
         public string NewAllergenName
@@ -194,7 +198,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
         public ICommand CreateReferralCommand { get; }
         public ICommand PrescriptionCommand { get; }
         #endregion Commands
-        public ExaminationViewModel(IMedicalRecordRepository medicalRecordRepository, IIllnessRepository illnessRepository, IAllergenRepository allergenRepository, ISchedulingService schedulingService, IReferralRepository referralRepository, IPrescribedMedicineRepository prescribedMedicineRepository, IDialogService dialogService, IEntryRepository entryRepository, Appointment appointment)
+        public ExaminationViewModel(IMedicalRecordRepository medicalRecordRepository, IIllnessRepository illnessRepository, IAllergenRepository allergenRepository, ISchedulingService schedulingService, IReferralRepository referralRepository, IPrescribedMedicineRepository prescribedMedicineRepository, IDialogService dialogService, IEntryRepository entryRepository, IAppointmentRepository appointmentRepository, Appointment appointment)
         {
             _anamnesis = "";
             _newIllnessName = "";
@@ -209,6 +213,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
             _referralRepository = referralRepository;
             _allergenRepository = allergenRepository;
             _schedulingService = schedulingService;
+            _appointmentRepository = appointmentRepository;
             _prescribedMedicineRepository = prescribedMedicineRepository;
             _appointment = appointment;
             _patient = _appointment.Patient;
