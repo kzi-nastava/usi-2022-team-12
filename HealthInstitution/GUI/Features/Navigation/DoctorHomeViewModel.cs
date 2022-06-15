@@ -5,6 +5,7 @@ using System.Windows.Input;
 using HealthInstitution.Core.Features.ApplicationAccess.Commands;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
@@ -17,6 +18,8 @@ using HealthInstitution.Core.Features.NotificationManagement.Repository;
 using HealthInstitution.Core.Features.OffDaysManagement.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Ninject;
 
 using HealthInstitution.Core.Utility.Checker;
@@ -88,7 +91,7 @@ namespace HealthInstitution.GUI.Features.Navigation
             });
             EventBus.RegisterHandler("CreateRefferal", () =>
             {
-                DoctorReferralCreationViewModel viewModel = new(ServiceLocator.Get<IDoctorService>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                DoctorReferralCreationViewModel viewModel = new(ServiceLocator.Get<IDoctorService>(), ServiceLocator.Get<IDoctorRepository>(), GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 SwitchCurrentViewModel(viewModel);
             });
             EventBus.RegisterHandler("CreatePrescription", () =>
@@ -109,6 +112,7 @@ namespace HealthInstitution.GUI.Features.Navigation
                                 ServiceLocator.Get<IPrescribedMedicineRepository>(),
                                 ServiceLocator.Get<IDialogService>(),
                                 ServiceLocator.Get<IEntryRepository>(),
+                                ServiceLocator.Get<IAppointmentRepository>(),
                                 GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
@@ -118,12 +122,12 @@ namespace HealthInstitution.GUI.Features.Navigation
             });
             EventBus.RegisterHandler("CreateAppointment", () =>
             {
-                DoctorAppointmentCreationViewModel viewModel = new(ServiceLocator.Get<IPatientService>(), ServiceLocator.Get<IAppointmentService>());
+                DoctorAppointmentCreationViewModel viewModel = new(ServiceLocator.Get<ISchedulingService>(), ServiceLocator.Get<IPatientRepository>(), ServiceLocator.Get<IPatientService>());
                 SwitchCurrentViewModel(viewModel);
             });
             EventBus.RegisterHandler("UpdateAppointment", () =>
             {
-                DoctorAppointmentUpdateViewModel viewModel = new(ServiceLocator.Get<IPatientService>(), ServiceLocator.Get<IAppointmentService>(), GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
+                DoctorAppointmentUpdateViewModel viewModel = new(ServiceLocator.Get<ISchedulingService>(), ServiceLocator.Get<IPatientRepository>(), ServiceLocator.Get<IPatientService>(), GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
         }
