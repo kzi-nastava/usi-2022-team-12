@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
     public class DoctorAppointmentCreationViewModel : ViewModelBase, IDoctorAppointmentViewModel
     {
-        private IPatientService _patientService;
+        private IPatientRepository _patientRepository;
 
-        private IAppointmentService _appointmentService;
-        public IAppointmentService AppointmentService => _appointmentService;
+        private ISchedulingService _schedulingService;
+
+        private IPatientService _patientService;
+        public ISchedulingService SchedulingService => _schedulingService;
+        public IPatientService PatientService => _patientService;
 
         private Patient _selectedPatient;
         public Patient SelectedPatient
@@ -97,10 +103,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand CancelAppointmentCreationCommand { get; }
         public ICommand CreateAppointmentCommand { get; }
         public ICommand SearchPatientCommand { get; }
-        public DoctorAppointmentCreationViewModel(IPatientService patientService, IAppointmentService appointmentService)
+        public DoctorAppointmentCreationViewModel(ISchedulingService schedulingService, IPatientRepository patientRepository, IPatientService patientService)
         {
             _date = DateTime.Now.AddDays(1);
-            _appointmentService = appointmentService;
+            _schedulingService = schedulingService;
+            _patientRepository = patientRepository;
             _patientService = patientService;
             UpdateData(null);
             CancelAppointmentCreationCommand = new NavigateScheduleCommand();
@@ -113,7 +120,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
             IEnumerable<Patient> patients = null;
             if (string.IsNullOrEmpty(prefix))
             {
-                patients = _patientService.ReadAll();
+                patients = _patientRepository.ReadAll();
             }
             else
             {

@@ -37,7 +37,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             TimeOnly startTime = TimeOnly.FromDateTime(_viewModel.StartTime);
             TimeOnly endTime = TimeOnly.FromDateTime(_viewModel.EndTime);
             DateOnly deadline = DateOnly.FromDateTime(_viewModel.DeadlineDate);
-            _viewModel.RecommendedAppointments = _viewModel.AppointmentService.RecommendAppointments(patient, _viewModel.SelectedDoctor, startTime, endTime, deadline, _viewModel.SelectedPriority);
+            _viewModel.RecommendedAppointments = _viewModel.SchedulingService.RecommendAppointments(patient, _viewModel.SelectedDoctor, startTime, endTime, deadline, _viewModel.SelectedPriority);
         }
     }
 }

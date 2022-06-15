@@ -33,7 +33,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
 
         public override void Execute(object? parameter)
         {
-            _viewModel.AppointmentService.Create(_viewModel.SelectedAppointment);
+            _viewModel.SchedulingService.Create(_viewModel.SelectedAppointment);
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
             _viewModel.ActivityService.Create(act);

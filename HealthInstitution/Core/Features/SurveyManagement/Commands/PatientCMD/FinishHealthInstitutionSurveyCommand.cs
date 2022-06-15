@@ -18,10 +18,10 @@ namespace HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD
         public override void Execute(object? parameter)
         {
             Patient patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-            if (!_viewModel.HealthInstitutionSurveyService.HasPatientAlreadySubmitedSurvey(patient))
+            if (!_viewModel.HealthInstitutionSurveyRepository.HasPatientAlreadySubmitedSurvey(patient))
             {
                 HealthInstitutionSurvey his = new HealthInstitutionSurvey { Patient = patient, ServiceQuality = _viewModel.ServiceQualityRating, Cleanliness = _viewModel.CleanlinessRating, ServiceSatisfaction = _viewModel.ServiceSatisfactionRating, Recommendation = _viewModel.RecommendationRating, Comment = _viewModel.Comment };
-                _viewModel.HealthInstitutionSurveyService.Create(his);
+                _viewModel.HealthInstitutionSurveyRepository.Create(his);
                 MessageBox.Show("Survey submited successfully.\nThank you for participating!");
             }
             else {

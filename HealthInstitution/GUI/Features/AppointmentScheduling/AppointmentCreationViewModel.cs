@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Ninject;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling
@@ -14,15 +15,13 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     public class AppointmentCreationViewModel : ViewModelBase
     {
         #region services
-        private readonly IAppointmentService _appointmentService;
-        private readonly IActivityService _activityService;
-        private readonly IDoctorService _doctorService;
-        private readonly IPatientService _patientService;
+        private readonly ISchedulingService _schedulingService;
+        private readonly IActivityRepository _activityRepository;
+        private readonly IPatientRepository _patientRepository;
 
-        public IAppointmentService AppointmentService => _appointmentService;
-        public IActivityService ActivityService => _activityService;
-        public IDoctorService DoctorService => _doctorService;
-        public IPatientService PatientService => _patientService;
+        public ISchedulingService SchedulingService => _schedulingService;
+        public IActivityRepository ActivityRepository => _activityRepository;
+        public IPatientRepository PatientRepository => _patientRepository;
         #endregion
 
         #region attributes
@@ -77,17 +76,16 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? BackCommand { get; }
         #endregion
 
-        public AppointmentCreationViewModel(IDoctorService doctorService, IPatientService patientService, IAppointmentService appointmentService, IActivityService activityService)
+        public AppointmentCreationViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityRepository activityRepository)
         {
-            _activityService = activityService;
-            _appointmentService = appointmentService;
-            _doctorService = doctorService;
-            _patientService = patientService;
+            _activityRepository = activityRepository;
+            _schedulingService = schedulingService;
+            _patientRepository = patientRepository;
 
             DateTime currentDateTime = DateTime.Now;
             StartDate = currentDateTime.Date;
             StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
-            Doctors = DoctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            Doctors = doctorRepository.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
             BackCommand = new PatientAppointmentsCommand();
@@ -95,10 +93,9 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         public AppointmentCreationViewModel(Doctor selectedDoctor)
         {
-            _activityService = ServiceLocator.Get<IActivityService>();
-            _appointmentService = ServiceLocator.Get<IAppointmentService>();
-            _doctorService = ServiceLocator.Get<IDoctorService>();
-            _patientService = ServiceLocator.Get<IPatientService>();
+            _activityRepository = ServiceLocator.Get<IActivityRepository>();
+            _schedulingService = ServiceLocator.Get<ISchedulingService>();
+            _patientRepository = ServiceLocator.Get<IPatientRepository>();
 
             DateTime currentDateTime = DateTime.Now;
             StartDate = currentDateTime.Date;

@@ -40,7 +40,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             try
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                var updated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.SelectedAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
+                var updated = _viewModel.SchedulingService.UpdateAppointment(_viewModel.SelectedAppointment, pt, _viewModel.SelectedDoctor, startDateTime, endDateTime);
 
                 if (updated)
                 {
@@ -52,13 +52,13 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 }
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);
-                _viewModel.ActivityService.Create(act);
+                _viewModel.ActivityRepository.Create(act);
 
-                var activityCount = _viewModel.ActivityService.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityRepository.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.PatientService.Update(pt);
+                    _viewModel.PatientRepository.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
