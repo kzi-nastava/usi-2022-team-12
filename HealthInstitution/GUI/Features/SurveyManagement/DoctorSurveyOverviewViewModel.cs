@@ -5,8 +5,11 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.SurveyManagement.Model;
+using HealthInstitution.Core.Features.SurveyManagement.Repository;
+using HealthInstitution.Core.Features.SurveyManagement.Services;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 using static HealthInstitution.GUI.Features.UsersManagement.DoctorSearchViewModel;
 
@@ -16,8 +19,9 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
     {
         #region Attributes
 
+        private IDoctorSurveyRepository _doctorSurveyRepository;
         private IDoctorSurveyService _doctorSurveyService;
-        private IDoctorService _doctorService;
+        private IDoctorRepository _doctorRepository;
         private Doctor _selectedDoctor;
         private string _avgServiceQuality;
         private string _avgRecommendation;
@@ -38,9 +42,9 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
         {
             get => _doctorSurveyService;
         }
-        public IDoctorService DoctorService
+        public IDoctorRepository DoctorRepository
         {
-            get => _doctorService;
+            get => _doctorRepository;
         }
         public Doctor SelectedDoctor
         {
@@ -221,7 +225,7 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
 
         void LoadSurveys()
         {
-            List<DoctorSurvey> DocSurveys = _doctorSurveyService.ReadAll().ToList();
+            List<DoctorSurvey> DocSurveys = _doctorSurveyRepository.ReadAll().ToList();
             foreach (var survey in DocSurveys)
             {
                 _doctorSurveys.Add(survey);
@@ -230,7 +234,7 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
 
         void LoadDoctors()
         {
-            _doctors = _doctorService.ReadAll().ToList();
+            _doctors = _doctorRepository.ReadAll().ToList();
             _doctors = _doctors.OrderBy(x => x.FirstName).ToList();
             if (_doctors.Count() != 0)
             {
@@ -295,10 +299,11 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
 
         #endregion
 
-        public DoctorSurveyOverviewViewModel(IDoctorSurveyService doctorSurveyService, IDoctorService doctorService)
+        public DoctorSurveyOverviewViewModel(IDoctorSurveyService doctorSurveyService, IDoctorSurveyRepository doctorSurveyRepository, IDoctorRepository doctorRepository)
         {
             _doctorSurveyService = doctorSurveyService;
-            _doctorService = doctorService;
+            _doctorSurveyRepository = doctorSurveyRepository;
+            _doctorRepository = doctorRepository;
             _doctorSurveys = new ObservableCollection<DoctorSurvey>();
 
             LoadSurveys();

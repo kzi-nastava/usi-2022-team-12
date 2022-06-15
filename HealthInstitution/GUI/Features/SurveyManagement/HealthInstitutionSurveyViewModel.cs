@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.SurveyManagement

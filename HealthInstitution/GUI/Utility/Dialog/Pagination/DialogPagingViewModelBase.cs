@@ -1,10 +1,9 @@
-﻿using HealthInstitution.Commands;
-using HealthInstitution.Utility;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Pagination;
+using HealthInstitution.Core.Utility.Command;
 
 namespace HealthInstitution.GUI.Utility.Dialog.Pagination
 {
