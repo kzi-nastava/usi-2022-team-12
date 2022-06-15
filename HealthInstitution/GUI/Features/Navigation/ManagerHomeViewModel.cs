@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using HealthInstitution.Core.Features.ApplicationAccess.Commands;
 using HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;

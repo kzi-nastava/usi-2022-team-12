@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -48,7 +50,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             {
                 _viewModel.SelectedRoom.Name = roomName;
                 _viewModel.SelectedRoom.RoomType = roomType;
-                _viewModel._roomService.Update(_viewModel.SelectedRoom);
+                ServiceLocator.Get<RoomRepository>().Update(_viewModel.SelectedRoom);
                 MessageBox.Show("Room updated successfully!");
                 EventBus.FireEvent("RoomsOverview");
             }

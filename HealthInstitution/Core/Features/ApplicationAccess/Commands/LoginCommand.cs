@@ -37,7 +37,7 @@ namespace HealthInstitution.Core.Features.ApplicationAccess.Commands
         {
             StorageQuantityChecker.InitializeTimer();
 
-            var user = _viewModel._userService.Authenticate(_viewModel.Email, _viewModel.Password);
+            var user = _viewModel._userRepository.Authenticate(_viewModel.Email, _viewModel.Password);
             if (user == null)
             {
                 _viewModel.ErrMsgText = "Email or password is incorrect";

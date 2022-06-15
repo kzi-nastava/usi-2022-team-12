@@ -1,10 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
@@ -78,7 +81,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
                 else
                 {
                     ReferralUsageViewModel refferalUsageViewModel = new ReferralUsageViewModel(SelectedPatient.Id, _referralRepository,
-                        _schedulingService, _doctorService, _patientService);
+                        ServiceLocator.Get<IAppointmentRepository>(), ServiceLocator.Get<IDoctorRepository>(), ServiceLocator.Get<IPatientRepository>());
                     _dialogService.OpenDialog(refferalUsageViewModel);
                 }
             });

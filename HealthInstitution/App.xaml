@@ -7,12 +7,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/Colors.xaml" />
-                <ResourceDictionary Source="Theme/ButtonStyles.xaml" />
-                <ResourceDictionary Source="Theme/LabelStyles.xaml" />
-                <ResourceDictionary Source="Theme/TextBoxStyles.xaml" />
-                <ResourceDictionary Source="Utility/DataTemplates.xaml" />
-                <ResourceDictionary Source="Theme/DataGridStyle.xaml" />
+                <ResourceDictionary Source="GUI/Theme/Colors.xaml" />
+                <ResourceDictionary Source="GUI/Theme/ButtonStyles.xaml" />
+                <ResourceDictionary Source="GUI/Theme/LabelStyles.xaml" />
+                <ResourceDictionary Source="GUI/Theme/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="GUI/Utility/Navigation/DataTemplates.xaml" />
+                <ResourceDictionary Source="GUI/Theme/DataGridStyle.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

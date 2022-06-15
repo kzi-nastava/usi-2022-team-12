@@ -7,7 +7,7 @@ using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Service;
-using HealthInstitution.Core.Utility.BaseCommand;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.UsersManagement.Dialog;
 using HealthInstitution.GUI.Utility.Dialog.Service;

@@ -1,6 +1,8 @@
 ﻿using System.Threading;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Persistence;
 
 namespace HealthInstitution.Core.Utility.Checker
@@ -12,9 +14,7 @@ namespace HealthInstitution.Core.Utility.Checker
 
         static StorageQuantityChecker()
         {
-            _equipmentPurchaseRequestService = new EquipmentPurchaseRequestService(new DatabaseContext(0),
-                                                                                    new RoomService(new DatabaseContext(0),
-                                                                                    new EquipmentService(new DatabaseContext(0))));
+            _equipmentPurchaseRequestService = new EquipmentPurchaseRequestService(new EquipmentPurchaseRequestRepository(new DatabaseContext(0)), ServiceLocator.Get<RoomService>());
         }
         public static void InitializeTimer()
         {

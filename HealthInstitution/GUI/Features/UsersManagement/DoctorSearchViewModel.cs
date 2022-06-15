@@ -7,6 +7,7 @@ using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.UsersManagement
@@ -160,7 +161,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
             List<Doctor> doctors = new List<Doctor>();
             if (!string.IsNullOrEmpty(SearchText))
             {
-                doctors = DoctorRepository.FilterDoctorsBySearchText(SearchText).ToList<Doctor>();
+                doctors = ServiceLocator.Get<DoctorService>().FilterDoctorsBySearchText(SearchText).ToList<Doctor>();
             }
             else
             {

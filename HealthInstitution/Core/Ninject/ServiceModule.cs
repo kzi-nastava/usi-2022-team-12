@@ -1,6 +1,7 @@
 ﻿using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Service;
@@ -60,6 +61,8 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IAppointmentRequestService)).To(typeof(AppointmentRequestService));
             Bind(typeof(IRecommendationService)).To(typeof(RecommendationService));
             Bind(typeof(ISchedulingService)).To(typeof(SchedulingService));
+            Bind(typeof(IEquipmentService)).To(typeof(EquipmentService));
+            Bind(typeof(IEquipmentPurchaseRequestService)).To(typeof(EquipmentPurchaseRequestService));
             Bind(typeof(IMedicineService)).To(typeof(MedicineService));
             Bind(typeof(IPrescribedMedicineNotificationService)).To(typeof(PrescribedMedicineNotificationService));
             Bind(typeof(IOffDaysService)).To(typeof(OffDaysService));

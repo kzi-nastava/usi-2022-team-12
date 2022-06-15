@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.MedicineManagement;
@@ -40,7 +42,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
             rM.Description = _viewModel.DescriptionBox;
             rM.Status = Status.Pending;
             rM.Ingredients = _viewModel.NewIngredients.ToList();
-            _viewModel.MedicineService.Update(rM);
+            ServiceLocator.Get<MedicineRepository>().Update(rM);
             _viewModel.MedicineReviewRepository.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
             MessageBox.Show("The medicine has been successfully submitted for verification.");
         }
@@ -61,7 +63,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
                 Status = Status.Pending,
                 Ingredients = _viewModel.NewIngredients.ToList()
             };
-            _viewModel.MedicineService.Create(m);
+            ServiceLocator.Get<MedicineRepository>().Create(m);
             MessageBox.Show("The medicine has been successfully submitted for verification.");
         }
 

@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Timers;
 using System.Windows;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.EquipmentManagement;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -73,7 +75,7 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCM
             {
                 _viewModel.Room1.Inventory.Clear();
             }
-            _viewModel._roomService.Update(_viewModel.Room1);
+            ServiceLocator.Get<RoomRepository>().Update(_viewModel.Room1);
            
             _viewModel.Room2.Inventory.Clear();
             foreach (var item in _viewModel.Inventory2)
@@ -93,7 +95,7 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCM
             {
                 _viewModel.Room2.Inventory.Clear();
             }
-            _viewModel._roomService.Update(_viewModel.Room2);
+            ServiceLocator.Get<RoomRepository>().Update(_viewModel.Room2);
 
             MessageBox.Show("Database has been updated with arrangement changes.");
 

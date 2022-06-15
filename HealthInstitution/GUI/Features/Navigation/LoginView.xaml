@@ -58,7 +58,7 @@
         </materialDesign:Card>
 
 
-        <Image Source="../Resources/main.jpg"
+        <Image Source="../../Utility/Resources/main.jpg"
                Grid.Column="1"
                Grid.Row="0"
                Stretch="Fill">

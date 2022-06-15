@@ -5,9 +5,9 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
     /// <summary>
     /// Interaction logic for SecretaryReferralView.xaml
     /// </summary>
-    public partial class SecretaryReferralView : UserControl
+    public partial class SecretaryReferralUsageView : UserControl
     {
-        public SecretaryReferralView()
+        public SecretaryReferralUsageView()
         {
             InitializeComponent();
         }

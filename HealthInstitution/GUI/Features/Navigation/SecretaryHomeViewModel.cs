@@ -1,6 +1,8 @@
 ﻿using System.Windows.Input;
+using HealthInstitution.Core.Features.ApplicationAccess.Commands;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Ninject;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Features.EquipmentManagement;
 using HealthInstitution.GUI.Features.OffDaysManagement;

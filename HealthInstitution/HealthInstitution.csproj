@@ -6,7 +6,7 @@
     <RootNamespace>HealthInstitution</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>GUI\Utility\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,15 +37,15 @@
     <None Remove="GUI\Features\UsersManagement\NewFile2.txt" />
     <None Remove="GUI\Fonts\password.ttf" />
     <None Remove="GUI\NewFile1.txt" />
-    <None Remove="Resources\main.jpg" />
-    <None Remove="Resources\main3.jpg" />
+    <None Remove="GUI\Utility\Resources\main.jpg" />
+    <None Remove="GUI\Utility\Resources\main3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="GUI\Fonts\password.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.ico" />
+    <Content Include="GUI\Utility\Resources\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,7 +69,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\main.jpg">
+    <Resource Include="GUI\Utility\Resources\main.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

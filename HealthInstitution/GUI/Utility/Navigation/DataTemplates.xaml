@@ -126,7 +126,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type operationsAndExaminations:SecretaryReferralUsageViewModel}">
-        <operationsAndExaminations:SecretaryReferralView/>
+        <operationsAndExaminations:SecretaryReferralUsageView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm1:SecretaryUrgentScheduleViewModel}">

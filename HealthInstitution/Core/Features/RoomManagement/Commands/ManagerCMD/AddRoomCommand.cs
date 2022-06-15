@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.RoomManagement;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -55,7 +57,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             }
 
             Room r = new Room(_viewModel.SelectedType, roomName);
-            _viewModel._roomService.Create(r);
+            ServiceLocator.Get<RoomRepository>().Create(r);
             MessageBox.Show("Room created successfully!");
             EventBus.FireEvent("RoomsOverview");
 
