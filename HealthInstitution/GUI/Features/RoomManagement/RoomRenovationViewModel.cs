@@ -16,6 +16,7 @@ namespace HealthInstitution.GUI.Features.RoomManagement
     {
         public readonly IRoomRepository _roomRepository;
         public readonly ISchedulingService _schedulingService;
+        public readonly IRoomService _roomService;
         public readonly IRoomRenovationRepository _roomRenovationRepository;
         public ICommand? StandardRenovationCommand { get; }
 
@@ -155,10 +156,11 @@ namespace HealthInstitution.GUI.Features.RoomManagement
         }
 
         public RoomRenovationViewModel(IRoomRepository roomRepository, ISchedulingService schedulingService,
-            IRoomRenovationRepository roomRenovationRepository)
+            IRoomRenovationRepository roomRenovationRepository, IRoomService roomService)
         {
             _roomRepository = roomRepository;
             _schedulingService = schedulingService;
+            _roomService = roomService;
             _roomRenovationRepository = roomRenovationRepository;
             Rooms = roomRepository.ReadAll().ToList();
             Rooms = Rooms.OrderBy(x => x.Name).ToList();
@@ -172,8 +174,8 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             SelectedRoomMerge2 = null;
 
             StandardRenovationCommand = new StandardRenovationCommand(this, schedulingService, roomRenovationRepository);
-            DivideRenovationCommand = new DivideRenovationCommand(this, schedulingService, roomRenovationRepository, roomRepository);
-            MergeRenovationCommand = new MergeRenovationCommand(this, schedulingService, roomRenovationRepository, roomRepository);
+            DivideRenovationCommand = new DivideRenovationCommand(this, schedulingService, roomRenovationRepository, roomService);
+            MergeRenovationCommand = new MergeRenovationCommand(this, schedulingService, roomRenovationRepository, roomService);
 
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;

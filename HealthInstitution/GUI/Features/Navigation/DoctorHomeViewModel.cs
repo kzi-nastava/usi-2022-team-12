@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.ApplicationAccess.Commands;
+using HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Commands.DoctorCMD;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Service;
+using HealthInstitution.Core.Features.NotificationManagement.Model;
+using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Features.OffDaysManagement.Commands.DoctorCMD;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Ninject;
-using HealthInstitution.Core.Services.Interfaces;
+
 using HealthInstitution.Core.Utility.Checker;
 using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Features.MedicalRecordManagement;
 using HealthInstitution.GUI.Features.MedicineManagement;
 using HealthInstitution.GUI.Features.OffDaysManagement;
 using HealthInstitution.GUI.Features.OperationsAndExaminations;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -25,15 +38,15 @@ namespace HealthInstitution.GUI.Features.Navigation
         public ICommand? NavigateMedicineCommand { get; }
         public ICommand? NavigateOffDaysCommand { get; }
 
-        private readonly INotificationService _notificationService;
+        private readonly IUserNotificationRepository _usernNotificationRepository;
 
         public string LastName
         {
             get => GlobalStore.ReadObject<Doctor>("LoggedUser").LastName;
         }
-        public DoctorHomeViewModel(INotificationService notificationService)
+        public DoctorHomeViewModel(IUserNotificationRepository usernNotificationRepository)
         {
-            _notificationService = notificationService;
+            _usernNotificationRepository = usernNotificationRepository;
             LogOutCommand = new LogOutCommand();
             NavigateMedicineCommand = new NavigateMedicineCommand();
             NavigateScheduleCommand = new NavigateScheduleCommand();
@@ -68,8 +81,8 @@ namespace HealthInstitution.GUI.Features.Navigation
             });
             EventBus.RegisterHandler("MedicalRecord", () =>
             {
-                MedicalRecordViewModel viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
-                                                        ServiceLocator.Get<IAppointmentService>(),
+                MedicalRecordViewModel viewModel = new(ServiceLocator.Get<IMedicalRecordRepository>(),
+                                                        ServiceLocator.Get<ISchedulingService>(),
                                                         GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 SwitchCurrentViewModel(viewModel);
             });
@@ -80,22 +93,22 @@ namespace HealthInstitution.GUI.Features.Navigation
             });
             EventBus.RegisterHandler("CreatePrescription", () =>
             {
-                IMedicalRecordService medicalRecordService = ServiceLocator.Get<IMedicalRecordService>();
-                MedicalRecord medicalRecord = medicalRecordService.GetMedicalRecordForPatient(GlobalStore.ReadObject<Patient>("SelectedPatient"));
+                IMedicalRecordRepository medicalRecordRepository = ServiceLocator.Get<IMedicalRecordRepository>();
+                MedicalRecord medicalRecord = medicalRecordRepository.GetMedicalRecordForPatient(GlobalStore.ReadObject<Patient>("SelectedPatient"));
                 PrescriptionViewModel viewModel = new(ServiceLocator.Get<IMedicineService>(), medicalRecord);
                 SwitchCurrentViewModel(viewModel);
             });
             ExaminationViewModel? viewModel = null;
             EventBus.RegisterHandler("Examination", () =>
             {
-                viewModel = new(ServiceLocator.Get<IMedicalRecordService>(),
-                                ServiceLocator.Get<IIllnessService>(),
-                                ServiceLocator.Get<IAllergenService>(),
-                                ServiceLocator.Get<IAppointmentService>(),
-                                ServiceLocator.Get<IReferralService>(),
-                                ServiceLocator.Get<IPrescribedMedicineService>(),
+                viewModel = new(ServiceLocator.Get<IMedicalRecordRepository>(),
+                                ServiceLocator.Get<IIllnessRepository>(),
+                                ServiceLocator.Get<IAllergenRepository>(),
+                                ServiceLocator.Get<ISchedulingService>(),
+                                ServiceLocator.Get<IReferralRepository>(),
+                                ServiceLocator.Get<IPrescribedMedicineRepository>(),
                                 ServiceLocator.Get<IDialogService>(),
-                                ServiceLocator.Get<IEntryService>(),
+                                ServiceLocator.Get<IEntryRepository>(),
                                 GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
@@ -119,7 +132,7 @@ namespace HealthInstitution.GUI.Features.Navigation
         {
             Guid userId = GlobalStore.ReadObject<Doctor>("LoggedUser").Id;
 
-            IList<Notification> notifications = _notificationService.GetValidNotificationsForUser(userId);
+            IList<UserNotification> notifications = _usernNotificationRepository.GetValidNotificationsForUser(userId);
 
             if (notifications.Count != 0)
             {
@@ -128,7 +141,7 @@ namespace HealthInstitution.GUI.Features.Navigation
                     MessageBox.Show(notification.Content);
 
                     notification.IsShown = true;
-                    _notificationService.Update(notification);
+                    _usernNotificationRepository.Update(notification);
                 }
             }
         }
