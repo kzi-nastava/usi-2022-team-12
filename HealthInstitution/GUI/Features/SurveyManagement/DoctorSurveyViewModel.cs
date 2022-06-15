@@ -1,8 +1,11 @@
 ﻿using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.SurveyManagement.Repository;
+using HealthInstitution.Core.Features.SurveyManagement.Services;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -11,10 +14,10 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
     public class DoctorSurveyViewModel : ViewModelBase
     {
         #region services
-        private readonly IDoctorSurveyService _doctorSurveyService;
-        private readonly IAppointmentService _appointmentService;
-        public IDoctorSurveyService DoctorSurveyService => _doctorSurveyService;
-        public IAppointmentService AppointmentService => _appointmentService;
+        private readonly IDoctorSurveyRepository _doctorSurveyRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
+        public IAppointmentRepository AppointmentRepository => _appointmentRepository;
+        public IDoctorSurveyRepository DoctorSurveyRepository => _doctorSurveyRepository;
         #endregion
 
         #region attributes
@@ -63,10 +66,10 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
         public ICommand BackCommand { get; }
         #endregion
 
-        public DoctorSurveyViewModel(IDoctorSurveyService doctorSurveyService, IAppointmentService appointmentService)
+        public DoctorSurveyViewModel(IDoctorSurveyRepository doctorSurveyRepository, IAppointmentRepository appointmentRepository)
         {
-            _doctorSurveyService = doctorSurveyService;
-            _appointmentService = appointmentService;
+            _doctorSurveyRepository = doctorSurveyRepository;
+            _appointmentRepository = appointmentRepository;
             _selectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             ServiceQualityRating = 1;
             RecommendationRating = 1;

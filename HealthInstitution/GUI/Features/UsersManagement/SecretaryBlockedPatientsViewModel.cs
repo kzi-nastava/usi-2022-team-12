@@ -2,7 +2,8 @@
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 
 namespace HealthInstitution.GUI.Features.UsersManagement
