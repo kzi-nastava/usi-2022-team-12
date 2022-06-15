@@ -4,7 +4,7 @@ using System.Linq;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.OffDaysManagement.Repository;
-using HealthInstitution.Core.Features.OffDaysManagement.Services;
+using HealthInstitution.Core.Features.OffDaysManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Utility.HelperClasses;

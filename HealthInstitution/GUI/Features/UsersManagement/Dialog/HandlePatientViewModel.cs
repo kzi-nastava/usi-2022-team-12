@@ -131,7 +131,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
                 ReadOnlyEmailAddress = false;
             }
 
-            HandlePatient = new HandlePatientCommand(this, patientService, medicalRecordService, secretartyPatientCRUDVM, patientId);
+            HandlePatient = new HandlePatientCommand(this, patientRepository, medicalRecordService, secretartyPatientCRUDVM, patientId);
         }
 
 

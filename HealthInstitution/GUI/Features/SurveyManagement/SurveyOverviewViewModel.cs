@@ -4,7 +4,9 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.SurveyManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.SurveyManagement.Repository;
+using HealthInstitution.Core.Features.SurveyManagement.Services;
+using HealthInstitution.Core.Ninject;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.SurveyManagement
@@ -159,7 +161,7 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
 
         void LoadSurveys()
         {
-            List<HealthInstitutionSurvey> HISurveys = _healthInstitutionSurveyService.ReadAll().ToList();
+            List<HealthInstitutionSurvey> HISurveys = ServiceLocator.Get<IHealthInstitutionSurveyRepository>().ReadAll().ToList();
             foreach (var survey in HISurveys)
             {
                 _healthInstitutionSurveys.Add(survey);

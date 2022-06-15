@@ -8,6 +8,8 @@ using HealthInstitution.Core.Ninject;
 using HealthInstitution.GUI.Features.Navigation;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.WindowTitle;
+using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 
 namespace HealthInstitution.GUI.Utility.ViewModel
 {
@@ -15,8 +17,10 @@ namespace HealthInstitution.GUI.Utility.ViewModel
     {
         private readonly IRoomService _roomService;
         public IRoomService RoomService { get; }
-        private readonly IRoomRenovationService _roomRenovationService;
-        public IRoomRenovationService RoomRenovationService { get; }
+        private readonly IRoomRepository _roomRepository;
+        private readonly IRoomRenovationRepository _roomRenovationRepository;
+        public IRoomRenovationRepository RoomRenovationRepository { get; }
+        public IRoomRepository RoomRepository { get; }
 
         private string _viewTitle;
         public string ViewTitle
@@ -29,12 +33,13 @@ namespace HealthInstitution.GUI.Utility.ViewModel
             OnPropertyChanged(nameof(ViewTitle));
         }
         public LoginViewModel Lvm { get; set; }
-        public MainViewModel(LoginViewModel lvm, IRoomService roomService, IRoomRenovationService roomRenovationService)
+        public MainViewModel(LoginViewModel lvm, IRoomService roomService, IRoomRenovationRepository roomRenovationRepository, IRoomRepository roomRepository)
         {
             TitleManager.TitleChanged += OnTitleChanged;
             TitleManager.Title = "Login";
             _roomService = roomService;
-            _roomRenovationService = roomRenovationService;
+            _roomRenovationRepository = roomRenovationRepository;
+            _roomRepository = roomRepository;
             updateRoomRenovation();
             Lvm = lvm;
             SwitchCurrentViewModel(lvm);
@@ -80,14 +85,14 @@ namespace HealthInstitution.GUI.Utility.ViewModel
 
         private void updateRoomRenovation()
         {
-            var renRooms = _roomRenovationService.ReadAll();
+            var renRooms = _roomRenovationRepository.ReadAll();
             foreach (var renRoom in renRooms)
             {
                 if (renRoom.EndTime < DateTime.Now)
                 {
                     if (renRoom.AdvancedDivide == null)
                     {
-                        _roomRenovationService.Delete(renRoom.Id);
+                        _roomRenovationRepository.Delete(renRoom.Id);
                     }
                     else if (renRoom.AdvancedDivide == true)
                     {
@@ -97,9 +102,9 @@ namespace HealthInstitution.GUI.Utility.ViewModel
                         {
                             room1.AddEntry(entry);
                         }
-                        _roomService.Create(room1);
-                        _roomService.Create(room2);
-                        _roomService.Delete(renRoom.RenovatedRoom.Id);
+                        _roomRepository.Create(room1);
+                        _roomRepository.Create(room2);
+                        _roomRepository.Delete(renRoom.RenovatedRoom.Id);
                     }
                     else
                     {
@@ -131,9 +136,9 @@ namespace HealthInstitution.GUI.Utility.ViewModel
                                 mergedRoom.AddEntry(newEntry);
                             }
                         }
-                        _roomService.Create(mergedRoom);
-                        _roomService.Delete(room1.Id);
-                        _roomService.Delete(room2.Id);
+                        _roomRepository.Create(mergedRoom);
+                        _roomRepository.Delete(room1.Id);
+                        _roomRepository.Delete(room2.Id);
                     }
                 }
             }

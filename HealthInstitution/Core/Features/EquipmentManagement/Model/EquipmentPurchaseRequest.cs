@@ -1,4 +1,5 @@
-﻿using HealthInstitution.Core.Utility.HelperClasses;
+﻿using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Utility.HelperClasses;
 using System;
 
 namespace HealthInstitution.Core.Features.EquipmentManagement.Model

@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.ApplicationAccess.Commands;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.Navigation
@@ -9,7 +11,7 @@ namespace HealthInstitution.GUI.Features.Navigation
     public class LoginViewModel : ViewModelBase
     {
 
-        public readonly IUserService<User> _userService;
+        public readonly IUserRepository<User> _userRepository;
         public readonly IEquipmentPurchaseRequestService _equipmentPurchaseRequestService;
 
         private string? _email = "@example.com";
@@ -58,11 +60,11 @@ namespace HealthInstitution.GUI.Features.Navigation
 
         public ICommand? LoginCommand { get; }
 
-        public LoginViewModel(IUserService<User> userService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService)
+        public LoginViewModel(IUserRepository<User> userRepository, IEquipmentPurchaseRequestService equipmentPurchaseRequestService)
         {
             _errMsgVisibility = Visibility.Hidden;
             _errMsgText = "";
-            _userService = userService;
+            _userRepository = userRepository;
             _equipmentPurchaseRequestService = equipmentPurchaseRequestService;
             LoginCommand = new LoginCommand(this);
         }

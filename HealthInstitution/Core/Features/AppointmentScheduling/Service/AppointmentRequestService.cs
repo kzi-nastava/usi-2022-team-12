@@ -56,5 +56,13 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
                 .Where(r => r.Patient.EmailAddress.ToLower().Contains(searchText) || r.CreatedAt.ToString().Contains(searchText)
                     || r.Patient.FirstName.ToLower().Contains(searchText)).ToList();
         }
+
+        public IEnumerable<AppointmentRequest> FilterPendingRequestsBySearchText(string searchText)
+        {
+            searchText = searchText.ToLower();
+            return _appointmentRequestRepository.ReadAll().Where(r => r.Status == Status.Pending)
+                .Where(r => r.Patient.EmailAddress.ToLower().Contains(searchText) || r.CreatedAt.ToString().Contains(searchText)
+                    || r.Patient.FirstName.ToLower().Contains(searchText)).ToList();
+        }
     }
 }

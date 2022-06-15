@@ -80,7 +80,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
             AddPatient = new RelayCommand(() =>
             {
-                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientService, medicalRecordService, this, Guid.Empty);
+                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientRepository, patientService, medicalRecordRepository, this, Guid.Empty);
                 _dialogService.OpenDialog(handlePatientViewModel);
             });
 
@@ -92,7 +92,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
                 }
                 else
                 {
-                    HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientService, medicalRecordService, this, _selectedPatient.Id);
+                    HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientRepository, patientService, medicalRecordRepository, this, _selectedPatient.Id);
                     _dialogService.OpenDialog(updatePatientViewModel);
                     MessageBox.Show("Patient updated succesfully.");
                 }

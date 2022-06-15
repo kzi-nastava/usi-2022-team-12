@@ -13,5 +13,6 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
         public IEnumerable<AppointmentDeleteRequest> FilterPendingDeleteRequestsBySearchText(string searchText);
 
         public IEnumerable<AppointmentUpdateRequest> FilterPendingUpdateRequestsBySearchText(string searchText);
+        IEnumerable<AppointmentRequest> FilterPendingRequestsBySearchText(string searchText);
     }
 }

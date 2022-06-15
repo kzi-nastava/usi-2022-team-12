@@ -1,5 +1,4 @@
-﻿using HealthInstitution.Utility;
-using System.Windows;
+﻿using System.Windows;
 using HealthInstitution.GUI.Utility.Validation;
 
 namespace HealthInstitution.GUI.Utility.Dialog.Service

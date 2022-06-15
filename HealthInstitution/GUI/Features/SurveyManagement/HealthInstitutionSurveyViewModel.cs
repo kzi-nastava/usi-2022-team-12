@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
+using HealthInstitution.Core.Features.SurveyManagement.Repository;
+using HealthInstitution.Core.Features.SurveyManagement.Services;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.SurveyManagement
@@ -8,7 +10,9 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
     {
         #region services
         private readonly IHealthInstitutionSurveyService _healthInstitutionSurveyService;
+        private readonly IHealthInstitutionSurveyRepository _healthInstitutionSurveyRepository;
         public IHealthInstitutionSurveyService HealthInstitutionSurveyService => _healthInstitutionSurveyService;
+        public IHealthInstitutionSurveyRepository HealthInstitutionSurveyRepository => _healthInstitutionSurveyRepository;
         #endregion
 
         #region attributes
@@ -74,9 +78,10 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
         public ICommand BackCommand { get; }
         #endregion
 
-        public HealthInstitutionSurveyViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService)
+        public HealthInstitutionSurveyViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService, IHealthInstitutionSurveyRepository healthInstitutionSurveyRepository)
         {
             _healthInstitutionSurveyService = healthInstitutionSurveyService;
+            _healthInstitutionSurveyRepository = healthInstitutionSurveyRepository;
             ServiceQualityRating = 1;
             RecommendationRating = 1;
             CleanlinessRating = 1;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.ApplicationAccess.Commands;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
@@ -38,13 +39,11 @@ namespace HealthInstitution.GUI.Features.Navigation
 
         #region Services
 
-        INotificationService _notificationService;
 
         #endregion
 
-        public PatientHomeViewModel(INotificationService notificationService)
+        public PatientHomeViewModel()
         {
-            _notificationService = notificationService;
 
             PatientAppointmentsCommand = new PatientAppointmentsCommand();
             PatientMedicalRecordCommand = new PatientMedicalRecordCommand();
@@ -54,7 +53,6 @@ namespace HealthInstitution.GUI.Features.Navigation
             LogOutCommand = new LogOutCommand();
             SwitchCurrentViewModel(ServiceLocator.Get<PatientAppointmentsViewModel>());
             RegisterHandler();
-            CheckNotifications();
 
             NotificationsChecker.InitializeTimer(typeof(Patient));
         }
@@ -125,22 +123,5 @@ namespace HealthInstitution.GUI.Features.Navigation
         }
         #endregion
 
-        public void CheckNotifications()
-        {
-            Guid userId = GlobalStore.ReadObject<Patient>("LoggedUser").Id;
-
-            IList<Notification> notifications = _notificationService.GetValidNotificationsForUser(userId);
-
-            if (notifications.Count != 0)
-            {
-                foreach (var notification in notifications)
-                {
-                    MessageBox.Show(notification.Content);
-
-                    notification.IsShown = true;
-                    _notificationService.Update(notification);
-                }
-            }
-        }
     }
 }
