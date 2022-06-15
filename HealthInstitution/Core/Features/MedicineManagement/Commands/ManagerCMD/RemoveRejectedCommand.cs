@@ -31,7 +31,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
 
         public override void Execute(object? parameter)
         {
-            _viewModel.MedicineReviewService.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
+            _viewModel.MedicineReviewRepository.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
             EventBus.FireEvent("MedicineOverview");
 
         }

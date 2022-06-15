@@ -4,7 +4,8 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.MedicineManagement
@@ -13,7 +14,7 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
     {
         #region Attributes
 
-        private IIngredientService _ingredientService;
+        private IIngredientRepository _ingredientRepository;
         private IMedicineService _medicineService;
         private Ingredient _selectedIngredient;
         private string _nameBox;
@@ -22,9 +23,9 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
 
         #region Properties
 
-        public IIngredientService IngredientService
+        public IIngredientRepository IngredientRepository
         {
-            get => _ingredientService;
+            get => _ingredientRepository;
         }
         public IMedicineService MedicineService
         {
@@ -67,13 +68,13 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
 
         #endregion
 
-        public IngredientOverviewViewModel(IIngredientService ingredientService, IMedicineService medicineService)
+        public IngredientOverviewViewModel(IIngredientRepository ingredientRepository, IMedicineService medicineService)
         {
-            _ingredientService = ingredientService;
+            _ingredientRepository = ingredientRepository;
             _medicineService = medicineService;
 
             _allIngredients = new ObservableCollection<Ingredient>();
-            List<Ingredient> AllIng = _ingredientService.ReadAll().ToList();
+            List<Ingredient> AllIng = _ingredientRepository.ReadAll().ToList();
             AllIng = AllIng.OrderBy(x => x.Name).ToList();
             foreach (var ingredient in AllIng)
             {

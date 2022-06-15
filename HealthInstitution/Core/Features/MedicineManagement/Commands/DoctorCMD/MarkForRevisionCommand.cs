@@ -34,7 +34,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.DoctorCMD
             medicine.Status = Status.Rejected;
             _viewModel.MedicineService.Update(medicine);
             MedicineReview medicineReview = new MedicineReview { Comment = _viewModel.RevisionComment, Medicine = medicine, Doctor = _viewModel.Doctor };
-            _viewModel.MedicineReviewService.Create(medicineReview);
+            _viewModel.MedicineReviewRepository.Create(medicineReview);
             _viewModel.RevisionComment = "";
             _viewModel.SelectedMedicine = null;
             _viewModel.Ingredients = null;

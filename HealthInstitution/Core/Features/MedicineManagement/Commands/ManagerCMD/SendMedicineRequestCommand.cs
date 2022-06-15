@@ -41,7 +41,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
             rM.Status = Status.Pending;
             rM.Ingredients = _viewModel.NewIngredients.ToList();
             _viewModel.MedicineService.Update(rM);
-            _viewModel.MedicineReviewService.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
+            _viewModel.MedicineReviewRepository.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
             MessageBox.Show("The medicine has been successfully submitted for verification.");
         }
 

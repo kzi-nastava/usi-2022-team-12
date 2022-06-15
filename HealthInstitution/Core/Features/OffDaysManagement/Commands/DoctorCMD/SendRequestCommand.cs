@@ -52,7 +52,7 @@ namespace HealthInstitution.Core.Features.OffDaysManagement.Commands.DoctorCMD
                     return;
                 }
             }
-            _viewModel.OffDaysRequestService.Create(odr);
+            _viewModel.OffDaysRequestRepository.Create(odr);
             if (_viewModel.IsUrgent)
             {
                 MessageBox.Show("Your off days are approved");
@@ -66,7 +66,7 @@ namespace HealthInstitution.Core.Features.OffDaysManagement.Commands.DoctorCMD
 
         bool IsOverlapping(OffDaysRequest newRequest)
         {
-            return !(_viewModel.OffDaysRequestService.ReadAll().Where(e => e.Doctor == newRequest.Doctor)
+            return !(_viewModel.OffDaysRequestRepository.ReadAll().Where(e => e.Doctor == newRequest.Doctor)
                 .Count(e => e.StartDate <= newRequest.EndDate && newRequest.StartDate <= e.EndDate) == 0);
         }
 

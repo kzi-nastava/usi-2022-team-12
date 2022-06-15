@@ -4,7 +4,8 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -15,8 +16,8 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         #region Attributes
 
         private IMedicineService _medicineService;
-        private IIngredientService _ingredientService;
-        private IMedicineReviewService _medicineReviewService;
+        private IIngredientRepository _ingredientRepository;
+        private IMedicineReviewRepository _medicineReviewRepository;
         private string _nameBox;
         private string _descriptionBox;
         private string _revisionMedicineName;
@@ -35,9 +36,9 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         {
             get => _medicineService;
         }
-        public IMedicineReviewService MedicineReviewService
+        public IMedicineReviewRepository MedicineReviewRepository
         {
-            get => _medicineReviewService;
+            get => _medicineReviewRepository;
         }
         public string NameBox
         {
@@ -191,11 +192,11 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
 
         #endregion
 
-        public MedicineOverviewViewModel(IMedicineService medicineService, IIngredientService ingredientService, IMedicineReviewService medicineReviewService)
+        public MedicineOverviewViewModel(IMedicineService medicineService, IIngredientRepository ingredientRepository, IMedicineReviewRepository medicineReviewRepository)
         {
             _medicineService = medicineService;
-            _ingredientService = ingredientService;
-            _medicineReviewService = medicineReviewService;
+            _ingredientRepository = ingredientRepository;
+            _medicineReviewRepository = medicineReviewRepository;
             AllMedicine = _medicineService.GetApprovedMedicine().ToList();
             AllMedicine = AllMedicine.OrderBy(x => x.Name).ToList();
 
@@ -206,14 +207,14 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
             _newIngredients = new ObservableCollection<Ingredient>();
             _rejectedMedicine = new ObservableCollection<MedicineReview>();
 
-            List<Ingredient> AllIng = _ingredientService.ReadAll().ToList();
+            List<Ingredient> AllIng = _ingredientRepository.ReadAll().ToList();
             AllIng = AllIng.OrderBy(x => x.Name).ToList();
             foreach (var ingredient in AllIng)
             {
                 _allIngredients.Add(ingredient);
             }
 
-            List<MedicineReview> MedRew = _medicineReviewService.ReadAll().ToList();
+            List<MedicineReview> MedRew = _medicineReviewRepository.ReadAll().ToList();
             MedRew = MedRew.OrderBy(x => x.Medicine.Name).ToList();
             foreach (var med in MedRew)
             {

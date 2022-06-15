@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.MedicineManagement.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
+using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Features.MedicineManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
@@ -15,7 +17,7 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
     {
         #region Atributes
         private readonly IMedicineService _medicineService;
-        private readonly IMedicineReviewService _medicineReviewService;
+        private readonly IMedicineReviewRepository _medicineReviewRepository;
         private readonly Doctor _doctor;
         private string _searchText;
         private Medicine? _selectedMedicine;
@@ -25,7 +27,7 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         #region Properties
         public Doctor Doctor => _doctor;
         public IMedicineService MedicineService => _medicineService;
-        public IMedicineReviewService MedicineReviewService => _medicineReviewService;
+        public IMedicineReviewRepository MedicineReviewRepository => _medicineReviewRepository;
         public string SearchText
         {
             get => _searchText;
@@ -103,10 +105,10 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         public ICommand ApproveMedicineCommand { get; }
         public ICommand RejectMedicineCommand { get; }
         #endregion
-        public DoctorMedicineManagmentViewModel(IMedicineService medicineService, IMedicineReviewService medicineReviewService)
+        public DoctorMedicineManagmentViewModel(IMedicineService medicineService, IMedicineReviewRepository medicineReviewRepository)
         {
             _medicineService = medicineService;
-            _medicineReviewService = medicineReviewService;
+            _medicineReviewRepository = medicineReviewRepository;
             _doctor = (Doctor)GlobalStore.ReadObject<Doctor>("LoggedUser");
             _searchText = "";
             _revisionComment = "";

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Utility.Dialog.Service;
-using HealthInstitution.Utility;
 
 namespace HealthInstitution.GUI.Features.OffDaysManagement.Dialog
 {

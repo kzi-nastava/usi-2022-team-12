@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.OffDaysManagement.Commands.DoctorCMD;
 using HealthInstitution.Core.Features.OffDaysManagement.Model;
+using HealthInstitution.Core.Features.OffDaysManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -12,12 +13,12 @@ namespace HealthInstitution.GUI.Features.OffDaysManagement
     public class DoctorOffDaysViewModel : ViewModelBase
     {
         #region Atributes
-        private IOffDaysRequestService _offDaysRequestService;
+        private IOffDaysService _offDaysService;
         private Doctor _doctor;
         #endregion
 
         #region Properties
-        public IOffDaysRequestService OffDaysRequestService => _offDaysRequestService;
+        public IOffDaysService OffDaysService => _offDaysService;
         public Doctor Doctor => _doctor;
         #endregion
 
@@ -41,12 +42,12 @@ namespace HealthInstitution.GUI.Features.OffDaysManagement
         #region Commands
         public ICommand SendRequestCommand { get; }
         #endregion
-        public DoctorOffDaysViewModel(IOffDaysRequestService offDaysRequestService)
+        public DoctorOffDaysViewModel(IOffDaysService offDaysService)
         {
 
-            _offDaysRequestService = offDaysRequestService;
+            _offDaysService = offDaysService;
             _doctor = GlobalStore.ReadObject<Doctor>("LoggedUser");
-            OffDays = offDaysRequestService.GetOffDaysForDoctor(_doctor);
+            OffDays = offDaysService.GetOffDaysForDoctor(_doctor);
             SendRequestCommand = new NavigateOffDaysRequestCreationCommand();
         }
     }

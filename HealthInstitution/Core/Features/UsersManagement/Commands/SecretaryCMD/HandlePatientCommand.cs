@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.UsersManagement;
 using HealthInstitution.GUI.Features.UsersManagement.Dialog;
@@ -13,19 +15,19 @@ namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
     public class HandlePatientCommand : CommandBase
     {
         private readonly HandlePatientViewModel _handlePatientVM;
-        private readonly IPatientService _patientService;
-        private readonly IMedicalRecordService _medicalRecordService;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
         private readonly SecretaryPatientCRUDViewModel _secretaryPatientCRUDVM;
 
         private Guid _patientId;
 
-        public HandlePatientCommand(HandlePatientViewModel handlePatientVM, IPatientService patientService,
-            IMedicalRecordService medicalRecordService,
+        public HandlePatientCommand(HandlePatientViewModel handlePatientVM, IPatientRepository patientRepository,
+            IMedicalRecordRepository medicalRecordRepository,
             SecretaryPatientCRUDViewModel secretaryPatientCRUDVM, Guid patientId)
         {
             _handlePatientVM = handlePatientVM;
-            _patientService = patientService;
-            _medicalRecordService = medicalRecordService;
+            _patientRepository = patientRepository;
+            _medicalRecordRepository = medicalRecordRepository;
             _handlePatientVM.PropertyChanged += _addPatientVM_PropertyChanged;
             _secretaryPatientCRUDVM = secretaryPatientCRUDVM;
             _patientId = patientId;
@@ -48,7 +50,7 @@ namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
         {
             if (_patientId == Guid.Empty)
             {
-                if (!_patientService.AlreadyInUse(_handlePatientVM.EmailAddress))
+                if (!_patientRepository.AlreadyInUse(_handlePatientVM.EmailAddress))
                 {
                     HandleAction(parameter, AddPatient);
                 }
@@ -85,16 +87,16 @@ namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
                 Activities = new List<Activity>()
             };
 
-            _patientService.Create(patientToRegister);
+            _patientRepository.Create(patientToRegister);
 
             var medicalRecord = new MedicalRecord { Height = 0, Weight = 0, IllnessHistory = new List<Illness>(), Allergens = new List<Allergen>(), Patient = patientToRegister };
 
-            _medicalRecordService.Create(medicalRecord);
+            _medicalRecordRepository.Create(medicalRecord);
         }
 
         public void UpdatePatient()
         {
-            var patientToUpdate = _patientService.Read(_patientId);
+            var patientToUpdate = _patientRepository.Read(_patientId);
 
             patientToUpdate.EmailAddress = _handlePatientVM.EmailAddress;
             patientToUpdate.Password = _handlePatientVM.Password;
@@ -102,7 +104,7 @@ namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
             patientToUpdate.LastName = _handlePatientVM.LastName;
             patientToUpdate.DateOfBirth = _handlePatientVM.DateOfBirth;
 
-            _patientService.Update(patientToUpdate);
+            _patientRepository.Update(patientToUpdate);
         }
     }
 }

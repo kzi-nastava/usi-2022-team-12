@@ -2,8 +2,8 @@
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.RoomManagement
@@ -11,7 +11,7 @@ namespace HealthInstitution.GUI.Features.RoomManagement
     public class RoomCreateViewModel : ViewModelBase
     {
         public readonly IRoomService _roomService;
-        public readonly IRoomRenovationService _roomRenovationService;
+        public readonly IRoomRenovationRepository _roomRenovationRepository;
         public ICommand? AddRoomCommand { get; }
 
         private string _roomName;
@@ -47,10 +47,10 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-        public RoomCreateViewModel(IRoomService roomService, IRoomRenovationService roomRenovationService)
+        public RoomCreateViewModel(IRoomService roomService, IRoomRenovationRepository roomRenovationRepository)
         {
             _roomService = roomService;
-            _roomRenovationService = roomRenovationService;
+            _roomRenovationRepository = roomRenovationRepository;
             SelectedType = RoomType.ExaminationRoom;
             RoomTypes = new List<RoomType>();
             RoomTypes.Add(RoomType.ExaminationRoom);

@@ -53,7 +53,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
             bool canDelete = CanDelete(_viewModel.SelectedIngredient);
             if (canDelete)
             {
-                _viewModel.IngredientService.Delete(_viewModel.SelectedIngredient.Id);
+                _viewModel.IngredientRepository.Delete(_viewModel.SelectedIngredient.Id);
                 MessageBox.Show("Ingredient deleted successfully!");
                 EventBus.FireEvent("IngredientOverview");
                 return;

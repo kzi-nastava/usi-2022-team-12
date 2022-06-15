@@ -4,15 +4,15 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.RoomManagement
 {
     public class RoomChoiceViewModel : ViewModelBase
     {
-        public readonly IRoomService roomService;
+        public readonly IRoomRepository _roomRepository;
 
         public ICommand? ConfirmRoomChoiceCommand { get; }
 
@@ -60,11 +60,11 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-        public RoomChoiceViewModel(IRoomService roomService)
+        public RoomChoiceViewModel(IRoomRepository roomRepository)
         {
 
-            roomService = roomService;
-            Rooms = roomService.ReadAll().ToList();
+            _roomRepository = roomRepository;
+            Rooms = roomRepository.ReadAll().ToList();
             Rooms = Rooms.OrderBy(x => x.Name).ToList();
             SelectedRoom1 = Rooms[0];
             SelectedRoom2 = Rooms[1];

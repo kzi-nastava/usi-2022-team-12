@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -13,9 +14,9 @@ namespace HealthInstitution.GUI.Features.RoomManagement
 {
     public class RoomRenovationViewModel : ViewModelBase
     {
-        public readonly IRoomService roomService;
-        public readonly IAppointmentService appointmentService;
-        public readonly IRoomRenovationService roomRenovationService;
+        public readonly IRoomRepository _roomRepository;
+        public readonly ISchedulingService _schedulingService;
+        public readonly IRoomRenovationRepository _roomRenovationRepository;
         public ICommand? StandardRenovationCommand { get; }
 
         public ICommand? DivideRenovationCommand { get; }
@@ -153,26 +154,26 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-        public RoomRenovationViewModel(IRoomService roomService, IAppointmentService appointmentService,
-            IRoomRenovationService roomRenovationService)
+        public RoomRenovationViewModel(IRoomRepository roomRepository, ISchedulingService schedulingService,
+            IRoomRenovationRepository roomRenovationRepository)
         {
-            roomService = roomService;
-            appointmentService = appointmentService;
-            roomRenovationService = roomRenovationService;
-            Rooms = roomService.ReadAll().ToList();
+            _roomRepository = roomRepository;
+            _schedulingService = schedulingService;
+            _roomRenovationRepository = roomRenovationRepository;
+            Rooms = roomRepository.ReadAll().ToList();
             Rooms = Rooms.OrderBy(x => x.Name).ToList();
-            Rooms1 = roomService.ReadAll().ToList();
+            Rooms1 = roomRepository.ReadAll().ToList();
             Rooms1 = Rooms1.OrderBy(x => x.Name).ToList();
-            Rooms2 = roomService.ReadAll().ToList();
+            Rooms2 = roomRepository.ReadAll().ToList();
             Rooms2 = Rooms2.OrderBy(x => x.Name).ToList();
 
             SelectedRoom = null;
             SelectedRoomMerge1 = null;
             SelectedRoomMerge2 = null;
 
-            StandardRenovationCommand = new StandardRenovationCommand(this, appointmentService, roomRenovationService);
-            DivideRenovationCommand = new DivideRenovationCommand(this, appointmentService, roomRenovationService, roomService);
-            MergeRenovationCommand = new MergeRenovationCommand(this, appointmentService, roomRenovationService, roomService);
+            StandardRenovationCommand = new StandardRenovationCommand(this, schedulingService, roomRenovationRepository);
+            DivideRenovationCommand = new DivideRenovationCommand(this, schedulingService, roomRenovationRepository, roomRepository);
+            MergeRenovationCommand = new MergeRenovationCommand(this, schedulingService, roomRenovationRepository, roomRepository);
 
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;

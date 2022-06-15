@@ -35,7 +35,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
         {
             string roomName = _viewModel.RoomName;
             var rooms = _viewModel._roomService.ReadRoomsWithName(roomName);
-            var renRooms = _viewModel._roomRenovationService.ReadAll();
+            var renRooms = _viewModel._roomRenovationRepository.ReadAll();
 
             foreach (var renRoom in renRooms)
             {

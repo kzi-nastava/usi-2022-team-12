@@ -1,9 +1,11 @@
-﻿using HealthInstitution.Validation;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using HealthInstitution.Commands.secretary;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.GUI.Utility.Validation;
 
 namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
@@ -98,20 +100,23 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
 
         private readonly IDialogService _dialogService;
 
-        private readonly IMedicalRecordService _medicalRecordService;
+        private readonly IMedicalRecordRepository _medicalRecordRepository;
+
+        private readonly IPatientRepository _patientRepository;
 
         private readonly IPatientService _patientService;
 
         #endregion
 
-        public HandlePatientViewModel(IDialogService dialogService, IPatientService patientService,
-            IMedicalRecordService medicalRecordService,
+        public HandlePatientViewModel(IDialogService dialogService, IPatientRepository patientRepository, IPatientService patientService,
+            IMedicalRecordRepository medicalRecordService,
             SecretaryPatientCRUDViewModel secretartyPatientCRUDVM, Guid patientId) :
             base("Add patient", 700, 550)
         {
             _dialogService = dialogService;
+            _patientRepository = patientRepository;
             _patientService = patientService;
-            _medicalRecordService = medicalRecordService;
+            _medicalRecordRepository = medicalRecordService;
             _patientId = patientId;
 
             if (patientId != Guid.Empty)
@@ -144,7 +149,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
 
         public void FetchPatient()
         {
-            var patient = _patientService.Read(_patientId);
+            var patient = _patientRepository.Read(_patientId);
 
             EmailAddress = patient.EmailAddress;
             FirstName = patient.FirstName;

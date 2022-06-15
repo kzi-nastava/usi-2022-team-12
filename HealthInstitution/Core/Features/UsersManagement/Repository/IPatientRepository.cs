@@ -3,7 +3,7 @@ using HealthInstitution.Core.Features.UsersManagement.Model;
 
 namespace HealthInstitution.Core.Features.UsersManagement.Repository
 {
-    public interface IPatientRepository : ICrudRepository<Patient>
+    public interface IPatientRepository : IUserRepository<Patient>
     {
     }
 }

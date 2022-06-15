@@ -32,14 +32,14 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
 
         public override void Execute(object? parameter)
         {
-            bool ingredientExists = _viewModel.IngredientService.IngredientExists(_viewModel.NameBox);
+            bool ingredientExists = _viewModel.IngredientRepository.IngredientExists(_viewModel.NameBox);
             if (ingredientExists)
             {
                 MessageBox.Show("Ingredient with that name already exists!");
                 return;
             }
             Ingredient i = new Ingredient{ Name = _viewModel.NameBox };
-            _viewModel.IngredientService.Create(i);
+            _viewModel.IngredientRepository.Create(i);
             MessageBox.Show("Ingredient added successfully!");
             EventBus.FireEvent("IngredientOverview");
         }

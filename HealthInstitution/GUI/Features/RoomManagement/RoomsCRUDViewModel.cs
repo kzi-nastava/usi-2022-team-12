@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -12,8 +13,8 @@ namespace HealthInstitution.GUI.Features.RoomManagement
 {
     public class RoomsCRUDViewModel : ViewModelBase
     {
-        public readonly IRoomService roomService;
-        public readonly IAppointmentService appointmentService;
+        public readonly IRoomRepository _roomRepository;
+        public readonly ISchedulingService _schedulingService;
 
         public ICommand? ViewRoomEquipmentCommand { get; }
 
@@ -47,18 +48,18 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-        public RoomsCRUDViewModel(IRoomService roomService, IAppointmentService appointmentService)
+        public RoomsCRUDViewModel(IRoomRepository roomRepository, ISchedulingService schedulingService)
         {
-            roomService = roomService;
-            appointmentService = appointmentService;
+            _roomRepository = roomRepository;
+            _schedulingService = schedulingService;
 
             SelectedRoom = null;
             ViewRoomEquipmentCommand = new ViewRoomEquipmentCommand(this);
             CreateRoomCommand = new CreateRoomCommand();
             OpenUpdateRoomCommand = new OpenUpdateRoomCommand(this);
-            DeleteRoomCommand = new DeleteRoomCommand(this, appointmentService, roomService);
+            DeleteRoomCommand = new DeleteRoomCommand(this, _schedulingService, _roomRepository);
 
-            Rooms = roomService.ReadAll().ToList();
+            Rooms = roomRepository.ReadAll().ToList();
             Rooms = Rooms.OrderBy(x => x.Name).ToList();
 
         }
