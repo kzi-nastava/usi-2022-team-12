@@ -44,7 +44,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.DoctorC
             bool isUpdated;
             try
             {
-                isUpdated = _viewModel.AppointmentService.UpdateAppointment(_viewModel.Appointment, _viewModel.SelectedPatient, doctor, startDate, endDate);
+                isUpdated = _viewModel.SchedulingService.UpdateAppointment(_viewModel.Appointment, _viewModel.SelectedPatient, doctor, startDate, endDate);
             }
             catch (DoctorBusyException)
             {

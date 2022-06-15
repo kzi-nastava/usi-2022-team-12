@@ -1,7 +1,6 @@
-﻿using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
+﻿using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
 using HealthInstitution.GUI.Utility.Dialog.Service;
-using HealthInstitution.Utility;
-using System.Windows;
 using System.Windows.Input;
 
 namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog

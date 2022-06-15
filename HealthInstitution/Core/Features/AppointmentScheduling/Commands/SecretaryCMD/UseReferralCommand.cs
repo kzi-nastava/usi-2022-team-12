@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Windows;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
 
@@ -15,21 +19,25 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
         private readonly ReferralCardViewModel _referralCardVM;
         private readonly ReferralUsageViewModel _referralUsageVM;
 
-        private readonly IReferralService _referralService;
-        private readonly IAppointmentService _appointmentService;
+        private readonly IReferralRepository _referralRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IPatientRepository _patientRepository;        
+        private readonly IRoomService _roomService;
         private readonly IDoctorService _doctorService;
-        private readonly IPatientService _patientService;
 
         public UseReferralCommand(ReferralUsageViewModel referralUsageVM, ReferralCardViewModel referralCardVM,
-            IReferralService referralService, IAppointmentService appointmentService, IDoctorService doctorService,
-            IPatientService patientService)
+            IReferralRepository referralRepository, IAppointmentRepository appointmentRepository, IDoctorRepository doctorRepository,
+            IPatientRepository patientRepository, IRoomService roomService, IDoctorService doctorService)
         {
             _referralCardVM = referralCardVM;
             _referralUsageVM = referralUsageVM;
-            _referralService = referralService;
-            _appointmentService = appointmentService;
+            _referralRepository = referralRepository;
+            _appointmentRepository = appointmentRepository;
+            _doctorRepository = doctorRepository;
+            _patientRepository = patientRepository;
+            _roomService = roomService;
             _doctorService = doctorService;
-            _patientService = patientService;
             _referralCardVM.PropertyChanged += _referralUsageVM_PropertyChanged;
         }
 
@@ -52,20 +60,20 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
             DateTime appointmentTime = (DateTime)_referralCardVM.TimeOfAppointment;
             DateTime finalAppointmentTime = appointmentDate.Add(appointmentTime.TimeOfDay);
 
-            Doctor doctor = _doctorService.Read(_referralCardVM.DoctorId);
-            Patient patient = _patientService.Read(_referralUsageVM.PatientID);
+            Doctor doctor = _doctorRepository.Read(_referralCardVM.DoctorId);
+            Patient patient = _patientRepository.Read(_referralUsageVM.PatientID);
 
             Room freeRoom;
             if (_referralCardVM.AppointmentType == AppointmentType.Regular)
             {
-                freeRoom = _appointmentService.FindFreeRoom(RoomType.ExaminationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
+                freeRoom = _roomService.FindFreeRoom(RoomType.ExaminationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
             }
             else
             {
-                freeRoom = _appointmentService.FindFreeRoom(RoomType.OperationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
+                freeRoom = _roomService.FindFreeRoom(RoomType.OperationRoom, finalAppointmentTime, finalAppointmentTime.AddMinutes(15));
             }
 
-            if (!_appointmentService.IsDoctorAvailable(doctor, finalAppointmentTime, finalAppointmentTime.AddMinutes(15)))
+            if (!_doctorService.IsDoctorAvailable(doctor, finalAppointmentTime, finalAppointmentTime.AddMinutes(15)))
             {
                 _referralCardVM.AppointmentError.ErrorMessage = "Doctor is not available at a given time.";
             }
@@ -75,9 +83,9 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
             }
             else
             {
-                Referral referralToChange = _referralService.Read(_referralCardVM.ReferralId);
+                Referral referralToChange = _referralRepository.Read(_referralCardVM.ReferralId);
                 referralToChange.IsUsed = true;
-                _referralService.Update(referralToChange);
+                _referralRepository.Update(referralToChange);
 
                 Appointment newAppointment = new Appointment
                 {
@@ -91,7 +99,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
                     Anamnesis = null
                 };
 
-                _appointmentService.Create(newAppointment);
+                _appointmentRepository.Create(newAppointment);
 
                 MessageBox.Show("Appointment succesfully created.");
 

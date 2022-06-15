@@ -4,8 +4,9 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -14,15 +15,13 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     public class AppointmentUpdateViewModel : ViewModelBase
     {
         #region services
-        private readonly IAppointmentService _appointmentService;
-        private readonly IActivityService _activityService;
-        private readonly IPatientService _patientService;
-        private readonly IDoctorService _doctorService;
+        private readonly ISchedulingService _schedulingService;
+        private readonly IActivityRepository _activityRepository;
+        private readonly IPatientRepository _patientRepository;
 
-        public IAppointmentService AppointmentService => _appointmentService;
-        public IActivityService ActivityService => _activityService;
-        public IPatientService PatientService => _patientService;
-        public IDoctorService DoctorService => _doctorService;
+        public ISchedulingService SchedulingService => _schedulingService;
+        public IActivityRepository ActivityRepository => _activityRepository;
+        public IPatientRepository PatientRepository => _patientRepository;
         #endregion endregion
 
         #region attributes
@@ -86,14 +85,14 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? BackCommand { get; }
         #endregion
 
-        public AppointmentUpdateViewModel(IDoctorService doctorService, IAppointmentService appointmentService, IActivityService activityService, IPatientService patientService)
+        public AppointmentUpdateViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityRepository activityRepository)
         {
             SelectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
-            _appointmentService = appointmentService;
-            _activityService = activityService;
-            _patientService = patientService;
-            _doctorService = doctorService;
-            Doctors = doctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            _activityRepository = activityRepository;
+            _schedulingService = schedulingService;
+            _patientRepository = patientRepository;
+
+            Doctors = doctorRepository.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             StartDate = SelectedAppointment.StartDate;
             StartTime = SelectedAppointment.StartDate;

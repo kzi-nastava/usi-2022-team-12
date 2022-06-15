@@ -1,4 +1,4 @@
-﻿using HealthInstitution.Core.Services.Interfaces;
+﻿using HealthInstitution.Core.Features.MedicineManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.MedicineManagement;

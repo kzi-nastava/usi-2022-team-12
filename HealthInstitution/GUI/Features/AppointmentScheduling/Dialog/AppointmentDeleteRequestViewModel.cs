@@ -1,8 +1,8 @@
-﻿using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Windows.Input;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Dialog.Service;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Utility.Command;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {
@@ -79,7 +79,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #region Services
 
-        private IAppointmentDeleteRequestService _appointmentDeleteRequestService;
+        private IAppointmentDeleteRequestRepository _appointmentDeleteRequestRepository;
 
         #endregion
 
@@ -89,10 +89,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #endregion
 
-        public AppointmentDeleteRequestViewModel(IAppointmentDeleteRequestService appointmentDeleteRequestService, Guid appointmentRequestId) :
+        public AppointmentDeleteRequestViewModel(IAppointmentDeleteRequestRepository appointmentDeleteRequestRepository, Guid appointmentRequestId) :
                 base("Appointment request details", 800, 650)
         {
-            _appointmentDeleteRequestService = appointmentDeleteRequestService;
+            _appointmentDeleteRequestRepository = appointmentDeleteRequestRepository;
             _appointmentRequestId = appointmentRequestId;
 
             FetchAppointmentDeleteRequest();
@@ -103,7 +103,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         public void FetchAppointmentDeleteRequest()
         {
-            var appointmentDeleteRequest = _appointmentDeleteRequestService.Read(_appointmentRequestId);
+            var appointmentDeleteRequest = _appointmentDeleteRequestRepository.Read(_appointmentRequestId);
 
             PatientEmailAddress = appointmentDeleteRequest.Patient.EmailAddress;
             PatientFullName = appointmentDeleteRequest.Patient.FullName;

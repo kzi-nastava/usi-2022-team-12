@@ -5,11 +5,18 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.NotificationManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling
 {
@@ -39,10 +46,13 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         #region Services
 
         private readonly IDialogService _dialogService;
-        private readonly IAppointmentService _appointmentService;
+        private readonly ISchedulingService _schedulingService;
+        private readonly IAppointmentRepository _appointmentRepository;
         private readonly IDoctorService _doctorService;
+        private readonly IPatientRepository _patientRepository;
         private readonly IPatientService _patientService;
-        private readonly INotificationService _notificationService;
+        private readonly IUserNotificationRepository _userNotificationRepository;
+        private readonly IRoomService _roomService;
 
         #endregion
 
@@ -56,16 +66,19 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         #endregion
 
-        public SecretaryUrgentScheduleViewModel(IDialogService dialogService, IAppointmentService appointmentService,
-            IDoctorService doctorService, IPatientService patientService, INotificationService notificationService)
+        public SecretaryUrgentScheduleViewModel(ISchedulingService schedulingService, IDialogService dialogService, IAppointmentRepository appointmentRepository,
+            IDoctorService doctorService, IPatientRepository patientRepository, IPatientService patientService, IUserNotificationRepository userNotificationRepository, IRoomService roomService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
 
-            _appointmentService = appointmentService;
+            _appointmentRepository = appointmentRepository;
             _doctorService = doctorService;
-            _patientService = patientService;
+            _patientRepository = patientRepository;
             _dialogService = dialogService;
-            _notificationService = notificationService;
+            _userNotificationRepository = userNotificationRepository;
+            _roomService = roomService;
+            _schedulingService = schedulingService;
+            _patientService = patientService;
 
             SearchCommand = new RelayCommand(() =>
             {
@@ -121,19 +134,19 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
             for (DateTime potentialTime = now.AddMinutes(15); potentialTime <= end; potentialTime = potentialTime.AddMinutes(5))
             {
-                Room potentialRoom = _appointmentService.FindFreeRoom(roomType, potentialTime, potentialTime.AddMinutes(15));
+                Room potentialRoom = _roomService.FindFreeRoom(roomType, potentialTime, potentialTime.AddMinutes(15));
 
                 if (potentialRoom == null)
                     continue;
 
                 foreach (var doctor in availableDoctors)
                 {
-                    if (_appointmentService.IsDoctorAvailable(doctor, potentialTime, potentialTime.AddMinutes(15)))
+                    if (_doctorService.IsDoctorAvailable(doctor, potentialTime, potentialTime.AddMinutes(15)))
                     {
                         Appointment newAppointment = new Appointment
                         {
                             Doctor = doctor,
-                            Patient = _patientService.Read(_selectedPatient.Id),
+                            Patient = _patientRepository.Read(_selectedPatient.Id),
                             StartDate = potentialTime,
                             EndDate = potentialTime.AddMinutes(15),
                             Room = potentialRoom,
@@ -142,7 +155,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                             Anamnesis = null
                         };
 
-                        _appointmentService.Create(newAppointment);
+                        _appointmentRepository.Create(newAppointment);
 
                         return true;
                     }
@@ -156,8 +169,8 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         {
             IList<Tuple<Appointment, DateTime>> appointmentDelayPairs = GetCandidatesToDelay(availableDoctors);
 
-            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_patientService, _appointmentService,
-                _notificationService, appointmentDelayPairs, _selectedPatient.Id);
+            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_roomService,  _appointmentRepository,  _patientRepository,
+                _schedulingService, _userNotificationRepository, appointmentDelayPairs, _selectedPatient.Id);
             _dialogService.OpenDialog(delayAppointmentVM);
         }
 
@@ -167,7 +180,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
             foreach (var doctor in availableDoctors)
             {
-                IEnumerable<Appointment> appointments = _appointmentService.GetAppointmentsForDateRangeAndDoctor(DateTime.Now.AddMinutes(15), DateTime.Now.AddHours(2), doctor);
+                IEnumerable<Appointment> appointments = _schedulingService.GetAppointmentsForDateRangeAndDoctor(DateTime.Now.AddMinutes(15), DateTime.Now.AddHours(2), doctor);
                 foreach (var appointment in appointments)
                 {
                     DateTime delayedTime = FindTimeToDelayAppointment(appointment);
@@ -190,12 +203,12 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
             {
                 potentialTime = potentialTime.AddMinutes(5);
 
-                Room freeRoom = _appointmentService.FindFreeRoom(appointment.Room.RoomType, potentialTime, potentialTime.AddMinutes(15));
+                Room freeRoom = _roomService.FindFreeRoom(appointment.Room.RoomType, potentialTime, potentialTime.AddMinutes(15));
 
                 if (freeRoom == null)
                     continue;
 
-                if (_appointmentService.IsDoctorAvailable(appointment.Doctor, potentialTime, potentialTime.AddMinutes(15)))
+                if (_doctorService.IsDoctorAvailable(appointment.Doctor, potentialTime, potentialTime.AddMinutes(15)))
                     return potentialTime;
             }
         }

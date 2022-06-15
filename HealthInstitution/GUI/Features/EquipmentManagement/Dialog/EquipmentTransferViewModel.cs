@@ -5,9 +5,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 
@@ -137,6 +140,10 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
 
         public readonly IEquipmentService _equipmentService;
 
+        public readonly IRoomRepository _roomRepository;
+
+        public readonly IEquipmentRepository _equipmentRepository;
+
         #endregion
 
         #region Commands
@@ -151,12 +158,14 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
 
         #endregion
 
-        public EquipmentTransferViewModel(Room firstRoom, IRoomService roomService, IEquipmentService equipmentService) :
+        public EquipmentTransferViewModel(Room firstRoom, IRoomService roomService, IRoomRepository roomRepository, IEquipmentService equipmentService, IEquipmentRepository equipmentRepository) :
             base("Dynamic equipment arrangement", 1000, 600)
         {
             FirstRoom = firstRoom;
             _roomService = roomService;
             _equipmentService = equipmentService;
+            _roomRepository = roomRepository;
+            _equipmentRepository = equipmentRepository;
             CanChange = true;
             CanConfirm = false;
 
@@ -191,7 +200,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
         {
             ChangeRoom = new RelayCommand(() =>
             {
-                SecondRoom = _roomService.Read(SelectedRoom.Id);
+                SecondRoom = _roomRepository.Read(SelectedRoom.Id);
                 FilterRoomEquipment();
                 CanConfirm = false;
             }, () => CanChange && SelectedRoom != null);
@@ -238,7 +247,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
                 if (entryToUpdate == null && entry.Quantity != 0)
                     room.Inventory.Add(new Entry<Equipment>()
                     {
-                        Item = _equipmentService.Read(entry.EquipmentId),
+                        Item = _equipmentRepository.Read(entry.EquipmentId),
                         Quantity = entry.Quantity
                     });
                 else if (entryToUpdate != null)
@@ -246,7 +255,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
             }
 
             room.RefreshInventory();
-            _roomService.Update(room);
+            _roomRepository.Update(room);
         }
 
         public bool CanExecuteTransfer(int direction)

@@ -3,8 +3,10 @@ using System.Linq;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.PatientCMD;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -13,14 +15,16 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     public class PatientAppointmentsViewModel : ViewModelBase
     {
         #region services
-        private readonly IAppointmentService _appointmentService;
-        private readonly IAppointmentDeleteRequestService _appointmentDeleteRequestService;
-        private readonly IActivityService _activityService;
-        private readonly IPatientService _patientService;
-        public IAppointmentService AppointmentService => _appointmentService;
-        public IAppointmentDeleteRequestService AppointmentDeleteRequestService => _appointmentDeleteRequestService;
-        public IActivityService ActivityService => _activityService;
-        public IPatientService PatientService => _patientService;
+        private readonly ISchedulingService _schedulingService;
+        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IAppointmentDeleteRequestRepository _appointmentDeleteRequestRepository;
+        private readonly IActivityRepository _activityRepository;
+        private readonly IPatientRepository _patientRepository;
+        public ISchedulingService SchedulingService => _schedulingService;
+        public IAppointmentRepository AppointmentRepository => _appointmentRepository;
+        public IAppointmentDeleteRequestRepository AppointmentDeleteRequestRepository => _appointmentDeleteRequestRepository;
+        public IActivityRepository ActivityRepository => _activityRepository;
+        public IPatientRepository PatientRepository => _patientRepository;
         #endregion
 
         #region attributes
@@ -58,15 +62,16 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? RemoveAppointmentCommand { get; }
         #endregion
 
-        public PatientAppointmentsViewModel(IAppointmentService appointmentService, IAppointmentDeleteRequestService appointmentDeleteRequestService, IActivityService activityService, IPatientService patientService)
+        public PatientAppointmentsViewModel(ISchedulingService schedulingService, IAppointmentRepository appointmentRepository, IAppointmentDeleteRequestRepository appointmentDeleteRequestRepository, IActivityRepository activityRepository, IPatientRepository patientRepository)
         {
-            _appointmentService = appointmentService;
-            _appointmentDeleteRequestService = appointmentDeleteRequestService;
-            _activityService = activityService;
-            _patientService = patientService;
+            _schedulingService = schedulingService;
+            _appointmentDeleteRequestRepository = appointmentDeleteRequestRepository;
+            _activityRepository = activityRepository;
+            _patientRepository = patientRepository;
+            _appointmentRepository = appointmentRepository;
 
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-            FutureAppointments = AppointmentService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
+            FutureAppointments = SchedulingService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();
 
             RecommendAppointmentCreationCommand = new RecommendAppointmentCreationCommand();
             AppointmentCreationCommand = new AppointmentCreationCommand();

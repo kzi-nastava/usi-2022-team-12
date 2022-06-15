@@ -1,10 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.EquipmentManagement.Repository;
+using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Services;
-using HealthInstitution.Core.Services.Interfaces;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
+using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
 using HealthInstitution.GUI.Features.EquipmentManagement.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
 
 namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
@@ -39,6 +43,10 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         private readonly IEquipmentService _equipmentService;
 
+        private readonly IRoomRepository _roomRepository;
+
+        private readonly IEquipmentRepository _equipmentRepository;
+
         #endregion
 
         #region Commands
@@ -49,15 +57,16 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         #endregion
 
-        public SecretaryDynamicEquipmentArrangementViewModel(IDialogService dialogService, IRoomService roomService, IEquipmentService equipmentService)
+        public SecretaryDynamicEquipmentArrangementViewModel(IDialogService dialogService, IRoomService roomService, IRoomRepository roomRepository, IEquipmentService equipmentService, IEquipmentRepository equipmentRepository)
         {
             _dialogService = dialogService;
             _roomService = roomService;
             _equipmentService = equipmentService;
-
+            _roomRepository = roomRepository;
+            _equipmentRepository = equipmentRepository;
             Transfer = new RelayCommand(() =>
             {
-                var equipmentTransferVM = new EquipmentTransferViewModel(_selectedPriorityRoom, _roomService, _equipmentService);
+                var equipmentTransferVM = new EquipmentTransferViewModel(_selectedPriorityRoom, _roomService, _roomRepository, _equipmentService, _equipmentRepository);
                 _dialogService.OpenDialog(equipmentTransferVM);
                 UpdatePage();
             },

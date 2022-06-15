@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using HealthInstitution.Utility;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Utility.Command;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {

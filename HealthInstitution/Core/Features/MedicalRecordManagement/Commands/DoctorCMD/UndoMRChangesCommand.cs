@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
 using HealthInstitution.Core.Utility.Command;

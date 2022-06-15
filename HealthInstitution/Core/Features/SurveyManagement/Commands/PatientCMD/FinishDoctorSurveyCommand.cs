@@ -17,9 +17,9 @@ namespace HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD
         public override void Execute(object? parameter)
         {
             DoctorSurvey ds = new DoctorSurvey { Doctor = _viewModel.SelectedAppointment.Doctor, ServiceQuality = _viewModel.ServiceQualityRating, Recommendation = _viewModel.RecommendationRating, Comment = _viewModel.Comment};
-            _viewModel.DoctorSurveyService.Create(ds);
+            _viewModel.DoctorSurveyRepository.Create(ds);
             _viewModel.SelectedAppointment.IsRated = true;
-            _viewModel.AppointmentService.Update(_viewModel.SelectedAppointment);
+            _viewModel.AppointmentRepository.Update(_viewModel.SelectedAppointment);
             MessageBox.Show("Doctor rated successfully.\nThank you for participating!");
             EventBus.FireEvent("PatientMedicalRecord");
         }

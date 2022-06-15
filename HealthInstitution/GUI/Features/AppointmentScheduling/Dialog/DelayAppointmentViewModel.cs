@@ -1,14 +1,18 @@
-﻿using HealthInstitution.Model;
-using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Features.UsersManagement.Dialog;
+using HealthInstitution.GUI.Utility.Dialog.Service;
+using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
+using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.RoomManagement.Service;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {
@@ -42,32 +46,38 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #region Services
 
-        private readonly IPatientService _patientService;
+        private readonly IPatientRepository _patientRepository;
 
-        private readonly IAppointmentService _appointmentService;
+        private readonly ISchedulingService _schedulingService;
 
-        private readonly INotificationService _notificationService;
+        private readonly IAppointmentRepository _appointmentRepository;
+
+        private readonly IUserNotificationRepository _userNotificationRepository;
+
+        private readonly IRoomService _roomService;
 
         #endregion
 
-        public DelayAppointmentViewModel(IPatientService patientService,
-            IAppointmentService appointmentService, INotificationService notificationService,
+        public DelayAppointmentViewModel(IRoomService roomService, IAppointmentRepository appointmentRepository, IPatientRepository patientRepository,
+            ISchedulingService schedulingService, IUserNotificationRepository userNotificationRepository,
             IList<Tuple<Appointment, DateTime>> delayAppointments,
             Guid patientId) :
             base("Delay appointment", 900, 550)
         {
-            _patientService = patientService;
-            _appointmentService = appointmentService;
+            _patientRepository = patientRepository;
+            _schedulingService = schedulingService;
             _delayAppointments = delayAppointments;
+            _appointmentRepository = appointmentRepository;
             _patientId = patientId;
-            _notificationService = notificationService;
+            _userNotificationRepository = userNotificationRepository;
+            _roomService = roomService;
 
             DelayAppointment = new RelayCommand<IDialogWindow>(w =>
             {
-                Patient urgentPatient = _patientService.Read(_patientId);
+                Patient urgentPatient = _patientRepository.Read(_patientId);
 
-                Appointment appointmentToChange = _appointmentService.Read(_selectedDelayAppointment.Item1.Id);
-                Room freeRoom = _appointmentService.FindFreeRoom(appointmentToChange.Room.RoomType, _selectedDelayAppointment.Item2, _selectedDelayAppointment.Item2.AddMinutes(15));
+                Appointment appointmentToChange = appointmentRepository.Read(_selectedDelayAppointment.Item1.Id);
+                Room freeRoom = _roomService.FindFreeRoom(appointmentToChange.Room.RoomType, _selectedDelayAppointment.Item2, _selectedDelayAppointment.Item2.AddMinutes(15));
 
                 Appointment newAppointment = new Appointment
                 {
@@ -81,10 +91,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
                     Anamnesis = null
                 };
 
-                _appointmentService.Create(newAppointment);
+                appointmentRepository.Create(newAppointment);
 
                 appointmentToChange.Patient = urgentPatient;
-                _appointmentService.Update(appointmentToChange);
+                appointmentRepository.Update(appointmentToChange);
 
                 MakeNotifications(newAppointment, appointmentToChange.StartDate);
                 MessageBox.Show("Appointment scheduled successfully");
@@ -97,8 +107,8 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
         {
             string notificationMessage = "Your appointment has been delayed from " + oldTime.ToString() + " to " + newAppointment.StartDate.ToString();
 
-            _notificationService.CreateNotification(newAppointment.Patient.Id, notificationMessage);
-            _notificationService.CreateNotification(newAppointment.Doctor.Id, notificationMessage);
+            _userNotificationRepository.CreateNotification(newAppointment.Patient.Id, notificationMessage);
+            _userNotificationRepository.CreateNotification(newAppointment.Doctor.Id, notificationMessage);
         }
     }
 }

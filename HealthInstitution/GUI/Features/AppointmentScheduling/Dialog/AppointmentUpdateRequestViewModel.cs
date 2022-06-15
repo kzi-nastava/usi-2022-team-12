@@ -1,8 +1,8 @@
-﻿using HealthInstitution.Utility;
-using System;
+﻿using System;
 using System.Windows.Input;
-using HealthInstitution.Core.Services.Interfaces;
 using HealthInstitution.GUI.Utility.Dialog.Service;
+using HealthInstitution.Core.Utility.Command;
+using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {
@@ -128,7 +128,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #region Services
 
-        private IAppointmentUpdateRequestService _appointmentUpdateRequestService;
+        private IAppointmentUpdateRequestRepository _appointmentUpdateRequestRepository;
 
         #endregion
 
@@ -138,10 +138,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #endregion
 
-        public AppointmentUpdateRequestViewModel(IAppointmentUpdateRequestService appointmentUpdateRequestService, Guid appointmentRequestId) :
+        public AppointmentUpdateRequestViewModel(IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository, Guid appointmentRequestId) :
                 base("Appointment request details", 800, 650)
         {
-            _appointmentUpdateRequestService = appointmentUpdateRequestService;
+            _appointmentUpdateRequestRepository = appointmentUpdateRequestRepository;
             _appointmentRequestId = appointmentRequestId;
 
             FetchAppointmentUpdateRequest();
@@ -152,7 +152,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         public void FetchAppointmentUpdateRequest()
         {
-            var appointmentUpdateRequest = _appointmentUpdateRequestService.Read(_appointmentRequestId);
+            var appointmentUpdateRequest = _appointmentUpdateRequestRepository.Read(_appointmentRequestId);
 
             PatientEmailAddress = appointmentUpdateRequest.Patient.EmailAddress;
             PatientFullName = appointmentUpdateRequest.Patient.FullName;

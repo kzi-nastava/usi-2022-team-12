@@ -16,7 +16,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Commands.Doc
         {
             foreach (var entry in _viewModel.Inventory)
             {
-                _viewModel.EntryService.Update(entry);
+                _viewModel.EntryRepository.Update(entry);
             }
             _viewModel.CloseDialogWithResult((IDialogWindow)parameter, true);
         }
