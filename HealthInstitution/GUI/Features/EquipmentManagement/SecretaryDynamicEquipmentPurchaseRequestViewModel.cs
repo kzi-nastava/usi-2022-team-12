@@ -42,7 +42,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         private readonly IEquipmentService _equipmentService;
 
-        private readonly IEquipmentPurchaseRequestRepository _equipmentPurchaseRequestRepository;
+        private readonly IEquipmentPurchaseRequestService _equipmentPurchaseRequestService;
 
         private readonly IRoomService _roomService;
 
@@ -55,12 +55,12 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         #endregion
 
-        public SecretaryDynamicEquipmentPurchaseRequestViewModel(IDialogService dialogService, IEquipmentService equipmentService, IEquipmentPurchaseRequestRepository equipmentPurchaseRequestRepository,
+        public SecretaryDynamicEquipmentPurchaseRequestViewModel(IDialogService dialogService, IEquipmentService equipmentService, IEquipmentPurchaseRequestService equipmentPurchaseRequestService,
             IRoomService roomService)
         {
             _dialogService = dialogService;
             _equipmentService = equipmentService;
-            _equipmentPurchaseRequestRepository = equipmentPurchaseRequestRepository;
+            _equipmentPurchaseRequestService = equipmentPurchaseRequestService;
             _roomService = roomService;
 
             DynamicEquipments = new ObservableCollection<Equipment>(_equipmentService.GetEquipmentNotInRoom(_roomService.GetStorage(), EquipmentType.DynamicEquipment));
@@ -81,17 +81,14 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                     IsDone = false
                 };
 
-                equipmentPurchaseRequestRepository.Create(purchaseRequest);
+                _equipmentPurchaseRequestService.Create(purchaseRequest);
 
                 MessageBox.Show("Purchase request made successfully.");
 
 
-            }, () => { return _selectedDynamicEquipment != null; });
+            }, () => _selectedDynamicEquipment != null);
 
-            SearchCommand = new RelayCommand(() =>
-            {
-                Search();
-            });
+            SearchCommand = new RelayCommand(Search);
 
         }
 

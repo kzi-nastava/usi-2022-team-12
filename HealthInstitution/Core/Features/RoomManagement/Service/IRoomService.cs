@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Utility;
 
 namespace HealthInstitution.Core.Features.RoomManagement.Service
 {
-    public interface IRoomService
+    public interface IRoomService : ICrudService<Room>
     {
         public IEnumerable<Room> ReadRooms(RoomType rt);
 
@@ -25,8 +26,11 @@ namespace HealthInstitution.Core.Features.RoomManagement.Service
         public void AddItemQuantity(Room room, Entry<Equipment> deliveredEquipment);
 
         public void IncreaseItemQuantity(Room room, Entry<Equipment> deliveredEquipment);
+
         Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end);
+
         bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
+
         bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate);
     }
 }

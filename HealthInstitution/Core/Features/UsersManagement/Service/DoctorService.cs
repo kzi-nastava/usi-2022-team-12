@@ -26,11 +26,34 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
             _offDaysService = offDaysService;
         }
 
-        public IList<Doctor> GetDoctorsForDoctorSpecialization(DoctorSpecialization doctorSpecialization)
-        {
-            return _doctorRepository.ReadAll().Where(d => d.Specialization == doctorSpecialization).ToList();
+        #region CRUD methods
 
+        public IEnumerable<Doctor> ReadAll()
+        {
+            return _doctorRepository.ReadAll();
         }
+
+        public Doctor Read(Guid doctorId)
+        {
+            return _doctorRepository.Read(doctorId);
+        }
+
+        public Doctor Create(Doctor newDoctor)
+        {
+            return _doctorRepository.Create(newDoctor);
+        }
+
+        public Doctor Update(Doctor doctorToUpdate)
+        {
+            return _doctorRepository.Update(doctorToUpdate);
+        }
+
+        public Doctor Delete(Guid doctorId)
+        {
+            return _doctorRepository.Delete(doctorId);
+        }
+
+        #endregion
 
         public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization)
         {

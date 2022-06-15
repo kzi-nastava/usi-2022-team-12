@@ -8,6 +8,7 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Repository
     public interface IReferralRepository : ICrudRepository<Referral>
     {
         IEnumerable<Referral> GetValidReferralsForPatient(Guid patientId);
+
         bool PatientHasValidReferral(Guid patientId);
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
@@ -43,10 +41,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         private readonly IEquipmentService _equipmentService;
 
-        private readonly IRoomRepository _roomRepository;
-
-        private readonly IEquipmentRepository _equipmentRepository;
-
         #endregion
 
         #region Commands
@@ -57,16 +51,14 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         #endregion
 
-        public SecretaryDynamicEquipmentArrangementViewModel(IDialogService dialogService, IRoomService roomService, IRoomRepository roomRepository, IEquipmentService equipmentService, IEquipmentRepository equipmentRepository)
+        public SecretaryDynamicEquipmentArrangementViewModel(IDialogService dialogService, IRoomService roomService, IEquipmentService equipmentService)
         {
             _dialogService = dialogService;
             _roomService = roomService;
             _equipmentService = equipmentService;
-            _roomRepository = roomRepository;
-            _equipmentRepository = equipmentRepository;
             Transfer = new RelayCommand(() =>
             {
-                var equipmentTransferVM = new EquipmentTransferViewModel(_selectedPriorityRoom, _roomService, _roomRepository, _equipmentService, _equipmentRepository);
+                var equipmentTransferVM = new EquipmentTransferViewModel(_selectedPriorityRoom, _roomService, _equipmentService);
                 _dialogService.OpenDialog(equipmentTransferVM);
                 UpdatePage();
             },

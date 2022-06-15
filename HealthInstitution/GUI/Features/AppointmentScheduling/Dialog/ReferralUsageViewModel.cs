@@ -10,6 +10,7 @@ using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Commands.SecretaryCMD;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Services;
 using HealthInstitution.Core.Ninject;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Service;
@@ -97,35 +98,33 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
     public class ReferralUsageViewModel : DialogPagingViewModelBase<ReferralUsageViewModel>
     {
-        public Guid PatientID;
+        public Guid PatientId;
 
-        private readonly IReferralRepository _referralRepository;
-        private readonly IAppointmentRepository _appointmentRepository;
-        private readonly IDoctorRepository _doctorRepository;
-        private readonly IPatientRepository _patientRepository;
+        #region Services
+
+        private readonly IReferralService _referralService;
+
+        #endregion
 
         public ObservableCollection<ReferralCardViewModel> ReferralViewModels { get; private set; } = new ObservableCollection<ReferralCardViewModel>();
 
-        public ReferralUsageViewModel(Guid patientId, IReferralRepository referralRepository, IAppointmentRepository appointmentRepository,
-            IDoctorRepository doctorRepository, IPatientRepository patientRepository) : base("Referral overview", "", 1000, 750)
+        public ReferralUsageViewModel(Guid patientId, IReferralService referralService)
+            : base("Referral overview", "", 1000, 750)
         {
-            PatientID = patientId;
-            _referralRepository = referralRepository;
-            _appointmentRepository = appointmentRepository;
-            _doctorRepository = doctorRepository;
-            _patientRepository = patientRepository;
+            PatientId = patientId;
+            _referralService = referralService;
             UpdatePage(0);
         }
 
         public override void UpdatePage(int pageNumber)
         {
             ReferralViewModels.Clear();
-            var page = _referralRepository.GetValidReferralsForPatient(PatientID).ToPage(                new ReferralPage
-                {
-                    Page = pageNumber,
-                    Size = Size,
-                    Query = ""
-                }
+            var page = _referralService.GetValidReferralsForPatient(PatientId).ToPage(new ReferralPage
+            {
+                Page = pageNumber,
+                Size = Size,
+                Query = ""
+            }
             );
 
             foreach (var entity in page.Entities)
@@ -138,7 +137,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
                     DoctorFullName = entity.Doctor.FullName,
                     AppointmentType = entity.AppointmentType,
                 };
-                referralModel.UseReferral = new UseReferralCommand(this, referralModel, _referralRepository, _appointmentRepository, _doctorRepository, _patientRepository, ServiceLocator.Get<RoomService>(), ServiceLocator.Get<DoctorService>());
+                referralModel.UseReferral = new UseReferralCommand(this, referralModel, _referralService,
+                    ServiceLocator.Get<AppointmentRepository>(),
+                    ServiceLocator.Get<DoctorService>(),
+                    ServiceLocator.Get<PatientService>(),
+                    ServiceLocator.Get<RoomService>());
                 ReferralViewModels.Add(referralModel);
             }
             OnPageFetched(page);

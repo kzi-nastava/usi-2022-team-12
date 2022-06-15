@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Utility.Command;
@@ -36,9 +35,9 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             _viewModel.AppintmentRepository.Create(_viewModel.SelectedAppointment);
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
-            _viewModel.ActivityRepository.Create(act);
+            _viewModel.ActivityService.Create(act);
             MessageBox.Show("Appointment created successfully!");
-            var activityCount = _viewModel.ActivityRepository.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+            var activityCount = _viewModel.ActivityService.GetNumberOfRecentCreateActivities(pt.Id, 30);
             if (activityCount > 8)
             {
                 pt.IsBlocked = true;

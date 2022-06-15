@@ -7,6 +7,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -16,11 +17,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     {
         #region services
         private readonly ISchedulingService _schedulingService;
-        private readonly IActivityRepository _activityRepository;
+        private readonly IActivityService _activityService;
         private readonly IPatientRepository _patientRepository;
 
         public ISchedulingService SchedulingService => _schedulingService;
-        public IActivityRepository ActivityRepository => _activityRepository;
+        public IActivityService ActivityService => _activityService;
         public IPatientRepository PatientRepository => _patientRepository;
         #endregion endregion
 
@@ -85,10 +86,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? BackCommand { get; }
         #endregion
 
-        public AppointmentUpdateViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityRepository activityRepository)
+        public AppointmentUpdateViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityService activityService)
         {
             SelectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
-            _activityRepository = activityRepository;
+            _activityService = activityService;
             _schedulingService = schedulingService;
             _patientRepository = patientRepository;
 

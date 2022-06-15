@@ -7,7 +7,6 @@ using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Repository;
-using HealthInstitution.Core.Persistence;
 
 namespace HealthInstitution.Core.Features.RoomManagement.Service
 {
@@ -27,6 +26,35 @@ namespace HealthInstitution.Core.Features.RoomManagement.Service
             _appointmentUpdateRequestRepository = appointmentUpdateRequestRepository;
             _appointmentRepository = appointmentRepository;
         }
+
+        #region CRUD methods
+
+        public IEnumerable<Room> ReadAll()
+        {
+            return _roomRepository.ReadAll();
+        }
+
+        public Room Read(Guid roomId)
+        {
+            return _roomRepository.Read(roomId);
+        }
+
+        public Room Create(Room newRoom)
+        {
+            return _roomRepository.Create(newRoom);
+        }
+
+        public Room Update(Room roomToUpdate)
+        {
+            return _roomRepository.Update(roomToUpdate);
+        }
+
+        public Room Delete(Guid roomId)
+        {
+            return _roomRepository.Delete(roomId);
+        }
+
+        #endregion
 
         public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
@@ -24,6 +25,35 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
             _appointmentDeleteRequestRepository = appointmentDeleteRequestRepository;
             _appointmentUpdateRequestRepository = appointmentUpdateRequestRepository;
         }
+
+        #region CRUD methods
+
+        public IEnumerable<AppointmentRequest> ReadAll()
+        {
+            return _appointmentRequestRepository.ReadAll();
+        }
+
+        public AppointmentRequest Read(Guid requestId)
+        {
+            return _appointmentRequestRepository.Read(requestId);
+        }
+
+        public AppointmentRequest Create(AppointmentRequest newRequest)
+        {
+            return _appointmentRequestRepository.Create(newRequest);
+        }
+
+        public AppointmentRequest Update(AppointmentRequest requestToUpdate)
+        {
+            return _appointmentRequestRepository.Update(requestToUpdate);
+        }
+
+        public AppointmentRequest Delete(Guid requestId)
+        {
+            return _appointmentRequestRepository.Delete(requestId);
+        }
+
+        #endregion
 
         public IEnumerable<AppointmentRequest> ReadAllPendingRequests()
         {

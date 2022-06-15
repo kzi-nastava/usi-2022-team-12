@@ -8,6 +8,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.ViewModel;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling
@@ -17,13 +18,13 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         #region services
         private readonly IAppointmentRepository _appintmentRepository;
         private readonly ISchedulingService _schedulingService;
-        private readonly IActivityRepository _activityRepository;
+        private readonly IActivityService _activityService;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IPatientRepository _patientRepository;
 
         public IAppointmentRepository AppintmentRepository => _appintmentRepository;
         public ISchedulingService SchedulingService => _schedulingService;
-        public IActivityRepository ActivityRepository => _activityRepository;
+        public IActivityService ActivityService => _activityService;
         public IDoctorRepository DoctorRepository => _doctorRepository;
         public IPatientRepository PatientRepository => _patientRepository;
         #endregion
@@ -120,11 +121,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand BackCommand { get; }
         #endregion
 
-        public RecommendAppointmentCreationViewModel(IAppointmentRepository appintmentRepository, ISchedulingService schedulingService, IActivityRepository activityRepository, IDoctorRepository doctorRepository, IPatientRepository patientRepository)
+        public RecommendAppointmentCreationViewModel(IAppointmentRepository appintmentRepository, ISchedulingService schedulingService, IActivityService activityService, IDoctorRepository doctorRepository, IPatientRepository patientRepository)
         {
             _appintmentRepository = appintmentRepository;
             _schedulingService = schedulingService;
-            _activityRepository = activityRepository;
+            _activityService = activityService;
             _doctorRepository = doctorRepository;
             _patientRepository = patientRepository;
 

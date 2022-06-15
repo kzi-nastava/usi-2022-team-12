@@ -7,6 +7,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -18,12 +19,12 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         private readonly ISchedulingService _schedulingService;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IAppointmentDeleteRequestRepository _appointmentDeleteRequestRepository;
-        private readonly IActivityRepository _activityRepository;
+        private readonly IActivityService _activityService;
         private readonly IPatientRepository _patientRepository;
         public ISchedulingService SchedulingService => _schedulingService;
         public IAppointmentRepository AppointmentRepository => _appointmentRepository;
         public IAppointmentDeleteRequestRepository AppointmentDeleteRequestRepository => _appointmentDeleteRequestRepository;
-        public IActivityRepository ActivityRepository => _activityRepository;
+        public IActivityService ActivityService => _activityService;
         public IPatientRepository PatientRepository => _patientRepository;
         #endregion
 
@@ -62,11 +63,12 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? RemoveAppointmentCommand { get; }
         #endregion
 
-        public PatientAppointmentsViewModel(ISchedulingService schedulingService, IAppointmentRepository appointmentRepository, IAppointmentDeleteRequestRepository appointmentDeleteRequestRepository, IActivityRepository activityRepository, IPatientRepository patientRepository)
+        public PatientAppointmentsViewModel(ISchedulingService schedulingService, IAppointmentRepository appointmentRepository,
+            IAppointmentDeleteRequestRepository appointmentDeleteRequestRepository, IActivityService activityService, IPatientRepository patientRepository)
         {
             _schedulingService = schedulingService;
             _appointmentDeleteRequestRepository = appointmentDeleteRequestRepository;
-            _activityRepository = activityRepository;
+            _activityService = activityService;
             _patientRepository = patientRepository;
             _appointmentRepository = appointmentRepository;
 

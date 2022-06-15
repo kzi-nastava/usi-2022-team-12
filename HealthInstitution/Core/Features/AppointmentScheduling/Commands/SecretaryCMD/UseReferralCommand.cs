@@ -3,11 +3,10 @@ using System.Windows;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
-using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Services;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.AppointmentScheduling.Dialog;
@@ -19,25 +18,23 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
         private readonly ReferralCardViewModel _referralCardVM;
         private readonly ReferralUsageViewModel _referralUsageVM;
 
-        private readonly IReferralRepository _referralRepository;
+        private readonly IReferralService _referralService;
         private readonly IAppointmentRepository _appointmentRepository;
-        private readonly IDoctorRepository _doctorRepository;
-        private readonly IPatientRepository _patientRepository;        
-        private readonly IRoomService _roomService;
         private readonly IDoctorService _doctorService;
+        private readonly IPatientService _patientService;
+        private readonly IRoomService _roomService;
 
         public UseReferralCommand(ReferralUsageViewModel referralUsageVM, ReferralCardViewModel referralCardVM,
-            IReferralRepository referralRepository, IAppointmentRepository appointmentRepository, IDoctorRepository doctorRepository,
-            IPatientRepository patientRepository, IRoomService roomService, IDoctorService doctorService)
+            IReferralService referralService, IAppointmentRepository appointmentRepository, IDoctorService doctorService,
+            IPatientService patientService, IRoomService roomService)
         {
             _referralCardVM = referralCardVM;
             _referralUsageVM = referralUsageVM;
-            _referralRepository = referralRepository;
+            _referralService = referralService;
             _appointmentRepository = appointmentRepository;
-            _doctorRepository = doctorRepository;
-            _patientRepository = patientRepository;
-            _roomService = roomService;
             _doctorService = doctorService;
+            _patientService = patientService;
+            _roomService = roomService;
             _referralCardVM.PropertyChanged += _referralUsageVM_PropertyChanged;
         }
 
@@ -60,8 +57,8 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
             DateTime appointmentTime = (DateTime)_referralCardVM.TimeOfAppointment;
             DateTime finalAppointmentTime = appointmentDate.Add(appointmentTime.TimeOfDay);
 
-            Doctor doctor = _doctorRepository.Read(_referralCardVM.DoctorId);
-            Patient patient = _patientRepository.Read(_referralUsageVM.PatientID);
+            Doctor doctor = _doctorService.Read(_referralCardVM.DoctorId);
+            Patient patient = _patientService.Read(_referralUsageVM.PatientId);
 
             Room freeRoom;
             if (_referralCardVM.AppointmentType == AppointmentType.Regular)
@@ -83,9 +80,9 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
             }
             else
             {
-                Referral referralToChange = _referralRepository.Read(_referralCardVM.ReferralId);
+                Referral referralToChange = _referralService.Read(_referralCardVM.ReferralId);
                 referralToChange.IsUsed = true;
-                _referralRepository.Update(referralToChange);
+                _referralService.Update(referralToChange);
 
                 Appointment newAppointment = new Appointment
                 {
@@ -101,7 +98,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Secreta
 
                 _appointmentRepository.Create(newAppointment);
 
-                MessageBox.Show("Appointment succesfully created.");
+                MessageBox.Show("Appointment successfully created.");
 
                 _referralUsageVM.UpdatePage(0);
             }

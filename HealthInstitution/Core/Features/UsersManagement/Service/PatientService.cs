@@ -1,54 +1,74 @@
-﻿using HealthInstitution.Core.Features.UsersManagement.Model;
+﻿using System;
+using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthInstitution.Core.Features.UsersManagement.Service
 {
     public class PatientService : IPatientService
     {
         private readonly IPatientRepository _patientRepository;
-        private readonly IActivityRepository _activityRepository;
-        public PatientService(IPatientRepository patientRepository, IActivityRepository activityRepository)
+
+        private readonly IActivityService _activityService;
+
+        public PatientService(IPatientRepository patientRepository, IActivityService activityService)
         {
             _patientRepository = patientRepository;
-            _activityRepository = activityRepository;
+            _activityService = activityService;
         }
+
+        #region CRUD methods
+
+        public IEnumerable<Patient> ReadAll()
+        {
+            return _patientRepository.ReadAll();
+        }
+
+        public Patient Read(Guid patientId)
+        {
+            return _patientRepository.Read(patientId);
+        }
+
+        public Patient Create(Patient newPatient)
+        {
+            return _patientRepository.Create(newPatient);
+        }
+
+        public Patient Update(Patient patientToUpdate)
+        {
+            return _patientRepository.Update(patientToUpdate);
+        }
+
+        public Patient Delete(Guid patientId)
+        {
+            return _patientRepository.Delete(patientId);
+        }
+
+        #endregion
 
         public IEnumerable<Patient> ReadAllValidPatients()
         {
-            return _patientRepository.ReadAll().Where(p => p.IsBlocked == false).ToList();
+            return _patientRepository.ReadAllValidPatients();
         }
 
         public IEnumerable<Patient> ReadAllBlockedPatients()
         {
-            return _patientRepository.ReadAll().Where(p => p.IsBlocked == true).ToList();
+            return _patientRepository.ReadAllBlockedPatients();
         }
 
         public IEnumerable<Patient> FilterPatientsBySearchText(string searchText)
         {
-            searchText = searchText.ToLower();
-            return _patientRepository.ReadAll().Where(p => p.EmailAddress.ToLower().Contains(searchText) || p.FirstName.ToLower().Contains(searchText)
-           || p.LastName.ToLower().Contains(searchText) || p.DateOfBirth.ToString().Contains(searchText)).ToList();
+            return _patientRepository.FilterPatientsBySearchText(searchText);
         }
 
         public IEnumerable<Patient> FilterValidPatientsBySearchText(string searchText)
         {
-            searchText = searchText.ToLower();
-            return _patientRepository.ReadAll().Where(p => p.IsBlocked == false)
-                            .Where(p => p.EmailAddress.ToLower().Contains(searchText) || p.FirstName.ToLower().Contains(searchText)
-            || p.LastName.ToLower().Contains(searchText) || p.DateOfBirth.ToString().Contains(searchText)).ToList();
+            return _patientRepository.FilterValidPatientsBySearchText(searchText);
         }
 
         public IEnumerable<Patient> FilterBlockedPatientsBySearchText(string searchText)
         {
-            searchText = searchText.ToLower();
-            return _patientRepository.ReadAll().Where(p => p.IsBlocked == true)
-                            .Where(p => p.EmailAddress.ToLower().Contains(searchText) || p.FirstName.ToLower().Contains(searchText)
-            || p.LastName.ToLower().Contains(searchText) || p.DateOfBirth.ToString().Contains(searchText)).ToList();
+            return _patientRepository.FilterBlockedPatientsBySearchText(searchText);
         }
 
         public void BlockPatient(Patient patientToBlock)
@@ -61,17 +81,7 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
         {
             patientToUnblock.IsBlocked = false;
             _patientRepository.Update(patientToUnblock);
-
-            var updateOrRemoveAct = _activityRepository.ReadPatientUpdateOrRemoveActivity(patientToUnblock, 30).ToList<Activity>();
-            var makeAct = _activityRepository.ReadPatientMakeActivity(patientToUnblock, 30).ToList<Activity>();
-            foreach (var act in updateOrRemoveAct)
-            {
-                _activityRepository.Delete(act.Id);
-            }
-            foreach (var act in makeAct)
-            {
-                _activityRepository.Delete(act.Id);
-            }
+            _activityService.ResetActivity(patientToUnblock.Id);
         }
     }
 }

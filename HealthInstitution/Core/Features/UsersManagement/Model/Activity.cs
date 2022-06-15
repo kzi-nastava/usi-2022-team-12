@@ -5,7 +5,6 @@ namespace HealthInstitution.Core.Features.UsersManagement.Model
 {
     public class Activity : BaseObservableEntity
     {
-
         #region Attributes
 
         private DateTime _dateOfAction;
@@ -16,6 +15,9 @@ namespace HealthInstitution.Core.Features.UsersManagement.Model
 
         private Patient _patient;
         public virtual Patient Patient { get => _patient; set => OnPropertyChanged(ref _patient, value); }
+
+        private bool _isRelevantForBan;
+        public bool IsRelevantForBan { get => _isRelevantForBan; set => OnPropertyChanged(ref _isRelevantForBan, value); }
 
         #endregion
 
@@ -30,6 +32,7 @@ namespace HealthInstitution.Core.Features.UsersManagement.Model
             _patient = patient;
             _dateOfAction = dateOfAction;
             _activityType = activityType;
+            _isRelevantForBan = true;
         }
 
         #endregion

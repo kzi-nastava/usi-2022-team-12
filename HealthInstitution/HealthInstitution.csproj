@@ -66,6 +66,7 @@
     <Folder Include="Core\Persistence\Database\" />
     <Folder Include="GUI\Utility\Dialog\Service\" />
     <Folder Include="GUI\Utility\Dialog\Pagination\" />
+    <Folder Include="Persistence\" />
   </ItemGroup>
 
   <ItemGroup>

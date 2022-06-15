@@ -34,8 +34,8 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
             set { OnPropertyChanged(ref _patients, value); }
         }
 
-        private Patient _selectedPatient;
-        public Patient SelectedPatient
+        private Patient? _selectedPatient;
+        public Patient? SelectedPatient
         {
             get { return _selectedPatient; }
             set { OnPropertyChanged(ref _selectedPatient, value); }
@@ -80,26 +80,17 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
             _schedulingService = schedulingService;
             _patientService = patientService;
 
-            SearchCommand = new RelayCommand(() =>
-            {
-                Search();
-            });
+            SearchCommand = new RelayCommand(Search);
 
-            ScheduleExamination = new RelayCommand(() => { UrgentSchedule(AppointmentType.Regular); });
+            ScheduleExamination = new RelayCommand(() => { UrgentSchedule(AppointmentType.Regular); }, () => SelectedPatient != null);
 
-            ScheduleOperation = new RelayCommand(() => { UrgentSchedule(AppointmentType.Operation); });
+            ScheduleOperation = new RelayCommand(() => { UrgentSchedule(AppointmentType.Operation); }, () => SelectedPatient != null);
         }
 
         #region Schedule logic
 
         public void UrgentSchedule(AppointmentType appointmentType)
         {
-            if (_selectedPatient == null)
-            {
-                MessageBox.Show("You did not select any patient");
-                return;
-            }
-
             DoctorSpecializationSelectViewModel doctorSpecializationSelectVM = new DoctorSpecializationSelectViewModel();
             Tuple<DoctorSpecialization, bool?> chosenSpecialization = _dialogService.OpenDialogWithReturnType(doctorSpecializationSelectVM);
 
@@ -108,7 +99,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                 return;
 
             DoctorSpecialization doctorSpecialization = chosenSpecialization.Item1;
-            IList<Doctor> availableDoctors = _doctorService.GetDoctorsForDoctorSpecialization(doctorSpecialization);
+            IList<Doctor> availableDoctors = new List<Doctor>(_doctorService.FindDoctorsWithSpecialization(doctorSpecialization));
 
             if (availableDoctors.Count == 0)
             {
@@ -169,7 +160,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         {
             IList<Tuple<Appointment, DateTime>> appointmentDelayPairs = GetCandidatesToDelay(availableDoctors);
 
-            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_roomService,  _appointmentRepository,  _patientRepository,
+            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_roomService, _appointmentRepository, _patientRepository,
                 _schedulingService, _userNotificationRepository, appointmentDelayPairs, _selectedPatient.Id);
             _dialogService.OpenDialog(delayAppointmentVM);
         }

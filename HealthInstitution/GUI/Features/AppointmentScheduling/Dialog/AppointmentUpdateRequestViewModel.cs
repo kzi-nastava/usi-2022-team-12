@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
+using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.Core.Utility.Command;
-using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
+using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 
 namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 {
     public class AppointmentUpdateRequestViewModel : DialogViewModelBase<AppointmentUpdateRequestViewModel>
     {
-        private Guid _appointmentRequestId;
+        private readonly Guid _appointmentRequestId;
 
         #region Properties
 
@@ -128,7 +129,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #region Services
 
-        private IAppointmentUpdateRequestRepository _appointmentUpdateRequestRepository;
+        private IAppointmentRequestService _appointmentRequestService;
 
         #endregion
 
@@ -138,10 +139,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         #endregion
 
-        public AppointmentUpdateRequestViewModel(IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository, Guid appointmentRequestId) :
+        public AppointmentUpdateRequestViewModel(IAppointmentRequestService appointmentRequestService, Guid appointmentRequestId) :
                 base("Appointment request details", 800, 650)
         {
-            _appointmentUpdateRequestRepository = appointmentUpdateRequestRepository;
+            _appointmentRequestService = appointmentRequestService;
             _appointmentRequestId = appointmentRequestId;
 
             FetchAppointmentUpdateRequest();
@@ -152,7 +153,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling.Dialog
 
         public void FetchAppointmentUpdateRequest()
         {
-            var appointmentUpdateRequest = _appointmentUpdateRequestRepository.Read(_appointmentRequestId);
+            var appointmentUpdateRequest = (AppointmentUpdateRequest)_appointmentRequestService.Read(_appointmentRequestId);
 
             PatientEmailAddress = appointmentUpdateRequest.Patient.EmailAddress;
             PatientFullName = appointmentUpdateRequest.Patient.FullName;

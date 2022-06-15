@@ -22,8 +22,8 @@ namespace HealthInstitution.GUI.Features.UsersManagement
             set { OnPropertyChanged(ref _blockedPatients, value); }
         }
 
-        private Patient _selectedPatient;
-        public Patient SelectedPatient
+        private Patient? _selectedPatient;
+        public Patient? SelectedPatient
         {
             get { return _selectedPatient; }
             set { OnPropertyChanged(ref _selectedPatient, value); }
@@ -50,24 +50,15 @@ namespace HealthInstitution.GUI.Features.UsersManagement
             BlockedPatients = new ObservableCollection<Patient>(patientService.ReadAllBlockedPatients());
             _patientService = patientService;
 
-            SearchCommand = new RelayCommand(() =>
-            {
-                Search();
-            });
+            SearchCommand = new RelayCommand(Search);
 
             UnblockPatient = new RelayCommand(() =>
             {
-                if (_selectedPatient == null)
-                {
-                    MessageBox.Show("You did not select any patient to unblock.");
-                }
-                else
-                {
-                    _patientService.UnblockPatient(_selectedPatient);
-                    MessageBox.Show("Patient unblocked succesfully.");
-                    UpdatePage();
-                }
-            });
+                _patientService.UnblockPatient(_selectedPatient);
+                MessageBox.Show("Patient unblocked successfully.");
+                UpdatePage();
+
+            }, () => SelectedPatient != null);
 
         }
 
@@ -78,7 +69,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
         private void Search()
         {
-            if (SearchText == "" || SearchText == null)
+            if (SearchText is "" or null)
                 UpdatePage();
             else
                 BlockedPatients = new ObservableCollection<Patient>(_patientService.FilterBlockedPatientsBySearchText(SearchText));

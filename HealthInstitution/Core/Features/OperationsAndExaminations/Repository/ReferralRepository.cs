@@ -1,9 +1,9 @@
-﻿using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
-using HealthInstitution.Core.Persistence;
-using HealthInstitution.Core.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Model;
+using HealthInstitution.Core.Persistence;
+using HealthInstitution.Core.Utility;
 
 namespace HealthInstitution.Core.Features.OperationsAndExaminations.Repository
 {
@@ -13,19 +13,18 @@ namespace HealthInstitution.Core.Features.OperationsAndExaminations.Repository
         {
 
         }
-
         public IEnumerable<Referral> GetValidReferralsForPatient(Guid patientId)
         {
             return _entities.Where(r => r.Patient.Id == patientId)
-                            .Where(r => r.IsUsed == false)
-                            .ToList();
+                .Where(r => r.IsUsed == false)
+                .ToList();
         }
 
         public bool PatientHasValidReferral(Guid patientId)
         {
-            return _entities.Where(r => r.Patient.Id == patientId)
-                            .Where(r => r.IsUsed == false)
-                            .Count() != 0;
+            return _entities
+                .Where(r => r.Patient.Id == patientId)
+                .Count(r => r.IsUsed == false) != 0;
         }
     }
 }

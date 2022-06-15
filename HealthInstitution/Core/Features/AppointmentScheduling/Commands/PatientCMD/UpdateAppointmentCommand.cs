@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Exceptions;
 using HealthInstitution.Core.Features.UsersManagement.Model;
@@ -47,14 +46,15 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                     MessageBox.Show("Appointment updated successfully!");
 
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Request for appointment update created successfully!\nPlease wait for secretary to review it.");
                 }
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Update);
-                _viewModel.ActivityRepository.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.ActivityRepository.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.GetNumberOfRecentUpdateOrDeleteActivities(pt.Id, 30);
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
@@ -75,13 +75,14 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             {
                 MessageBox.Show("All rooms are busy at selected time!");
             }
-            catch (UpdateFailedException) {
+            catch (UpdateFailedException)
+            {
                 MessageBox.Show("You didn't update any of information!\n(Appointment remains the same)");
                 EventBus.FireEvent("PatientAppointments");
             }
 
 
-            
+
         }
     }
 }

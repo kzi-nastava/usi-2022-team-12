@@ -7,6 +7,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.UsersManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Repository;
+using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Ninject;
 using HealthInstitution.GUI.Utility.ViewModel;
 
@@ -16,11 +17,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     {
         #region services
         private readonly ISchedulingService _schedulingService;
-        private readonly IActivityRepository _activityRepository;
+        private readonly IActivityService _activityService;
         private readonly IPatientRepository _patientRepository;
 
         public ISchedulingService SchedulingService => _schedulingService;
-        public IActivityRepository ActivityRepository => _activityRepository;
+        public IActivityService ActivityService => _activityService;
         public IPatientRepository PatientRepository => _patientRepository;
         #endregion
 
@@ -76,9 +77,9 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? BackCommand { get; }
         #endregion
 
-        public AppointmentCreationViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityRepository activityRepository)
+        public AppointmentCreationViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityService activityService)
         {
-            _activityRepository = activityRepository;
+            _activityService = activityService;
             _schedulingService = schedulingService;
             _patientRepository = patientRepository;
 
@@ -93,7 +94,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         public AppointmentCreationViewModel(Doctor selectedDoctor)
         {
-            _activityRepository = ServiceLocator.Get<IActivityRepository>();
+            _activityService = ServiceLocator.Get<IActivityService>();
             _schedulingService = ServiceLocator.Get<ISchedulingService>();
             _patientRepository = ServiceLocator.Get<IPatientRepository>();
 

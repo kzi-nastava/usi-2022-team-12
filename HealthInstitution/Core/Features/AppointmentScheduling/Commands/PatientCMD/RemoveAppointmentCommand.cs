@@ -53,9 +53,9 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 MessageBox.Show("Request for appointment deletion created successfully!\nPlease wait for secretary to review it.");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel.ActivityRepository.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.ActivityRepository.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.GetNumberOfRecentUpdateOrDeleteActivities(pt.Id, 30);
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
@@ -72,9 +72,9 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 MessageBox.Show("Appointment deleted successfully!");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
-                _viewModel.ActivityRepository.Create(act);
+                _viewModel.ActivityService.Create(act);
 
-                var activityCount = _viewModel.ActivityRepository.ReadPatientUpdateOrRemoveActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.GetNumberOfRecentUpdateOrDeleteActivities(pt.Id, 30);
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;

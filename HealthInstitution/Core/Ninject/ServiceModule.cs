@@ -10,6 +10,7 @@ using HealthInstitution.Core.Features.NotificationManagement.Service;
 using HealthInstitution.Core.Features.OffDaysManagement.Repository;
 using HealthInstitution.Core.Features.OffDaysManagement.Service;
 using HealthInstitution.Core.Features.OperationsAndExaminations.Repository;
+using HealthInstitution.Core.Features.OperationsAndExaminations.Services;
 using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.SurveyManagement.Repository;
@@ -71,6 +72,8 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IHealthInstitutionSurveyService)).To(typeof(HealthInstitutionSurveyService));
             Bind(typeof(IDoctorService)).To(typeof(DoctorService));
             Bind(typeof(IPatientService)).To(typeof(PatientService));
+            Bind(typeof(IActivityService)).To(typeof(ActivityService));
+            Bind(typeof(IReferralService)).To(typeof(ReferralService));
 
             Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope().WithConstructorArgument(0);
             Bind<LoginViewModel>().To<LoginViewModel>();

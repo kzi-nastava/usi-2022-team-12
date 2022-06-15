@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using HealthInstitution.Core.Exceptions;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
@@ -14,7 +13,8 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
     public class MakeAppointmentCommand : CommandBase
     {
         private readonly AppointmentCreationViewModel? _viewModel;
-        public MakeAppointmentCommand(AppointmentCreationViewModel viewModel) {
+        public MakeAppointmentCommand(AppointmentCreationViewModel viewModel)
+        {
             _viewModel = viewModel;
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -43,9 +43,9 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             {
                 _viewModel.SchedulingService.MakeAppointment(pt, _viewModel.SelectedDoctor, startDateTime, endDateTime, AppointmentType.Regular);
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
-                _viewModel.ActivityRepository.Create(act);
+                _viewModel.ActivityService.Create(act);
                 MessageBox.Show("Appointment created successfully!");
-                var activityCount = _viewModel.ActivityRepository.ReadPatientMakeActivity(pt, 30).ToList<Activity>().Count;
+                var activityCount = _viewModel.ActivityService.GetNumberOfRecentCreateActivities(pt.Id, 30);
                 if (activityCount > 8)
                 {
                     pt.IsBlocked = true;

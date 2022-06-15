@@ -5,10 +5,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
-using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
-using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
@@ -140,10 +138,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
 
         public readonly IEquipmentService _equipmentService;
 
-        public readonly IRoomRepository _roomRepository;
-
-        public readonly IEquipmentRepository _equipmentRepository;
-
         #endregion
 
         #region Commands
@@ -158,14 +152,12 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
 
         #endregion
 
-        public EquipmentTransferViewModel(Room firstRoom, IRoomService roomService, IRoomRepository roomRepository, IEquipmentService equipmentService, IEquipmentRepository equipmentRepository) :
+        public EquipmentTransferViewModel(Room firstRoom, IRoomService roomService, IEquipmentService equipmentService) :
             base("Dynamic equipment arrangement", 1000, 600)
         {
             FirstRoom = firstRoom;
             _roomService = roomService;
             _equipmentService = equipmentService;
-            _roomRepository = roomRepository;
-            _equipmentRepository = equipmentRepository;
             CanChange = true;
             CanConfirm = false;
 
@@ -200,7 +192,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
         {
             ChangeRoom = new RelayCommand(() =>
             {
-                SecondRoom = _roomRepository.Read(SelectedRoom.Id);
+                SecondRoom = _roomService.Read(SelectedRoom.Id);
                 FilterRoomEquipment();
                 CanConfirm = false;
             }, () => CanChange && SelectedRoom != null);
@@ -247,7 +239,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
                 if (entryToUpdate == null && entry.Quantity != 0)
                     room.Inventory.Add(new Entry<Equipment>()
                     {
-                        Item = _equipmentRepository.Read(entry.EquipmentId),
+                        Item = _equipmentService.Read(entry.EquipmentId),
                         Quantity = entry.Quantity
                     });
                 else if (entryToUpdate != null)
@@ -255,7 +247,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
             }
 
             room.RefreshInventory();
-            _roomRepository.Update(room);
+            _roomService.Update(room);
         }
 
         public bool CanExecuteTransfer(int direction)
@@ -339,10 +331,9 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement.Dialog
             }
 
             var filteredEntries = SecondRoom.Inventory.Where(entry => entry.Item.EquipmentType == EquipmentType.DynamicEquipment).ToList();
-            bool isImportant;
             foreach (var entry in filteredEntries)
             {
-                isImportant = FilteredFirstRoomEquipment.All(entryView => entryView.EquipmentId != entry.Item.Id || entryView.Quantity == 0);
+                var isImportant = FilteredFirstRoomEquipment.All(entryView => entryView.EquipmentId != entry.Item.Id || entryView.Quantity == 0);
 
                 FilteredSecondRoomEquipment.Add(new EntryView()
                 {
