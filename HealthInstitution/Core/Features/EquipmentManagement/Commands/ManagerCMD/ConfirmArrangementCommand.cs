@@ -15,6 +15,7 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCM
         private DateTime _arrangeTime;
         private DateTime _nowTime;
         private readonly ArrangeEquipmentViewModel? _viewModel;
+        
         public ConfirmArrangementCommand(ArrangeEquipmentViewModel viewModel)
         {
             _viewModel = viewModel;
@@ -75,7 +76,7 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCM
             {
                 _viewModel.Room1.Inventory.Clear();
             }
-            ServiceLocator.Get<RoomRepository>().Update(_viewModel.Room1);
+            _viewModel._roomRepository.Update(_viewModel.Room1);
            
             _viewModel.Room2.Inventory.Clear();
             foreach (var item in _viewModel.Inventory2)
@@ -95,7 +96,7 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCM
             {
                 _viewModel.Room2.Inventory.Clear();
             }
-            ServiceLocator.Get<RoomRepository>().Update(_viewModel.Room2);
+            _viewModel._roomRepository.Update(_viewModel.Room2);
 
             MessageBox.Show("Database has been updated with arrangement changes.");
 

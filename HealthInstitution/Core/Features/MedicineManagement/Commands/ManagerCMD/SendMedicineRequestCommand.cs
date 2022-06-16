@@ -42,7 +42,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
             rM.Description = _viewModel.DescriptionBox;
             rM.Status = Status.Pending;
             rM.Ingredients = _viewModel.NewIngredients.ToList();
-            ServiceLocator.Get<MedicineRepository>().Update(rM);
+            _viewModel.MedicineRepository.Update(rM);
             _viewModel.MedicineReviewRepository.Delete(GlobalStore.ReadObject<MedicineReview>("SelectedRejectedMedicine").Id);
             MessageBox.Show("The medicine has been successfully submitted for verification.");
         }
@@ -63,7 +63,7 @@ namespace HealthInstitution.Core.Features.MedicineManagement.Commands.ManagerCMD
                 Status = Status.Pending,
                 Ingredients = _viewModel.NewIngredients.ToList()
             };
-            ServiceLocator.Get<MedicineRepository>().Create(m);
+            _viewModel.MedicineRepository.Create(m);
             MessageBox.Show("The medicine has been successfully submitted for verification.");
         }
 

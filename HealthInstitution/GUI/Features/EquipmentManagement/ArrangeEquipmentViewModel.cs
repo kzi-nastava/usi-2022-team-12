@@ -7,6 +7,7 @@ using HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.EquipmentManagement.Model;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
@@ -20,6 +21,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         public readonly IEntryRepository _entryRepository;
         public readonly IRoomService _roomService;
+        public readonly IRoomRepository _roomRepository;
 
 
         public IEnumerable<Entry<Equipment>> Inventory1Binding
@@ -154,7 +156,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 
         }
 
-        public ArrangeEquipmentViewModel(IEntryRepository entryRepositroy, IRoomService roomService)
+        public ArrangeEquipmentViewModel(IEntryRepository entryRepositroy, IRoomService roomService, IRoomRepository roomRepository)
         {
             _room1 = GlobalStore.ReadObject<Room>("ArrangeRoom1");
             _room2 = GlobalStore.ReadObject<Room>("ArrangeRoom2");
@@ -185,6 +187,7 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             SecondToFirstCommand = new SecondToFirstCommand(this);
             _entryRepository = entryRepositroy;
             _roomService = roomService;
+            _roomRepository = roomRepository;
             ConfirmArrangementCommand = new ConfirmArrangementCommand(this);
 
         }

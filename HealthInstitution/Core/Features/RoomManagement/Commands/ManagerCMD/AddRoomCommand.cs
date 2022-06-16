@@ -57,7 +57,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             }
 
             Room r = new Room(_viewModel.SelectedType, roomName);
-            ServiceLocator.Get<RoomRepository>().Create(r);
+            _viewModel._roomRepository.Create(r);
             MessageBox.Show("Room created successfully!");
             EventBus.FireEvent("RoomsOverview");
 

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
+using HealthInstitution.Core.Features.RoomManagement.Repository;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.GUI.Utility.Navigation;
 using HealthInstitution.GUI.Utility.ViewModel;
@@ -11,7 +12,7 @@ namespace HealthInstitution.GUI.Features.RoomManagement
     public class RoomUpdateViewModel : ViewModelBase
     {
         public readonly IRoomService _roomService;
-
+        public readonly IRoomRepository _roomRepository;
         public ICommand? UpdateRoomCommand { get; }
 
         private string _roomName;
@@ -58,9 +59,10 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-        public RoomUpdateViewModel(IRoomService roomService)
+        public RoomUpdateViewModel(IRoomService roomService, IRoomRepository roomRepository)
         {
             _roomService = roomService;
+            _roomRepository = roomRepository;
             SelectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
             SelectedType = SelectedRoom.RoomType;
             RoomName = SelectedRoom.Name;

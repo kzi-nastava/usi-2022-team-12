@@ -50,7 +50,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
             {
                 _viewModel.SelectedRoom.Name = roomName;
                 _viewModel.SelectedRoom.RoomType = roomType;
-                ServiceLocator.Get<RoomRepository>().Update(_viewModel.SelectedRoom);
+                _viewModel._roomRepository.Update(_viewModel.SelectedRoom);
                 MessageBox.Show("Room updated successfully!");
                 EventBus.FireEvent("RoomsOverview");
             }

@@ -12,6 +12,7 @@ namespace HealthInstitution.GUI.Features.RoomManagement
     {
         public readonly IRoomService _roomService;
         public readonly IRoomRenovationRepository _roomRenovationRepository;
+        public readonly IRoomRepository _roomRepository;
         public ICommand? AddRoomCommand { get; }
 
         private string _roomName;
@@ -47,10 +48,11 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-        public RoomCreateViewModel(IRoomService roomService, IRoomRenovationRepository roomRenovationRepository)
+        public RoomCreateViewModel(IRoomService roomService, IRoomRenovationRepository roomRenovationRepository, IRoomRepository roomRepository)
         {
             _roomService = roomService;
             _roomRenovationRepository = roomRenovationRepository;
+            _roomRepository = roomRepository;
             SelectedType = RoomType.ExaminationRoom;
             RoomTypes = new List<RoomType>();
             RoomTypes.Add(RoomType.ExaminationRoom);

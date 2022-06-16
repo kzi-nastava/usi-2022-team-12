@@ -18,6 +18,7 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         private IMedicineService _medicineService;
         private IIngredientRepository _ingredientRepository;
         private IMedicineReviewRepository _medicineReviewRepository;
+        private IMedicineRepository _medicineRepository;
         private string _nameBox;
         private string _descriptionBox;
         private string _revisionMedicineName;
@@ -36,9 +37,17 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
         {
             get => _medicineService;
         }
+        public IIngredientRepository IngredientRepository
+        {
+            get => _ingredientRepository;
+        }
         public IMedicineReviewRepository MedicineReviewRepository
         {
             get => _medicineReviewRepository;
+        }
+        public IMedicineRepository MedicineRepository
+        {
+            get => _medicineRepository;
         }
         public string NameBox
         {
@@ -192,11 +201,12 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
 
         #endregion
 
-        public MedicineOverviewViewModel(IMedicineService medicineService, IIngredientRepository ingredientRepository, IMedicineReviewRepository medicineReviewRepository)
+        public MedicineOverviewViewModel(IMedicineService medicineService, IIngredientRepository ingredientRepository, IMedicineReviewRepository medicineReviewRepository, IMedicineRepository medicineRepository)
         {
             _medicineService = medicineService;
             _ingredientRepository = ingredientRepository;
             _medicineReviewRepository = medicineReviewRepository;
+            _medicineRepository = medicineRepository;
             AllMedicine = _medicineService.GetApprovedMedicine().ToList();
             AllMedicine = AllMedicine.OrderBy(x => x.Name).ToList();
 
