@@ -71,15 +71,18 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
             return _patientRepository.FilterBlockedPatientsBySearchText(searchText);
         }
 
-        public void BlockPatient(Patient patientToBlock)
+        public void BlockPatient(Patient patientToBlock, BlockType blockedBy)
         {
             patientToBlock.IsBlocked = true;
+            patientToBlock.BlockType = blockedBy;
             _patientRepository.Update(patientToBlock);
         }
 
         public void UnblockPatient(Patient patientToUnblock)
         {
+
             patientToUnblock.IsBlocked = false;
+            patientToUnblock.BlockType = BlockType.UNBLOCKED;
             _patientRepository.Update(patientToUnblock);
             _activityService.ResetActivity(patientToUnblock.Id);
         }

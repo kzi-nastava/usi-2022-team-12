@@ -1,22 +1,16 @@
 ﻿using HealthInstitution.Core.Features.SurveyManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using System;
-using System.Collections.Generic;
+using HealthInstitution.Core.Utility;
 
 namespace HealthInstitution.Core.Features.SurveyManagement.Services
 {
-    public interface IHealthInstitutionSurveyService
+    public interface IHealthInstitutionSurveyService : ICrudService<HealthInstitutionSurvey>
     {
         double AverageClearliness();
         double AverageRecommendation();
         double AverageServiceQuality();
         double AverageServiceSatisfaction();
-        HealthInstitutionSurvey Create(HealthInstitutionSurvey newHealthInstitutionSurvey);
-        HealthInstitutionSurvey Delete(Guid healthInstitutionSurveyId);
         bool HasPatientAlreadySubmitedSurvey(Patient patient);
         int RatesPerSurveyCategory(int rate, string cat);
-        HealthInstitutionSurvey Read(Guid healthInstitutionSurveyId);
-        IEnumerable<HealthInstitutionSurvey> ReadAll();
-        HealthInstitutionSurvey Update(HealthInstitutionSurvey healthInstitutionSurveyToUpdate);
     }
 }

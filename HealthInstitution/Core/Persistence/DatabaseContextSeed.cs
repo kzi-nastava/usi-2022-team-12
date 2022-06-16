@@ -15,12 +15,12 @@ namespace HealthInstitution.Core.Persistence
         {
 
             //// Patients
-            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "milicamilic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
-            var p6 = new Patient { FirstName = "Stefan", LastName = "Jovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "stefanjovic@example.com", Role = Role.Patient, IsBlocked = false, NotificationPreference = 20 };
+            var p1 = new Patient { FirstName = "Petar", LastName = "Peric", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-20), EmailAddress = "petarperic@example.com", Role = Role.Patient, IsBlocked = false, BlockType = BlockType.UNBLOCKED, NotificationPreference = 20, };
+            var p2 = new Patient { FirstName = "Marko", LastName = "Markovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-35), EmailAddress = "markomarkovic@example.com", Role = Role.Patient, IsBlocked = false, BlockType = BlockType.UNBLOCKED, NotificationPreference = 20 };
+            var p3 = new Patient { FirstName = "Zeljko", LastName = "Nikolic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-50), EmailAddress = "zeljkonikolic@example.com", Role = Role.Patient, IsBlocked = false, BlockType = BlockType.UNBLOCKED, NotificationPreference = 20 };
+            var p4 = new Patient { FirstName = "Milica", LastName = "Milic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-40), EmailAddress = "milicamilic@example.com", Role = Role.Patient, IsBlocked = false, BlockType = BlockType.UNBLOCKED, NotificationPreference = 20 };
+            var p5 = new Patient { FirstName = "Zoran", LastName = "Gostojic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "zorangostojic@example.com", Role = Role.Patient, IsBlocked = false, BlockType = BlockType.UNBLOCKED, NotificationPreference = 20 };
+            var p6 = new Patient { FirstName = "Stefan", LastName = "Jovic", Password = "test123", DateOfBirth = DateTime.Now.AddYears(-38), EmailAddress = "stefanjovic@example.com", Role = Role.Patient, IsBlocked = false, BlockType = BlockType.UNBLOCKED, NotificationPreference = 20 };
 
             context.Patients.Add(p1);
             context.Patients.Add(p2);

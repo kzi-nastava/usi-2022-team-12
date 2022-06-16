@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using HealthInstitution.Core.Exceptions;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Utility.Checker;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -57,9 +58,11 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 var activityCount = _viewModel.ActivityService.GetNumberOfRecentUpdateOrDeleteActivities(pt.Id, 30);
                 if (activityCount >= 5)
                 {
+                    pt.BlockType = BlockType.SYSTEM;
                     pt.IsBlocked = true;
                     _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
+                    NotificationsChecker.StopTimer();
                     EventBus.FireEvent("BackToLogin");
                 }
                 else

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
-using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Utility.Command;
@@ -17,19 +16,19 @@ namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
         private readonly HandlePatientViewModel _handlePatientVM;
         private readonly IUserService _userService;
         private readonly IPatientService _patientService;
-        private readonly IMedicalRecordRepository _medicalRecordRepository;
+        private readonly IMedicalRecordService _medicalRecordService;
         private readonly SecretaryPatientCRUDViewModel _secretaryPatientCRUDVM;
 
         private Guid _patientId;
 
         public HandlePatientCommand(HandlePatientViewModel handlePatientVM, IUserService userService, IPatientService patientService,
-            IMedicalRecordRepository medicalRecordRepository,
+            IMedicalRecordService medicalRecordService,
             SecretaryPatientCRUDViewModel secretaryPatientCRUDVM, Guid patientId)
         {
             _handlePatientVM = handlePatientVM;
             _userService = userService;
             _patientService = patientService;
-            _medicalRecordRepository = medicalRecordRepository;
+            _medicalRecordService = medicalRecordService;
             _handlePatientVM.PropertyChanged += _addPatientVM_PropertyChanged;
             _secretaryPatientCRUDVM = secretaryPatientCRUDVM;
             _patientId = patientId;
@@ -93,7 +92,7 @@ namespace HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD
 
             var medicalRecord = new MedicalRecord { Height = 0, Weight = 0, IllnessHistory = new List<Illness>(), Allergens = new List<Allergen>(), Patient = patientToRegister };
 
-            _medicalRecordRepository.Create(medicalRecord);
+            _medicalRecordService.Create(medicalRecord);
         }
 
         public void UpdatePatient()

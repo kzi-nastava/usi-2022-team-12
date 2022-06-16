@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using HealthInstitution.Core.Features.UsersManagement.Model;
+using HealthInstitution.Core.Utility.Checker;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.GUI.Features.AppointmentScheduling;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -40,9 +41,11 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             var activityCount = _viewModel.ActivityService.GetNumberOfRecentCreateActivities(pt.Id, 30);
             if (activityCount > 8)
             {
+                pt.BlockType = BlockType.SYSTEM;
                 pt.IsBlocked = true;
                 _viewModel.PatientService.Update(pt);
                 MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
+                NotificationsChecker.StopTimer();
                 EventBus.FireEvent("BackToLogin");
             }
             else

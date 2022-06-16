@@ -4,8 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
-using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.Core.Utility.Command;
 using HealthInstitution.Core.Utility.HelperClasses;
@@ -43,9 +43,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
         private readonly IPatientService _patientService;
 
-        private readonly IPatientRepository _patientRepository;
-
-        private readonly IMedicalRecordRepository _medicalRecordRepository;
+        private readonly IMedicalRecordService _medicalRecordService;
 
         private readonly IDialogService _dialogService;
 
@@ -68,13 +66,13 @@ namespace HealthInstitution.GUI.Features.UsersManagement
         #endregion
 
         public SecretaryPatientCRUDViewModel(IDialogService dialogService, IUserService userService,
-            IPatientService patientService, IMedicalRecordRepository medicalRecordRepository, ISchedulingService schedulingService)
+            IPatientService patientService, IMedicalRecordService medicalRecordService, ISchedulingService schedulingService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
             _userService = userService;
             _patientService = patientService;
             _patientService = patientService;
-            _medicalRecordRepository = medicalRecordRepository;
+            _medicalRecordService = medicalRecordService;
             _dialogService = dialogService;
             _schedulingService = schedulingService;
 
@@ -82,7 +80,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
             AddPatient = new RelayCommand(() =>
             {
-                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, userService, patientService, medicalRecordRepository, this, Guid.Empty);
+                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, userService, patientService, medicalRecordService, this, Guid.Empty);
                 var isFinished = _dialogService.OpenDialog(handlePatientViewModel);
                 if ((bool)isFinished)
                     MessageBox.Show("Patient added successfully.");
@@ -90,7 +88,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
             UpdatePatient = new RelayCommand(() =>
             {
-                HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, userService, patientService, medicalRecordRepository, this, _selectedPatient.Id);
+                HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, userService, patientService, medicalRecordService, this, _selectedPatient.Id);
                 var isFinished = _dialogService.OpenDialog(updatePatientViewModel);
                 if ((bool)isFinished)
                     MessageBox.Show("Patient updated successfully.");
@@ -104,7 +102,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
                 }
                 else
                 {
-                    _patientRepository.Delete(_selectedPatient.Id);
+                    _patientService.Delete(_selectedPatient.Id);
                     MessageBox.Show("Patient deleted successfully.");
                     UpdatePage();
                 }
@@ -112,7 +110,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
             BlockPatient = new RelayCommand(() =>
             {
-                _patientService.BlockPatient(_selectedPatient);
+                _patientService.BlockPatient(_selectedPatient, BlockType.SECRETARY);
                 MessageBox.Show("Patient blocked successfully.");
                 UpdatePage();
 

@@ -6,8 +6,6 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
 {
     public interface IPatientService : ICrudService<Patient>
     {
-        void BlockPatient(Patient patientToBlock);
-
         IEnumerable<Patient> FilterBlockedPatientsBySearchText(string searchText);
 
         IEnumerable<Patient> FilterPatientsBySearchText(string searchText);
@@ -17,6 +15,8 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
         IEnumerable<Patient> ReadAllBlockedPatients();
 
         IEnumerable<Patient> ReadAllValidPatients();
+
+        void BlockPatient(Patient patientToBlock, BlockType blockedBy);
 
         void UnblockPatient(Patient patientToUnblock);
     }

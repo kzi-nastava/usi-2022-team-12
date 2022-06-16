@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Commands.SecretaryCMD;
-using HealthInstitution.Core.Features.UsersManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Service;
 using HealthInstitution.GUI.Utility.Dialog.Service;
 using HealthInstitution.GUI.Utility.Validation;
@@ -100,7 +99,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
 
         private readonly IDialogService _dialogService;
 
-        private readonly IMedicalRecordRepository _medicalRecordRepository;
+        private readonly IMedicalRecordService _medicalRecordService;
 
         private readonly IUserService _userService;
 
@@ -109,14 +108,14 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
         #endregion
 
         public HandlePatientViewModel(IDialogService dialogService, IUserService userService, IPatientService patientService,
-            IMedicalRecordRepository medicalRecordService,
+            IMedicalRecordService medicalRecordService,
             SecretaryPatientCRUDViewModel secretartyPatientCRUDVM, Guid patientId) :
             base("Add patient", 700, 550)
         {
             _dialogService = dialogService;
             _userService = userService;
             _patientService = patientService;
-            _medicalRecordRepository = medicalRecordService;
+            _medicalRecordService = medicalRecordService;
             _patientId = patientId;
 
             if (patientId != Guid.Empty)

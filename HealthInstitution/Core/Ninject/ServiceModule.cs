@@ -76,7 +76,7 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IActivityService)).To(typeof(ActivityService));
             Bind(typeof(IReferralService)).To(typeof(ReferralService));
             Bind(typeof(IAppointmentService)).To(typeof(AppointmentService));
-            Bind(typeof(IUserNotificationService)).To(typeof(UserNotificationService));
+            Bind(typeof(IUserNotificationService)).To(typeof(UserNotificationService)).WithConstructorArgument(new UserNotificationRepository(new DatabaseContext(0)));
             Bind(typeof(IUserService)).To(typeof(UserService));
             Bind(typeof(IMedicalRecordService)).To(typeof(MedicalRecordService));
  

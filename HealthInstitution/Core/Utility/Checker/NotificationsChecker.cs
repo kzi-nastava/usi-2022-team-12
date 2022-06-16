@@ -19,7 +19,7 @@ namespace HealthInstitution.Core.Utility.Checker
         static NotificationsChecker()
         {
             _prescribedMedicineNotificationService = new PrescribedMedicineNotificationService(new DatabaseContext(0));
-            _userNotificationService = new UserNotificationService(new DatabaseContext(0));
+            _userNotificationService = new UserNotificationService(new DatabaseContext(0), 0);
         }
 
         public static void InitializeTimer(Type type)

@@ -15,7 +15,7 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
             _userNotificationRepository = userNotificationRepository;
         }
 
-        public UserNotificationService(DatabaseContext databaseContext)
+        public UserNotificationService(DatabaseContext databaseContext, int dummyArgument)
         {
             _userNotificationRepository = new UserNotificationRepository(databaseContext);
         }
