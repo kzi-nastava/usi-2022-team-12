@@ -5,7 +5,6 @@ using HealthInstitution.Core.Exceptions;
 using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Model;
-using HealthInstitution.Core.Features.OffDaysManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
@@ -76,8 +75,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
         public void MakeAppointment(Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime, AppointmentType appointmentType)
         {
             //doctor availabilty check
-            if (!_doctorService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
-                !_appointmentUpdateRequestRepository.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
+            if (!_doctorService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();
             }
@@ -108,7 +106,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
 
         public bool UpdateAppointment(Appointment selectedAppointment, Patient selectedPatient, Doctor selectedDoctor, DateTime startDateTime, DateTime endDateTime)
         {
-            if (!_doctorService.IsDoctorAvailableForUpdate(selectedDoctor, startDateTime, endDateTime, selectedAppointment) ||
+            if (!_doctorService.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime) ||
                 !_appointmentUpdateRequestRepository.IsDoctorAvailable(selectedDoctor, startDateTime, endDateTime))
             {
                 throw new DoctorBusyException();

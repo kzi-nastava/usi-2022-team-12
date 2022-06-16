@@ -10,8 +10,6 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
     {
         bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate);
 
-        bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate);
-
         public IEnumerable<Doctor> FindDoctorsWithSpecialization(DoctorSpecialization specialization);
 
         public IEnumerable<Doctor> FilterDoctorsBySearchText(string searchText);

@@ -13,17 +13,19 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
 {
     public class DoctorService : IDoctorService
     {
+        private readonly IAppointmentUpdateRequestRepository _appointmentUpdateRequestRepository;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IDoctorRepository _doctorRepository;
         private readonly IOffDaysRequestRepository _offDaysRequestRepository;
         private readonly IOffDaysService _offDaysService;
 
-        public DoctorService(IAppointmentRepository appointmentRepository, IOffDaysRequestRepository offDaysRequestRepository, IDoctorRepository doctorRepository, IOffDaysService offDaysService)
+        public DoctorService(IAppointmentRepository appointmentRepository, IOffDaysRequestRepository offDaysRequestRepository, IDoctorRepository doctorRepository, IOffDaysService offDaysService, IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository)
         {
             _offDaysRequestRepository = offDaysRequestRepository;
             _doctorRepository = doctorRepository;
             _appointmentRepository = appointmentRepository;
             _offDaysService = offDaysService;
+            _appointmentUpdateRequestRepository = appointmentUpdateRequestRepository;
         }
 
         #region CRUD methods
@@ -68,23 +70,10 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
            || doc.LastName.ToLower().Contains(searchText) || specializations.Contains(doc.Specialization));
         }
 
-        public bool IsInOffice(Doctor doctor, DateTime fromDate, DateTime toDate)
-        {
-            return _offDaysRequestRepository.ReadAll()
-                .Where(e => e.Doctor.Id == doctor.Id)
-                .Where(e => e.Status == Status.Approved)
-                .Count(e => e.StartDate <= toDate && fromDate <= e.EndDate) == 0;
-        }
-
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return _appointmentRepository.ReadAll().Count(apt => apt.Doctor.Id == doctor.Id && apt.StartDate < toDate && fromDate < apt.EndDate) == 0 &&
-                   _offDaysService.IsDoctorInOffice(doctor, fromDate, toDate);
-        }
-
-        public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
-        {
-            return _appointmentRepository.ReadAll().Count(apt => apt != aptToUpdate && apt.Doctor.Id == doctor.Id && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
+                   _offDaysService.IsDoctorInOffice(doctor, fromDate, toDate) && _appointmentUpdateRequestRepository.IsDoctorAvailable(doctor, fromDate, toDate);
         }
     }
 }
