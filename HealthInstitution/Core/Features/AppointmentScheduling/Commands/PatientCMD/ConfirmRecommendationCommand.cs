@@ -32,7 +32,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
 
         public override void Execute(object? parameter)
         {
-            _viewModel.AppintmentRepository.Create(_viewModel.SelectedAppointment);
+            _viewModel.AppintmentService.Create(_viewModel.SelectedAppointment);
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             Activity act = new Activity(pt, DateTime.Now, ActivityType.Create);
             _viewModel.ActivityService.Create(act);
@@ -41,7 +41,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             if (activityCount > 8)
             {
                 pt.IsBlocked = true;
-                _viewModel.PatientRepository.Update(pt);
+                _viewModel.PatientService.Update(pt);
                 MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
                 EventBus.FireEvent("BackToLogin");
             }

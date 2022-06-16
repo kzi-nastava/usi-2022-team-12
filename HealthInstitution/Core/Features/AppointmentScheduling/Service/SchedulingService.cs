@@ -17,17 +17,14 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
     public class SchedulingService : ISchedulingService
     {
         private readonly IAppointmentRepository _appointmentRepository;
-        private readonly IOffDaysService _offDaysService;
         private readonly IRecommendationService _recommendationService;
         private readonly IDoctorService _doctorService;
         private readonly IRoomService _roomService;
         private readonly IAppointmentUpdateRequestRepository _appointmentUpdateRequestRepository;
 
-        public SchedulingService(IAppointmentRepository appointmentRepository,
-            IOffDaysService offDaysService, IRecommendationService recommendationService, IDoctorService doctorService, IRoomService roomService, IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository)
+        public SchedulingService(IAppointmentRepository appointmentRepository, IRecommendationService recommendationService, IDoctorService doctorService, IRoomService roomService, IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository)
         {
             _appointmentRepository = appointmentRepository;
-            _offDaysService = offDaysService;
             _recommendationService = recommendationService;
             _doctorService = doctorService;
             _roomService = roomService;

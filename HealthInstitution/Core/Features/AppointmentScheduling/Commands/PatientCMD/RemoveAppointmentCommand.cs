@@ -49,7 +49,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
                 AppointmentDeleteRequest appointmentRequest = new AppointmentDeleteRequest { Patient = pt, Appointment = apt, ActivityType = ActivityType.Delete, Status = Status.Pending };
-                _viewModel.AppointmentDeleteRequestRepository.Create(appointmentRequest);
+                _viewModel.AppointmentRequestService.Create(appointmentRequest);
                 MessageBox.Show("Request for appointment deletion created successfully!\nPlease wait for secretary to review it.");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
@@ -59,7 +59,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.PatientRepository.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }
@@ -68,7 +68,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
             else
             {
                 Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
-                _viewModel.AppointmentRepository.Delete(apt.Id);
+                _viewModel.AppointmentService.Delete(apt.Id);
                 MessageBox.Show("Appointment deleted successfully!");
 
                 Activity act = new Activity(pt, DateTime.Now, ActivityType.Delete);
@@ -78,7 +78,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 if (activityCount >= 5)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.PatientRepository.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments removed or updated)");
                     EventBus.FireEvent("BackToLogin");
                 }

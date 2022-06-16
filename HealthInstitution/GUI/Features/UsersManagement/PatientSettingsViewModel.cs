@@ -14,12 +14,9 @@ namespace HealthInstitution.GUI.Features.UsersManagement
         #region services
         private readonly IPatientService _patientService;
 
-        private readonly IPatientRepository _patientRepository;
-
         private readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
 
         public IPatientService PatientService => _patientService;
-        public IPatientRepository PatientRepository => _patientRepository;
         public IPrescribedMedicineNotificationService PrescribedMedicineNotificationService => _prescribedMedicineNotificationService;
         #endregion
 
@@ -50,9 +47,8 @@ namespace HealthInstitution.GUI.Features.UsersManagement
         public ICommand? SaveNotificationPreferenceCommand { get; }
         #endregion
 
-        public PatientSettingsViewModel(IPatientService patientService, IPatientRepository patientRepository, IPrescribedMedicineNotificationService prescribedMedicineNotificationService)
+        public PatientSettingsViewModel(IPatientService patientService, IPrescribedMedicineNotificationService prescribedMedicineNotificationService)
         {
-            _patientRepository = patientRepository;
             _patientService = patientService;
             _prescribedMedicineNotificationService = prescribedMedicineNotificationService;
             NotificationPreference = GlobalStore.ReadObject<Patient>("LoggedUser").NotificationPreference.ToString();

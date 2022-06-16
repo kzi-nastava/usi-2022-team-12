@@ -49,7 +49,7 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Commands.Patient
                 if (activityCount > 8)
                 {
                     pt.IsBlocked = true;
-                    _viewModel.PatientRepository.Update(pt);
+                    _viewModel.PatientService.Update(pt);
                     MessageBox.Show("Your profile has been blocked!\n(Too many appointments made)");
                     EventBus.FireEvent("BackToLogin");
                 }

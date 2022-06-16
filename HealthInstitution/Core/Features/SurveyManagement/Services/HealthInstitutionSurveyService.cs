@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Core.Features.SurveyManagement.Model;
 using HealthInstitution.Core.Features.SurveyManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 
@@ -13,6 +15,35 @@ namespace HealthInstitution.Core.Features.SurveyManagement.Services
         {
             _healthInstitutionSurveyRepository = healthInstitutionSurveyRepository;
         }
+
+        #region CRUD methods
+
+        public IEnumerable<HealthInstitutionSurvey> ReadAll()
+        {
+            return _healthInstitutionSurveyRepository.ReadAll();
+        }
+
+        public HealthInstitutionSurvey Read(Guid healthInstitutionSurveyId)
+        {
+            return _healthInstitutionSurveyRepository.Read(healthInstitutionSurveyId);
+        }
+
+        public HealthInstitutionSurvey Create(HealthInstitutionSurvey newHealthInstitutionSurvey)
+        {
+            return _healthInstitutionSurveyRepository.Create(newHealthInstitutionSurvey);
+        }
+
+        public HealthInstitutionSurvey Update(HealthInstitutionSurvey healthInstitutionSurveyToUpdate)
+        {
+            return _healthInstitutionSurveyRepository.Update(healthInstitutionSurveyToUpdate);
+        }
+
+        public HealthInstitutionSurvey Delete(Guid healthInstitutionSurveyId)
+        {
+            return _healthInstitutionSurveyRepository.Delete(healthInstitutionSurveyId);
+        }
+
+        #endregion
 
         public bool HasPatientAlreadySubmitedSurvey(Patient patient)
         {

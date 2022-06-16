@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\Migrations\**" />
+    <EmbeddedResource Remove="Core\Migrations\**" />
+    <None Remove="Core\Migrations\**" />
+    <Page Remove="Core\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="GUI\Features\AppointmentScheduling\NewFile1.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile2.txt" />
     <None Remove="GUI\Features\AppointmentScheduling\NewFile3.txt" />
@@ -62,10 +69,10 @@
 
   <ItemGroup>
     <Folder Include="Core\Features\OffDaysManagement\Service\" />
-    <Folder Include="Core\Migrations\" />
     <Folder Include="Core\Persistence\Database\" />
     <Folder Include="GUI\Utility\Dialog\Service\" />
     <Folder Include="GUI\Utility\Dialog\Pagination\" />
+    <Folder Include="Persistence\" />
   </ItemGroup>
 
   <ItemGroup>

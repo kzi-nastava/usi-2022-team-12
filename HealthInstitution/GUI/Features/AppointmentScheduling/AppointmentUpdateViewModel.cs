@@ -18,11 +18,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         #region services
         private readonly ISchedulingService _schedulingService;
         private readonly IActivityService _activityService;
-        private readonly IPatientRepository _patientRepository;
+        private readonly IPatientService _patientService;
 
         public ISchedulingService SchedulingService => _schedulingService;
         public IActivityService ActivityService => _activityService;
-        public IPatientRepository PatientRepository => _patientRepository;
+        public IPatientService PatientService => _patientService;
         #endregion endregion
 
         #region attributes
@@ -86,14 +86,14 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? BackCommand { get; }
         #endregion
 
-        public AppointmentUpdateViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityService activityService)
+        public AppointmentUpdateViewModel(IDoctorRepository doctorService, IPatientService patientService, ISchedulingService schedulingService, IActivityService activityService)
         {
             SelectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             _activityService = activityService;
             _schedulingService = schedulingService;
-            _patientRepository = patientRepository;
+            _patientService = patientService;
 
-            Doctors = doctorRepository.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            Doctors = doctorService.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             StartDate = SelectedAppointment.StartDate;
             StartTime = SelectedAppointment.StartDate;

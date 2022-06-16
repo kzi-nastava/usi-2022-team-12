@@ -18,11 +18,11 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         #region services
         private readonly ISchedulingService _schedulingService;
         private readonly IActivityService _activityService;
-        private readonly IPatientRepository _patientRepository;
+        private readonly IPatientService _patientService;
 
         public ISchedulingService SchedulingService => _schedulingService;
         public IActivityService ActivityService => _activityService;
-        public IPatientRepository PatientRepository => _patientRepository;
+        public IPatientService PatientService => _patientService;
         #endregion
 
         #region attributes
@@ -77,16 +77,16 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? BackCommand { get; }
         #endregion
 
-        public AppointmentCreationViewModel(IDoctorRepository doctorRepository, IPatientRepository patientRepository, ISchedulingService schedulingService, IActivityService activityService)
+        public AppointmentCreationViewModel(IDoctorService doctorservice, IPatientService patientService, ISchedulingService schedulingService, IActivityService activityService)
         {
             _activityService = activityService;
             _schedulingService = schedulingService;
-            _patientRepository = patientRepository;
+            _patientService = patientService;
 
             DateTime currentDateTime = DateTime.Now;
             StartDate = currentDateTime.Date;
             StartTime = currentDateTime.Date.AddHours(currentDateTime.Hour).AddMinutes(currentDateTime.Minute);
-            Doctors = doctorRepository.ReadAll().OrderBy(doc => doc.Specialization).ToList();
+            Doctors = doctorservice.ReadAll().OrderBy(doc => doc.Specialization).ToList();
 
             MakeAppointmentCommand = new MakeAppointmentCommand(this);
             BackCommand = new PatientAppointmentsCommand();
@@ -96,7 +96,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         {
             _activityService = ServiceLocator.Get<IActivityService>();
             _schedulingService = ServiceLocator.Get<ISchedulingService>();
-            _patientRepository = ServiceLocator.Get<IPatientRepository>();
+            _patientService = ServiceLocator.Get<IPatientService>();
 
             DateTime currentDateTime = DateTime.Now;
             StartDate = currentDateTime.Date;

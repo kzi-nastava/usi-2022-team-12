@@ -17,15 +17,15 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
     {
         #region services
         private readonly ISchedulingService _schedulingService;
-        private readonly IAppointmentRepository _appointmentRepository;
-        private readonly IAppointmentDeleteRequestRepository _appointmentDeleteRequestRepository;
+        private readonly IAppointmentService _appointmentService;
+        private readonly IAppointmentRequestService _appointmentRequestService;
         private readonly IActivityService _activityService;
-        private readonly IPatientRepository _patientRepository;
+        private readonly IPatientService _patientService;
         public ISchedulingService SchedulingService => _schedulingService;
-        public IAppointmentRepository AppointmentRepository => _appointmentRepository;
-        public IAppointmentDeleteRequestRepository AppointmentDeleteRequestRepository => _appointmentDeleteRequestRepository;
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IAppointmentRequestService AppointmentRequestService => _appointmentRequestService;
         public IActivityService ActivityService => _activityService;
-        public IPatientRepository PatientRepository => _patientRepository;
+        public IPatientService PatientService => _patientService;
         #endregion
 
         #region attributes
@@ -63,14 +63,14 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         public ICommand? RemoveAppointmentCommand { get; }
         #endregion
 
-        public PatientAppointmentsViewModel(ISchedulingService schedulingService, IAppointmentRepository appointmentRepository,
-            IAppointmentDeleteRequestRepository appointmentDeleteRequestRepository, IActivityService activityService, IPatientRepository patientRepository)
+        public PatientAppointmentsViewModel(ISchedulingService schedulingService, IAppointmentService appointmentService,
+            IAppointmentRequestService appointmentRequestService, IActivityService activityService, IPatientService patientService)
         {
             _schedulingService = schedulingService;
-            _appointmentDeleteRequestRepository = appointmentDeleteRequestRepository;
+            _appointmentRequestService = appointmentRequestService;
             _activityService = activityService;
-            _patientRepository = patientRepository;
-            _appointmentRepository = appointmentRepository;
+            _patientService = patientService;
+            _appointmentService = appointmentService;
 
             Patient pt = GlobalStore.ReadObject<Patient>("LoggedUser");
             FutureAppointments = SchedulingService.ReadFuturePatientAppointments(pt).OrderBy(apt => apt.StartDate).ToList();

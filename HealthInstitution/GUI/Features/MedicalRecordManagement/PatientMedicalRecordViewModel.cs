@@ -7,6 +7,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Model;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Service;
 using HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.GUI.Utility.Navigation;
@@ -17,11 +18,11 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
     public class PatientMedicalRecordViewModel : ViewModelBase
     {
         #region services
-        private readonly IMedicalRecordRepository _medicalRecordRepository;
+        private readonly IMedicalRecordService _medicalRecordService;
 
         private readonly ISchedulingService _schedulingService;
 
-        public IMedicalRecordRepository MedicalRecordRepository => _medicalRecordRepository;
+        public IMedicalRecordService MedicalRecordService => _medicalRecordService;
         public ISchedulingService SchedulingService => _schedulingService;
         #endregion
 
@@ -195,15 +196,15 @@ namespace HealthInstitution.GUI.Features.MedicalRecordManagement
         }
         #endregion
 
-        public PatientMedicalRecordViewModel(IMedicalRecordRepository medicalRecordRepository, ISchedulingService schedulingService)
+        public PatientMedicalRecordViewModel(IMedicalRecordService medicalRecordService, ISchedulingService schedulingService)
         {
             _schedulingService = schedulingService;
-            _medicalRecordRepository = medicalRecordRepository;
+            _medicalRecordService = medicalRecordService;
 
             _selectedSort = 0;
             _selectedOrder = 0;
             _patient = GlobalStore.ReadObject<Patient>("LoggedUser");
-            _medicalRecord = _medicalRecordRepository.GetMedicalRecordForPatient(Patient);
+            _medicalRecord = _medicalRecordService.GetMedicalRecordForPatient(Patient);
             _illnessHistory = _medicalRecord.IllnessHistory.ToList<Illness>();
             _allergens = _medicalRecord.Allergens.ToList<Allergen>();
             _pastAppointments = _schedulingService.ReadFinishedAppointmentsForPatient(Patient).ToList<Appointment>();

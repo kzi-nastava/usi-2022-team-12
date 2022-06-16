@@ -21,7 +21,7 @@ namespace HealthInstitution.Core.Features.SurveyManagement.Commands.PatientCMD
             if (!_viewModel.HealthInstitutionSurveyService.HasPatientAlreadySubmitedSurvey(patient))
             {
                 HealthInstitutionSurvey his = new HealthInstitutionSurvey { Patient = patient, ServiceQuality = _viewModel.ServiceQualityRating, Cleanliness = _viewModel.CleanlinessRating, ServiceSatisfaction = _viewModel.ServiceSatisfactionRating, Recommendation = _viewModel.RecommendationRating, Comment = _viewModel.Comment };
-                _viewModel.HealthInstitutionSurveyRepository.Create(his);
+                _viewModel.HealthInstitutionSurveyService.Create(his);
                 MessageBox.Show("Survey submited successfully.\nThank you for participating!");
             }
             else {

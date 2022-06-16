@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HealthInstitution.Core.Features.SurveyManagement.Model;
 using HealthInstitution.Core.Features.SurveyManagement.Repository;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 
@@ -14,6 +15,35 @@ namespace HealthInstitution.Core.Features.SurveyManagement.Services
         {
             _doctorSurveyRepository = doctorSurveyRepository;
         }
+
+        #region CRUD methods
+
+        public IEnumerable<DoctorSurvey> ReadAll()
+        {
+            return _doctorSurveyRepository.ReadAll();
+        }
+
+        public DoctorSurvey Read(Guid doctorSurveyId)
+        {
+            return _doctorSurveyRepository.Read(doctorSurveyId);
+        }
+
+        public DoctorSurvey Create(DoctorSurvey newDoctorSurvey)
+        {
+            return _doctorSurveyRepository.Create(newDoctorSurvey);
+        }
+
+        public DoctorSurvey Update(DoctorSurvey doctorSurveyToUpdate)
+        {
+            return _doctorSurveyRepository.Update(doctorSurveyToUpdate);
+        }
+
+        public DoctorSurvey Delete(Guid doctorSurveyId)
+        {
+            return _doctorSurveyRepository.Delete(doctorSurveyId);
+        }
+
+        #endregion
 
         public double CalculateAvgMark(Doctor doctor)
         {

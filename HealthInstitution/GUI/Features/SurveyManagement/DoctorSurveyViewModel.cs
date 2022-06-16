@@ -14,10 +14,10 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
     public class DoctorSurveyViewModel : ViewModelBase
     {
         #region services
-        private readonly IDoctorSurveyRepository _doctorSurveyRepository;
-        private readonly IAppointmentRepository _appointmentRepository;
-        public IAppointmentRepository AppointmentRepository => _appointmentRepository;
-        public IDoctorSurveyRepository DoctorSurveyRepository => _doctorSurveyRepository;
+        private readonly IDoctorSurveyService _doctorSurveyService;
+        private readonly IAppointmentService _appointmentService;
+        public IAppointmentService AppointmentService => _appointmentService;
+        public IDoctorSurveyService DoctorSurveyService => _doctorSurveyService;
         #endregion
 
         #region attributes
@@ -66,10 +66,10 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
         public ICommand BackCommand { get; }
         #endregion
 
-        public DoctorSurveyViewModel(IDoctorSurveyRepository doctorSurveyRepository, IAppointmentRepository appointmentRepository)
+        public DoctorSurveyViewModel(IDoctorSurveyService doctorSurveyService, IAppointmentService appointmentService)
         {
-            _doctorSurveyRepository = doctorSurveyRepository;
-            _appointmentRepository = appointmentRepository;
+            _doctorSurveyService = doctorSurveyService;
+            _appointmentService = appointmentService;
             _selectedAppointment = GlobalStore.ReadObject<Appointment>("SelectedAppointment");
             ServiceQualityRating = 1;
             RecommendationRating = 1;

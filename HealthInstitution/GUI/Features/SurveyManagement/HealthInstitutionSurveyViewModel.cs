@@ -10,9 +10,7 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
     {
         #region services
         private readonly IHealthInstitutionSurveyService _healthInstitutionSurveyService;
-        private readonly IHealthInstitutionSurveyRepository _healthInstitutionSurveyRepository;
         public IHealthInstitutionSurveyService HealthInstitutionSurveyService => _healthInstitutionSurveyService;
-        public IHealthInstitutionSurveyRepository HealthInstitutionSurveyRepository => _healthInstitutionSurveyRepository;
         #endregion
 
         #region attributes
@@ -78,10 +76,9 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
         public ICommand BackCommand { get; }
         #endregion
 
-        public HealthInstitutionSurveyViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService, IHealthInstitutionSurveyRepository healthInstitutionSurveyRepository)
+        public HealthInstitutionSurveyViewModel(IHealthInstitutionSurveyService healthInstitutionSurveyService)
         {
             _healthInstitutionSurveyService = healthInstitutionSurveyService;
-            _healthInstitutionSurveyRepository = healthInstitutionSurveyRepository;
             ServiceQualityRating = 1;
             RecommendationRating = 1;
             CleanlinessRating = 1;
