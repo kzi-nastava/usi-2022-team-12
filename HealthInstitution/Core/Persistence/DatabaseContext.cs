@@ -65,14 +65,14 @@ namespace HealthInstitution.Core.Persistence
         public DatabaseContext()
         {
             var folder = Directory.GetCurrentDirectory();
-            DbPath = Path.Join(folder, "Persistence");
+            DbPath = Path.Join(folder, "Core/Persistence");
             DbPath = Path.Join(DbPath, "health.db");
         }
 
         public DatabaseContext(int dummyArg)
         {
             var folder = Directory.GetCurrentDirectory();
-            DbPath = Path.Join(folder, "..\\..\\..\\Persistence");
+            DbPath = Path.Join(folder, "..\\..\\..\\Core/Persistence");
             DbPath = Path.Join(DbPath, "health.db");
         }
 

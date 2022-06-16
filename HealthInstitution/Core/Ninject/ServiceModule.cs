@@ -3,6 +3,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.EquipmentManagement.Repository;
 using HealthInstitution.Core.Features.EquipmentManagement.Service;
 using HealthInstitution.Core.Features.MedicalRecordManagement.Repository;
+using HealthInstitution.Core.Features.MedicalRecordManagement.Service;
 using HealthInstitution.Core.Features.MedicineManagement.Repository;
 using HealthInstitution.Core.Features.MedicineManagement.Service;
 using HealthInstitution.Core.Features.NotificationManagement.Repository;
@@ -77,6 +78,8 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IAppointmentService)).To(typeof(AppointmentService));
             Bind(typeof(IUserNotificationService)).To(typeof(UserNotificationService));
             Bind(typeof(IUserService)).To(typeof(UserService));
+            Bind(typeof(IMedicalRecordService)).To(typeof(MedicalRecordService));
+ 
 
             Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope().WithConstructorArgument(0);
             Bind<LoginViewModel>().To<LoginViewModel>();

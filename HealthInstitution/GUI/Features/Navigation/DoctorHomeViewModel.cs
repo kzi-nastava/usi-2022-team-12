@@ -57,7 +57,6 @@ namespace HealthInstitution.GUI.Features.Navigation
             SwitchCurrentViewModel(ServiceLocator.Get<DoctorScheduleViewModel>());
             RegisterHandler();
             NotificationsChecker.InitializeTimer(typeof(Doctor));
-            CheckNotifications();
         }
 
         private void RegisterHandler()
@@ -130,24 +129,6 @@ namespace HealthInstitution.GUI.Features.Navigation
                 DoctorAppointmentUpdateViewModel viewModel = new(ServiceLocator.Get<ISchedulingService>(), ServiceLocator.Get<IPatientRepository>(), ServiceLocator.Get<IPatientService>(), GlobalStore.ReadObject<Appointment>("SelectedAppointment"));
                 SwitchCurrentViewModel(viewModel);
             });
-        }
-
-        public void CheckNotifications()
-        {
-            Guid userId = GlobalStore.ReadObject<Doctor>("LoggedUser").Id;
-
-            IList<UserNotification> notifications = _usernNotificationRepository.GetValidNotificationsForUser(userId);
-
-            if (notifications.Count != 0)
-            {
-                foreach (var notification in notifications)
-                {
-                    MessageBox.Show(notification.Content);
-
-                    notification.IsShown = true;
-                    _usernNotificationRepository.Update(notification);
-                }
-            }
         }
     }
 }

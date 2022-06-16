@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
-using HealthInstitution.Core.Features.MedicineManagement.Repository;
 using HealthInstitution.Core.Features.NotificationManagement.Model;
-using HealthInstitution.Core.Features.NotificationManagement.Repository;
 using HealthInstitution.Core.Features.NotificationManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
 using HealthInstitution.Core.Persistence;

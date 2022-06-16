@@ -100,6 +100,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         {
             _userDate = DateTime.Now;
             _schedulingService = schedulingService;
+            _appointmentRepository = appointmentRepository;
             _appointments = new ObservableCollection<AppointmentViewModel>();
             OpenMedicalRecordCommand = new NavigateMedicalRecordCommand(this);
             StartAppointmentCommand = new StartAppointmentCommand(this);
