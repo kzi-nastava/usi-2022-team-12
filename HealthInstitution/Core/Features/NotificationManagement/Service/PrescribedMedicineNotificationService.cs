@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HealthInstitution.Core.Features.MedicineManagement.Repository;
+using HealthInstitution.Core.Persistence;
 
 namespace HealthInstitution.Core.Features.NotificationManagement.Service
 {
@@ -18,6 +19,40 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
             _prescribedMedicineNotificationRepository = prescribedMedicineNotificationRepository;
             _prescribedMedicineRepository = prescribedMedicineRepository;
         }
+
+        public PrescribedMedicineNotificationService(DatabaseContext databaseContext) {
+            _prescribedMedicineNotificationRepository = new PrescribedMedicineNotificationRepository(databaseContext);
+            _prescribedMedicineRepository = new PrescribedMedicineRepository(databaseContext);
+        }
+
+        #region CRUD methods
+
+        public IEnumerable<PrescribedMedicineNotification> ReadAll()
+        {
+            return _prescribedMedicineNotificationRepository.ReadAll();
+        }
+
+        public PrescribedMedicineNotification Read(Guid prescribedMedicineNotificationId)
+        {
+            return _prescribedMedicineNotificationRepository.Read(prescribedMedicineNotificationId);
+        }
+
+        public PrescribedMedicineNotification Create(PrescribedMedicineNotification newPrescribedMedicineNotification)
+        {
+            return _prescribedMedicineNotificationRepository.Create(newPrescribedMedicineNotification);
+        }
+
+        public PrescribedMedicineNotification Update(PrescribedMedicineNotification prescribedMedicineNotificationToUpdate)
+        {
+            return _prescribedMedicineNotificationRepository.Update(prescribedMedicineNotificationToUpdate);
+        }
+
+        public PrescribedMedicineNotification Delete(Guid prescribedMedicineNotificationId)
+        {
+            return _prescribedMedicineNotificationRepository.Delete(prescribedMedicineNotificationId);
+        }
+
+        #endregion
 
         public IEnumerable<PrescribedMedicine> GetConsumingMedications(Patient patient, int notifyMinutesBefore)
         {

@@ -17,13 +17,11 @@ namespace HealthInstitution.Core.Utility.Checker
         private static Timer _timer;
         private static int _checksCounter;
         private static readonly IPrescribedMedicineNotificationService _prescribedMedicineNotificationService;
-        private static readonly IPrescribedMedicineNotificationRepository _prescribedMedicineNotificationRepository;
-        private static readonly IUserNotificationRepository _userNotificationRepository;
+        private static readonly IUserNotificationService _userNotificationService;
         static NotificationsChecker()
         {
-            _prescribedMedicineNotificationRepository = new PrescribedMedicineNotificationRepository(new DatabaseContext(0));
-            _prescribedMedicineNotificationService = new PrescribedMedicineNotificationService(_prescribedMedicineNotificationRepository, new PrescribedMedicineRepository(new DatabaseContext(0)));
-            _userNotificationRepository = new UserNotificationRepository(new DatabaseContext(0));
+            _prescribedMedicineNotificationService = new PrescribedMedicineNotificationService(new DatabaseContext(0));
+            _userNotificationService = new UserNotificationService(new DatabaseContext(0));
         }
 
         public static void InitializeTimer(Type type)
@@ -56,7 +54,7 @@ namespace HealthInstitution.Core.Utility.Checker
             if (nextMedicineNotification != null && nextMedicineNotification.TriggerTime < DateTime.Now)
             {
                 nextMedicineNotification.Triggered = true;
-                _prescribedMedicineNotificationRepository.Update(nextMedicineNotification);
+                _prescribedMedicineNotificationService.Update(nextMedicineNotification);
                 MessageBox.Show("You should drink " + nextMedicineNotification.PrescribedMedicine.Medicine.Name + " at " + nextMedicineNotification.TriggerTime.AddMinutes(patient.NotificationPreference) +
                     "\nInstructions: " + nextMedicineNotification.PrescribedMedicine.Instruction, "Reminder");
             }
@@ -74,7 +72,7 @@ namespace HealthInstitution.Core.Utility.Checker
         {
             Guid userId = GlobalStore.ReadObject<User>("LoggedUser").Id;
 
-            IList<UserNotification> notifications = _userNotificationRepository.GetValidNotificationsForUser(userId);
+            IList<UserNotification> notifications = _userNotificationService.GetValidNotificationsForUser(userId);
             if (notifications.Count == 0) return;
 
             foreach (var notification in notifications)
@@ -82,7 +80,7 @@ namespace HealthInstitution.Core.Utility.Checker
                 MessageBox.Show(notification.Content);
 
                 notification.IsShown = true;
-                _userNotificationRepository.Update(notification);
+                _userNotificationService.Update(notification);
             }
         }
     }

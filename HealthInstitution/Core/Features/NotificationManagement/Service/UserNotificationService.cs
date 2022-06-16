@@ -1,5 +1,6 @@
 ﻿using HealthInstitution.Core.Features.NotificationManagement.Model;
 using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Persistence;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,11 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
         public UserNotificationService(IUserNotificationRepository userNotificationRepository)
         {
             _userNotificationRepository = userNotificationRepository;
+        }
+
+        public UserNotificationService(DatabaseContext databaseContext)
+        {
+            _userNotificationRepository = new UserNotificationRepository(databaseContext);
         }
 
         #region CRUD methods
