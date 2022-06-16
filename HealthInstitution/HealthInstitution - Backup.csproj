@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>HealthInstitution</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>GUI\Utility\Resources\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Core\Migrations\**" />
+    <EmbeddedResource Remove="Core\Migrations\**" />
+    <None Remove="Core\Migrations\**" />
+    <Page Remove="Core\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile1.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile2.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile3.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile3.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\Validations\NewFile5.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\Validations\NewFile6.txt" />
+    <None Remove="GUI\Features\MedicineManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\MedicineManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\MedicineManagement\Validations\NewFile1.txt" />
+    <None Remove="GUI\Features\Navigation\NewFile1.txt" />
+    <None Remove="GUI\Features\Navigation\NewFile2.txt" />
+    <None Remove="GUI\Features\OffDaysManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\OffDaysManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\OperationsAndExaminations\NewFile1.txt" />
+    <None Remove="GUI\Features\OperationsAndExaminations\NewFile2.txt" />
+    <None Remove="GUI\Features\RoomManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\RoomManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\SurveyManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\SurveyManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\UsersManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\UsersManagement\NewFile2.txt" />
+    <None Remove="GUI\Fonts\password.ttf" />
+    <None Remove="GUI\NewFile1.txt" />
+    <None Remove="GUI\Utility\Resources\main.jpg" />
+    <None Remove="GUI\Utility\Resources\main3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="GUI\Fonts\password.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Utility\Resources\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Ninject" Version="3.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Features\OffDaysManagement\Service\" />
+    <Folder Include="Core\Persistence\Database\" />
+    <Folder Include="GUI\Utility\Dialog\Service\" />
+    <Folder Include="GUI\Utility\Dialog\Pagination\" />
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="GUI\Utility\Resources\main.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

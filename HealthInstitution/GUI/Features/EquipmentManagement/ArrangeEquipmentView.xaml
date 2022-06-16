@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="HealthInstitution.GUI.Features.EquipmentManagement.ArrangeEquipmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600"
+             Background="White">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Arrange equipment between rooms" FontSize="20" FontWeight="Bold" Margin="0 0 0 15"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding RoomName1}" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
+                <ListView Grid.Row="1" MaxHeight="450" Height="450" Width="350" ItemsSource="{Binding Inventory1Binding, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedEntry1, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Item" Width="auto">
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <Binding Path="Item.Name"></Binding>
+                                </GridViewColumn.DisplayMemberBinding>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Quantity" Width="auto" DisplayMemberBinding="{Binding Quantity}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button Content="&gt;" Margin="30, 10" Command="{Binding FirstToSecondCommand}"></Button>
+                <Button Content="&lt;" Margin="30, 10" Command="{Binding SecondToFirstCommand}"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding RoomName2}" FontSize="18" FontWeight="Bold" Margin="0 0 0 15"/>
+                <ListView Grid.Row="1"  MaxHeight="450" Height="450" Width="350" ItemsSource="{Binding Inventory2Binding, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedEntry2, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Item" Width="auto">
+                                <GridViewColumn.DisplayMemberBinding>
+                                    <Binding Path="Item.Name"></Binding>
+                                </GridViewColumn.DisplayMemberBinding>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Quantity" Width="auto" DisplayMemberBinding="{Binding Quantity}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0 0 20 0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+        <Separator Grid.Row="2"/>
+        <Button Grid.Row="3" Width="200" Margin="0, 20" HorizontalAlignment="Left" Content="Confirm arrangement" Command="{Binding ConfirmArrangementCommand}"></Button>
+    </Grid>
+</UserControl>

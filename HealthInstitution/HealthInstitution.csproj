@@ -6,20 +6,53 @@
     <RootNamespace>HealthInstitution</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>GUI\Utility\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\password.ttf" />
-    <None Remove="Resources\main.jpg" />
-    <None Remove="Resources\main3.jpg" />
+    <Compile Remove="Core\Migrations\**" />
+    <EmbeddedResource Remove="Core\Migrations\**" />
+    <None Remove="Core\Migrations\**" />
+    <Page Remove="Core\Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Fonts\password.ttf">
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile1.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile2.txt" />
+    <None Remove="GUI\Features\AppointmentScheduling\NewFile3.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\EquipmentManagement\NewFile3.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\Validations\NewFile5.txt" />
+    <None Remove="GUI\Features\MedicalRecordManagement\Validations\NewFile6.txt" />
+    <None Remove="GUI\Features\MedicineManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\MedicineManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\MedicineManagement\Validations\NewFile1.txt" />
+    <None Remove="GUI\Features\Navigation\NewFile1.txt" />
+    <None Remove="GUI\Features\Navigation\NewFile2.txt" />
+    <None Remove="GUI\Features\OffDaysManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\OffDaysManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\OperationsAndExaminations\NewFile1.txt" />
+    <None Remove="GUI\Features\OperationsAndExaminations\NewFile2.txt" />
+    <None Remove="GUI\Features\RoomManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\RoomManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\SurveyManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\SurveyManagement\NewFile2.txt" />
+    <None Remove="GUI\Features\UsersManagement\NewFile1.txt" />
+    <None Remove="GUI\Features\UsersManagement\NewFile2.txt" />
+    <None Remove="GUI\Fonts\password.ttf" />
+    <None Remove="GUI\NewFile1.txt" />
+    <None Remove="GUI\Utility\Resources\main.jpg" />
+    <None Remove="GUI\Utility\Resources\main3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="GUI\Fonts\password.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.ico" />
+    <Content Include="GUI\Utility\Resources\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,19 +68,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\Database\" />
+    <Folder Include="Core\Features\OffDaysManagement\Service\" />
+    <Folder Include="Core\Persistence\Database\" />
+    <Folder Include="GUI\Utility\Dialog\Service\" />
+    <Folder Include="GUI\Utility\Dialog\Pagination\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\main.jpg">
+    <Resource Include="GUI\Utility\Resources\main.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="View\LoginView.xaml">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Page>
   </ItemGroup>
 
 </Project>

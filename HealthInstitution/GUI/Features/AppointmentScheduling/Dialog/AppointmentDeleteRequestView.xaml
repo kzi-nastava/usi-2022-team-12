@@ -1,0 +1,293 @@
+﻿<UserControl x:Class="HealthInstitution.GUI.Features.AppointmentScheduling.Dialog.AppointmentDeleteRequestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card Margin="10"
+                             Grid.Column="0"
+                             Grid.Row="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="50" />
+                    <RowDefinition
+                        Height="*" />
+                </Grid.RowDefinitions>
+
+                <materialDesign:PackIcon
+                      Kind="AccountCircle"
+                      Height="50"
+                      Width="128"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+
+                <StackPanel
+                    Grid.Row="1">
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Margin="0"
+                        Text="Patient"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"/>
+
+                    <Border BorderBrush="Black" BorderThickness="0,0.5,0,0" Padding="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Grid.Column="0"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                 materialDesign:HintAssist.Hint="Email address"
+                                 materialDesign:HintAssist.FloatingScale="1" 
+                                 Margin="10,15,10,0" 
+                                 IsReadOnly="True"
+                                 Text="{Binding PatientEmailAddress}" />
+
+                            <TextBox Grid.Column="1"
+                                 Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                 materialDesign:HintAssist.Hint="Full name"
+                                 materialDesign:HintAssist.FloatingScale="1" 
+                                 Margin="10 15 10 0" 
+                                 IsReadOnly="True"
+                                 Text="{Binding PatientFullName}" />
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="10"
+                             Grid.Column="1"
+                             Grid.Row="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="50" />
+                    <RowDefinition
+                        Height="*" />
+                </Grid.RowDefinitions>
+
+                <materialDesign:PackIcon
+                      Kind="Doctor"
+                      Height="50"
+                      Width="128"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+
+                <StackPanel
+                    Grid.Row="1">
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Margin="0"
+                        Text="Doctor"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"/>
+
+                    <Border BorderBrush="Black" BorderThickness="0,0.5,0,0" Padding="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="0"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="Email address"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10,15,10,0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding DoctorEmailAddress}" />
+
+                            <TextBox Grid.Column="1"
+                                     Grid.Row="0"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="Full name"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10 15 10 0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding DoctorFullName}" />
+
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="1"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="Profession"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10 15 10 0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding DoctorSpecialization}" />
+
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="10"
+                             Grid.Column="0"
+                             Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="50" />
+                    <RowDefinition
+                        Height="*" />
+                </Grid.RowDefinitions>
+
+                <materialDesign:PackIcon
+                      Kind="HospitalBox"
+                      Height="50"
+                      Width="128"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+
+                <StackPanel
+                    Grid.Row="1">
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Margin="0"
+                        Text="Appointment"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"/>
+
+                    <Border BorderBrush="Black" BorderThickness="0,0.5,0,0" Padding="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="0"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="Start time"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10,15,10,0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding AppointmentStartTime, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" />
+
+                            <TextBox Grid.Column="1"
+                                     Grid.Row="0"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="End time"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10 15 10 0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding AppointmentEndTime, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" />
+
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="10"
+                             Grid.Column="1"
+                             Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="50" />
+                    <RowDefinition
+                        Height="*" />
+                </Grid.RowDefinitions>
+
+                <materialDesign:PackIcon
+                      Kind="Bed"
+                      Height="50"
+                      Width="128"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+
+                <StackPanel
+                    Grid.Row="1">
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                        Margin="0"
+                        Text="Room"
+                        HorizontalAlignment="Center"
+                        Foreground="Black"/>
+
+                    <Border BorderBrush="Black" BorderThickness="0,0.5,0,0" Padding="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="0"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="Name"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10,15,10,0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding RoomName}" />
+
+                            <TextBox Grid.Column="1"
+                                     Grid.Row="0"
+                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}" 
+                                     materialDesign:HintAssist.Hint="Type"
+                                     materialDesign:HintAssist.FloatingScale="1" 
+                                     Margin="10 15 10 0" 
+                                     IsReadOnly="True"
+                                     Text="{Binding RoomType}" />
+
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <Button FontSize="20" 
+                Width="200"
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                Grid.ColumnSpan="2"
+                Content="Ok" 
+                VerticalContentAlignment="Center"
+                Foreground="White" 
+                Command="{Binding Ok}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+
+
+    </Grid>
+
+</UserControl>

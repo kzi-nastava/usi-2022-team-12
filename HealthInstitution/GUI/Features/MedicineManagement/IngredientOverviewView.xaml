@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="HealthInstitution.GUI.Features.MedicineManagement.IngredientOverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600"
+             Background="White">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Ingredient overview" FontSize="20" FontWeight="Bold"/>
+        <ListView Grid.Row="1" Margin="0 10 0 10" MaxHeight="400" Height="400" ItemsSource="{Binding AllIngredients}"  SelectedItem="{Binding SelectedIngredient}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Separator Grid.Row="2"/>
+        <TextBox Grid.Row="3" HorizontalAlignment="Left" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Name" Text="{Binding NameBox, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button Content="➕" Width="100"  HorizontalAlignment="Left" Margin="0, 10, 10, 0" Padding="5" FontSize="16" Command="{Binding AddIngredientCommand}"/>
+            <Button Content="✏️" Width="100"  HorizontalAlignment="Left" Margin="0, 10, 10, 0" Padding="5" FontSize="16" Command="{Binding UpdateIngredientCommand}"/>
+            <Button Content="🗑️" Width="100"  HorizontalAlignment="Left" Margin="0, 10, 10, 0" Padding="5" FontSize="16" Command="{Binding DeleteIngredientCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

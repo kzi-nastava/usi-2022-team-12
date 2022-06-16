@@ -1,6 +1,5 @@
-﻿using HealthInstitution.Persistence;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
+using HealthInstitution.Core.Persistence;
 
 namespace HealthInstitution
 {

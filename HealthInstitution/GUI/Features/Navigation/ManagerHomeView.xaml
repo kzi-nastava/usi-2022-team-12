@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="HealthInstitution.GUI.Features.Navigation.ManagerHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="920"
+             Background="Transparent">
+    <Border Background="#272537">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="{Binding ManagerName, StringFormat='👤 Hello, {0}'}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Foreground="White"
+                       FontSize="22"
+                       Margin="20,0,0,0" />
+                
+                <StackPanel Grid.Row="1">
+                    <RadioButton Content="🛏️  Rooms overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding RoomsOverviewCommand}"/>
+
+                    <RadioButton Content="📦  Equipment overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding EquipmentOverviewCommand}"/>
+
+                    <RadioButton Content=" ↔️   Arrange equipment"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ArrangeEquipmentCommand}"/>
+
+                    <RadioButton Content="⚒️  Room renovation"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding RoomRenovationCommand}"/>
+                    <RadioButton Content="💊  Medicine overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding MedicineOverviewCommand}"/>
+                    <RadioButton Content="🌿  Ingredient overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding IngredientOverviewCommand}"/>
+                    <RadioButton Content="📝  Survey overview"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SurveyOverviewCommand}"/>
+
+                </StackPanel>
+
+                <Button Content="Log out"
+                    Grid.Row="2"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding LogOutCommand}"
+                    Margin="10,0,0,20"/>
+            </Grid>
+
+
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentViewModel}"/>
+
+        </Grid>
+    </Border>
+</UserControl>
