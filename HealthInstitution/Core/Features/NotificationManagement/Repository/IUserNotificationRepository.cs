@@ -7,7 +7,6 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Repository
 {
     public interface IUserNotificationRepository : ICrudRepository<UserNotification>
     {
-        void CreateNotification(Guid userId, string description);
         IList<UserNotification> GetValidNotificationsForUser(Guid userId);
     }
 }

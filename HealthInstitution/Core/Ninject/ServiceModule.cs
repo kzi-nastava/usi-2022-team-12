@@ -74,6 +74,7 @@ namespace HealthInstitution.Core.Ninject
             Bind(typeof(IPatientService)).To(typeof(PatientService));
             Bind(typeof(IActivityService)).To(typeof(ActivityService));
             Bind(typeof(IReferralService)).To(typeof(ReferralService));
+            Bind(typeof(IAppointmentService)).To(typeof(AppointmentService));
 
             Bind<DatabaseContext>().To<DatabaseContext>().InSingletonScope().WithConstructorArgument(0);
             Bind<LoginViewModel>().To<LoginViewModel>();

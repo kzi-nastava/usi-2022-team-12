@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Features.NotificationManagement.Service;
 using HealthInstitution.Core.Features.OffDaysManagement.Model;
 using HealthInstitution.Core.Features.OffDaysManagement.Service;
 using HealthInstitution.Core.Ninject;
@@ -42,7 +42,7 @@ namespace HealthInstitution.GUI.Features.OffDaysManagement
 
         private readonly IOffDaysService _offDaysRequestService;
 
-        private readonly IUserNotificationRepository _notificationService;
+        private readonly IUserNotificationService _notificationService;
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace HealthInstitution.GUI.Features.OffDaysManagement
         #endregion
 
         public SecretaryDayOffViewModel(IDialogService dialogService, IOffDaysService offDaysRequestService,
-            IUserNotificationRepository notificationService)
+            IUserNotificationService notificationService)
         {
             _dialogService = dialogService;
             _offDaysRequestService = offDaysRequestService;

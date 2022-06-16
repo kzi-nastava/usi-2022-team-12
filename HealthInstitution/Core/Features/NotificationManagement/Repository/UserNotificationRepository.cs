@@ -20,17 +20,5 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Repository
                             .Where(n => n.UserId == userId)
                             .ToList();
         }
-
-        public void CreateNotification(Guid userId, string description)
-        {
-            var newNotification = new UserNotification()
-            {
-                UserId = userId,
-                Content = description,
-                IsShown = false
-            };
-
-            Create(newNotification);
-        }
     }
 }
