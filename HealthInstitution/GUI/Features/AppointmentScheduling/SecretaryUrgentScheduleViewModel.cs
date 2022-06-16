@@ -8,6 +8,7 @@ using HealthInstitution.Core.Features.AppointmentScheduling.Model;
 using HealthInstitution.Core.Features.AppointmentScheduling.Repository;
 using HealthInstitution.Core.Features.AppointmentScheduling.Service;
 using HealthInstitution.Core.Features.NotificationManagement.Repository;
+using HealthInstitution.Core.Features.NotificationManagement.Service;
 using HealthInstitution.Core.Features.RoomManagement.Model;
 using HealthInstitution.Core.Features.RoomManagement.Service;
 using HealthInstitution.Core.Features.UsersManagement.Model;
@@ -47,11 +48,10 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         private readonly IDialogService _dialogService;
         private readonly ISchedulingService _schedulingService;
-        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IAppointmentService _appointmentService;
         private readonly IDoctorService _doctorService;
-        private readonly IPatientRepository _patientRepository;
         private readonly IPatientService _patientService;
-        private readonly IUserNotificationRepository _userNotificationRepository;
+        private readonly IUserNotificationService _userNotificationService;
         private readonly IRoomService _roomService;
 
         #endregion
@@ -66,16 +66,16 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
 
         #endregion
 
-        public SecretaryUrgentScheduleViewModel(ISchedulingService schedulingService, IDialogService dialogService, IAppointmentRepository appointmentRepository,
-            IDoctorService doctorService, IPatientRepository patientRepository, IPatientService patientService, IUserNotificationRepository userNotificationRepository, IRoomService roomService)
+        public SecretaryUrgentScheduleViewModel(ISchedulingService schedulingService, IDialogService dialogService, IAppointmentService appointmentService,
+            IDoctorService doctorService, IPatientService patientService, IUserNotificationService userNotificationService, IRoomService roomService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
 
-            _appointmentRepository = appointmentRepository;
+            _appointmentService = appointmentService;
             _doctorService = doctorService;
-            _patientRepository = patientRepository;
+            _patientService = patientService;
             _dialogService = dialogService;
-            _userNotificationRepository = userNotificationRepository;
+            _userNotificationService = userNotificationService;
             _roomService = roomService;
             _schedulingService = schedulingService;
             _patientService = patientService;
@@ -137,7 +137,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                         Appointment newAppointment = new Appointment
                         {
                             Doctor = doctor,
-                            Patient = _patientRepository.Read(_selectedPatient.Id),
+                            Patient = _patientService.Read(_selectedPatient.Id),
                             StartDate = potentialTime,
                             EndDate = potentialTime.AddMinutes(15),
                             Room = potentialRoom,
@@ -146,7 +146,7 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
                             Anamnesis = null
                         };
 
-                        _appointmentRepository.Create(newAppointment);
+                        _appointmentService.Create(newAppointment);
 
                         return true;
                     }
@@ -160,8 +160,8 @@ namespace HealthInstitution.GUI.Features.AppointmentScheduling
         {
             IList<Tuple<Appointment, DateTime>> appointmentDelayPairs = GetCandidatesToDelay(availableDoctors);
 
-            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_roomService, _appointmentRepository, _patientRepository,
-                _schedulingService, _userNotificationRepository, appointmentDelayPairs, _selectedPatient.Id);
+            DelayAppointmentViewModel delayAppointmentVM = new DelayAppointmentViewModel(_roomService, _appointmentService,
+                _patientService, _userNotificationService, appointmentDelayPairs, _selectedPatient.Id);
             _dialogService.OpenDialog(delayAppointmentVM);
         }
 

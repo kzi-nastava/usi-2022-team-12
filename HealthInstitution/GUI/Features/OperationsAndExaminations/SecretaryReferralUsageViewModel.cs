@@ -67,11 +67,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
 
             ShowReferrals = new RelayCommand(() =>
             {
-                if (_selectedPatient == null)
-                {
-                    MessageBox.Show("You did not select any patient");
-                }
-                else if (!_referralService.PatientHasValidReferral(_selectedPatient.Id))
+                if (!_referralService.PatientHasValidReferral(_selectedPatient.Id))
                 {
                     MessageBox.Show("Patient does not have any referral.");
                 }
@@ -80,7 +76,7 @@ namespace HealthInstitution.GUI.Features.OperationsAndExaminations
                     var referralUsageViewModel = new ReferralUsageViewModel(SelectedPatient.Id, _referralService);
                     _dialogService.OpenDialog(referralUsageViewModel);
                 }
-            });
+            }, () => SelectedPatient != null);
         }
 
         public void UpdatePage()

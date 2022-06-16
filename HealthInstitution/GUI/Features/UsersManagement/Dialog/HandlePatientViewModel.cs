@@ -102,19 +102,19 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
 
         private readonly IMedicalRecordRepository _medicalRecordRepository;
 
-        private readonly IPatientRepository _patientRepository;
+        private readonly IUserService _userService;
 
         private readonly IPatientService _patientService;
 
         #endregion
 
-        public HandlePatientViewModel(IDialogService dialogService, IPatientRepository patientRepository, IPatientService patientService,
+        public HandlePatientViewModel(IDialogService dialogService, IUserService userService, IPatientService patientService,
             IMedicalRecordRepository medicalRecordService,
             SecretaryPatientCRUDViewModel secretartyPatientCRUDVM, Guid patientId) :
             base("Add patient", 700, 550)
         {
             _dialogService = dialogService;
-            _patientRepository = patientRepository;
+            _userService = userService;
             _patientService = patientService;
             _medicalRecordRepository = medicalRecordService;
             _patientId = patientId;
@@ -131,7 +131,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
                 ReadOnlyEmailAddress = false;
             }
 
-            HandlePatient = new HandlePatientCommand(this, patientRepository, medicalRecordService, secretartyPatientCRUDVM, patientId);
+            HandlePatient = new HandlePatientCommand(this, userService, patientService, medicalRecordService, secretartyPatientCRUDVM, patientId);
         }
 
 
@@ -149,7 +149,7 @@ namespace HealthInstitution.GUI.Features.UsersManagement.Dialog
 
         public void FetchPatient()
         {
-            var patient = _patientRepository.Read(_patientId);
+            var patient = _patientService.Read(_patientId);
 
             EmailAddress = patient.EmailAddress;
             FirstName = patient.FirstName;

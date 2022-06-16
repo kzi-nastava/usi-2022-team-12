@@ -38,6 +38,9 @@ namespace HealthInstitution.GUI.Features.UsersManagement
         #endregion
 
         #region Services
+
+        private readonly IUserService _userService;
+
         private readonly IPatientService _patientService;
 
         private readonly IPatientRepository _patientRepository;
@@ -64,10 +67,12 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
         #endregion
 
-        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IPatientRepository patientRepository, IMedicalRecordRepository medicalRecordRepository, IPatientService patientService, ISchedulingService schedulingService)
+        public SecretaryPatientCRUDViewModel(IDialogService dialogService, IUserService userService,
+            IPatientService patientService, IMedicalRecordRepository medicalRecordRepository, ISchedulingService schedulingService)
         {
             Patients = new ObservableCollection<Patient>(patientService.ReadAllValidPatients());
-            _patientRepository = patientRepository;
+            _userService = userService;
+            _patientService = patientService;
             _patientService = patientService;
             _medicalRecordRepository = medicalRecordRepository;
             _dialogService = dialogService;
@@ -77,15 +82,18 @@ namespace HealthInstitution.GUI.Features.UsersManagement
 
             AddPatient = new RelayCommand(() =>
             {
-                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, patientRepository, patientService, medicalRecordRepository, this, Guid.Empty);
-                _dialogService.OpenDialog(handlePatientViewModel);
+                HandlePatientViewModel handlePatientViewModel = new HandlePatientViewModel(dialogService, userService, patientService, medicalRecordRepository, this, Guid.Empty);
+                var isFinished = _dialogService.OpenDialog(handlePatientViewModel);
+                if ((bool)isFinished)
+                    MessageBox.Show("Patient added successfully.");
             });
 
             UpdatePatient = new RelayCommand(() =>
             {
-                HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, patientRepository, patientService, medicalRecordRepository, this, _selectedPatient.Id);
-                _dialogService.OpenDialog(updatePatientViewModel);
-                MessageBox.Show("Patient updated successfully.");
+                HandlePatientViewModel updatePatientViewModel = new HandlePatientViewModel(dialogService, userService, patientService, medicalRecordRepository, this, _selectedPatient.Id);
+                var isFinished = _dialogService.OpenDialog(updatePatientViewModel);
+                if ((bool)isFinished)
+                    MessageBox.Show("Patient updated successfully.");
             }, () => SelectedPatient != null);
 
             DeletePatient = new RelayCommand(() =>
