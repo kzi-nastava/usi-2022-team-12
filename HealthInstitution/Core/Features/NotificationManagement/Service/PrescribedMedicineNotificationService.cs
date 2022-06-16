@@ -56,7 +56,7 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
 
         public IEnumerable<PrescribedMedicine> GetConsumingMedications(Patient patient, int notifyMinutesBefore)
         {
-            return _prescribedMedicineRepository.ReadAll().Where(pm => pm.MedicalRecord.Patient == patient && pm.UsageStart.AddMinutes(-notifyMinutesBefore) < DateTime.Now && pm.UsageEnd > DateTime.Now);
+            return _prescribedMedicineRepository.ReadAll().Where(pm => pm.MedicalRecord.Patient.Id == patient.Id && pm.UsageStart.AddMinutes(-notifyMinutesBefore) < DateTime.Now && pm.UsageEnd > DateTime.Now);
         }
 
         public List<PrescribedMedicineNotification> GenerateUpcomingMedicinesNotifications(Patient patient, int notifyMinutesBefore)
@@ -82,7 +82,7 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
             var upcomingMedicinesNotifications = GenerateUpcomingMedicinesNotifications(patient, notifyMinutesBefore);
             foreach (var upcomingMedicineNotification in upcomingMedicinesNotifications)
             {
-                if (_prescribedMedicineNotificationRepository.ReadAll().Where(pmn => pmn.PrescribedMedicine == upcomingMedicineNotification.PrescribedMedicine && pmn.TriggerTime == upcomingMedicineNotification.TriggerTime).ToList().Count == 0)
+                if (_prescribedMedicineNotificationRepository.ReadAll().Where(pmn => pmn.PrescribedMedicine.Id == upcomingMedicineNotification.PrescribedMedicine.Id && pmn.TriggerTime == upcomingMedicineNotification.TriggerTime).ToList().Count == 0)
                 {
                     _prescribedMedicineNotificationRepository.Create(upcomingMedicineNotification);
                 }
@@ -90,7 +90,7 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
         }
         public IEnumerable<PrescribedMedicineNotification> GetUpcomingMedicinesNotifications(Patient patient)
         {
-            return _prescribedMedicineNotificationRepository.ReadAll().Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient == patient && pmn.Triggered == false);
+            return _prescribedMedicineNotificationRepository.ReadAll().Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient.Id == patient.Id && pmn.Triggered == false);
         }
 
         public void DeleteUpcomingMedicinesNotifications(Patient patient)
@@ -112,7 +112,7 @@ namespace HealthInstitution.Core.Features.NotificationManagement.Service
 
         public PrescribedMedicineNotification GetNextMedicineNotification(Patient patient)
         {
-            return _prescribedMedicineNotificationRepository.ReadAll().Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient == patient && pmn.Triggered == false).OrderBy(pt => pt.TriggerTime).FirstOrDefault();
+            return _prescribedMedicineNotificationRepository.ReadAll().Where(pmn => pmn.PrescribedMedicine.MedicalRecord.Patient.Id == patient.Id && pmn.Triggered == false).OrderBy(pt => pt.TriggerTime).FirstOrDefault();
         }
     }
 }

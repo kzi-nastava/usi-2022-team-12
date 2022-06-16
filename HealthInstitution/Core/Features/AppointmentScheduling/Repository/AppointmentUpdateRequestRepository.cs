@@ -24,12 +24,12 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Repository
 
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
-            return (_entities.Where(req => req.Doctor == doctor && req.StartDate < toDate && fromDate < req.EndDate).Count() == 0);
+            return (_entities.Where(req => req.Doctor.Id == doctor.Id && req.StartDate < toDate && fromDate < req.EndDate).Count() == 0);
         }
 
         public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate)
         {
-            return (_entities.Where(req => req.Room == room && req.StartDate < toDate && fromDate < req.EndDate).Count() == 0);
+            return (_entities.Where(req => req.Room.Id == room.Id && req.StartDate < toDate && fromDate < req.EndDate).Count() == 0);
         }
     }
 }

@@ -71,20 +71,20 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
         public bool IsInOffice(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return _offDaysRequestRepository.ReadAll()
-                .Where(e => e.Doctor == doctor)
+                .Where(e => e.Doctor.Id == doctor.Id)
                 .Where(e => e.Status == Status.Approved)
                 .Count(e => e.StartDate <= toDate && fromDate <= e.EndDate) == 0;
         }
 
         public bool IsDoctorAvailable(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
-            return _appointmentRepository.ReadAll().Count(apt => apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate) == 0 &&
+            return _appointmentRepository.ReadAll().Count(apt => apt.Doctor.Id == doctor.Id && apt.StartDate < toDate && fromDate < apt.EndDate) == 0 &&
                    _offDaysService.IsDoctorInOffice(doctor, fromDate, toDate);
         }
 
         public bool IsDoctorAvailableForUpdate(Doctor doctor, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
-            return _appointmentRepository.ReadAll().Count(apt => apt != aptToUpdate && apt.Doctor == doctor && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
+            return _appointmentRepository.ReadAll().Count(apt => apt != aptToUpdate && apt.Doctor.Id == doctor.Id && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
         }
     }
 }

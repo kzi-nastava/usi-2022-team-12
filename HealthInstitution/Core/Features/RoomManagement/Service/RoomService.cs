@@ -58,12 +58,12 @@ namespace HealthInstitution.Core.Features.RoomManagement.Service
 
         public bool IsRoomAvailable(Room room, DateTime fromDate, DateTime toDate)
         {
-            return _appointmentRepository.ReadAll().Count(apt => apt.Room == room && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
+            return _appointmentRepository.ReadAll().Count(apt => apt.Room.Id == room.Id && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
         }
 
         public bool IsRoomAvailableForUpdate(Room room, DateTime fromDate, DateTime toDate, Appointment aptToUpdate)
         {
-            return _appointmentRepository.ReadAll().Count(apt => apt.Room == room && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
+            return _appointmentRepository.ReadAll().Count(apt => apt.Room.Id == room.Id && apt != aptToUpdate && apt.StartDate < toDate && fromDate < apt.EndDate) == 0;
         }
 
         public Room FindFreeRoom(RoomType roomType, DateTime start, DateTime end)

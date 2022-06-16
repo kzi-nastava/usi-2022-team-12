@@ -14,7 +14,7 @@ namespace HealthInstitution.Core.Features.MedicalRecordManagement.Repository
         }
         public MedicalRecord GetMedicalRecordForPatient(Patient patient)
         {
-            return _entities.Where(e => e.Patient == patient).FirstOrDefault();
+            return _entities.Where(e => e.Patient.Id == patient.Id).FirstOrDefault();
         }
     }
 }

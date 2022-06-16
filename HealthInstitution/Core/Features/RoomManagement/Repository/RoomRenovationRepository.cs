@@ -14,7 +14,7 @@ namespace HealthInstitution.Core.Features.RoomManagement.Repository
         }
         public bool IsRoomNotRenovating(Room room, DateTime fromDate, DateTime toDate)
         {
-            return ((_entities.Where(renovation => renovation.RenovatedRoom == room && renovation.StartTime < toDate && fromDate < renovation.EndTime)).Count() == 0)
+            return ((_entities.Where(renovation => renovation.RenovatedRoom.Id == room.Id && renovation.StartTime < toDate && fromDate < renovation.EndTime)).Count() == 0)
                 && IsRoomRenovatingMerge(room, fromDate, toDate);
         }
 

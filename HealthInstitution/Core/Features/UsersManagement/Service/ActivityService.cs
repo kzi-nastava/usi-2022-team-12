@@ -46,12 +46,12 @@ namespace HealthInstitution.Core.Features.UsersManagement.Service
 
         public IEnumerable<Activity> ReadPatientUpdateOrRemoveActivity(Patient pt, int interval)
         {
-            return _activityRepository.ReadAll().Where(act => act.Patient == pt && act.DateOfAction > DateTime.Now.AddDays(-interval) && act.ActivityType != ActivityType.Create);
+            return _activityRepository.ReadAll().Where(act => act.Patient.Id == pt.Id && act.DateOfAction > DateTime.Now.AddDays(-interval) && act.ActivityType != ActivityType.Create);
         }
 
         public IEnumerable<Activity> ReadPatientMakeActivity(Patient pt, int interval)
         {
-            return _activityRepository.ReadAll().Where(act => act.Patient == pt && act.DateOfAction > DateTime.Now.AddDays(-interval) && act.ActivityType == ActivityType.Create);
+            return _activityRepository.ReadAll().Where(act => act.Patient.Id == pt.Id && act.DateOfAction > DateTime.Now.AddDays(-interval) && act.ActivityType == ActivityType.Create);
         }
 
         public int GetNumberOfRecentUpdateOrDeleteActivities(Guid patientId, int interval)

@@ -19,14 +19,14 @@ namespace HealthInstitution.Core.Features.OffDaysManagement.Service
 
         public bool IsDoctorInOffice(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
-            return _offDaysRequestRepository.ReadAll().Where(e => e.Doctor == doctor)
+            return _offDaysRequestRepository.ReadAll().Where(e => e.Doctor.Id == doctor.Id)
                                                       .Where(e => e.Status == Status.Approved)
                                                       .Count(e => e.StartDate <= toDate && fromDate <= e.EndDate) == 0;
         }
 
         public IEnumerable<OffDaysRequest> GetOffDaysForDoctor(Doctor doctor)
         {
-            return _offDaysRequestRepository.ReadAll().Where(offDaysRequest => offDaysRequest.Doctor == doctor);
+            return _offDaysRequestRepository.ReadAll().Where(offDaysRequest => offDaysRequest.Doctor.Id == doctor.Id);
         }
 
         public IEnumerable<OffDaysRequest> GetPendingOffDaysRequests()

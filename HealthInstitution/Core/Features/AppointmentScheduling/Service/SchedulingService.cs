@@ -16,11 +16,11 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
 {
     public class SchedulingService : ISchedulingService
     {
+        private readonly IAppointmentUpdateRequestRepository _appointmentUpdateRequestRepository;
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IRecommendationService _recommendationService;
         private readonly IDoctorService _doctorService;
         private readonly IRoomService _roomService;
-        private readonly IAppointmentUpdateRequestRepository _appointmentUpdateRequestRepository;
 
         public SchedulingService(IAppointmentRepository appointmentRepository, IRecommendationService recommendationService, IDoctorService doctorService, IRoomService roomService, IAppointmentUpdateRequestRepository appointmentUpdateRequestRepository)
         {
@@ -38,34 +38,34 @@ namespace HealthInstitution.Core.Features.AppointmentScheduling.Service
 
         public IEnumerable<Appointment> GetAppointmentsForDateRangeAndDoctor(DateTime start, DateTime end, Doctor doctor)
         {
-            return _appointmentRepository.ReadAll().Where(e => e.Doctor == doctor && e.StartDate.Date >= start.Date && e.StartDate.Date <= end.Date);
+            return _appointmentRepository.ReadAll().Where(e => e.Doctor.Id == doctor.Id && e.StartDate.Date >= start.Date && e.StartDate.Date <= end.Date);
         }
 
         public IEnumerable<Appointment> ReadFinishedAppointmentsForPatient(Patient pt)
         {
             return _appointmentRepository.ReadAll().Where(ap => ap.IsDone == true)
-                            .Where(apt => apt.Patient == pt);
+                            .Where(apt => apt.Patient.Id == pt.Id);
         }
 
         public IEnumerable<Appointment> ReadPatientAppointments(Patient pt)
         {
-            return _appointmentRepository.ReadAll().Where(apt => apt.Patient == pt);
+            return _appointmentRepository.ReadAll().Where(apt => apt.Patient.Id == pt.Id);
         }
 
         public IEnumerable<Appointment> ReadFuturePatientAppointments(Patient pt)
         {
-            return _appointmentRepository.ReadAll().Where(apt => apt.Patient == pt && apt.StartDate > DateTime.Now && apt.IsDone == false);
+            return _appointmentRepository.ReadAll().Where(apt => apt.Patient.Id == pt.Id && apt.StartDate > DateTime.Now && apt.IsDone == false);
         }
 
         public IEnumerable<Appointment> ReadRoomAppointments(Room r)
         {
-            return _appointmentRepository.ReadAll().Where(apt => apt.Room == r).ToList();
+            return _appointmentRepository.ReadAll().Where(apt => apt.Room.Id == r.Id).ToList();
         }
 
         public IEnumerable<Appointment> FindFinishedAppointmentsWithAnamnesis(Patient patient, string searchText)
         {
             searchText = searchText.ToLower();
-            return _appointmentRepository.ReadAll().Where(apt => apt.Anamnesis.ToLower().Contains(searchText) && apt.IsDone == true && apt.Patient == patient);
+            return _appointmentRepository.ReadAll().Where(apt => apt.Anamnesis.ToLower().Contains(searchText) && apt.IsDone == true && apt.Patient.Id == patient.Id);
         }
 
         public bool PatientHasAnAppointment(Guid patientId)
