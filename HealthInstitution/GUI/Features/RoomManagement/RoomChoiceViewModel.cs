@@ -12,11 +12,18 @@ namespace HealthInstitution.GUI.Features.RoomManagement
 {
     public class RoomChoiceViewModel : ViewModelBase
     {
+        #region Attributes
+
         public readonly IRoomRepository _roomRepository;
-
-        public ICommand? ConfirmRoomChoiceCommand { get; }
-
         private Room _selectedRoom1;
+        private Room _selectedRoom2;
+        private List<Room> _rooms;
+        private DateTime _arrangeDateTime;
+
+        #endregion
+
+        #region Properties
+
         public Room SelectedRoom1
         {
             get => _selectedRoom1;
@@ -26,8 +33,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(SelectedRoom1));
             }
         }
-
-        private Room _selectedRoom2;
         public Room SelectedRoom2
         {
             get => _selectedRoom2;
@@ -37,8 +42,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(SelectedRoom2));
             }
         }
-
-        private List<Room> _rooms;
         public List<Room> Rooms
         {
             get => _rooms;
@@ -48,8 +51,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(Rooms));
             }
         }
-
-        private DateTime _arrangeDateTime;
         public DateTime ArrangeDateTime
         {
             get => _arrangeDateTime;
@@ -60,15 +61,22 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
+        #endregion
+
+        #region Commands
+
+        public ICommand? ConfirmRoomChoiceCommand { get; }
+
+        #endregion
+
         public RoomChoiceViewModel(IRoomRepository roomRepository)
         {
-
             _roomRepository = roomRepository;
-            Rooms = roomRepository.ReadAll().ToList();
-            Rooms = Rooms.OrderBy(x => x.Name).ToList();
-            SelectedRoom1 = Rooms[0];
-            SelectedRoom2 = Rooms[1];
-            ArrangeDateTime = DateTime.Now;
+            _rooms = roomRepository.ReadAll().ToList();
+            _rooms = _rooms.OrderBy(x => x.Name).ToList();
+            _selectedRoom1 = _rooms[0];
+            _selectedRoom2 = _rooms[1];
+            _arrangeDateTime = DateTime.Now;
             ConfirmRoomChoiceCommand = new ConfirmRoomChoiceCommand(this);
         }
     }

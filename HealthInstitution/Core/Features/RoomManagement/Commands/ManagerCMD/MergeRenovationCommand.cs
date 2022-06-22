@@ -48,56 +48,53 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
                 base.CanExecute(parameter);
         }
 
+        private bool HasAppointments(Room room)
+        {
+            var apts = _schedulingService.ReadRoomAppointments(room);
+            if (apts.Count() != 0)
+            {
+                foreach (var apt in apts)
+                {
+                    if (apt.StartDate >= _viewModel.StartDate)
+                    {
+                        MessageBox.Show("Chosen room has appointments!");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        private bool HasScheduledRenovation(Room room1, Room room2)
+        {
+            var renRooms = _roomRenovationRepository.ReadAll();
+            foreach (var renRoom in renRooms)
+            {
+                if (renRoom.RenovatedRoom.Name.Equals(room1.Name) || renRoom.RenovatedRoom.Name.Equals(room2.Name))
+                {
+                    MessageBox.Show("Chosen room is already scheduled for renovation!");
+                    return true;
+                }
+                if (renRoom.AdvancedDivide != null)
+                {
+                    if (renRoom.RenovatedSmallRoom1Name.Equals(room1.Name) || renRoom.RenovatedSmallRoom1Name.Equals(room2.Name) ||
+                        renRoom.RenovatedSmallRoom2Name.Equals(room1.Name) || renRoom.RenovatedSmallRoom2Name.Equals(room2.Name))
+                    {
+                        MessageBox.Show("Chosen room is already scheduled for renovation!");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public override void Execute(object? parameter)
         {
             Room smallRoom1 = GlobalStore.ReadObject<Room>("SelectedRoomMerge1"); ;
             Room smallRoom2 = GlobalStore.ReadObject<Room>("SelectedRoomMerge2"); ;
 
-            var apts1 = _schedulingService.ReadRoomAppointments(smallRoom1);
-            var apts2 = _schedulingService.ReadRoomAppointments(smallRoom2);
-            var renRooms = _roomRenovationRepository.ReadAll();
-
-            if (apts1.Count() != 0)
-            {
-                foreach (var apt in apts1)
-                {
-                    if (apt.StartDate >= _viewModel.StartDate)
-                    {
-                        MessageBox.Show("Chosen room has appointments!");
-                        return;
-                    }
-                }
-            }
-
-            if (apts2.Count() != 0)
-            {
-                foreach (var apt in apts2)
-                {
-                    if (apt.StartDate >= _viewModel.StartDate)
-                    {
-                        MessageBox.Show("Chosen room has appointments!");
-                        return;
-                    }
-                }
-            }
-
-            foreach (var renRoom in renRooms)
-            {
-                if (renRoom.RenovatedRoom.Name.Equals(smallRoom1.Name) || renRoom.RenovatedRoom.Name.Equals(smallRoom2.Name))
-                {
-                    MessageBox.Show("Chosen room is already scheduled for renovation!");
-                    return;
-                }
-                if (renRoom.AdvancedDivide != null)
-                {
-                    if (renRoom.RenovatedSmallRoom1Name.Equals(smallRoom1.Name) || renRoom.RenovatedSmallRoom1Name.Equals(smallRoom2.Name) || 
-                        renRoom.RenovatedSmallRoom2Name.Equals(smallRoom1.Name) || renRoom.RenovatedSmallRoom2Name.Equals(smallRoom2.Name))
-                    {
-                        MessageBox.Show("Chosen room is already scheduled for renovation!");
-                        return;
-                    }
-                }
-            }
+            if (HasAppointments(smallRoom1)) { return; }
+            if (HasAppointments(smallRoom2)) { return; }
+            if (HasScheduledRenovation(smallRoom1, smallRoom2)) { return; }
 
             RoomRenovation roomRenovation = new RoomRenovation(smallRoom1, _viewModel.StartDate, _viewModel.EndDate, false, smallRoom1.Name, smallRoom2.Name);
             _roomRenovationRepository.Create(roomRenovation);

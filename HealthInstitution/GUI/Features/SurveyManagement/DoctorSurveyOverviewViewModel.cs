@@ -313,7 +313,6 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
             LoadBestAndWorstDoctors();
             LoadCriteria();
 
-
             SurveyOverviewCommand = new SurveyOverviewCommand();
         }
     }

@@ -16,13 +16,23 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
 {
     public class ArrangeEquipmentViewModel : ViewModelBase
     {
+        #region Attributes
+
         private readonly ObservableCollection<Entry<Equipment>> _inventory1;
         private readonly ObservableCollection<Entry<Equipment>> _inventory2;
-
         public readonly IEntryRepository _entryRepository;
         public readonly IRoomService _roomService;
         public readonly IRoomRepository _roomRepository;
+        private string _roomName1;
+        private string _roomName2;
+        private Room _room1;
+        private Room _room2;
+        private Entry<Equipment> _selectedEntry1;
+        private Entry<Equipment> _selectedEntry2;
 
+        #endregion
+
+        #region Properties
 
         public IEnumerable<Entry<Equipment>> Inventory1Binding
         {
@@ -38,16 +48,8 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 return _inventory2.Where(e => e.Quantity > 0);
             }
         }
-
         public IEnumerable<Entry<Equipment>> Inventory1 => _inventory1;
         public IEnumerable<Entry<Equipment>> Inventory2 => _inventory2;
-
-        public ICommand? FirstToSecondCommand { get; }
-        public ICommand? SecondToFirstCommand { get; }
-        public ICommand? ConfirmArrangementCommand { get; }
-
-
-        private string _roomName1;
         public string? RoomName1
         {
             get => _roomName1;
@@ -57,8 +59,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(RoomName1));
             }
         }
-
-        private string _roomName2;
         public string? RoomName2
         {
             get => _roomName2;
@@ -68,8 +68,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(RoomName2));
             }
         }
-
-        private Room _room1;
         public Room? Room1
         {
             get => _room1;
@@ -79,8 +77,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(Room1));
             }
         }
-
-        private Room _room2;
         public Room? Room2
         {
             get => _room2;
@@ -90,8 +86,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(Room2));
             }
         }
-
-        private Entry<Equipment> _selectedEntry1;
         public Entry<Equipment>? SelectedEntry1
         {
             get => _selectedEntry1;
@@ -101,8 +95,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(SelectedEntry1));
             }
         }
-
-        private Entry<Equipment> _selectedEntry2;
         public Entry<Equipment>? SelectedEntry2
         {
             get => _selectedEntry2;
@@ -112,6 +104,18 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(SelectedEntry2));
             }
         }
+
+        #endregion
+
+        #region Commands
+
+        public ICommand? FirstToSecondCommand { get; }
+        public ICommand? SecondToFirstCommand { get; }
+        public ICommand? ConfirmArrangementCommand { get; }
+
+        #endregion
+
+        #region Methods
 
         public void MoveItemBetweenRooms(Entry<Equipment> selectedEntry,
             ObservableCollection<Entry<Equipment>> senderInventory,
@@ -155,15 +159,15 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             OnPropertyChanged(nameof(Inventory2Binding));
 
         }
-
-        public ArrangeEquipmentViewModel(IEntryRepository entryRepositroy, IRoomService roomService, IRoomRepository roomRepository)
+        private void LoadRooms()
         {
             _room1 = GlobalStore.ReadObject<Room>("ArrangeRoom1");
             _room2 = GlobalStore.ReadObject<Room>("ArrangeRoom2");
             _roomName1 = _room1.Name;
             _roomName2 = _room2.Name;
-            _inventory1 = new ObservableCollection<Entry<Equipment>>();
-            _inventory2 = new ObservableCollection<Entry<Equipment>>();
+        }
+        private void LoadInventories()
+        {
             foreach (var item in _room1.Inventory)
             {
                 if (item.Quantity != 0)
@@ -183,13 +187,25 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             }
             _selectedEntry1 = _inventory1.FirstOrDefault();
             _selectedEntry2 = _inventory2.FirstOrDefault();
-            FirstToSecondCommand = new FirstToSecondCommand(this);
-            SecondToFirstCommand = new SecondToFirstCommand(this);
+        }
+
+        #endregion
+
+        public ArrangeEquipmentViewModel(IEntryRepository entryRepositroy, IRoomService roomService, IRoomRepository roomRepository)
+        {
             _entryRepository = entryRepositroy;
             _roomService = roomService;
             _roomRepository = roomRepository;
-            ConfirmArrangementCommand = new ConfirmArrangementCommand(this);
 
+            _inventory1 = new ObservableCollection<Entry<Equipment>>();
+            _inventory2 = new ObservableCollection<Entry<Equipment>>();
+
+            LoadRooms();
+            LoadInventories();
+
+            FirstToSecondCommand = new FirstToSecondCommand(this);
+            SecondToFirstCommand = new SecondToFirstCommand(this);
+            ConfirmArrangementCommand = new ConfirmArrangementCommand(this);
         }
     }
 }

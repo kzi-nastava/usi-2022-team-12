@@ -47,17 +47,9 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
                 !(_viewModel.SelectedRoom == null) && base.CanExecute(parameter);
         }
 
-        public override void Execute(object? parameter)
+        private bool HasAppointments ()
         {
-            string smallRoomName1 = _viewModel.RoomDivision1;
-            var rooms1 = _roomService.ReadRoomsWithName(smallRoomName1);
-            string smallRoomName2 = _viewModel.RoomDivision2;
-            var rooms2 = _roomService.ReadRoomsWithName(smallRoomName2);
-
-            _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
             var apts = _schedulingService.ReadRoomAppointments(_selectedRoom);
-            var renRooms = _roomRenovationRepository.ReadAll();
-
             if (apts.Count() != 0)
             {
                 foreach (var apt in apts)
@@ -65,35 +57,56 @@ namespace HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD
                     if (apt.StartDate >= _viewModel.StartDate)
                     {
                         MessageBox.Show("Chosen room has appointments!");
-                        return;
+                        return true;
                     }
                 }
             }
-
+            return false;
+        }
+        private bool HasScheduledRenovation()
+        {
+            var renRooms = _roomRenovationRepository.ReadAll();
             foreach (var renRoom in renRooms)
             {
                 if (renRoom.RenovatedRoom.Name.Equals(_selectedRoom.Name))
                 {
                     MessageBox.Show("Chosen room is already scheduled for renovation!");
-                    return;
+                    return true;
                 }
                 if (renRoom.AdvancedDivide != null)
                 {
                     if (renRoom.RenovatedSmallRoom1Name.Equals(_selectedRoom.Name) || renRoom.RenovatedSmallRoom2Name.Equals(_selectedRoom.Name))
                     {
                         MessageBox.Show("Chosen room is already scheduled for renovation!");
-                        return;
+                        return true;
                     }
                 }
             }
+            return false;
+        }
+        private bool RoomNamesExist()
+        {
+            var rooms1 = _roomService.ReadRoomsWithName(_viewModel.RoomDivision1);
+            var rooms2 = _roomService.ReadRoomsWithName(_viewModel.RoomDivision2);
 
             if (rooms1.Count() != 0 || rooms2.Count() != 0)
             {
                 MessageBox.Show("Room with that name already exists!");
-                return;
+                return true;
             }
+            return false;
+        }
 
-            RoomRenovation roomRenovation = new RoomRenovation(_selectedRoom, _viewModel.StartDate, _viewModel.EndDate, true, smallRoomName1, smallRoomName2);
+
+        public override void Execute(object? parameter)
+        {
+            _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
+
+            if (HasAppointments()) { return; }
+            if (HasScheduledRenovation()) { return; }
+            if (RoomNamesExist()) { return; }
+            
+            RoomRenovation roomRenovation = new RoomRenovation(_selectedRoom, _viewModel.StartDate, _viewModel.EndDate, true, _viewModel.RoomDivision1, _viewModel.RoomDivision2);
             _roomRenovationRepository.Create(roomRenovation);
             MessageBox.Show("Room renovation has been successfully scheduled!");
             

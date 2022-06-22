@@ -68,18 +68,27 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
 
         #endregion
 
-        public IngredientOverviewViewModel(IIngredientRepository ingredientRepository, IMedicineService medicineService)
-        {
-            _ingredientRepository = ingredientRepository;
-            _medicineService = medicineService;
+        #region Methods
 
-            _allIngredients = new ObservableCollection<Ingredient>();
+        private void LoadIngredients()
+        {
             List<Ingredient> AllIng = _ingredientRepository.ReadAll().ToList();
             AllIng = AllIng.OrderBy(x => x.Name).ToList();
             foreach (var ingredient in AllIng)
             {
                 _allIngredients.Add(ingredient);
             }
+        }
+
+        #endregion
+
+        public IngredientOverviewViewModel(IIngredientRepository ingredientRepository, IMedicineService medicineService)
+        {
+            _ingredientRepository = ingredientRepository;
+            _medicineService = medicineService;
+
+            _allIngredients = new ObservableCollection<Ingredient>();
+            LoadIngredients();
 
             AddIngredientCommand = new AddIngredientCommand(this);
             UpdateIngredientCommand = new UpdateIngredientCommand(this);

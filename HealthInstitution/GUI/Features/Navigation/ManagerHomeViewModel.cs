@@ -37,21 +37,7 @@ namespace HealthInstitution.GUI.Features.Navigation
 
         #endregion
 
-
-        public ManagerHomeViewModel()
-        {
-            RoomsOverviewCommand = new RoomsOverviewCommand();
-            EquipmentOverviewCommand = new EquipmentOverviewCommand();
-            ArrangeEquipmentCommand = new ArrangeEquipmentCommand();
-            RoomRenovationCommand = new RoomRenovationCommand();
-            MedicineOverviewCommand = new MedicineOverviewCommand();
-            IngredientOverviewCommand = new IngredientOverviewCommand();
-            SurveyOverviewCommand = new SurveyOverviewCommand();
-            LogOutCommand = new LogOutCommand();
-            SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
-            RegisterHandler();
-
-        }
+        #region Handlers
 
         private void RegisterHandler()
         {
@@ -127,6 +113,22 @@ namespace HealthInstitution.GUI.Features.Navigation
                 SwitchCurrentViewModel(Dsovm);
             });
 
+        }
+
+        #endregion
+
+        public ManagerHomeViewModel()
+        {
+            RoomsOverviewCommand = new RoomsOverviewCommand();
+            EquipmentOverviewCommand = new EquipmentOverviewCommand();
+            ArrangeEquipmentCommand = new ArrangeEquipmentCommand();
+            RoomRenovationCommand = new RoomRenovationCommand();
+            MedicineOverviewCommand = new MedicineOverviewCommand();
+            IngredientOverviewCommand = new IngredientOverviewCommand();
+            SurveyOverviewCommand = new SurveyOverviewCommand();
+            LogOutCommand = new LogOutCommand();
+            SwitchCurrentViewModel(ServiceLocator.Get<RoomsCRUDViewModel>());
+            RegisterHandler();
         }
     }
 }

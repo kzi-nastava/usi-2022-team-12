@@ -14,7 +14,7 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Commands.ManagerCM
 
         public override void Execute(object? parameter)
         {
-            _viewModel.loadTable();
+            _viewModel.LoadTable();
         }
     }
 }

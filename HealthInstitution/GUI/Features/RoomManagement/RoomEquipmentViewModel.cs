@@ -10,11 +10,17 @@ namespace HealthInstitution.GUI.Features.RoomManagement
     public class RoomEquipmentViewModel : ViewModelBase
     {
 
+        #region Attributes
+
         private readonly ObservableCollection<Entry<Equipment>> _inventory;
+        private Room _selectedRoom;
+        private List<Entry<Equipment>> _entries;
+
+        #endregion
+
+        #region Properties
 
         public IEnumerable<Entry<Equipment>> Inventory => _inventory;
-
-        private Room _selectedRoom;
         public Room SelectedRoom
         {
             get => _selectedRoom;
@@ -24,9 +30,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(SelectedRoom));
             }
         }
-
-        private List<Entry<Equipment>> _entries;
-
         public List<Entry<Equipment>> Entries
         {
             get => _entries;
@@ -37,15 +40,16 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
+        #endregion
+
         public RoomEquipmentViewModel()
         {
-            SelectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
+            _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
             _inventory = new ObservableCollection<Entry<Equipment>>();
-            foreach (var item in SelectedRoom.Inventory)
+            foreach (var item in _selectedRoom.Inventory)
             {
                 _inventory.Add(item);
             }
-
         }
     }
 }
