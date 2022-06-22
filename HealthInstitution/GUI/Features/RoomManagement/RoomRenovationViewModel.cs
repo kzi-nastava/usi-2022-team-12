@@ -143,8 +143,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
-<<<<<<< Updated upstream
-=======
         #endregion
 
         #region Commands
@@ -174,7 +172,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
 
         #endregion
 
->>>>>>> Stashed changes
         public RoomRenovationViewModel(IRoomRepository roomRepository, ISchedulingService schedulingService,
             IRoomRenovationRepository roomRenovationRepository, IRoomService roomService)
         {
