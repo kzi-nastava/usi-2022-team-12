@@ -51,7 +51,8 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Service
         public IList<EquipmentPurchaseRequest> GetPendingRequests()
         {
             return _equipmentPurchaseRequestRepository.ReadAll().Where(r => r.DateOfTransfer < DateTime.Now)
-                            .ToList();
+                                                                            .Where(r => !r.IsDone)
+                                                                            .ToList();
         }
 
         public void UpdateEquipmentQuantity()
