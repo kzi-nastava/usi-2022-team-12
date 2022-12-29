@@ -109,8 +109,6 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
                 OnPropertyChanged(nameof(AllIngredients));
             }
         }
-
-
         public bool IsRevision
         {
             get { return _isRevision; }
@@ -122,7 +120,6 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
                 OnPropertyChanged(nameof(IsRevision));
             }
         }
-
         public MedicineReview SelectedRejectedMedicine
         {
             get => _selectedRejectedMedicine;
@@ -201,36 +198,51 @@ namespace HealthInstitution.GUI.Features.MedicineManagement
 
         #endregion
 
-        public MedicineOverviewViewModel(IMedicineService medicineService, IIngredientRepository ingredientRepository, IMedicineReviewRepository medicineReviewRepository, IMedicineRepository medicineRepository)
+        #region Methods
+
+        private void LoadMedicine()
         {
-            _medicineService = medicineService;
-            _ingredientRepository = ingredientRepository;
-            _medicineReviewRepository = medicineReviewRepository;
-            _medicineRepository = medicineRepository;
-            AllMedicine = _medicineService.GetApprovedMedicine().ToList();
-            AllMedicine = AllMedicine.OrderBy(x => x.Name).ToList();
-
-            SendMedicineRequestCommand = new SendMedicineRequestCommand(this);
-            RemoveRejectedCommand = new RemoveRejectedCommand(this);
-
-            _allIngredients = new ObservableCollection<Ingredient>();
-            _newIngredients = new ObservableCollection<Ingredient>();
-            _rejectedMedicine = new ObservableCollection<MedicineReview>();
-
+            _allMedicine = _medicineService.GetApprovedMedicine().ToList();
+            _allMedicine = _allMedicine.OrderBy(x => x.Name).ToList();
+        }
+        private void LoadIngredients()
+        {
             List<Ingredient> AllIng = _ingredientRepository.ReadAll().ToList();
             AllIng = AllIng.OrderBy(x => x.Name).ToList();
             foreach (var ingredient in AllIng)
             {
                 _allIngredients.Add(ingredient);
             }
-
+        }
+        private void LoadRejected()
+        {
             List<MedicineReview> MedRew = _medicineReviewRepository.ReadAll().ToList();
             MedRew = MedRew.OrderBy(x => x.Medicine.Name).ToList();
             foreach (var med in MedRew)
             {
                 _rejectedMedicine.Add(med);
             }
+        }
 
+        #endregion
+
+        public MedicineOverviewViewModel(IMedicineService medicineService, IIngredientRepository ingredientRepository, IMedicineReviewRepository medicineReviewRepository, IMedicineRepository medicineRepository)
+        {
+            _medicineService = medicineService;
+            _ingredientRepository = ingredientRepository;
+            _medicineReviewRepository = medicineReviewRepository;
+            _medicineRepository = medicineRepository;
+
+            _allIngredients = new ObservableCollection<Ingredient>();
+            _newIngredients = new ObservableCollection<Ingredient>();
+            _rejectedMedicine = new ObservableCollection<MedicineReview>();
+
+            LoadMedicine();
+            LoadIngredients();
+            LoadRejected();
+
+            SendMedicineRequestCommand = new SendMedicineRequestCommand(this);
+            RemoveRejectedCommand = new RemoveRejectedCommand(this);
         }
     }
 }

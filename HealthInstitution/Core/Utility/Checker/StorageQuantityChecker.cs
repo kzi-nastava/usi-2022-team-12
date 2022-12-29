@@ -34,7 +34,7 @@ namespace HealthInstitution.Core.Utility.Checker
         public static void StopTimer()
         {
             if (_timer != null)
-            {
+            { 
                 _timer.Dispose();
             }
         }

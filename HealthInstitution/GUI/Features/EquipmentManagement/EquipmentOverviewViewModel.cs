@@ -30,31 +30,37 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
         }
     }
 
-
     public class EquipmentOverviewViewModel : ViewModelBase
     {
-        public ICommand? SearchEquipmentCommand { get; }
-
-        public readonly IEntryRepository entryRepository;
-
-        public readonly IRoomRepository roomRepository;
+        #region Attributes
 
         private readonly ObservableCollection<Room> _roomInventory;
+        private readonly ObservableCollection<Entry<Equipment>> _inventory;
+        private ObservableCollection<TableModel> _tableModels;
+        private List<Room> _rooms;
+        private bool _isRoomSelected;
+        private RoomType _selectedRoomType;
+        private List<RoomType> _roomTypes;
+        private bool _isQuantitySelected;
+        private string _selectedQuantity;
+        private List<string> _quantityTypes;
+        private bool _isEquipmentSelected;
+        private EquipmentType _selectedEquipmentType;
+        private List<EquipmentType> _equipmentTypes;
+        private string _searchBox;
+        public readonly IEntryRepository entryRepository;
+        public readonly IRoomRepository roomRepository;
+
+        #endregion
+
+        #region Properties
 
         public IEnumerable<Room> RoomInventory => _roomInventory;
-
-        private readonly ObservableCollection<Entry<Equipment>> _inventory;
-
         public IEnumerable<Entry<Equipment>> Inventory => _inventory;
-
-        private ObservableCollection<TableModel> _tableModels;
-
         public IEnumerable<TableModel> TableModels
         {
             get => _tableModels;
         }
-
-        private List<Room> _rooms;
         public List<Room> Rooms
         {
             get => _rooms;
@@ -64,8 +70,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(Rooms));
             }
         }
-
-        private bool _isRoomSelected;
         public bool IsRoomSelected
         {
             get { return _isRoomSelected; }
@@ -77,8 +81,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(IsRoomSelected));
             }
         }
-
-        private RoomType _selectedRoomType;
         public RoomType SelectedRoomType
         {
             get => _selectedRoomType;
@@ -88,8 +90,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(SelectedRoomType));
             }
         }
-
-        private List<RoomType> _roomTypes;
         public List<RoomType> RoomTypes
         {
             get => _roomTypes;
@@ -99,8 +99,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(RoomTypes));
             }
         }
-
-        private bool _isQuantitySelected;
         public bool IsQuantitySelected
         {
             get { return _isQuantitySelected; }
@@ -112,8 +110,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(IsQuantitySelected));
             }
         }
-
-        private string _selectedQuantity;
         public string SelectedQuantity
         {
             get => _selectedQuantity;
@@ -123,8 +119,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(SelectedQuantity));
             }
         }
-
-        private List<string> _quantityTypes;
         public List<string> QuantityTypes
         {
             get => _quantityTypes;
@@ -134,8 +128,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(QuantityTypes));
             }
         }
-
-        private bool _isEquipmentSelected;
         public bool IsEquipmentSelected
         {
             get { return _isEquipmentSelected; }
@@ -147,8 +139,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(IsEquipmentSelected));
             }
         }
-
-        private EquipmentType _selectedEquipmentType;
         public EquipmentType SelectedEquipmentType
         {
             get => _selectedEquipmentType;
@@ -158,8 +148,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(SelectedEquipmentType));
             }
         }
-
-        private List<EquipmentType> _equipmentTypes;
         public List<EquipmentType> EquipmentTypes
         {
             get => _equipmentTypes;
@@ -169,8 +157,6 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 OnPropertyChanged(nameof(EquipmentTypes));
             }
         }
-
-        private string _searchBox;
         public string SearchBox
         {
             get => _searchBox;
@@ -181,9 +167,18 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
             }
         }
 
-        public void loadTable()
-        {
+        #endregion
 
+        #region Commands
+
+        public ICommand? SearchEquipmentCommand { get; }
+
+        #endregion
+
+        #region Methods
+
+        public void LoadTable()
+        {
             _tableModels.Clear();
             foreach (var room in Rooms)
             {
@@ -238,37 +233,47 @@ namespace HealthInstitution.GUI.Features.EquipmentManagement
                 }
             }
         }
-
-        public EquipmentOverviewViewModel(IRoomRepository roomRepository)
+        private void LoadComboBoxes()
         {
             _searchBox = "";
 
-            SelectedRoomType = RoomType.ExaminationRoom;
-            RoomTypes = new List<RoomType>();
+            _roomTypes = new List<RoomType>();
             foreach (var type in Enum.GetValues(typeof(RoomType)))
             {
-                RoomTypes.Add((RoomType)type);
+                _roomTypes.Add((RoomType)type);
             }
+            _selectedRoomType = _roomTypes[0];
 
-            SelectedQuantity = "10+";
-            QuantityTypes = new List<string>();
-            QuantityTypes.Add("10+");
-            QuantityTypes.Add("1-10");
-            QuantityTypes.Add("0");
+            
+            _quantityTypes = new List<string>();
+            _quantityTypes.Add("10+");
+            _quantityTypes.Add("1-10");
+            _quantityTypes.Add("0");
+            _selectedQuantity = _quantityTypes[0];
 
-            SelectedEquipmentType = EquipmentType.OperationEquipment;
-            EquipmentTypes = new List<EquipmentType>();
+            
+            _equipmentTypes = new List<EquipmentType>();
             foreach (var type in Enum.GetValues(typeof(EquipmentType)))
             {
-                EquipmentTypes.Add((EquipmentType)type);
+                _equipmentTypes.Add((EquipmentType)type);
             }
+            _selectedEquipmentType = _equipmentTypes[0];
+        }
 
+        #endregion
+
+
+        public EquipmentOverviewViewModel(IRoomRepository roomRepository)
+        {
             _tableModels = new ObservableCollection<TableModel>();
-            this.roomRepository = roomRepository;
             _inventory = new ObservableCollection<Entry<Equipment>>();
             _roomInventory = new ObservableCollection<Room>();
-            Rooms = roomRepository.ReadAll().ToList();
-            loadTable();
+            _rooms = roomRepository.ReadAll().ToList();
+            this.roomRepository = roomRepository;
+
+            LoadComboBoxes();
+            LoadTable();
+
             SearchEquipmentCommand = new SearchEquipmentCommand(this);
 
         }

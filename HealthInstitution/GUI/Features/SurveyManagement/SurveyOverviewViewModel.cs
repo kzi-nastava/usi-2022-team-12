@@ -167,7 +167,6 @@ namespace HealthInstitution.GUI.Features.SurveyManagement
                 _healthInstitutionSurveys.Add(survey);
             }
         }
-
         void LoadAverageRates()
         {
             _avgClearliness = _healthInstitutionSurveyService.AverageClearliness().ToString();

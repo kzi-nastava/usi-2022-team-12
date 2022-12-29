@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using HealthInstitution.Core.Features.RoomManagement.Commands.ManagerCMD;
 using HealthInstitution.Core.Features.RoomManagement.Model;
@@ -11,11 +12,19 @@ namespace HealthInstitution.GUI.Features.RoomManagement
 {
     public class RoomUpdateViewModel : ViewModelBase
     {
+        #region Attributes
+
         public readonly IRoomService _roomService;
         public readonly IRoomRepository _roomRepository;
-        public ICommand? UpdateRoomCommand { get; }
-
         private string _roomName;
+        private Room _selectedRoom;
+        private RoomType _selectedType;
+        private List<RoomType> _roomTypes;
+
+        #endregion
+
+        #region Properties
+
         public string? RoomName
         {
             get => _roomName;
@@ -25,8 +34,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(RoomName));
             }
         }
-
-        private Room _selectedRoom;
         public Room SelectedRoom
         {
             get => _selectedRoom;
@@ -36,8 +43,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(SelectedRoom));
             }
         }
-
-        private RoomType _selectedType;
         public RoomType SelectedType
         {
             get => _selectedType;
@@ -47,8 +52,6 @@ namespace HealthInstitution.GUI.Features.RoomManagement
                 OnPropertyChanged(nameof(SelectedType));
             }
         }
-
-        private List<RoomType> _roomTypes;
         public List<RoomType> RoomTypes
         {
             get => _roomTypes;
@@ -59,22 +62,36 @@ namespace HealthInstitution.GUI.Features.RoomManagement
             }
         }
 
+        #endregion
+
+        #region Commands
+
+        public ICommand? UpdateRoomCommand { get; }
+
+        #endregion
+
+        #region Methods
+        private void LoadRoomTypes()
+        {
+            _roomTypes = new List<RoomType>();
+            foreach (var type in Enum.GetValues(typeof(RoomType)))
+            {
+                _roomTypes.Add((RoomType)type);
+            }
+        }
+
+        #endregion
+
         public RoomUpdateViewModel(IRoomService roomService, IRoomRepository roomRepository)
         {
             _roomService = roomService;
             _roomRepository = roomRepository;
-            SelectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
-            SelectedType = SelectedRoom.RoomType;
-            RoomName = SelectedRoom.Name;
+            _selectedRoom = GlobalStore.ReadObject<Room>("SelectedRoom");
+            _selectedType = _selectedRoom.RoomType;
+            _roomName = _selectedRoom.Name;
 
-            RoomTypes = new List<RoomType>();
-            RoomTypes.Add(RoomType.ExaminationRoom);
-            RoomTypes.Add(RoomType.OperationRoom);
-            RoomTypes.Add(RoomType.RestingRoom);
-            if (SelectedType.Equals(RoomType.Storage))
-            {
-                RoomTypes.Add(RoomType.Storage);
-            }
+            LoadRoomTypes();
+
             UpdateRoomCommand = new UpdateRoomCommand(this, SelectedRoom);
         }
     }

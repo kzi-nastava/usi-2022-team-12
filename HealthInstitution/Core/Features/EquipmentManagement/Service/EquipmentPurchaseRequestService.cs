@@ -4,6 +4,7 @@ using HealthInstitution.Core.Features.RoomManagement.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace HealthInstitution.Core.Features.EquipmentManagement.Service
 {
@@ -51,8 +52,8 @@ namespace HealthInstitution.Core.Features.EquipmentManagement.Service
         public IList<EquipmentPurchaseRequest> GetPendingRequests()
         {
             return _equipmentPurchaseRequestRepository.ReadAll().Where(r => r.DateOfTransfer < DateTime.Now)
-                                                                            .Where(r => !r.IsDone)
-                                                                            .ToList();
+                                                                .Where(r => !r.IsDone)
+                                                                .ToList();
         }
 
         public void UpdateEquipmentQuantity()
